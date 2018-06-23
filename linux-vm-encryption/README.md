@@ -1,3 +1,4 @@
+```
 deploy_group="group"$(date +%s)
 vm_name="vmname"$(date +%s)
 vault_name="keyvaultname"$(date +%s)
@@ -22,3 +23,4 @@ az vm extension set --resource-group $deploy_group --vm-name $vm_name --name cus
 az vm extension set --resource-group $deploy_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo mkdir -p '$mount_point'; DATA_DISK_UUID=$(sudo blkid $(sudo blkid -L '$disk_label') -o value | grep \"[a-fA-F0-9]\{8\}-[a-fA-F0-9]\{4\}-[a-fA-F0-9]\{4\}-[a-fA-F0-9]\{4\}-[a-fA-F0-9]\{12\}\"); sudo echo \"UUID=$DATA_DISK_UUID '$mount_point' auto defaults,nofail 0 2\" >> /etc/fstab;"}'
 
 az vm encryption enable --disk-encryption-keyvault $vault_name --name $vm_name --resource-group $deploy_group --aad-client-id ${spn[0]} --aad-client-secret ${spn[1]} --volume-type DATA
+```
