@@ -1,3 +1,16 @@
+---
+Azure Unmanaged Data Disk Encryption for IaaS VMs
+---
+
+This article details how to encrypt unmanaged data virtual disks on a Linux VM using the Azure CLI 2.0. 
+
+Virtual disks on Linux VMs are encrypted at rest using dm-crypt. Cryptographic keys are stored in Azure Key Vault. These cryptographic keys are used to encrypt and decrypt virtual disks attached to your VM. 
+
+Azure disk encryption has [some limitations](https://docs.microsoft.com/en-us/azure/security/azure-security-disk-encryption-faq), which is important to bear in mind. 
+
+Encryption scenarios:
+1. Long-running encryption
+2. Fast-running encryption 
 
 ```
 deploy_group="group"$(date +%s)
@@ -34,3 +47,8 @@ az vm restart -g $deploy_group -n $vm_name
 
 ![Before encryption](/images/before_encryption_00.png)
 ![After encryption](/images/after_encryption_00.png)
+
+
+https://docs.microsoft.com/en-us/azure/virtual-machines/linux/encrypt-disks
+
+https://docs.microsoft.com/en-us/azure/security/azure-security-disk-encryption
