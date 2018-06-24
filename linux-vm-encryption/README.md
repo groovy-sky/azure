@@ -32,5 +32,5 @@ done
 az vm restart -g $deploy_group -n $vm_name
 ```
 
-![Before encryption](/images/before_00.png)
-![After encryption](/images/after_00.png)
+![Before encryption](/images/before_encryption_00.png)
+![After encryption](/images/after_encryption_00.png)
