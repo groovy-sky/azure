@@ -1,3 +1,5 @@
+
+```
 deploy_group="group"$(date +%s)
 vm_name="vmname"$(date +%s)
 vault_name="keyvaultname"$(date +%s)
@@ -10,9 +12,7 @@ az vm unmanaged-disk attach -g $deploy_group --vm-name $vm_name --size-gb 10 --n
 
 az keyvault create --name $vault_name --resource-group $deploy_group --enabled-for-disk-encryption
 
-
 app_name=$vault_name"-spn"
-#read app_id app_key <<< $(az ad sp create-for-rbac -n $app_name --query [appId,password] -o tsv)
 spn=($(az ad sp create-for-rbac -n $app_name --query [appId,password] -o tsv))
 az keyvault set-policy --name $vault_name --spn ${spn[0]} --key-permissions wrapKey --secret-permissions set
 
@@ -30,3 +30,7 @@ do
 done
 
 az vm restart -g $deploy_group -n $vm_name
+```
+
+![Before encryption](/images/before_00.png)
+![After encryption](/images/after_00.png)
