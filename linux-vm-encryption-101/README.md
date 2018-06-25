@@ -2,6 +2,8 @@
 Azure Unmanaged Data Disk Encryption for IaaS VMs
 ---
 
+# Overview
+
 This article details how to encrypt unmanaged data virtual disks on a Linux VM using the Azure CLI 2.0. 
 
 Virtual disks on Linux VMs are encrypted at rest using dm-crypt. Cryptographic keys are stored in Azure Key Vault. These cryptographic keys are used to encrypt and decrypt virtual disks attached to your VM. 
@@ -9,8 +11,10 @@ Virtual disks on Linux VMs are encrypted at rest using dm-crypt. Cryptographic k
 Azure disk encryption has [some limitations](https://docs.microsoft.com/en-us/azure/security/azure-security-disk-encryption-faq), which is important to bear in mind. 
 
 Encryption scenarios:
-1. Long-running encryption
-2. Fast-running encryption 
+1. Long-running encryption (without formatting)
+2. Fast-running encryption (with formatting)
+
+# Long-running disk encryption
 
 ```
 deploy_group="group"$(date +%s)
@@ -18,6 +22,7 @@ vm_name="vmname"$(date +%s)
 vault_name="keyvaultname"$(date +%s)
 disk_label="encryptiondisk"
 mount_point="/media"
+app_name=$vault_name"-spn"
 
 az group create --name $deploy_group -l westeurope
 az vm create -g $deploy_group -n $vm_name --image ubuntults --storage-sku Standard_LRS --use-unmanaged-disk
@@ -25,7 +30,6 @@ az vm unmanaged-disk attach -g $deploy_group --vm-name $vm_name --size-gb 10 --n
 
 az keyvault create --name $vault_name --resource-group $deploy_group --enabled-for-disk-encryption
 
-app_name=$vault_name"-spn"
 spn=($(az ad sp create-for-rbac -n $app_name --query [appId,password] -o tsv))
 az keyvault set-policy --name $vault_name --spn ${spn[0]} --key-permissions wrapKey --secret-permissions set
 
