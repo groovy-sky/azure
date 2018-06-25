@@ -45,8 +45,8 @@ done
 az vm restart -g $deploy_group -n $vm_name
 ```
 
-![Before encryption](/images/before_encryption_00.png)
-![After encryption](/images/after_encryption_00.png)
+![Before encryption](/images/linux-vm-encryption-101/before_encryption_00.png)
+![After encryption](/images/linux-vm-encryption-101/after_encryption_00.png)
 
 
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/encrypt-disks
