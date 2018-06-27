@@ -56,6 +56,10 @@ After encrytion:
 ![After encryption](/images/linux-vm-encryption-101/after_encryption_00.png)
 Another important note about encryption proccess itself - it is recommended before encryption initialization make [a disk backup](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/incremental-snapshots) and during encryption proccess do not connect to a virtual machine.
 
+Before encrytion:
+![Before encryption](/images/linux-vm-encryption-101/before_encryption_01.png)
+After encrytion:
+![After encryption](/images/linux-vm-encryption-101/after_encryption_01.png)
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/encrypt-disks
 
 https://docs.microsoft.com/en-us/azure/security/azure-security-disk-encryption
