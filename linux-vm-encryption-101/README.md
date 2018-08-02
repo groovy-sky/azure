@@ -54,7 +54,15 @@ Before encrytion:
 ![Before encryption](/images/linux-vm-encryption-101/before_encryption_00.png)
 After encrytion:
 ![After encryption](/images/linux-vm-encryption-101/after_encryption_00.png)
+
+
 Another important note about encryption proccess itself - it is recommended before encryption initialization make [a disk backup](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/incremental-snapshots) and during encryption proccess do not connect to a virtual machine.
+
+## Fast-running encryption
+In case of empty data disk encryption add flag --encrypt-format-all, so that a command would look like:
+```
+az vm encryption enable --disk-encryption-keyvault $vault_name --name $vm_name --resource-group $deploy_group --aad-client-id ${spn[0]} --aad-client-secret ${spn[1]} --volume-type DATA --encrypt-format-all
+```
 
 Before encrytion:
 ![Before encryption](/images/linux-vm-encryption-101/before_encryption_01.png)
