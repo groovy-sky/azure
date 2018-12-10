@@ -1,0 +1,239 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmadminUsername": {
+      "type": "string",
+      "defaultValue": "adm1n"
+    },
+    "vmadminPassword": {
+      "type": "securestring"
+    }
+  },
+  "variables": {
+    "vmOSstorageAccountName": "[concat(uniquestring(resourceGroup().id), 'premiumsa')]",
+    "vmDatastorageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
+    "vmName": "[concat(uniquestring(resourceGroup().id), 'virtualmachine')]",
+    "vmimagePublisher": "Canonical",
+    "vmimageOffer": "UbuntuServer",
+    "vmimageOSVersion": "16.04-LTS",
+    "vmOSDiskName": "osdiskforlinux",
+    "vmDataDiskName": "datadiskforlinux",
+    "vmOSstorageAccountType": "Premium_LRS",
+    "vmDatastorageAccountType": "Standard_LRS",
+    "vmStorageAccountContainerName": "vhds",
+    "vmSize": "Standard_DS2_v2",
+    "vmNic": "[concat(uniquestring(resourceGroup().id),'virtualmachineNIC')]",
+    "vNetSpace": "172.29.133.0/24",
+    "SubvNetName": "Subnet-01",
+    "SubvNetRange": "172.29.133.0/27",
+    "PIPName": "[concat(variables('vmName'),'PIP')]",
+    "vNetName": "[concat(uniquestring(resourceGroup().id), 'VNET')]",
+    "NSGName": "[concat(variables('vmName'),'NSG')]",
+    "SubVnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('SubvNetName'))]",
+    "dnsName":"[concat(uniquestring(resourceGroup().id),'pip')]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-08-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('PIPName')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static",
+        "dnsSettings": {
+          "domainNameLabel": "[variables('dnsName')]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('NSGName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Allow_SSH",
+            "properties": {
+              "description": "Allow SSH",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+		            {
+            "name": "Allow_HTTP",
+            "properties": {
+              "description": "Allow HTTP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+		            {
+            "name": "Allow_HTTPS",
+            "properties": {
+              "description": "Allow HTTPS",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2017-08-01",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('vNetName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('vNetSpace')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('SubvNetName')]",
+            "properties": {
+              "addressPrefix": "[variables('SubvNetRange')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2017-08-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('vmNic')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('PIPName')]",
+        "[variables('vNetName')]",
+        "[variables('NSGName')]"
+      ],
+      "properties": {
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('NSGName'))]"
+        },
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PIPName'))]"
+              },
+              "subnet": {
+                "id": "[variables('SubVnetId')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('vmOSstorageAccountName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "accountType": "[variables('vmOSstorageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('vmDatastorageAccountName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "accountType": "[variables('vmDatastorageAccountType')]"
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Storage/storageAccounts/', variables('vmOSstorageAccountName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('vmDatastorageAccountName'))]",
+        "[variables('vmNic')]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('vmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('vmadminUsername')]",
+          "adminPassword": "[parameters('vmadminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('vmimagePublisher')]",
+            "offer": "[variables('vmimageOffer')]",
+            "sku": "[variables('vmimageOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "osdisk",
+            "vhd": {
+              "uri": "[concat('http://',variables('vmOSstorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmOSDiskName'),'.vhd')]"
+            },
+            "caching": "ReadOnly",
+            "createOption": "FromImage"
+          },
+          "dataDisks": [
+            {
+              "name": "datadisk0",
+              "diskSizeGB": "100",
+              "lun": 0,
+              "vhd": {
+                "uri": "[concat('http://',variables('vmDatastorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmDataDiskName'),'.vhd')]"
+              },
+              "createOption": "Empty"
+            }
+          ]
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNic'))]"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "vm-name": {
+      "type": "string",
+      "value": "[variables('vmName')]"
+    },
+    "vm-fqdn":{
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('PIPName'))).dnsSettings.fqdn]"
+    }
+  }
+}
