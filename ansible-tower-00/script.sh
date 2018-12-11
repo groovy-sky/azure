@@ -62,4 +62,21 @@ az vm extension set --resource-group $deployment_group --vm-name $vm_name --name
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/8080/apostgres_data_dir=\/media\/data\" /mnt/awx/installer/inventory;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo ansible-playbook -i /mnt/awx/installer/inventory /mnt/awx/installer/install.yml;"}'
 
+echo "Nginx configuring as reverse proxy"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen 80/{s/listen 80/#listen 80/}\" /etc/nginx/sites-enabled/default;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/\slisten 80/d\" /etc/nginx/sites-enabled/default;"}'
+
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen [/{s/listen [/#listen [/}\" /etc/nginx/sites-enabled/default;"}'
+
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen\s\[::\]/{s/listen\s\[::\]/#listen [::]/}\" /etc/nginx/sites-enabled/default;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/\slisten\s\[::\]/d\" /etc/nginx/sites-enabled/default;"}'
+
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/#listen 80/{s/#listen 80/listen 80/}\" /etc/nginx/sites-enabled/default;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/#listen\s\[::\]/{s/#listen\s\[::\]/listen [::]/}\" /etc/nginx/sites-enabled/default;"}'
+
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/ssl_dhparam/alocation \/ \{ \n proxy_set_header Host $host; \n proxy_pass http\:\/\/127.0.0.1:8080; \n \} \" /etc/nginx/sites-enabled/default;"}'
+
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/ssl_dhparam/alocation \/ \{ \\n proxy_set_header Host \$host; \\n proxy_pass http\:\/\/127.0.0.1:8080; \\n \} \" /etc/nginx/sites-enabled/default;"}'
+
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo systemctl reload-or-restart nginx;"}'
+
