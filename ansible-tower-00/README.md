@@ -8,6 +8,7 @@ Before delving into techical details let’s first review what is needed to repr
 * Linux environment (Ubuntu, Debian, Centos, Suse or [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10)) with installed 'jq' package
 * [Azure CLI 2 version](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
-## Before executing
-To r
+## Architecture
+To reproduce the solution in your environment you will need two files - [azuredeploy.json](azuredeploy.json) and [script.sh](script.sh).
+
 ![Azure Resource Groupt](/images/ansible-tower/resource_group.png)
