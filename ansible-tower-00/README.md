@@ -11,4 +11,6 @@ Before delving into techical details let’s first review what is needed to repr
 ## Architecture
 To reproduce the solution in your environment you will need two files - [azuredeploy.json](azuredeploy.json) and [script.sh](script.sh).
 
-![Azure Resource Groupt](/images/ansible-tower/resource_group.png)
+![Azure Deployment Template](/images/ansible-tower/depoyment_file.png)
+
+![Azure Resource Group](/images/ansible-tower/resource_group.png)
