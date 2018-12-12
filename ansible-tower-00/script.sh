@@ -79,10 +79,13 @@ az vm extension set --resource-group $deployment_group --vm-name $vm_name --name
 
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/location/{s/location/#location/}\" /etc/nginx/sites-enabled/default;"}'
 
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/^[[:space:]]location/aproxy_set_header Host \$host;\\nproxy_pass http\:\/\/127.0.0.1:8080; \" /etc/nginx/sites-enabled/default;"}'
 
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/ssl_dhparam/alocation \/ \{ \n proxy_set_header Host $host; \n proxy_pass http\:\/\/127.0.0.1:8080; \n \} \" /etc/nginx/sites-enabled/default;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/#location/{s/#location/location/}\" /etc/nginx/sites-enabled/default;"}'
 
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/ssl_dhparam/alocation \/ \{ \\n proxy_set_header Host \$host; \\n proxy_pass http\:\/\/127.0.0.1:8080; \\n \} \" /etc/nginx/sites-enabled/default;"}'
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/ssl_dhparam/alocation \/ \{ \n proxy_set_header Host $host; \n proxy_pass http\:\/\/127.0.0.1:8080; \n \} \" /etc/nginx/sites-enabled/default;"}'
+
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/ssl_dhparam/alocation \/ \{ \\n proxy_set_header Host \$host; \\n proxy_pass http\:\/\/127.0.0.1:8080; \\n \} \" /etc/nginx/sites-enabled/default;"}'
 
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo systemctl reload-or-restart nginx;"}'
 
