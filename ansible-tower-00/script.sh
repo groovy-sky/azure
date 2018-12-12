@@ -42,11 +42,11 @@ echo "Installing Ansible"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-add-repository ppa:ansible/ansible -y; sudo apt-get update; sudo apt install ansible -y;"}'
 
 echo "Initial clone Tower sources"
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo git clone https://github.com/ansible/awx.git /mnt/awx;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo git clone https://github.com/ansible/awx.git /etc/awx;"}'
 
 echo "Configuring and installing Tower"
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/postgres_data_dir/d\" /mnt/awx/installer/inventory; sudo sed -i \"s/host_port=80/host_port=8080/g\" /mnt/awx/installer/inventory; sudo sed -i \"/8080/apostgres_data_dir=\/media\/data\" /mnt/awx/installer/inventory;"}'
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo ansible-playbook -i /mnt/awx/installer/inventory /mnt/awx/installer/install.yml;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/postgres_data_dir/d\" /etc/awx/installer/inventory; sudo sed -i \"s/host_port=80/host_port=8080/g\" /etc/awx/installer/inventory; sudo sed -i \"/8080/apostgres_data_dir=\/media\/data\" /etc/awx/installer/inventory;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo ansible-playbook -i /etc/awx/installer/inventory /etc/awx/installer/install.yml;"}'
 
 echo "NGINX configuring as reverse proxy"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen 80/{s/listen 80/#listen 80/}\" /etc/nginx/sites-enabled/default;sudo sed -i \"/\slisten 80/d\" /etc/nginx/sites-enabled/default; sudo sed -i \"0,/#listen 80/{s/#listen 80/listen 80/}\" /etc/nginx/sites-enabled/default;"}'
