@@ -22,7 +22,7 @@ vm_fqdn=$(echo $output_data | jq --raw-output '.[0]."vm-fqdn".value')
 
 echo "Installing NGINX"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-get update; sudo apt-get install nginx -y;"}'
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/default_original;"}'
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/default_original;"}'
 
 
 echo "Installing Certbot"
