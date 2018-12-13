@@ -21,5 +21,11 @@ To reproduce the solution in your environment you will need two files - [azurede
 Go to the [portal](https://portal.azure.com), create new group and copy group name and subscription id. [Sign in to Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest#sign-in-with-credentials-on-the-command-line) and run "script.sh" specifying group name and subscription id:
 ![](/images/ansible-tower/script_exec.png)
 ![Azure Resource Group](/images/ansible-tower/resource_group.png)
-
+During script execution you will be asked for a password for the VM. Please provide password which meet [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
+![Password](/images/ansible-tower/password.png)
+Go to deployment resource group after deployment will be finished, click on newly created virtual machine and copy it DNS Name:
+![VM DNS name](/images/ansible-tower/get_dns_name.png)
+Use DNS name to access AWX(https://vm_dns_name) using [default credentials(admin/password)](https://docs.ansible.com/ansible-tower/latest/html/quickstart/login_superuser.html).
+Change admin password to something more secure:
+![Password change](/images/ansible-tower/change_admin_password.png)
 
