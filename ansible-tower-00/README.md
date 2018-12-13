@@ -33,9 +33,9 @@ Change admin password to something more secure:
 ## Under the hood
 If you wondering what actually "script.sh" does - please read description below.
 
-At first we are deploying from a scracth Ubuntu VM. After that we are starting to configure it and prepare for AWX installation using '[custom script extension](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux)' feature. We install [nginx web server](https://nginx.org/en/) and get [SSL sertificate](https://letsencrypt.org/how-it-works/) using [Certbot](https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache.html). The web server is used as reverse proxy for accessing AWX in secure manner. Of course we also install Ansible (as it is core part of this solution) and [Docker](https://docs.docker.com/get-started/) (which is used for [running AWX environment](https://github.com/ansible/awx/blob/devel/INSTALL.md#docker-or-docker-compose)). AWX configuration is modified so as PostgreSQL container has used data disk for storing a data.
-
 ![Overview](/images/ansible-tower/result.png) 
+
+At first we are deploying from a scracth Ubuntu VM. After that we are starting to configure it and prepare for AWX installation using '[custom script extension](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux)' feature. We install [nginx web server](https://nginx.org/en/) and get [SSL sertificate](https://letsencrypt.org/how-it-works/) using [Certbot](https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache.html). The web server is used as reverse proxy for accessing AWX in secure manner. Of course we also install Ansible (as it is core part of this solution) and [Docker](https://docs.docker.com/get-started/) (which is used for [running AWX environment](https://github.com/ansible/awx/blob/devel/INSTALL.md#docker-or-docker-compose)). AWX configuration is modified so as PostgreSQL container has used data disk for storing a data.
 
 As a result we get Ubuntu VM on which AWX is runned as bunch of containers and is accessible thru NGINX:
 ![Docker](/images/ansible-tower/docker_containers.png) 
