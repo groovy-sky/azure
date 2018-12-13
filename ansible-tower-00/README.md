@@ -38,4 +38,4 @@ At first we are deploying from a scracth Ubuntu VM. After that we are starting t
 ![Overview](/images/ansible-tower/result.png) 
 
 As a result we get Ubuntu VM on which AWX is runned as bunch of containers and is accessible thru NGINX:
-![Docker](/images/ansible-tower/docker_containers.PNG) 
+![Docker](/images/ansible-tower/docker_containers.png) 
