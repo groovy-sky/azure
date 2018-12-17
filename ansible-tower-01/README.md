@@ -15,7 +15,7 @@ For a new created application generate secret key:
 ![Azure AD app secret](/images/ansible-tower/aad_oauth2.png)
 
 Setup Azure AD authentication on AWX side:
-![AWX AD app secret](/images/ansible-tower/aad_auth_config.png)
+![AWX AD app secret](/images/ansible-tower/aad_auth_conf.png)
 
 
 https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html
