@@ -52,16 +52,18 @@ In order to eliminate disarray let's remove demo inventory and demo project:
 
 ## Assign user to the Organization
 
-Now then we have make sure that Azure authorization works we can grant 
-Due to [official documentation](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
+Now then we ensured that Azure authorization works, we can [assign Azure user to our Organization](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
 ![AWX assign user to an organisation](/images/ansible-tower/grant_user_rights.png)
 
 ## Run a first project
+
+From now one we will use Azure user to engage with AWX.
 
 ![New project creation](/images/ansible-tower/initial_project.png)
 ![Job execution results](/images/ansible-tower/init_run_result.png)
 
 ## Useful documentation
+
 [Tower Authentication](https://docs.ansible.com/ansible-tower/latest/html/administration/configure_tower_in_tower.html)
 
 [Create new user](https://docs.ansible.com/ansible-tower/latest/html/userguide/users.html)
