@@ -4,7 +4,8 @@
 One of the main AWX features is "Role-based access" option. It can be configured to centrally use OAuth2, SAML, RADIUS, or even LDAP. For our environment we will configure Azure AD OAuth2 authentication. For doing that we will need to create new Azure user and register Azure AD application
 
 ## Create Azure AD test user
-
+There is [misunderstanding](https://techcommunity.microsoft.com/t5/Azure-Active-Directory-Identity/Cleaning-up-the-AzureAD-and-Microsoft-account-overlap/ba-p/245105) in Azure AD about what type account should/could be used in different cases. Which is why the easiest way to avoid it - create new account with a default domain name.
+> User creation requires admin rights
 ![Azure domain name](/images/ansible-tower/find_aad_domain.png)
 ![New Azure AD user](/images/ansible-tower/new_aad_user.png)
 
