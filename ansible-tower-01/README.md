@@ -15,22 +15,23 @@ Now we can create new user, using default domain (which should ends with '.onmic
 ![New Azure AD user](/images/ansible-tower/new_aad_user.png)
 
 ## Azure AD application registration
-Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/' link:
+
+Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/' for a 'Sign-on URL':
 ![Azure AD app registration](/images/ansible-tower/aad_app_reg.png)
 
 For a new created application generate secret key and copy application id and application key:
 ![Azure AD app secret](/images/ansible-tower/aad_oauth2.png)
 
-## Configure host settings
+## Configure AWX
 
-Under 'Administration' section choose 'Settings' -> 'Configuration' and change 'BASE URL' to your AWX address and add ['HTTP_X_FORWARDED_FOR'](https://docs.ansible.com/ansible-tower/latest/html/administration/proxy-support.html#configure-known-proxies) parameter to 'REMOTE HOST HEADERS':
+In AWX update the system settings - 'BASE URL' and 'REMOTE HOST HEADERS' (add parameter ['HTTP_X_FORWARDED_FOR'](https://docs.ansible.com/ansible-tower/latest/html/administration/proxy-support.html#configure-known-proxies)):
 ![System configuration](/images/ansible-tower/system_config.png)
 
-Setup Azure AD authentication on AWX side:
+Fill required parameters using Azure AD application id and secret (created in previous chapter):
 ![AWX Azure Authentication](/images/ansible-tower/aad_auth_conf.png)
 
 ## Test new authentication method
-Open browser in incognito mode and try to login using Azure credentials:
+Now we can try to access AWX using Azure user. To be sure that some credentials wasn't cached I suggest to use Firefox in private-mode:
 ![AWX Azure login](/images/ansible-tower/aad_login.png)
 
 ## Update environment settings
