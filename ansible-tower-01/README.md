@@ -1,6 +1,6 @@
 # Let's build a tower (part 2) [draft]
 
-Before starting to use AWX we need to check/configure first things:
+Before starting to use AWX we need to check/configure first things.
 ## Configure host settings
 
 Under 'Administration' section choose 'Settings' -> 'Configuration' and change 'BASE URL' to your AWX address and add ['HTTP_X_FORWARDED_FOR'](https://docs.ansible.com/ansible-tower/latest/html/administration/proxy-support.html#configure-known-proxies) parameter to 'REMOTE HOST HEADERS':
@@ -19,6 +19,10 @@ Setup Azure AD authentication on AWX side:
 
 Open browser in incognito mode and try to login using Azure credentials:
 ![AWX Azure login](/images/ansible-tower/aad_login.png)
+
+## Create Azure AD test user
+![Azure domain name](/images/ansible-tower/find_aad_domain.png)
+![New Azure AD user](/images/ansible-tower/new_aad_user.png)
 
 ## Update environment settings
 
