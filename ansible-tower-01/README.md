@@ -17,9 +17,16 @@ For a new created application generate secret key:
 Setup Azure AD authentication on AWX side:
 ![AWX Azure Authentication](/images/ansible-tower/aad_auth_conf.png)
 
-Sign out and try to re-login using Azure credentials:
-![AWX AD app secret](/images/ansible-tower/aad_login.png)
+Open browser in incognito mode and try to login using Azure credentials:
+![AWX Azure login](/images/ansible-tower/aad_login.png)
 
+## Update environment settings
+
+![AWX configuration](/images/ansible-tower/cleanup_00.png)
+![AWX configuration](/images/ansible-tower/cleanup_01.png)
+![AWX configuration](/images/ansible-tower/cleanup_02.png)
+
+![AWX assign user to an organisation](/images/ansible-tower/grant_user_rights.png)
 
 https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html
 
