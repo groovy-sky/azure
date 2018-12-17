@@ -76,4 +76,6 @@ https://docs.ansible.com/ansible-tower/latest/html/userguide/users.html
 
 https://docs.ansible.com/ansible-tower/latest/html/userguide/teams.html
 
-[<< Previous article](/ansible-tower-00/README.md)
+## References
+
+[1. Chapter](/ansible-tower-00/README.md)
