@@ -17,7 +17,7 @@ Now we can create new user, using default domain (which should ends with '.onmic
 
 ## Azure AD application registration
 
-Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/' for a 'Sign-on URL':
+Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/'(not https://) for a 'Sign-on URL':
 ![Azure AD app registration](/images/ansible-tower/aad_app_reg.png)
 
 For a new created application generate secret key and copy application id and application key:
