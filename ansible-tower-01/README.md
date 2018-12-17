@@ -5,16 +5,20 @@ One of the main AWX features is "Role-based access" option. It can be configured
 
 ## Create Azure AD test user
 There is [misunderstanding](https://techcommunity.microsoft.com/t5/Azure-Active-Directory-Identity/Cleaning-up-the-AzureAD-and-Microsoft-account-overlap/ba-p/245105) in Azure AD about what type account should/could be used in different cases. Which is why the easiest way to avoid it - create new account with a default domain name.
+
 > User creation requires admin rights
+
+To check what is default domain please follow instructions below:
 ![Azure domain name](/images/ansible-tower/find_aad_domain.png)
+
+Now we can create new user, using default domain (which should ends with '.onmicrosoft.com' or '.emea.microsoftonline.com' names):
 ![New Azure AD user](/images/ansible-tower/new_aad_user.png)
 
 ## Azure AD application registration
-
-Go to [Azure Portal](https://portal.azure.com/) and create new application:
+Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/' link:
 ![Azure AD app registration](/images/ansible-tower/aad_app_reg.png)
 
-For a new created application generate secret key:
+For a new created application generate secret key and copy application id and application key:
 ![Azure AD app secret](/images/ansible-tower/aad_oauth2.png)
 
 ## Configure host settings
