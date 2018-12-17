@@ -6,7 +6,7 @@ Under 'Administration' section choose 'Settings' -> 'Configuration' and change '
 ![System configuration](/images/ansible-tower/system_config.png)
 
 1. Implement Azure AD authentication
-Got to (Azure Portal)[https://portal.azure.com/] and create new application:
+Got to [Azure Portal](https://portal.azure.com/) and create new application:
 ![Azure AD app registration](/images/ansible-tower/aad_app_reg.png)
 
 For a new created application generate secret key:
