@@ -12,7 +12,7 @@ There is [misunderstanding](https://techcommunity.microsoft.com/t5/Azure-Active-
 To check what is default domain please follow instructions below:
 ![Azure domain name](/images/ansible-tower/find_aad_domain.png)
 
-Now we can create new user, using default domain (which should ends with '.onmicrosoft.com' or '.emea.microsoftonline.com' names):
+Now we can create new user, using default domain (which should end with '.onmicrosoft.com' or '.emea.microsoftonline.com' names):
 ![New Azure AD user](/images/ansible-tower/new_aad_user.png)
 
 ## Azure AD application registration
@@ -33,7 +33,7 @@ Fill required parameters using Azure AD application id and secret (created in pr
 
 ## Test new authentication method
 
-Now we can try to access AWX using Azure user. To be sure that some credentials wasn't cached I suggest to use Firefox in private-mode:
+Now we can try to access AWX using Azure user. To be sure that some credentials wasn't cached I suggest using Firefox in private-mode:
 ![AWX Azure login](/images/ansible-tower/aad_login.png)
 
 ## Clean and update the Organization
@@ -42,19 +42,19 @@ As an [official documentation](https://docs.ansible.com/ansible-tower/latest/htm
 
 ![AWX hierarchy](/images/ansible-tower/tower_h.png)
 
-Also from the documentation - "If you are using Ansible Tower with a Self-Support level license (formerly called Basic), you must use the default Organization. Do not delete it and try to add a new Organization, or you will break your Tower setup. Only two Tower license types (Enterprise: Standard or Enterprise: Premium) have the ability to add new Organizations beyond the default."
+Also, from the same document - "If you are using Ansible Tower with a Self-Support level license (formerly called Basic), you must use the default Organization. Do not delete it and try to add a new Organization, or you will break your Tower setup. Only two Tower license types (Enterprise: Standard or Enterprise: Premium) have the ability to add new Organizations beyond the default."
 
-Which is why we don't remove/create an organization and just update it(please use whatever Organization name is prefferable for you):
+Which is why we don't remove/create an organization and just update it(please use whatever Organization name is preferable for you):
 ![AWX configuration](/images/ansible-tower/cleanup_00.png)
 
-In order to eliminate disarray let's remove demo inventory and demo project:
+To eliminate disarray let's remove demo inventory and demo project:
 ![AWX configuration](/images/ansible-tower/cleanup_01.png)
 ![AWX configuration](/images/ansible-tower/cleanup_02.png)
 
 ## Assign user to the Organization
 
 Now then we ensured that Azure authorization works, we can [assign Azure user to our Organization](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
-![AWX assign user to an organisation](/images/ansible-tower/grant_user_rights.png)
+![AWX assign user to an organization](/images/ansible-tower/grant_user_rights.png)
 
 ## Run a first project
 
@@ -70,11 +70,8 @@ From now one we will use Azure user to engage with AWX.
 [Create new user](https://docs.ansible.com/ansible-tower/latest/html/userguide/users.html)
 
 [Organization structure](https://docs.ansible.com/ansible-tower/latest/html/userguide/organizations.html)
-https://docs.ansible.com/ansible-tower/latest/html/administration/configure_tower_in_tower.html
 
-https://docs.ansible.com/ansible-tower/latest/html/userguide/users.html
-
-https://docs.ansible.com/ansible-tower/latest/html/userguide/teams.html
+[Teams](https://docs.ansible.com/ansible-tower/latest/html/userguide/teams.html)
 
 ## References
 
