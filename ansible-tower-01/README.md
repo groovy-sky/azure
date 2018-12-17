@@ -28,11 +28,12 @@ Open browser in incognito mode and try to login using Azure credentials:
 
 
 ## Run a first project
+Due to [official documentation](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
+![AWX assign user to an organisation](/images/ansible-tower/grant_user_rights.png)
 
 ![New project creation](/images/ansible-tower/initial_project.png)
 ![Job execution results](/images/ansible-tower/init_run_result.png)
 
-![AWX assign user to an organisation](/images/ansible-tower/grant_user_rights.png)
 
 https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html
 
