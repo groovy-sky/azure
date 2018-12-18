@@ -1,4 +1,4 @@
-# Let's build a tower (part 2) [draft]
+# Let's build a tower (part 3) [draft]
 
 ## Introduction
 
