@@ -47,4 +47,4 @@ As a result we get Ubuntu VM on which AWX is runned as bunch of containers and i
 
 ## References
 
-[[ Reference | REFERENCE.md]]
+[[Reference|REFERENCE.md]]
