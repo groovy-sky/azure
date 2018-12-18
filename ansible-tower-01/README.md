@@ -58,7 +58,7 @@ Now then we ensured that Azure authorization works, we can [assign Azure user to
 
 ## Run a first project
 
-From now one we will use Azure user to engage with AWX.
+From now one we will use Azure user to engage with AWX. For test create new project as a source use "https://github.com/ansible/tower-example.git" link:
 
 ![New project creation](/images/ansible-tower/initial_project.png)
 ![Job execution results](/images/ansible-tower/init_run_result.png)
