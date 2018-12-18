@@ -47,4 +47,6 @@ As a result we get Ubuntu VM on which AWX is runned as bunch of containers and i
 
 ## References
 
-[[Reference|REFERENCE.md]]
+[1. Chapter](/ansible-tower-00/README.md)
+
+[2. Chapter](/ansible-tower-01/README.md)
