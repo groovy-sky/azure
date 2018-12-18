@@ -1,5 +1,7 @@
 # Let's build a tower (part 1)
 
+## Introduction
+
 In this article I am going to install and configure [AWX](https://github.com/ansible/awx), which is an open-source version of [Red Hat Ansible Tower](https://www.ansible.com/products/tower), for managing Ansible in more manageable and easier way. The aim of this experiment - have some fun and learn something new about Ansible.
 
 ## Prerequisites
