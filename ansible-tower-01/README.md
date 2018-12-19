@@ -2,9 +2,9 @@
 
 ## Introduction
 
-One of the main AWX features is "Role-based access" option. It can be configured to centrally use OAuth2, SAML, RADIUS, or even LDAP. For our environment we will configure Azure AD OAuth2 authentication. For doing that we will need to create new Azure user and register Azure AD application
+One of the main AWX features is "Role-based access" option(which should be familiar if you worked before with Azure RM). It can be configured to centrally use OAuth2, SAML, RADIUS, or even LDAP. For our environment we will configure Azure AD OAuth2 authentication. For doing that, we will need to create new Azure user and register Azure AD application.
 
-## Create Azure AD test user
+## Create Azure AD user for accessing AWX
 There is [misunderstanding](https://techcommunity.microsoft.com/t5/Azure-Active-Directory-Identity/Cleaning-up-the-AzureAD-and-Microsoft-account-overlap/ba-p/245105) in Azure AD about what type account should/could be used in different cases. Which is why the easiest way to avoid it - create new account with a default domain name.
 
 > User creation requires admin rights
@@ -12,7 +12,7 @@ There is [misunderstanding](https://techcommunity.microsoft.com/t5/Azure-Active-
 To check what is default domain please follow instructions below:
 ![Azure domain name](/images/ansible-tower/find_aad_domain.png)
 
-Now we can create new user, using default domain (which should end with '.onmicrosoft.com' or '.emea.microsoftonline.com' names):
+Now we can create new user, using default domain (which should end with '.onmicrosoft.com' or '.emea.microsoftonline.com'):
 ![New Azure AD user](/images/ansible-tower/new_aad_user.png)
 
 ## Azure AD application registration
@@ -25,10 +25,10 @@ For a new created application generate secret key and copy application id and ap
 
 ## Configure AWX
 
-In AWX update the system settings - 'BASE URL' and 'REMOTE HOST HEADERS' (add parameter ['HTTP_X_FORWARDED_FOR'](https://docs.ansible.com/ansible-tower/latest/html/administration/proxy-support.html#configure-known-proxies)):
+In AWX update the system settings - 'BASE URL' (to the AWX address) and 'REMOTE HOST HEADERS' (add parameter ['HTTP_X_FORWARDED_FOR'](https://docs.ansible.com/ansible-tower/latest/html/administration/proxy-support.html#configure-known-proxies)):
 ![System configuration](/images/ansible-tower/system_config.png)
 
-Fill required parameters using Azure AD application id and secret (created in previous chapter):
+Fill required parameters using Azure AD application id and secret:
 ![AWX Azure Authentication](/images/ansible-tower/aad_auth_conf.png)
 
 ## Test new authentication method
@@ -44,7 +44,7 @@ As an [official documentation](https://docs.ansible.com/ansible-tower/latest/htm
 
 Also, from the same document - "If you are using Ansible Tower with a Self-Support level license (formerly called Basic), you must use the default Organization. Do not delete it and try to add a new Organization, or you will break your Tower setup. Only two Tower license types (Enterprise: Standard or Enterprise: Premium) have the ability to add new Organizations beyond the default."
 
-Which is why we don't remove/create an organization and just update it(please use whatever Organization name is preferable for you):
+Which is why we don't remove/create an organization and just update exsisting one(please use whatever organization name is preferable for you):
 ![AWX configuration](/images/ansible-tower/cleanup_00.png)
 
 To eliminate disarray let's clean-up created by default environment:
@@ -52,12 +52,12 @@ To eliminate disarray let's clean-up created by default environment:
 
 ## Assign user to the Organization
 
-Now then we ensured that Azure authorization works, we can [assign Azure user to our Organization](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
+Now then we have ensured that Azure authorization works, we can [grant rights to our new user](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
 ![AWX assign user to an organization](/images/ansible-tower/grant_user_rights.png)
 
 ## Run a first project
 
-From now one we will use Azure user to engage with AWX. For test create new project as a source [official example playbook]( https://github.com/ansible/tower-example.git):
+From now on we will use Azure's user to engage with AWX. For a test purposes let's create new project using [an official example playbook]( https://github.com/ansible/tower-example.git):
 
 ![New project creation](/images/ansible-tower/initial_project.png)
 ![Job execution results](/images/ansible-tower/init_run_result.png)
