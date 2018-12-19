@@ -13,7 +13,7 @@ Before delving into techical details let’s first review what is needed to repr
 
 ## Architecture
 
-To reproduce the solution in your environment you will need two files - [azuredeploy.json](azuredeploy.json) and [script.sh](script.sh). 
+To reproduce the solution in your environment you will need two files - [azuredeploy.json](https://raw.githubusercontent.com/groovy-sky/azure/master/ansible-tower-00/azuredeploy.json) and [script.sh](https://raw.githubusercontent.com/groovy-sky/azure/master/ansible-tower-00/script.sh). 
 
 "azuredeploy.json" file is for the initial [Azure deployment](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-deploy-cli) which creates Virtual Machine with Ubuntu 16.04. Names for created resources are generated using [unique string](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-template-functions-string#uniquestring) and resource related string:
 ![Azure Deployment Template](/images/ansible-tower/depoyment.png)
