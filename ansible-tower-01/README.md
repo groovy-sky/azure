@@ -68,7 +68,7 @@ From now one we will use Azure user to engage with AWX. For test create new proj
 
 * [Teams](https://docs.ansible.com/ansible-tower/latest/html/userguide/teams.html)
 
-* [Tower Authentication](https://docs.ansible.com/ansible-tower/latest/html/administration/configure_tower_in_tower.html)
+* [Tower Authentication](https://docs.ansible.com/ansible-tower/3.3.2/html/administration/social_auth.html#ag-authentication)
 
 * [Create new user](https://docs.ansible.com/ansible-tower/latest/html/userguide/users.html)
 
