@@ -50,6 +50,6 @@ As a result we get Ubuntu VM on which AWX is runned as bunch of containers and i
 
 ## References
 
-[1. Chapter](/ansible-tower-00/README.md)
+[Let's build a tower (part 1)](/ansible-tower-00/README.md)
 
-[2. Chapter](/ansible-tower-01/README.md)
+[Let's build a tower (part 2)](/ansible-tower-01/README.md)
