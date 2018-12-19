@@ -17,7 +17,7 @@ Now we can create new user, using default domain (which should end with '.onmicr
 
 ## Azure AD application registration
 
-Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/'(not https://) for a 'Sign-on URL':
+Any application that wants to use the capabilities of Azure AD must first be registered in an [Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-add-azure-ad-app). Please, be aware, and during registration use 'http://yourdomain/sso/complete/azuread-oauth2/' (not https://) for a 'Sign-on URL':
 ![Azure AD app registration](/images/ansible-tower/aad_app_reg.png)
 
 For a new created application generate secret key and copy application id and application key:
@@ -57,7 +57,7 @@ Now then we ensured that Azure authorization works, we can [assign Azure user to
 
 ## Run a first project
 
-From now one we will use Azure user to engage with AWX. For test create new project as a source use "https://github.com/ansible/tower-example.git" link:
+From now one we will use Azure user to engage with AWX. For test create new project as a source [official example playbook]( https://github.com/ansible/tower-example.git):
 
 ![New project creation](/images/ansible-tower/initial_project.png)
 ![Job execution results](/images/ansible-tower/init_run_result.png)
