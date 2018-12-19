@@ -74,6 +74,6 @@ From now one we will use Azure user to engage with AWX. For test create new proj
 
 ## References
 
-[1. Chapter](/ansible-tower-00/README.md)
+[Let's build a tower (part 1)](/ansible-tower-00/README.md)
 
-[2. Chapter](/ansible-tower-01/README.md)
+[Let's build a tower (part 2)](/ansible-tower-01/README.md)
