@@ -22,11 +22,13 @@ To reproduce the solution in your environment you will need two files - [azurede
 ![script.sh](/images/ansible-tower/script_sh.PNG)
 
 ## Implementation
+1. Download required files to your Linux environment:
+![Prepare files](/images/ansible-tower/download_scripts.png)
 
 1. Go to the [portal](https://portal.azure.com), create new group and copy group name and subscription id. [Sign in to Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest#sign-in-with-credentials-on-the-command-line) and run "script.sh" specifying group name and subscription id:
 ![Running the script](/images/ansible-tower/script_exec.png)
 
-1. During script execution you will be asked for a password for the VM. Please provide password which meet [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
+1. During script execution you will be asked for a password for the VM. Please provide password which meet [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm) - 
 ![Password](/images/ansible-tower/password.png)
 
 1. Go to deployment resource group after deployment will be finished, click on newly created virtual machine, copy it DNS Name and access AWX using [default credentials(admin/password)](https://docs.ansible.com/ansible-tower/latest/html/quickstart/login_superuser.html):
