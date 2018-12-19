@@ -47,7 +47,7 @@ Also, from the same document - "If you are using Ansible Tower with a Self-Suppo
 Which is why we don't remove/create an organization and just update it(please use whatever Organization name is preferable for you):
 ![AWX configuration](/images/ansible-tower/cleanup_00.png)
 
-To eliminate disarray let's clean up created by default environment:
+To eliminate disarray let's clean-up created by default environment:
 ![AWX configuration](/images/ansible-tower/cleanup.png)
 
 ## Assign user to the Organization
