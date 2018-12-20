@@ -44,7 +44,7 @@ As an [official documentation](https://docs.ansible.com/ansible-tower/latest/htm
 
 Also, from the same document - "If you are using Ansible Tower with a Self-Support level license (formerly called Basic), you must use the default Organization. Do not delete it and try to add a new Organization, or you will break your Tower setup. Only two Tower license types (Enterprise: Standard or Enterprise: Premium) have the ability to add new Organizations beyond the default."
 
-Which is why we don't remove/create an organization and just update exsisting one(please use whatever organization name is preferable for you):
+Which is why we don't remove/create an organization and just update existing one(please use whatever organization name is preferable for you):
 ![AWX configuration](/images/ansible-tower/cleanup_00.png)
 
 To eliminate disarray let's clean-up created by default environment:
