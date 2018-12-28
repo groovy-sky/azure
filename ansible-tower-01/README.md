@@ -55,7 +55,7 @@ To eliminate disarray let's clean-up created by default environment:
 Now then we have ensured that Azure authorization works, we can [grant rights to our new user](https://docs.ansible.com/ansible-tower/2.4.1/html/quickstart/create_project.html):
 ![AWX assign user to an organization](/images/ansible-tower/grant_user_rights.png)
 
-## Run a first project
+## Create your first project
 
 From now on we will use Azure's user to engage with AWX. For a test purposes let's create new project using [an official example playbook]( https://github.com/ansible/tower-example.git):
 
