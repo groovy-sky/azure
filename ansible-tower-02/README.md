@@ -5,6 +5,8 @@
 
 ![Scheme](/images/ansible-tower/awx_flow.png)
 
+https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
+
 ## Workflow
 1. Create an inventory
 1. Add a host to the inventory
