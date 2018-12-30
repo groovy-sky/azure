@@ -15,6 +15,15 @@ In our example we will use following configuration:
 
 ![Scheme](/images/ansible-tower/awx_current_flow.png)
 
+Such configuration main parts are:
+* Source Code Management system - in our case we will use [following Github repository](https://github.com/groovy-sky/tower-examples.git)
+* AWX Host
+* Test Azure VM - in our case we can create another virtual machine in Azure
+
+If you are using MSDN Azure subscription - as a test Azure VM you can use free account virtual machine:
+![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
+
+
 ## Workflow
 1. Create an inventory
 1. Add a host to the inventory
