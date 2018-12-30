@@ -5,6 +5,10 @@
 
 ![Scheme](/images/ansible-tower/awx_flow.png)
 
+Current flow:
+
+![Scheme](/images/ansible-tower/awx_current_flow.png)
+
 https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
 
 ## Workflow
