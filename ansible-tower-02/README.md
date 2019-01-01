@@ -32,6 +32,8 @@ As a result the test node NSG should look following:
 ![NSG rules](/images/ansible-tower/test_node_nsg_inbound.png)
 
 ## Implementation
+
+
 1. Create an inventory
 1. Add a host to the inventory
 1. Create a credential
