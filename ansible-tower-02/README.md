@@ -28,6 +28,9 @@ If you are using MSDN Azure subscription - as a test Azure VM you can use free a
 Next step is [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) configuration by enabling SSH access from AWX host(which IP address you need to obtain from your environment) to the test node and opening 80 port on the test node:
 ![NSG rules](/images/ansible-tower/test_node_nsg_rules.png)
 
+As a result the test node NSG should look following:
+![NSG rules](/images/ansible-tower/test_node_nsg_inbound.png)
+
 ## Workflow
 1. Create an inventory
 1. Add a host to the inventory
