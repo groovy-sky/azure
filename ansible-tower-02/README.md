@@ -31,7 +31,7 @@ Next step is [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage
 As a result the test node NSG should look following:
 ![NSG rules](/images/ansible-tower/test_node_nsg_inbound.png)
 
-## Workflow
+## Implementation
 1. Create an inventory
 1. Add a host to the inventory
 1. Create a credential
@@ -42,6 +42,9 @@ As a result the test node NSG should look following:
 ![New Project](/images/ansible-tower/create_tower_project.png)
 ![New Inventory](/images/ansible-tower/create_azure_inventory.png)
 ![New Host](/images/ansible-tower/add_azure_first_host.png)
+![New Template](/images/ansible-tower/create_azure_template.png)
+![Run Template](/images/ansible-tower/run_template.png)
+![Check the results](/images/ansible-tower/check_job_results.png)
 
 
 ## Useful documentation
