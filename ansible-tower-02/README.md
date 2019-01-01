@@ -20,7 +20,7 @@ Such configuration main parts are:
 * AWX Host
 * Test Azure VM - in our case we can create another virtual machine in Azure
 
-If you are using MSDN Azure subscription - as a test Azure VM you can use free account virtual machine(otherwise just create ![standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
+If you are using MSDN Azure subscription - as a test Azure VM you can use free account virtual machine(otherwise just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
 
 
