@@ -39,7 +39,9 @@ As a result the test node NSG should look following:
 1. Create a job template
 1. Launch the template
 
-![New project](/images/ansible-tower/create_tower_project.png)
+![New Project](/images/ansible-tower/create_tower_project.png)
+![New Inventory](/images/ansible-tower/create_azure_inventory.png)
+![New Host](/images/ansible-tower/add_azure_first_host.png)
 
 
 ## Useful documentation
