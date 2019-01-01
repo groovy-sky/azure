@@ -39,6 +39,9 @@ As a result the test node NSG should look following:
 1. Create a job template
 1. Launch the template
 
+![New project](/images/ansible-tower/create_tower_project.png)
+
+
 ## Useful documentation
 https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
 https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
