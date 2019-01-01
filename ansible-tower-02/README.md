@@ -25,7 +25,7 @@ Such configuration main parts are:
 If you are using MSDN Azure subscription - as a test Azure VM you can use free account virtual machine(otherwise just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
 
-Next step is [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) configuration by enabling SSH access from AWX host to the test node and opening 80 port on the test node:
+Next step is [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) configuration by enabling SSH access from AWX host(which IP address you need to obtain from your environment) to the test node and opening 80 port on the test node:
 ![NSG rules](/images/ansible-tower/test_node_nsg_rules.png)
 
 ## Workflow
