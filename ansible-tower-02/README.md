@@ -26,8 +26,7 @@ If you are using MSDN Azure subscription - as a test Azure VM you can use free a
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
 
 Next step - allow SSH access from AWX host to the test node and open 80 port:
-![NSG rule](/images/ansible-tower/test_node_nsg_rule_00.png)
-![NSG rule](/images/ansible-tower/test_node_nsg_rule_01.png)
+![NSG rule](/images/ansible-tower/test_node_nsg_rule_00.png) ![NSG rule](/images/ansible-tower/test_node_nsg_rule_01.png)
 
 ## Workflow
 1. Create an inventory
