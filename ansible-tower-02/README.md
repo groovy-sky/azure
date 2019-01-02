@@ -19,10 +19,10 @@ With the Tower we can manage playbooks and playbook directories by either placin
 In our scenario we will use configuration, which contain 3 main parts:
 * Source Code Management system - we will use [our demo Github repository](https://github.com/groovy-sky/tower-examples.git)
 * AWX Host
-* Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can use free account virtual machine (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/) )or just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine):
+* Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can create a free account virtual machine (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/) )or just create [a standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine):
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
 
-Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) - enable SSH access from AWX host(which IP address you need to obtain from your environment)and open 80 port:
+Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) for a newly created VM - enable SSH access from AWX host IP address and open 80 port:
 ![NSG rules](/images/ansible-tower/test_node_nsg_rules.png)
 
 ## Implementation
@@ -30,32 +30,32 @@ Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-n
 On AWX side we need to configure and run job template. To do that, please, complete following steps:
 1. Create an inventory
 1. Add a host to the inventory
-1. Create a credential
+1. Create a credentials
 1. Setup a project
 1. Create a job template
 1. Launch the template
 
-### Inventory creation
+### AWX Inventory
 
 Inventory - a collection of hosts against which Jobs may be launched. Let's use understandable title:
 ![New Inventory](/images/ansible-tower/create_azure_inventory.png)
 
-### Host adding
+### AWX Host
 
 Now we can add Public IP address of our test VM to the hosts:
 ![New Host](/images/ansible-tower/add_azure_first_host.png)
 
-### Credentials creation
+### AWX Credentials
 
 Credentials in our case - are username and password values used to create test node:
 ![New Credentials](/images/ansible-tower/create_azure_credentials.png)
 
-### Project setup
+### AWX Project
 
 A Project is a logical collection of Ansible playbooks, represented in Tower. In this article we are using [following Github repository](https://github.com/groovy-sky/tower-examples.git):
 ![New Project](/images/ansible-tower/create_tower_project.png)
 
-### Template creation
+### AWX Template
 
 A job template is a definition and set of parameters for running an Ansible job. In the example below, we are applying "nginx-hello-world/main.yml" playbook to the "Azure Inventory" using "Azure Credentials" to access the test node:
 ![New Template](/images/ansible-tower/create_azure_template.png)
