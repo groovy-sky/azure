@@ -2,14 +2,15 @@
 
 ## Introduction
 
-[On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something practical, for example, we could try to install NGINX package on a test environment. 
+[On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something more practical, for example, we could try to install NGINX package on a test environment. 
 
 ## Architecture
 
+![Scheme](/images/ansible-tower/awx_flow.png)
+
 The Ansible structure is agentless(it connects using SSH), and configurations are set up as playbooks written in YAML.
 
-With the Tower we can manage playbooks and playbook directories by either placing them manually under the Project Base Path on the server, or by placing playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights:
-![Scheme](/images/ansible-tower/awx_flow.png)
+With the Tower we can manage playbooks and playbook directories by either placing them manually under the Project Base Path on the server, or by placing playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights.
 
 ## Prerequisites
 
@@ -26,7 +27,7 @@ Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-n
 
 ## Implementation
 
-On AWX side we need to configure and run job template. To do that complete following steps:
+On AWX side we need to configure and run job template. To do that, please, complete following steps:
 1. Create an inventory
 1. Add a host to the inventory
 1. Create a credential
@@ -77,6 +78,7 @@ If template run job was successfull - we can try to access test node by HTTP:
 
 [About Azure NSG](https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/)
 
+[About job templates](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html)
 
 ## References
 
