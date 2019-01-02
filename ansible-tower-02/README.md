@@ -78,7 +78,7 @@ If template run job was successfull - we can try to access test node by HTTP:
 
 [About AWX project](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
 
-[About job templates](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html)
+[About AWX job templates](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html)
 
 ## References
 
