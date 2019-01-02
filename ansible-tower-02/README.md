@@ -26,6 +26,7 @@ Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-n
 
 ## Implementation
 
+On AWX side we need to 
 1. Create an inventory
 1. Add a host to the inventory
 1. Create a credential
@@ -45,7 +46,7 @@ Now we can add Public IP address of our test VM to the hosts:
 
 ### Credentials creation
 
-Credentials in our case - are login/password used during VM creation:
+Credentials in our case - are username and password values used to create test node:
 ![New Credentials](/images/ansible-tower/create_azure_credentials.png)
 
 ### Project setup
@@ -63,7 +64,6 @@ After project configuration we can run it:
 If template run job was successfull - we can try to access test node by HTTP:
 ![Check the results](/images/ansible-tower/check_job_results.png)
 
-
 ## Useful documentation
 https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html
 https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
@@ -76,3 +76,5 @@ https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-group
 [Let's build a tower (part 1)](/ansible-tower-00/README.md)
 
 [Let's build a tower (part 2)](/ansible-tower-01/README.md)
+
+[Let's build a tower (part 3)](/ansible-tower-02/README.md)
