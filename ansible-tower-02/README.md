@@ -8,7 +8,7 @@
 
 ![Scheme](/images/ansible-tower/awx_flow.png)
 
-The Ansible structure is agentless(it connects using SSH), and configurations are set up as playbooks written in YAML.
+The Ansible structure is agentless (it connects using SSH), and configurations are set up as playbooks written in YAML.
 
 With the Tower we can manage playbooks and playbook directories by either placing them manually under the Project Base Path on the server, or by placing playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights.
 
@@ -57,7 +57,7 @@ A Project is a logical collection of Ansible playbooks, represented in Tower. In
 
 ### Template creation
 
-A job template is a definition and set of parameters for running an Ansible job. In the example below we are applying "nginx-hello-world/main.yml" playbook to the "Azure Inventory" using "Azure Credentials" to access the test node:
+A job template is a definition and set of parameters for running an Ansible job. In the example below, we are applying "nginx-hello-world/main.yml" playbook to the "Azure Inventory" using "Azure Credentials" to access the test node:
 ![New Template](/images/ansible-tower/create_azure_template.png)
 
 ### Results
