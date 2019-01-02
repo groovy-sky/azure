@@ -77,3 +77,5 @@ From now on we will use Azure's user to engage with AWX. For a test purposes let
 [Let's build a tower (part 1)](/ansible-tower-00/README.md)
 
 [Let's build a tower (part 2)](/ansible-tower-01/README.md)
+
+[Let's build a tower (part 3)](/ansible-tower-02/README.md)
