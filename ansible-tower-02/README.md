@@ -17,7 +17,7 @@ With the Tower we can manage playbooks and playbook directories by either placin
 ![Scheme](/images/ansible-tower/awx_current_flow.png)
 
 In our example we will use configuration, which contain 3 parts:
-* Source Code Management system - we will use [ready to use Github repository](https://github.com/groovy-sky/tower-examples.git)
+* Source Code Management system - we will use [our demo Github repository](https://github.com/groovy-sky/tower-examples.git)
 * AWX Host - already created before
 * Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can use free account virtual machine (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/) )or just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
@@ -70,13 +70,13 @@ If template run job was successfull - we can try to access test node by HTTP:
 
 ## Useful documentation
 
-[About AWX inventories](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
-
-[About AWX project](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+[About Azure NSG](https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/)
 
 [About Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html)
 
-[About Azure NSG](https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/)
+[About AWX inventories](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+
+[About AWX project](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
 
 [About job templates](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html)
 
