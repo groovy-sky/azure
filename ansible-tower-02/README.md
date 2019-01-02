@@ -47,7 +47,7 @@ As a result the test node NSG should look following:
 ![New Host](/images/ansible-tower/add_azure_first_host.png)
 
 ### Credentials creation
-![New Credentials](/images/ansible-tower/create_credentials.png)
+![New Credentials](/images/ansible-tower/create_azure_credentials.png)
 
 ### Project setup
 ![New Project](/images/ansible-tower/create_tower_project.png)
