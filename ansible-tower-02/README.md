@@ -15,7 +15,7 @@ With the Tower we can manage playbooks and playbook directories by either placin
 
 ![Scheme](/images/ansible-tower/awx_current_flow.png)
 
-In our example we will use configuration, which contain following parts:
+In our example we will use configuration, which contain 3 parts:
 * Source Code Management system - we will use [ready to use Github repository](https://github.com/groovy-sky/tower-examples.git)
 * AWX Host - already created before
 * Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can use free account virtual machine (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/) )or just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
@@ -26,7 +26,7 @@ Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-n
 
 ## Implementation
 
-On AWX side we need to 
+On AWX side we need to configure and run job template. To do that complete following steps:
 1. Create an inventory
 1. Add a host to the inventory
 1. Create a credential
@@ -50,14 +50,17 @@ Credentials in our case - are username and password values used to create test n
 ![New Credentials](/images/ansible-tower/create_azure_credentials.png)
 
 ### Project setup
+
 A Project is a logical collection of Ansible playbooks, represented in Tower. In this article we are using [following Github repository](https://github.com/groovy-sky/tower-examples.git):
 ![New Project](/images/ansible-tower/create_tower_project.png)
 
 ### Template creation
+
 A job template is a definition and set of parameters for running an Ansible job. In the example below we are applying "nginx-hello-world/main.yml" playbook to the "Azure Inventory" using "Azure Credentials" to access the test node:
 ![New Template](/images/ansible-tower/create_azure_template.png)
 
 ### Results
+
 After project configuration we can run it:
 ![Run Template](/images/ansible-tower/run_template.png)
 
@@ -65,10 +68,11 @@ If template run job was successfull - we can try to access test node by HTTP:
 ![Check the results](/images/ansible-tower/check_job_results.png)
 
 ## Useful documentation
-https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html
-https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
-https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
-https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/
+
+[About AWX inventories](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+[About AWX project](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+[About Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html)
+[About Azure NSG](https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/)
 
 
 ## References
