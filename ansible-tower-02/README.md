@@ -13,23 +13,16 @@ With the Tower we can manage playbooks and playbook directories by either placin
 
 ## Prerequisites
 
-In our example we will use following configuration:
-
 ![Scheme](/images/ansible-tower/awx_current_flow.png)
 
-Such configuration main parts are:
-* Source Code Management system - in our case we will use [following Github repository](https://github.com/groovy-sky/tower-examples.git)
-* AWX Host
-* Test Azure VM - in our case we can create another virtual machine in Azure
-
-If you are using MSDN Azure subscription - as a test Azure VM you can use free account virtual machine(otherwise just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
+In our example we will use configuration, which contain following parts:
+* Source Code Management system - we will use [ready to use Github repository](https://github.com/groovy-sky/tower-examples.git)
+* AWX Host - already created before
+* Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can use free account virtual machine (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/) )or just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
 
-Next step is [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) configuration by enabling SSH access from AWX host(which IP address you need to obtain from your environment) to the test node and opening 80 port on the test node:
+Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) - enable SSH access from AWX host(which IP address you need to obtain from your environment)and open 80 port:
 ![NSG rules](/images/ansible-tower/test_node_nsg_rules.png)
-
-As a result the test node NSG should look following:
-![NSG rules](/images/ansible-tower/test_node_nsg_inbound.png)
 
 ## Implementation
 
