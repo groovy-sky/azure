@@ -1,4 +1,4 @@
-# Let's build a tower (part 3) [draft]
+# Let's build a tower (part 3)
 
 ## Introduction
 
@@ -41,28 +41,38 @@ As a result the test node NSG should look following:
 1. Launch the template
 
 ### Inventory creation
+
+Inventory - a collection of hosts against which Jobs may be launched. Let's use understandable title:
 ![New Inventory](/images/ansible-tower/create_azure_inventory.png)
 
-### Host creation
+### Host adding
+
+Now we can add Public IP address of our test VM to the hosts:
 ![New Host](/images/ansible-tower/add_azure_first_host.png)
 
 ### Credentials creation
+
+Credentials in our case - are login/password used during VM creation:
 ![New Credentials](/images/ansible-tower/create_azure_credentials.png)
 
 ### Project setup
+A Project is a logical collection of Ansible playbooks, represented in Tower. In this article we are using [following Github repository](https://github.com/groovy-sky/tower-examples.git):
 ![New Project](/images/ansible-tower/create_tower_project.png)
 
 ### Template creation
+A job template is a definition and set of parameters for running an Ansible job. In the example below we are applying "nginx-hello-world/main.yml" playbook to the "Azure Inventory" using "Azure Credentials" to access the test node:
 ![New Template](/images/ansible-tower/create_azure_template.png)
 
-### Job running
+### Results
+After project configuration we can run it:
 ![Run Template](/images/ansible-tower/run_template.png)
 
-### Results
+If template run job was successfull - we can try to access test node by HTTP:
 ![Check the results](/images/ansible-tower/check_job_results.png)
 
 
 ## Useful documentation
+https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html
 https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
 https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
 https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/
