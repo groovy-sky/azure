@@ -70,8 +70,11 @@ If template run job was successfull - we can try to access test node by HTTP:
 ## Useful documentation
 
 [About AWX inventories](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+
 [About AWX project](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+
 [About Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html)
+
 [About Azure NSG](https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/)
 
 
