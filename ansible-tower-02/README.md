@@ -33,7 +33,6 @@ As a result the test node NSG should look following:
 
 ## Implementation
 
-
 1. Create an inventory
 1. Add a host to the inventory
 1. Create a credential
@@ -41,11 +40,25 @@ As a result the test node NSG should look following:
 1. Create a job template
 1. Launch the template
 
-![New Project](/images/ansible-tower/create_tower_project.png)
+### Inventory creation
 ![New Inventory](/images/ansible-tower/create_azure_inventory.png)
+
+### Host creation
 ![New Host](/images/ansible-tower/add_azure_first_host.png)
+
+### Credentials creation
+![New Credentials](/images/ansible-tower/create_credentials.png)
+
+### Project setup
+![New Project](/images/ansible-tower/create_tower_project.png)
+
+### Template creation
 ![New Template](/images/ansible-tower/create_azure_template.png)
+
+### Job running
 ![Run Template](/images/ansible-tower/run_template.png)
+
+### Results
 ![Check the results](/images/ansible-tower/check_job_results.png)
 
 
