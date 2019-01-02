@@ -2,9 +2,9 @@
 
 ## Introduction
 
-[On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something more useful. For example, we could try to install NGINX package on some test VM using AWX. 
+[On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something practical, for example, we could try to install NGINX package on a test environment. 
 
-## How AWX works
+## Architecture
 
 The Ansible structure is agentless(it connects using SSH), and configurations are set up as playbooks written in YAML.
 
@@ -76,3 +76,10 @@ https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html
 https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
 https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
 https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/
+
+
+## References
+
+[Let's build a tower (part 1)](/ansible-tower-00/README.md)
+
+[Let's build a tower (part 2)](/ansible-tower-01/README.md)
