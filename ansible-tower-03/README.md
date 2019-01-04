@@ -18,6 +18,9 @@
 ## Useful documentation
 
 https://docs.ansible.com/ansible/2.3/guide_azure.html
+https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/ansible-tower-rhel/images/ansibletower-postdeployment-configuration-guide.pdf
+https://cloudblogs.microsoft.com/opensource/2018/09/24/tutorial-devops-on-azure-using-jenkins-and-ansible/
+https://docs.microsoft.com/en-us/azure/ansible/ansible-overview
 
 ## References
 
