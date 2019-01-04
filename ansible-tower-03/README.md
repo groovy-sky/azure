@@ -17,6 +17,7 @@
 
 ## Useful documentation
 
+https://docs.ansible.com/ansible/2.3/guide_azure.html
 
 ## References
 
