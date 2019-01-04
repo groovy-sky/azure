@@ -1,55 +1,89 @@
-# Let's build a tower (part 3) [draft]
+# Let's build a tower (part 3)
 
 ## Introduction
 
-[On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something more useful. For example, we could try to install NGINX package on some test VM using AWX. 
+[On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something more practical, for example, we could try to install NGINX package on a test environment. 
 
-## How AWX works
+## Architecture
 
-The Ansible structure is agentless(it connects using SSH), and configurations are set up as playbooks written in YAML.
-
-With the Tower we can manage playbooks and playbook directories by either placing them manually under the Project Base Path on the server, or by placing playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights:
 ![Scheme](/images/ansible-tower/awx_flow.png)
+
+The Ansible structure is agentless (it connects using SSH), and configurations are set up as playbooks written in YAML.
+
+With the Tower we can manage playbooks and playbook directories by either placing them manually under the Project Base Path on the server, or by placing playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, Mercurial, and Red Hat Insights.
 
 ## Prerequisites
 
-In our example we will use following configuration:
-
 ![Scheme](/images/ansible-tower/awx_current_flow.png)
 
-Such configuration main parts are:
-* Source Code Management system - in our case we will use [following Github repository](https://github.com/groovy-sky/tower-examples.git)
+In our scenario we will use configuration, which contain 3 main parts:
+* Source Code Management system - we will use [our demo Github repository](https://github.com/groovy-sky/tower-examples.git)
 * AWX Host
-* Test Azure VM - in our case we can create another virtual machine in Azure
-
-If you are using MSDN Azure subscription - as a test Azure VM you can use free account virtual machine(otherwise just create [standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine)):
+* Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can create [a free account virtual machine](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft.freeaccountvirtualmachine) (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/)) or  create [a standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine):
 ![Create Azure VM](/images/ansible-tower/create_test_vm_node.png)
 
-Next step is [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) configuration by enabling SSH access from AWX host(which IP address you need to obtain from your environment) to the test node and opening 80 port on the test node:
+Also we need to configure [NSG](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) for a newly created VM - enable SSH access from AWX host IP address and open 80 port:
 ![NSG rules](/images/ansible-tower/test_node_nsg_rules.png)
-
-As a result the test node NSG should look following:
-![NSG rules](/images/ansible-tower/test_node_nsg_inbound.png)
 
 ## Implementation
 
-
+On AWX side we need to configure and run job template. To do that, please, complete following steps:
 1. Create an inventory
 1. Add a host to the inventory
-1. Create a credential
+1. Create a credentials
 1. Setup a project
 1. Create a job template
 1. Launch the template
 
-![New Project](/images/ansible-tower/create_tower_project.png)
+### AWX Inventory
+
+Inventory - a collection of hosts against which Jobs may be launched. Let's use understandable title:
 ![New Inventory](/images/ansible-tower/create_azure_inventory.png)
+
+### AWX Host
+
+Now we can add Public IP address of our test VM to the hosts:
 ![New Host](/images/ansible-tower/add_azure_first_host.png)
+
+### AWX Credentials
+
+Credentials in our case - are username and password values used to create test node:
+![New Credentials](/images/ansible-tower/create_azure_credentials.png)
+
+### AWX Project
+
+A Project is a logical collection of Ansible playbooks, represented in Tower. In this article we are using [following Github repository](https://github.com/groovy-sky/tower-examples.git):
+![New Project](/images/ansible-tower/create_tower_project.png)
+
+### AWX Template
+
+A job template is a definition and set of parameters for running an Ansible job. In the example below, we are applying "nginx-hello-world/main.yml" playbook to the "Azure Inventory" using "Azure Credentials" to access the test node:
 ![New Template](/images/ansible-tower/create_azure_template.png)
+
+### Results
+
+After project configuration we can run it:
 ![Run Template](/images/ansible-tower/run_template.png)
+
+If template run job was successfull - we can try to access test node by HTTP:
 ![Check the results](/images/ansible-tower/check_job_results.png)
 
-
 ## Useful documentation
-https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html
-https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
-https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/
+
+[About Azure NSG](https://blogs.msdn.microsoft.com/igorpag/2016/05/14/azure-network-security-groups-nsg-best-practices-and-lessons-learned/)
+
+[About Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html)
+
+[About AWX inventories](https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html)
+
+[About AWX project](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html)
+
+[About AWX job templates](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html)
+
+## References
+
+[Let's build a tower (part 1)](/ansible-tower-00/README.md)
+
+[Let's build a tower (part 2)](/ansible-tower-01/README.md)
+
+[Let's build a tower (part 3)](/ansible-tower-02/README.md)

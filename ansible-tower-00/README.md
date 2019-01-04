@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this article I am going to install and configure [AWX](https://github.com/ansible/awx), which is an open-source version of [Red Hat Ansible Tower](https://www.ansible.com/products/tower), for managing Ansible in more manageable and easier way. The aim of this experiment - have some fun and learn something new about Ansible.
+In this article we are going to learn how-to install and configure [AWX](https://github.com/ansible/awx). AWX - is an open-source version of [Red Hat Ansible Tower](https://www.ansible.com/products/tower), for managing Ansible in more manageable and easier way. The aim of this experiment - have some fun and learn something new about Ansible.
 
 ## Prerequisites
 
@@ -53,3 +53,5 @@ As a result we get Ubuntu VM on which AWX is runned as bunch of containers and i
 [Let's build a tower (part 1)](/ansible-tower-00/README.md)
 
 [Let's build a tower (part 2)](/ansible-tower-01/README.md)
+
+[Let's build a tower (part 3)](/ansible-tower-02/README.md)
