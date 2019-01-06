@@ -7,12 +7,11 @@
 
 
 ## Prerequisites
-![Create SPN](/images/ansible-tower/create_azure_credentials.png)
-![](/images/ansible-tower/aad_app_spn_reg.png)
-![](/images/ansible-tower/aad_app_spn_data.png)
-![](/images/ansible-tower/get_tenant_id.png)
-![](/images/ansible-tower/get_sub_id.png)
-![](/images/ansible-tower/grant_access_spn.png)
+![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
+![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
+![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
+![Subscription ID](/images/ansible-tower/get_sub_id.png)
+![Assign permission](/images/ansible-tower/grant_access_spn.png)
 
 ## Implementation
 
