@@ -29,6 +29,8 @@ https://cloudblogs.microsoft.com/opensource/2018/09/24/tutorial-devops-on-azure-
 
 https://docs.microsoft.com/en-us/azure/ansible/ansible-overview
 
+https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
+
 ## References
 
 [Let's build a tower (part 1)](/ansible-tower-00/README.md)
