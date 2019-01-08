@@ -15,9 +15,16 @@
 
 ## Implementation
 
+![Update the project](/images/ansible-tower/awx_update_project.png)
+![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
+![](/images/ansible-tower/awx_new_template.png)
+![](/images/ansible-tower/xxxxxxxxxxxxxxxxx.png)
+![](/images/ansible-tower/xxxxxxxxxxxxxxxxx.png)
+
 
 ## Results
 
+![Results](/images/ansible-tower/azure_vm_creation_results.png)
 
 ## Useful documentation
 
