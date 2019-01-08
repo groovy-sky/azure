@@ -18,25 +18,25 @@ To be able create a new environment in Azure we will need an account with some a
 * SUBSCRIPTION ID
 * TENANT ID
 
-We will create a new service principal and grant 'Contributor' role for a Resource Group:
+We will create a new service principal and grant 'Contributor' role for some Resource Group. How-to instruction is below(please store values marked with red):
 1. Service principal creation
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
 1. Generating application key
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
-1. Assign role to the SPN
+1. Assign role on some Resource Group
 ![Assign permission](/images/ansible-tower/grant_access_spn.png)
-1. Get Tenant Id
-![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
-1. Get Subscription Id
+1. Get Subscription ID of the Resource Group
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
+1. Get Tenant ID
+![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
+
 
 
 ## Implementation
 
 ![Update the project](/images/ansible-tower/awx_update_project.png)
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
-![](/images/ansible-tower/awx_new_template.png)
-![](/images/ansible-tower/xxxxxxxxxxxxxxxxx.png)
+
 
 ```
 ---
@@ -45,9 +45,9 @@ vm_name: xxxxxxxxxxxx
 vm_admin_username: xxxxxxxxxxxx
 vm_admin_password: xxxxxxxxxxxx
 ```
+![](/images/ansible-tower/awx_new_template.png)
 
-![](/images/ansible-tower/xxxxxxxxxxxxxxxxx.png)
-
+![](/images/ansible-tower/awx_azure_vm_project_run.png)
 
 ## Results
 
