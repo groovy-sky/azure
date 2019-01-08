@@ -12,7 +12,11 @@ This time we shall need [azure_rm_virtualmachine module](https://docs.ansible.co
 ![Deployment schema](/images/ansible-tower/awx_acrch.png)
 
 ## Prerequisites
-To be able create a new environment in Azure we will need an account with some access level on Subscription-level or specific Resource Group. The account could be, as [an official documentation says](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html), a user account or a service principal. 
+To be able create a new environment in Azure we will need an account with some access level on Subscription-level or specific Resource Group. The account could be, as [an official documentation says](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html), a user account or a service principal. In case of using service principal we will need to get following parameters:
+* AZURE_CLIENT_ID
+* AZURE_SECRET
+* AZURE_SUBSCRIPTION_ID
+* AZURE_TENANT
 
 We will create a new service principal and grant 'Contributor' role for a Resource Group:
 1. Service principal creation
