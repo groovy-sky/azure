@@ -4,6 +4,10 @@
 
 [Azure modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure)
 
+[azure_rm_virtualmachine module](https://docs.ansible.com/ansible/latest/modules/azure_rm_virtualmachine_module.html#azure-rm-virtualmachine-module)
+
+[azure-vm-creation/main.yml](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml)
+
 ## Architecture
 ![Deployment schema](/images/ansible-tower/awx_acrch.png)
 
@@ -20,6 +24,15 @@
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
 ![](/images/ansible-tower/awx_new_template.png)
 ![](/images/ansible-tower/xxxxxxxxxxxxxxxxx.png)
+
+```
+---
+vm_resource_group: xxxxxxxxxxxx
+vm_name: xxxxxxxxxxxx
+vm_admin_username: xxxxxxxxxxxx
+vm_admin_password: xxxxxxxxxxxx
+```
+
 ![](/images/ansible-tower/xxxxxxxxxxxxxxxxx.png)
 
 
