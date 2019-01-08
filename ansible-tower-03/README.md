@@ -2,9 +2,10 @@
 
 ## Introduction
 
+[Azure modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure)
 
 ## Architecture
-
+![Deployment schema](/images/ansible-tower/awx_acrch.png)
 
 ## Prerequisites
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
