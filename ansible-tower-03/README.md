@@ -2,13 +2,11 @@
 
 ## Introduction
 
-[Azure modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure)
-
-[azure_rm_virtualmachine module](https://docs.ansible.com/ansible/latest/modules/azure_rm_virtualmachine_module.html#azure-rm-virtualmachine-module)
-
-[azure-vm-creation/main.yml](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml)
+[Last time](https://github.com/groovy-sky/azure/blob/master/ansible-tower-02/README.md) we have installed NGINX package on Azure VM using AWX. In this chapter we will deploy Azure environment using AWX.
 
 ## Architecture
+Ansible ships with a number of modules (called the ‘module library’) that can be executed directly on remote hosts or through Playbooks. As we, most of the time, will work with Azure, we will use [Azure modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure). This time we shall need [azure_rm_virtualmachine module](https://docs.ansible.com/ansible/latest/modules/azure_rm_virtualmachine_module.html#azure-rm-virtualmachine-module), which is used by [azure-vm-creation/main.yml Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml). Playbook we be executed on host itself:
+
 ![Deployment schema](/images/ansible-tower/awx_acrch.png)
 
 ## Prerequisites
@@ -51,6 +49,8 @@ https://cloudblogs.microsoft.com/opensource/2018/09/24/tutorial-devops-on-azure-
 https://docs.microsoft.com/en-us/azure/ansible/ansible-overview
 
 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
+
+https://docs.ansible.com/ansible/latest/user_guide/modules.html
 
 ## References
 
