@@ -5,7 +5,7 @@
 [Last time](https://github.com/groovy-sky/azure/blob/master/ansible-tower-02/README.md) we have installed NGINX package on Azure VM using AWX. In this chapter we will deploy Azure environment using AWX.
 
 ## Architecture
-Ansible ships with a number of modules (called the ‘module library’) that can be executed directly on remote hosts or through Playbooks. As we, most of the time, will work with Azure, we will use [Azure modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure). 
+Ansible ships with a number of modules (called the ‘module library’) that can be executed directly on remote hosts or through Playbooks. For interacting with Azure services, Ansible includes a suite of [Ansible cloud modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure) that provides the tools to easily create and orchestrate your infrastructure on Azure.
 
 This time we shall need [azure_rm_virtualmachine module](https://docs.ansible.com/ansible/latest/modules/azure_rm_virtualmachine_module.html#azure-rm-virtualmachine-module), which is used by [azure-vm-creation/main.yml Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml). Playbook we be executed on host itself:
 
@@ -18,7 +18,7 @@ To be able create a new environment in Azure we will need an account with some a
 * SUBSCRIPTION ID
 * TENANT ID
 
-We will create a new service principal and grant 'Contributor' role for some Resource Group. How-to instruction is below(please store values marked with red):
+We will create a new service principal and grant 'Contributor' role for some Resource Group - which will grant full access in a resource group to the service principal except grant access to others accounts. How-to instruction is below(please store values marked with red):
 1. Service principal creation
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
 1. Generating application key
@@ -30,13 +30,16 @@ We will create a new service principal and grant 'Contributor' role for some Res
 1. Get Tenant ID
 ![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
 
-
-
 ## Implementation
-
+As we already added the SCM in the previous chapter we only need to update our project:
 ![Update the project](/images/ansible-tower/awx_update_project.png)
+
+As the playbook will be executed on Tower host itself - we need to create new inventory(no need to add a host):
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
 
+[group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower)
+
+[extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables)
 
 ```
 ---
@@ -54,6 +57,8 @@ vm_admin_password: xxxxxxxxxxxx
 ![Results](/images/ansible-tower/azure_vm_creation_results.png)
 
 ## Useful documentation
+
+https://docs.microsoft.com/en-us/azure/role-based-access-control/overview
 
 https://docs.ansible.com/ansible/2.3/guide_azure.html
 
