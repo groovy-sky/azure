@@ -17,10 +17,13 @@ To be able create a new environment in Azure we will need an account with some a
 We will create a new service principal and grant 'Contributor' role for a Resource Group:
 1. Service principal creation
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
+1. Generating application key
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
-2. Assign role to the SPN
+1. Assign role to the SPN
 ![Assign permission](/images/ansible-tower/grant_access_spn.png)
+1. Get Tenant Id
 ![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
+1. Get Subscription Id
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
 
 
