@@ -77,3 +77,4 @@ If everything went according to plan and job was successful - in the Resource Gr
 
 [Let's build a tower (part 3)](/ansible-tower-02/README.md)
 
+[Let's build a tower (part 4)](/ansible-tower-03/README.md)
