@@ -23,9 +23,9 @@ We will create a new service principal account and grant 'Contributor' role for 
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
 1. Generate application key
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
-1. Go to the Resource Group
+1. Go to Resource Group, to which you are planning to grant permissions
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
-1. Grant 'Contributor' role to SPN
+1. Grant 'Contributor' role
 ![Assign permission](/images/ansible-tower/grant_access_spn.png)
 1. Find Tenant ID
 ![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
@@ -34,17 +34,17 @@ We will create a new service principal account and grant 'Contributor' role for 
 As we already added the SCM in the previous chapter we only need to update our project:
 ![Update the project](/images/ansible-tower/awx_update_project.png)
 
-As the Playbook will be executed on Tower host itself - we need to create new inventory for it(no need to add a host):
+As the Playbook will be executed on Tower host itself - we need to create new inventory(no need to add a host):
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
 
 
-As we want to run [our deployment Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on all kinds environment and don't expose security data we need to use [Ansible variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). This time it is 4 variables:
+As we want to run [our deployment Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on different environment and don't expose security data, it contain following variables (wrapped into double curly brackets):
 * vm_resource_group - deployment Azure Resource Group name
 * vm_name - newly created Azure Virtual Machine name
 * vm_admin_username - Azure VM username (which match [username requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-username-requirements-when-creating-a-vm))
 * vm_admin_password - Azure VM password (which match [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-password-requirements-when-creating-a-vm))
 
-As our Playbook repository is publiсly visible we can't use [group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower) to assign values to the variables. Instead we can use [extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables), which are configured on Tower side. Below you can copy a blank, which you need to fill during a project creation time:
+As our Playbook repository is publiсly visible we can't use [group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower) to assign values to the variables. Instead we can use [extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables). Below you can copy a blank, which you need to fill (with values obtained in previous heading):
 ```
 ---
 vm_resource_group: xxxxxxxxxxxx
