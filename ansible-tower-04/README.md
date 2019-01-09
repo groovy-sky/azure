@@ -17,6 +17,8 @@
 
 ## Useful documentation
 
+https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
+
 
 ## References
 

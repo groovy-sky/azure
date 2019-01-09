@@ -3,11 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vmadminUsername": {
-      "type": "string",
-      "defaultValue": "adm1n"
+      "type": "string"
     },
-    "vmadminPassword": {
-      "type": "securestring"
+    "vmadminPublicKey": {
+      "type": "string"
     }
   },
   "variables": {
@@ -24,9 +23,9 @@
     "vmStorageAccountContainerName": "vhds",
     "vmSize": "Standard_DS2_v2",
     "vmNic": "[concat(uniquestring(resourceGroup().id),'virtualmachineNIC')]",
-    "vNetSpace": "172.29.133.0/24",
+    "vNetSpace": "172.30.13.0/24",
     "SubvNetName": "Subnet-01",
-    "SubvNetRange": "172.29.133.0/27",
+    "SubvNetRange": "172.30.13.0/27",
     "PIPName": "[concat(variables('vmName'),'PIP')]",
     "vNetName": "[concat(uniquestring(resourceGroup().id), 'VNET')]",
     "NSGName": "[concat(variables('vmName'),'NSG')]",
@@ -81,20 +80,6 @@
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 110,
-              "direction": "Inbound"
-            }
-          },
-		            {
-            "name": "Allow_HTTPS",
-            "properties": {
-              "description": "Allow HTTPS",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "443",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 120,
               "direction": "Inbound"
             }
           }
@@ -186,8 +171,16 @@
         },
         "osProfile": {
           "computerName": "[variables('vmName')]",
-          "adminUsername": "[parameters('vmadminUsername')]",
-          "adminPassword": "[parameters('vmadminPassword')]"
+          "linuxOperatingSystemProfile": {
+            "username": "[parameters('vmadminUsername')]",
+            "sshProfile": {
+              "publicKeys": [
+                {
+                  "certificateData": "[parameters('vmadminPublicKey')]"
+                }
+              ]
+            }
+          }
         },
         "storageProfile": {
           "imageReference": {
