@@ -156,7 +156,7 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-04-30-preview",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmName')]",
       "location": "[resourceGroup().location]",
@@ -172,12 +172,12 @@
         "osProfile": {
           "computerName": "[variables('vmName')]",
           "adminUsername": "[parameters('vmadminUsername')]",
-          "linuxOperatingSystemProfile": {
+          "linuxConfiguration": {
             "disablePasswordAuthentication": true,
-            "sshProfile": {
+            "ssh": {
               "publicKeys": [
                 {
-                  "certificateData": "[parameters('vmadminPublicKey')]"
+                  "keyData": "[parameters('vmadminPublicKey')]"
                 }
               ]
             }
