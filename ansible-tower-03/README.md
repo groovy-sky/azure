@@ -19,15 +19,15 @@ To be able create a new environment in Azure we will need an account with some a
 * TENANT ID
 
 We will create a new service principal and grant 'Contributor' role for some Resource Group - which will grant full access in a resource group to the service principal except grant access to others accounts. How-to instruction is below(please store values marked with red):
-1. Service principal creation
+1. Create Service principal
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
-1. Generating application key
+1. Generate application key
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
-1. Assign role on some Resource Group
-![Assign permission](/images/ansible-tower/grant_access_spn.png)
-1. Get Subscription ID of the Resource Group
+1. Go to Resource Group, to which you are planning to grant permissions
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
-1. Get Tenant ID
+1. Grant 'Contributor' role
+![Assign permission](/images/ansible-tower/grant_access_spn.png)
+1. Find Tenant ID
 ![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
 
 ## Implementation
@@ -36,6 +36,14 @@ As we already added the SCM in the previous chapter we only need to update our p
 
 As the playbook will be executed on Tower host itself - we need to create new inventory(no need to add a host):
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
+
+
+As we want to run [our deployment playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on different environment and don't expose security data, it contain 4 variables (wrapped into double curly brackets):
+* vm_resource_group - deployment Azure Resource Group name
+* vm_name - newly created Azure Virtual Machine name
+* vm_admin_username - Azure VM username (which match [username requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-username-requirements-when-creating-a-vm))
+* vm_admin_password - Azure VM password (which match [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-password-requirements-when-creating-a-vm))
+
 
 [group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower)
 
