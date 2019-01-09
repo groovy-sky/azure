@@ -2,23 +2,23 @@
 
 ## Introduction
 
-[Last time](https://github.com/groovy-sky/azure/blob/master/ansible-tower-02/README.md) we have installed NGINX package on Azure VM using AWX. In this chapter we will deploy Azure environment using AWX.
+[Last time](https://github.com/groovy-sky/azure/blob/master/ansible-tower-02/README.md) we have installed NGINX package on Azure VM using AWX. In this chapter we will create an Azure environment using AWX.
 
 ## Architecture
-Ansible ships with a number of modules (called the ‘module library’) that can be executed directly on remote hosts or through Playbooks. For interacting with Azure services, Ansible includes a suite of [Ansible cloud modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure) that provides the tools to easily create and orchestrate your infrastructure on Azure.
+Ansible ships with a number of modules (called the ‘module library’) that can be executed directly on remote hosts or through Playbooks. For interacting with Azure services, Ansible includes a suite of [Ansible cloud modules](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure) that provides the tools to easily create and orchestrate Azure.
 
 This time we shall need [azure_rm_virtualmachine module](https://docs.ansible.com/ansible/latest/modules/azure_rm_virtualmachine_module.html#azure-rm-virtualmachine-module), which is used by [azure-vm-creation/main.yml Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml). Playbook we be executed on host itself:
 
 ![Deployment schema](/images/ansible-tower/awx_acrch.png)
 
 ## Prerequisites
-To be able create a new environment in Azure we will need an account with some access level on Subscription-level or specific Resource Group. The account could be, as [an official documentation says](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html), a user account or a service principal. In case of using service principal we will need to get following parameters:
+To be able to create a new resources in Azure we will need an account with some priveleges level. [Azure Resource Management model](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) provdes granular [Role-Based Access Control model]((https://docs.microsoft.com/en-us/azure/role-based-access-control/overview)) for assigning privileges. The account itself could be, as [an official documentation says](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html), a user account or a service principal (aka SPN). In case of using service principal we will need to get following parameters:
 * CLIENT ID
 * CLIENT SECRET
 * SUBSCRIPTION ID
 * TENANT ID
 
-We will create a new service principal and grant 'Contributor' role for some Resource Group - which will grant full access in a resource group to the service principal except grant access to others accounts. How-to instruction is below(please store values marked with red):
+We will create a new service principal account and grant 'Contributor' role for a Resource Group (you can choose whatever resource group you want for that). Instruction how-to create SPN and assign role to it is in the text below(please store somewhere values marked with red):
 1. Create Service principal
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
 1. Generate application key
@@ -44,9 +44,7 @@ As we want to run [our deployment playbook](https://raw.githubusercontent.com/gr
 * vm_admin_username - Azure VM username (which match [username requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-username-requirements-when-creating-a-vm))
 * vm_admin_password - Azure VM password (which match [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-password-requirements-when-creating-a-vm))
 
-As our playbook repository is publiсly visible we can't use [group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower) to assign values to the variables.
-
-Insted we can use [extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables). Below you can copy a blank, which you need to fill your data:
+As our playbook repository is publiсly visible we can't use [group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower) to assign values to the variables. Instead we can use [extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables). Below you can copy a blank, which you need to fill your data:
 ```
 ---
 vm_resource_group: xxxxxxxxxxxx
