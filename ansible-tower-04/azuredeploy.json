@@ -171,8 +171,9 @@
         },
         "osProfile": {
           "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('vmadminUsername')]",
           "linuxOperatingSystemProfile": {
-            "username": "[parameters('vmadminUsername')]",
+            "disablePasswordAuthentication": true,
             "sshProfile": {
               "publicKeys": [
                 {
