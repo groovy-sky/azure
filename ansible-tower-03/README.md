@@ -23,7 +23,7 @@ We will create a new service principal account and grant 'Contributor' role for 
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
 1. Generate a secret(aka application key)
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
-1. Go to Resource Group, to which you are planning to grant permissions
+1. Go to the Resource Group
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
 1. Grant 'Contributor' role
 ![Assign permission](/images/ansible-tower/grant_access_spn.png)
