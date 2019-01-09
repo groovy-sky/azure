@@ -21,7 +21,7 @@ To be able to create a new resources in Azure we will need an account with some 
 We will create a new service principal account and grant 'Contributor' role for a Resource Group (you can choose whatever resource group you want for that). Instruction how-to create SPN and assign role to it is in the text below(please store somewhere values marked with red):
 1. Create Service principal
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
-1. Generate application key
+1. Generate a secret(aka application key)
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
 1. Go to Resource Group, to which you are planning to grant permissions
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
@@ -58,6 +58,7 @@ Now we can create a new project (don't forget to specify extra variables) and ru
 
 ## Results
 
+If everything went according to plan and job was successful - in the Resource Group should appear a new virtual machine.
 ![Results](/images/ansible-tower/azure_vm_creation_results.png)
 
 ## Useful documentation
