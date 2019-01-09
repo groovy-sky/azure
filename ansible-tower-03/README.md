@@ -38,17 +38,15 @@ As the playbook will be executed on Tower host itself - we need to create new in
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
 
 
-As we want to run [our deployment playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on different environment and don't expose security data, it contain 4 variables (wrapped into double curly brackets):
+As we want to run [our deployment playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on different environment and don't expose security data, it contain following variables (wrapped into double curly brackets):
 * vm_resource_group - deployment Azure Resource Group name
 * vm_name - newly created Azure Virtual Machine name
 * vm_admin_username - Azure VM username (which match [username requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-username-requirements-when-creating-a-vm))
 * vm_admin_password - Azure VM password (which match [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-password-requirements-when-creating-a-vm))
 
+As our playbook repository is publiсly visible we can't use [group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower) to assign values to the variables.
 
-[group variables](https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#importing-existing-inventory-files-and-host-group-vars-into-tower)
-
-[extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables)
-
+Insted we can use [extra variables](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#extra-variables). Below you can copy a blank, which you need to fill your data:
 ```
 ---
 vm_resource_group: xxxxxxxxxxxx
@@ -56,8 +54,9 @@ vm_name: xxxxxxxxxxxx
 vm_admin_username: xxxxxxxxxxxx
 vm_admin_password: xxxxxxxxxxxx
 ```
-![](/images/ansible-tower/awx_new_template.png)
 
+Now we can create a new project (don't forget to specify extra variables) and run it:
+![](/images/ansible-tower/awx_new_template.png)
 ![](/images/ansible-tower/awx_azure_vm_project_run.png)
 
 ## Results
