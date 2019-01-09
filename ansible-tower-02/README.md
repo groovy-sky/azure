@@ -87,3 +87,5 @@ If template run job was successfull - we can try to access test node by HTTP:
 [Let's build a tower (part 2)](/ansible-tower-01/README.md)
 
 [Let's build a tower (part 3)](/ansible-tower-02/README.md)
+
+[Let's build a tower (part 4)](/ansible-tower-03/README.md)
