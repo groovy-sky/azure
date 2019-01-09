@@ -1,4 +1,4 @@
-# Let's build a tower (part 4) [draft]
+# Let's build a tower (part 4)
 
 ## Introduction
 
@@ -12,7 +12,7 @@ This time we shall need [azure_rm_virtualmachine module](https://docs.ansible.co
 ![Deployment schema](/images/ansible-tower/awx_acrch.png)
 
 ## Prerequisites
-To be able to create a new resources in Azure we will need an account with some priveleges level. [Azure Resource Management model](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) provdes granular [Role-Based Access Control model]((https://docs.microsoft.com/en-us/azure/role-based-access-control/overview)) for assigning privileges. The account itself could be, as [an official documentation says](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html), a user account or a service principal (aka SPN). In case of using service principal we will need to get following parameters:
+To be able to create a new resources in Azure we will need an account with some privelege level. [Azure Resource Management model](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) provides granular [Role-Based Access Control model]((https://docs.microsoft.com/en-us/azure/role-based-access-control/overview)) for assigning privileges. The account, to which privelege will be assigned, could be as [an official documentation says](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html) a user account or a service principal (aka SPN). In our case we will use service principal option and for that we will need to get following parameters:
 * CLIENT ID
 * CLIENT SECRET
 * SUBSCRIPTION ID
@@ -23,7 +23,7 @@ We will create a new service principal account and grant 'Contributor' role for 
 ![Create SPN](/images/ansible-tower/aad_app_spn_reg.png)
 1. Generate a secret(aka application key)
 ![Get Application ID and key](/images/ansible-tower/aad_app_spn_data.png)
-1. Go to the Resource Group
+1. Go to the chosen Resource Group
 ![Subscription ID](/images/ansible-tower/get_sub_id.png)
 1. Grant 'Contributor' role
 ![Assign permission](/images/ansible-tower/grant_access_spn.png)
@@ -38,7 +38,7 @@ As the Playbook will be executed on Tower host itself - we need to create new in
 ![Create new inventory](/images/ansible-tower/awx_inventory_localhost.png)
 
 
-As we want to run [our deployment Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on different environment and don't expose security data, it contain following variables (wrapped into double curly brackets):
+To be able to run [our deployment Playbook](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-vm-creation/main.yml) on different environment and don't expose security data, it contains following variables (wrapped into double curly brackets):
 * vm_resource_group - deployment Azure Resource Group name
 * vm_name - newly created Azure Virtual Machine name
 * vm_admin_username - Azure VM username (which match [username requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/faq#what-are-the-username-requirements-when-creating-a-vm))
@@ -63,19 +63,11 @@ If everything went according to plan and job was successful - in the Resource Gr
 
 ## Useful documentation
 
-https://docs.microsoft.com/en-us/azure/role-based-access-control/overview
+[About using Ansible with Azure](https://docs.microsoft.com/en-us/azure/ansible/ansible-overview)
 
-https://docs.ansible.com/ansible/2.3/guide_azure.html
+[About Azure Service Principal](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
-https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/ansible-tower-rhel/images/ansibletower-postdeployment-configuration-guide.pdf
-
-https://cloudblogs.microsoft.com/opensource/2018/09/24/tutorial-devops-on-azure-using-jenkins-and-ansible/
-
-https://docs.microsoft.com/en-us/azure/ansible/ansible-overview
-
-https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
-
-https://docs.ansible.com/ansible/latest/user_guide/modules.html
+[About Ansible modules](https://docs.ansible.com/ansible/latest/user_guide/modules.html)
 
 ## References
 
