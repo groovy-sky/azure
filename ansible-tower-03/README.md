@@ -57,7 +57,6 @@ vm_admin_password: xxxxxxxxxxxx
 
 Now we can create a new project (don't forget to specify extra variables) and run it:
 ![](/images/ansible-tower/awx_new_template.png)
-![](/images/ansible-tower/awx_azure_vm_project_run.png)
 
 ## Results
 
