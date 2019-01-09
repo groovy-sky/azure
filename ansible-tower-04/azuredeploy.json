@@ -13,6 +13,7 @@
     "vmOSstorageAccountName": "[concat(uniquestring(resourceGroup().id), 'premiumsa')]",
     "vmDatastorageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
     "vmName": "[concat(uniquestring(resourceGroup().id), 'virtualmachine')]",
+    "sshKeyPath": "[concat('/home/',parameters('vmadminUsername'),'/.ssh/authorized_keys')]",
     "vmimagePublisher": "Canonical",
     "vmimageOffer": "UbuntuServer",
     "vmimageOSVersion": "16.04-LTS",
@@ -177,6 +178,7 @@
             "ssh": {
               "publicKeys": [
                 {
+		  "path": "[variables('sshKeyPath')]",
                   "keyData": "[parameters('vmadminPublicKey')]"
                 }
               ]
