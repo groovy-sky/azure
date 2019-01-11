@@ -54,7 +54,7 @@ az vm extension set --resource-group $deployment_group --vm-name $vm_name --name
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sed -i 's/double_quotes/\"/g' /opt/docker-compose.yml;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i '$sed_code' /opt/docker-compose.yml;"}'
 
-
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo wget https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml -O /opt/docker-compose.yml;"}'
 
 : '
 echo "NGINX configuring as reverse proxy"

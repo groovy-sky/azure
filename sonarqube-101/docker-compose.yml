@@ -5,4 +5,4 @@ services:
     ports: 
       - "9000:9000" 
     environment: 
-      - sonar.jdbc=sql_jdbc 
+      - sonar.jdbc="sql_jdbc"
