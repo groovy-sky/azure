@@ -1,0 +1,305 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmadminUsername": {
+      "type": "string",
+      "defaultValue": "adm1n"
+    },
+    "vmadminPassword": {
+      "type": "securestring"
+    },
+    "postgresqlUsernamePassword": {
+      "type": "securestring"
+  }
+  },
+  "variables": {
+    "vmOSstorageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
+    "vmFileShareName":"[concat(uniquestring(resourceGroup().id), 'fileshare')]",
+    "vmName": "[concat(uniquestring(resourceGroup().id), 'virtualmachine')]",
+    "vmimagePublisher": "Canonical",
+    "vmimageOffer": "UbuntuServer",
+    "vmimageOSVersion": "16.04-LTS",
+    "vmOSDiskName": "osdiskforlinux",
+    "vmOSstorageAccountType": "Standard_LRS",
+    "vmStorageAccountContainerName": "vhds",
+    "vmSize": "Standard_DS2_v2",
+    "vmNic": "[concat(uniquestring(resourceGroup().id),'virtualmachineNIC')]",
+    "vNetSpace": "172.29.143.0/24",
+    "SubvNetName": "Subnet-01",
+    "SubvNetRange": "172.29.143.0/27",
+    "PIPName": "[concat(variables('vmName'),'PIP')]",
+    "vNetName": "[concat(uniquestring(resourceGroup().id), 'VNET')]",
+    "NSGName": "[concat(variables('vmName'),'NSG')]",
+    "SubVnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('SubvNetName'))]",
+    "dnsName":"[concat(uniquestring(resourceGroup().id),'pip')]",
+    "postgresqlServerName":"[concat(uniquestring(resourceGroup().id),'postgres')]",
+    "postgresqlUsername":"postgresadm1n"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-08-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('PIPName')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static",
+        "dnsSettings": {
+          "domainNameLabel": "[variables('dnsName')]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-12-01-preview",
+      "kind": "",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('PIPName')]"
+      ],
+      "name": "[variables('postgresqlServerName')]",
+      "properties": {
+          "version": "10",
+          "administratorLogin": "[variables('postgresqlUsername')]",
+          "administratorLoginPassword": "[parameters('postgresqlUsernamePassword')]",
+          "storageProfile": {
+              "storageMB": 30720,
+              "backupRetentionDays": 7,
+              "geoRedundantBackup": "Disabled"
+          }
+      },
+      "sku": {
+          "name": "B_Gen5_2",
+          "tier": "Basic",
+          "capacity": 2,
+          "size": 30720,
+          "family": "Gen5"
+      },
+      "resources": [
+        {
+            "type": "firewallrules",
+            "apiVersion": "2017-12-01",
+            "dependsOn": [
+                "[concat('Microsoft.DBforPostgreSQL/servers/', variables('postgresqlServerName'))]"
+            ],
+            "location": "[resourceGroup().location]",
+            "name": "[concat(variables('postgresqlServerName'),'firewall')]",
+            "properties": {
+                "startIpAddress": "[reference(resourceId('Microsoft.Network/publicIPAddresses/', variables('PIPName'))).ipAddress]",
+                "endIpAddress": "[reference(resourceId('Microsoft.Network/publicIPAddresses/', variables('PIPName'))).ipAddress]"
+            }
+        },
+        {
+            "name": "[variables('postgresqlServerName')]",
+            "type": "databases",
+            "apiVersion": "2017-12-01",
+            "properties": {
+                "charset": "utf8",
+                "collation": "English_United States.1252"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.DBforPostgreSQL/servers/', variables('postgresqlServerName'))]"
+            ]
+        }
+    ],
+      "type": "Microsoft.DBforPostgreSQL/servers"
+  },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('NSGName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Allow_HTTP",
+            "properties": {
+              "description": "Allow HTTP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },{
+            "name": "Allow_SSH",
+            "properties": {
+              "description": "Allow SSH",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Inbound"
+            }
+          },
+		            {
+            "name": "Allow_HTTPS",
+            "properties": {
+              "description": "Allow HTTPS",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2017-08-01",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('vNetName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('vNetSpace')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('SubvNetName')]",
+            "properties": {
+              "addressPrefix": "[variables('SubvNetRange')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2017-08-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('vmNic')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('PIPName')]",
+        "[variables('vNetName')]",
+        "[variables('NSGName')]"
+      ],
+      "properties": {
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('NSGName'))]"
+        },
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PIPName'))]"
+              },
+              "subnet": {
+                "id": "[variables('SubVnetId')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('vmOSstorageAccountName')]",
+      "apiVersion": "2018-02-01",
+      "location": "[resourceGroup().location]",
+      "sku":{
+        "name": "[variables('vmOSstorageAccountType')]"
+      },
+      "kind": "StorageV2",
+      "properties": {},
+      "resources": [
+        {
+          "type": "blobServices/containers",
+          "apiVersion": "2018-03-01-preview",
+          "name": "[concat('default/',variables('vmFileShareName'))]",
+          "dependsOn": [
+            "[variables('vmOSstorageAccountName')]"
+          ],
+          "properties": {
+            "publicAccess": "None"
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Storage/storageAccounts/', variables('vmOSstorageAccountName'))]",
+        "[variables('vmNic')]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('vmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('vmadminUsername')]",
+          "adminPassword": "[parameters('vmadminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('vmimagePublisher')]",
+            "offer": "[variables('vmimageOffer')]",
+            "sku": "[variables('vmimageOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "osdisk",
+            "vhd": {
+              "uri": "[concat('http://',variables('vmOSstorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmOSDiskName'),'.vhd')]"
+            },
+            "caching": "ReadOnly",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNic'))]"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "vm-name": {
+      "type": "string",
+      "value": "[variables('vmName')]"
+    },
+    "vm-fqdn":{
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('PIPName'))).dnsSettings.fqdn]"
+    },
+    "sql-user":{
+      "type": "string",
+      "value": "[variables('postgresqlUsername')]"
+    },
+    "sql-server":{
+      "type": "string",
+      "value": "[variables('postgresqlServerName')]"
+    },
+    "file-share":{
+      "type": "string",
+      "value": "[variables('vmFileShareName')]"
+    },
+    "storage":{
+      "type": "string",
+      "value": "[variables('vmOSstorageAccountName')]"
+    }
+  }
+}
