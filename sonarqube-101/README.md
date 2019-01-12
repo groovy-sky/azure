@@ -9,10 +9,15 @@ In this tutorial, you will learn how to deploy ready-to-use SonarQube environmen
 ![](/images/sonarqube-101/sonar_arch.png)
 
 ## Prerequisites
+List is following:
+* Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed 'jq' package on it
+* Azure CLI 2 version
+
 ![](/images/sonarqube-101/azure_new_group.png)
 
 
 ## Implementation
+To initialize the deployment we would need [script.sh file](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh). As input parameters it require 3 paramaters: 
 ![](/images/sonarqube-101/deploy_param.png)
 ![](/images/sonarqube-101/vm_password.png)
 ![](/images/sonarqube-101/result.png)
