@@ -24,7 +24,7 @@ During script execution you will be asked for a password for the VM. Please prov
 
 ![](/images/sonarqube-101/vm_password.png)
 
-The deployment could take about 20-30 minutes. After it will be finished, open newly created virtual machine, copy it DNS Name and access SonarQube using [Default Admin Credentials - 
+The deployment could take about 20-30 minutes. After it will be finished, open newly created virtual machine, copy it DNS Name and access SonarQube using [default admin credentials - 
 (admin/admin)](https://docs.sonarqube.org/latest/instance-administration/security/#header-2):
 ![](/images/sonarqube-101/result.png)
 
@@ -41,3 +41,5 @@ The deployment could take about 20-30 minutes. After it will be finished, open n
 https://docs.docker.com/compose/install/
 
 https://hub.docker.com/_/sonarqube
+
+https://docs.sonarqube.org/latest/instance-administration/security/
