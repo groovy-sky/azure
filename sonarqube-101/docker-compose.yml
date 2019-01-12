@@ -2,6 +2,7 @@ version: "2"
 services: 
   sonarqube: 
     image: sonarqube:lts 
+    restart: always 
     ports: 
       - "9000:9000" 
     environment: 

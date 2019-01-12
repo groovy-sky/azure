@@ -15,7 +15,6 @@
   },
   "variables": {
     "vmOSstorageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
-    "vmFileShareName":"[concat(uniquestring(resourceGroup().id), 'fileshare')]",
     "vmName": "[concat(uniquestring(resourceGroup().id), 'virtualmachine')]",
     "vmimagePublisher": "Canonical",
     "vmimageOffer": "UbuntuServer",
@@ -32,8 +31,8 @@
     "vNetName": "[concat(uniquestring(resourceGroup().id), 'VNET')]",
     "NSGName": "[concat(variables('vmName'),'NSG')]",
     "SubVnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('SubvNetName'))]",
-    "dnsName":"[concat(uniquestring(resourceGroup().id),'pip')]",
-    "postgresqlServerName":"[concat(uniquestring(resourceGroup().id),'postgres')]",
+    "dnsName":"[concat('pip',uniquestring(resourceGroup().id))]",
+    "postgresqlServerName":"[concat('postgres',uniquestring(resourceGroup().id))]",
     "postgresqlUsername":"postgresadm1n"
   },
   "resources": [
@@ -217,20 +216,7 @@
         "name": "[variables('vmOSstorageAccountType')]"
       },
       "kind": "StorageV2",
-      "properties": {},
-      "resources": [
-        {
-          "type": "blobServices/containers",
-          "apiVersion": "2018-03-01-preview",
-          "name": "[concat('default/',variables('vmFileShareName'))]",
-          "dependsOn": [
-            "[variables('vmOSstorageAccountName')]"
-          ],
-          "properties": {
-            "publicAccess": "None"
-          }
-        }
-      ]
+      "properties": {}
     },
     {
       "apiVersion": "2015-06-15",
@@ -292,14 +278,6 @@
     "sql-server":{
       "type": "string",
       "value": "[variables('postgresqlServerName')]"
-    },
-    "file-share":{
-      "type": "string",
-      "value": "[variables('vmFileShareName')]"
-    },
-    "storage":{
-      "type": "string",
-      "value": "[variables('vmOSstorageAccountName')]"
     }
   }
 }

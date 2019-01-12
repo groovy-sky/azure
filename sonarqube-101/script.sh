@@ -18,6 +18,8 @@ echo "Getting VM data"
 vm_name=$(echo $output_data | jq --raw-output '.[0]."vm-name".value')
 vm_fqdn=$(echo $output_data | jq --raw-output '.[0]."vm-fqdn".value')
 
+email=$(az account show -o tsv --query user.name)
+
 sql_server=$(echo $output_data | jq --raw-output '.[0]."sql-server".value')
 sql_user=$(echo $output_data | jq --raw-output '.[0]."sql-user".value')
 
@@ -43,29 +45,33 @@ echo "Configuring and installing docker"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-get update; sudo apt-get install docker-ce -y;sudo apt-get install python-pip -y; export LC_ALL=C; sudo pip install docker-py;"}'
 
 echo "Installing docker compose"
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo pip install docker-compose;"}'
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo pip install docker-compose;"}'
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-get install -y docker-compose;"}'
+
+
 
 echo "Installing docker compose"
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo echo \"version: double_quotes2double_quotes \" > /opt/docker-compose.yml; sudo echo \"services:\" >> /opt/docker-compose.yml; sudo echo \"  sonarqube:\" >> /opt/docker-compose.yml; sudo echo \"    image: sonarqube:lts\" >> /opt/docker-compose.yml; sudo echo \"    ports:\" >> /opt/docker-compose.yml; sudo echo \"      - double_quotes9000:9000double_quotes \" >> /opt/docker-compose.yml; sudo echo \"    environment:\" >> /opt/docker-compose.yml; sudo echo \"      - sonar.jdbc=double_quotes'$sql_jdbc'double_quotes \" >> /opt/docker-compose.yml;"}'
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo echo \"version: double_quotes2double_quotes \" > /opt/docker-compose.yml; sudo echo \"services:\" >> /opt/docker-compose.yml; sudo echo \"  sonarqube:\" >> /opt/docker-compose.yml; sudo echo \"    image: sonarqube:lts\" >> /opt/docker-compose.yml; sudo echo \"    ports:\" >> /opt/docker-compose.yml; sudo echo \"      - double_quotes9000:9000double_quotes \" >> /opt/docker-compose.yml; sudo echo \"    environment:\" >> /opt/docker-compose.yml; sudo echo \"      - sonar.jdbc='$sql_jdbc' \" >> /opt/docker-compose.yml;"}'
 
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sed -i 's/double_quotes/new_text/g' /opt/docker-compose.yml;"}'
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sed -i \"s/new_text/double_quotes/g\" /opt/docker-compose.yml;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo wget https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml -P /opt/;"}'
 
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sed -i 's/double_quotes/\"/g' /opt/docker-compose.yml;"}'
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i '$sed_code' /opt/docker-compose.yml;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings "{  \"commandToExecute\": \"sudo sed -i 's|sql_jdbc|"$sql_jdbc"|g' /opt/docker-compose.yml; \"}"
 
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo wget https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml -O /opt/docker-compose.yml;"}'
 
-: '
+#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo docker-compose -f /opt/docker-compose.yml up -d;"}'
+
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo touch sim4805td;"}'
+
+
 echo "NGINX configuring as reverse proxy"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen 80/{s/listen 80/#listen 80/}\" /etc/nginx/sites-enabled/default;sudo sed -i \"/\slisten 80/d\" /etc/nginx/sites-enabled/default; sudo sed -i \"0,/#listen 80/{s/#listen 80/listen 80/}\" /etc/nginx/sites-enabled/default;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen\s\[::\]/{s/listen\s\[::\]/#listen [::]/}\" /etc/nginx/sites-enabled/default; sudo sed -i \"/\slisten\s\[::\]/d\" /etc/nginx/sites-enabled/default; sudo sed -i \"0,/#listen\s\[::\]/{s/#listen\s\[::\]/listen [::]/}\" /etc/nginx/sites-enabled/default;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/root/{s/root/#root/}\" /etc/nginx/sites-enabled/default; sudo sed -i \"/^[[:space:]]root/d\" /etc/nginx/sites-enabled/default;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/location/{s/location/#location/}\" /etc/nginx/sites-enabled/default;"}'
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/^[[:space:]]location/aproxy_set_header Host \$host;\\nproxy_pass http\:\/\/127.0.0.1:8080; \" /etc/nginx/sites-enabled/default;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"/^[[:space:]]location/aproxy_set_header Host \$host;\\nproxy_pass http\:\/\/127.0.0.1:9000; \" /etc/nginx/sites-enabled/default;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/#location/{s/#location/location/}\" /etc/nginx/sites-enabled/default;"}'
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/try_files/{s/try_files/#try_files/}\" /etc/nginx/sites-enabled/default; sudo sed -i \"/[[:space:]]try_files/d\" /etc/nginx/sites-enabled/default;"}'
 
 echo "Reload NGINX config"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo systemctl reload-or-restart nginx;"}'
-'
+
