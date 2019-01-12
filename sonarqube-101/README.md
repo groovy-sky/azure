@@ -24,10 +24,18 @@ To complete this tutorial, we will need:
 There is one thing which should be done before running a deployment - we need to create a new resource group:
 ![](/images/sonarqube-101/azure_new_group.png)
 
-Now we can download and execute [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh). As input parameters it require 3 paramaters: 
+Now we can open our Linux environment (in this example has beend used Ubuntu on Linux), download [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh) file and execute it. To run it we will need to use following 3 paramaters (check the image below): 
+* Azure subscription Id
+* Azure deployment resource group name
+* Password for PostgreSQL
+
+---
+PostgreSQL password must be at least 8 characters in length and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.).
+---
+
 ![](/images/sonarqube-101/deploy_param.png)
 
-During script execution we will be asked for a password for the VM. Please provide password which meet [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
+Also, during the script execution, we will be asked for a password for the VM. Please provide password which conform to [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
 
 ![](/images/sonarqube-101/vm_password.png)
 
