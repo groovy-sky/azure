@@ -29,9 +29,9 @@ Now we can open our Linux environment (in this example has beend used Ubuntu on 
 * Azure deployment resource group name
 * Password for PostgreSQL
 
----
+```
 PostgreSQL password must be at least 8 characters in length and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.).
----
+```
 
 ![](/images/sonarqube-101/deploy_param.png)
 
