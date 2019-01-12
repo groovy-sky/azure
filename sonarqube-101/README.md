@@ -6,7 +6,15 @@ SonarQube is an open source platform to perform automatic reviews with static an
 In this tutorial, you will learn how to deploy ready-to-use SonarQube environment on Azure.
 
 ## Architecture
+![](/images/sonarqube-101/sonar_arch.png)
 
+
+![](/images/sonarqube-101/)
+
+![](/images/sonarqube-101/)
+
+![](/images/sonarqube-101/)
+![](/images/sonarqube-101/)
 
 ## Prerequisites
 
