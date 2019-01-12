@@ -8,19 +8,19 @@ In this tutorial, you will learn how to deploy ready-to-use SonarQube environmen
 ## Architecture
 ![](/images/sonarqube-101/sonar_arch.png)
 
-
-![](/images/sonarqube-101/)
-
-![](/images/sonarqube-101/)
-
-![](/images/sonarqube-101/)
-![](/images/sonarqube-101/)
-
 ## Prerequisites
+![](/images/sonarqube-101/azure_new_group.png)
 
 
 ## Implementation
+![](/images/sonarqube-101/deploy_param.png)
+![](/images/sonarqube-101/vm_password.png)
+![](/images/sonarqube-101/result.png)
 
+### Post-configuration
+![](/images/sonarqube-101/sonar_admin_pass.png)
+![](/images/sonarqube-101/pass_change.png)
+![](/images/sonarqube-101/sonar_off_anonym.png)
 
 ## Results
 
