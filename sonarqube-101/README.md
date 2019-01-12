@@ -21,9 +21,11 @@ To initialize the deployment we would need [script.sh file](https://github.com/g
 ![](/images/sonarqube-101/deploy_param.png)
 
 During script execution you will be asked for a password for the VM. Please provide password which meet [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
+
 ![](/images/sonarqube-101/vm_password.png)
 
-The deployment could take about 20-30 minutes
+The deployment could take about 20-30 minutes. After it will be finished, open newly created virtual machine, copy it DNS Name and access SonarQube using [Default Admin Credentials - 
+(admin/admin)](https://docs.sonarqube.org/latest/instance-administration/security/#header-2):
 ![](/images/sonarqube-101/result.png)
 
 ### Post-configuration
