@@ -41,15 +41,16 @@ Also, during the script execution, we will be asked for a password for the VM. P
 
 ![](/images/sonarqube-101/vm_password.png)
 
-The deployment could take about 20-30 minutes. After it will be finished, we can open newly created virtual machine, copy it DNS Name and access SonarQube thru HTTPS:
+The deployment could take about 25-40 minutes. After it will be finished, we can open newly created virtual machine, copy it DNS Name and access SonarQube thru HTTPS:
 ![](/images/sonarqube-101/result.png)
 
-SonarQube ships with a default administrator username and password - [admin/admin](https://docs.sonarqube.org/latest/instance-administration/security/#header-2)
+SonarQube ships with a default administrator username and password - [admin/admin](https://docs.sonarqube.org/latest/instance-administration/security/#header-2):
 ![](/images/sonarqube-101/admin_login.png)
 
 Such password is not secure, so we'll want to update it:
 ![](/images/sonarqube-101/sonar_admin_pass.png)
-![](/images/sonarqube-101/pass_change.png)
+
+Another important security breach is that the SonarQube instance is wide-open to the world, and anyone could view analysis results and of a source code. This setting is highly insecure, so we'll configure SonarQube to only allow logged-in users access to the dashboard:
 ![](/images/sonarqube-101/sonar_off_anonym.png)
 
 ## Results
@@ -62,3 +63,5 @@ https://docs.docker.com/compose/install/
 https://hub.docker.com/_/sonarqube
 
 https://docs.sonarqube.org/latest/instance-administration/security/
+
+https://www.digitalocean.com/community/tutorials/how-to-ensure-code-quality-with-sonarqube-on-ubuntu-16-04
