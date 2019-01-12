@@ -18,9 +18,9 @@ As a result we will get running VM (with NGINX and dockerized SonarQube) and Pos
 
 ## Prerequisites
 To complete this tutorial, we will need:
-* Active Azure subscription
-* Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed 'jq' package on it
-* Azure CLI 2 version
+* Active [Azure subscription](https://azure.microsoft.com/en-us/pricing/purchase-options/)
+* Some Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed 'jq' package on it
+* [Azure CLI 2 version](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
 ## Implementation
 There is one thing which should be done before running a deployment - we need to create a new resource group:
