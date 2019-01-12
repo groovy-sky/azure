@@ -12,14 +12,18 @@ In this tutorial, you will learn how to deploy ready-to-use SonarQube environmen
 List is following:
 * Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed 'jq' package on it
 * Azure CLI 2 version
+* Active Azure subscription
 
 ![](/images/sonarqube-101/azure_new_group.png)
-
 
 ## Implementation
 To initialize the deployment we would need [script.sh file](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh). As input parameters it require 3 paramaters: 
 ![](/images/sonarqube-101/deploy_param.png)
+
+During script execution you will be asked for a password for the VM. Please provide password which meet [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
 ![](/images/sonarqube-101/vm_password.png)
+
+The deployment could take about 20-30 minutes
 ![](/images/sonarqube-101/result.png)
 
 ### Post-configuration
@@ -33,6 +37,5 @@ To initialize the deployment we would need [script.sh file](https://github.com/g
 ## Useful documentation
 
 https://docs.docker.com/compose/install/
-https://hub.docker.com/_/sonarqube
 
-## References
+https://hub.docker.com/_/sonarqube
