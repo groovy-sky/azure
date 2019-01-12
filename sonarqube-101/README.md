@@ -53,15 +53,16 @@ Such password is not secure, so we'll want to update it:
 Another important security breach is that the SonarQube instance is wide-open to the world, and anyone could view analysis results and of a source code. This setting is highly insecure, so we'll configure SonarQube to only allow logged-in users access to the dashboard:
 ![](/images/sonarqube-101/sonar_off_anonym.png)
 
-## Results
-
+## Conclusion
+In this tutorial, we've set up a SonarQube instance and secure it. Now you're ready to [install an analyzer and begin creating projects](https://docs.sonarqube.org/latest/analysis/overview/). 
 
 ## Useful documentation
 
-https://docs.docker.com/compose/install/
+[Get started with Docker Compose
+](https://docs.docker.com/compose/gettingstarted/)
 
-https://hub.docker.com/_/sonarqube
+[SonarQube docker image](https://hub.docker.com/_/sonarqube)
 
-https://docs.sonarqube.org/latest/instance-administration/security/
+[About SonarQube security](https://docs.sonarqube.org/latest/instance-administration/security/)
 
-https://www.digitalocean.com/community/tutorials/how-to-ensure-code-quality-with-sonarqube-on-ubuntu-16-04
+[Another article about installing and configuring SonarQube](https://www.digitalocean.com/community/tutorials/how-to-ensure-code-quality-with-sonarqube-on-ubuntu-16-04)
