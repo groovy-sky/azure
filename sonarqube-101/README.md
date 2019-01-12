@@ -44,9 +44,10 @@ Also, during the script execution, we will be asked for a password for the VM. P
 The deployment could take about 20-30 minutes. After it will be finished, we can open newly created virtual machine, copy it DNS Name and access SonarQube thru HTTPS:
 ![](/images/sonarqube-101/result.png)
 
-To [default Administrator credentials - admin/admin](https://docs.sonarqube.org/latest/instance-administration/security/#header-2)
+SonarQube ships with a default administrator username and password - [admin/admin](https://docs.sonarqube.org/latest/instance-administration/security/#header-2)
+![](/images/sonarqube-101/admin_login.png)
 
-### Post-configuration
+Such password is not secure, so we'll want to update it:
 ![](/images/sonarqube-101/sonar_admin_pass.png)
 ![](/images/sonarqube-101/pass_change.png)
 ![](/images/sonarqube-101/sonar_off_anonym.png)
