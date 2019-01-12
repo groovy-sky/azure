@@ -62,3 +62,4 @@ az vm extension set --resource-group $deployment_group --vm-name $vm_name --name
 echo "Reload NGINX config"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo systemctl reload-or-restart nginx;"}'
 
+echo "Now you can access sonarqube by opening https://$vm_fqdn"
