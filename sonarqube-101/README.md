@@ -7,9 +7,9 @@ In this tutorial, we will learn how to deploy ready-to-use SonarQube environment
 
 ## Architecture
 To reproduce the solution we will need to download and run [script.sh](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/script.sh), which will:
-1. Create Virtual Machine and PostgreSQL instance in Azure using [azuredeploy.json](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/azuredeploy.json).
+1. Create a Linux Virtual Machine and a PostgreSQL instance in Azure using ["azuredeploy.json"](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/azuredeploy.json) file.
 1. Install NGINX and Certbot for providing secure access to SonarQube
-1. Install Docker and Docker compose for running containerized SonarQube instance using [docker-compose.yml](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml)
+1. Install Docker and Docker compose for running containerized SonarQube instance using ["docker-compose.yml"](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml) file
 
 As a result we will get running VM (with NGINX and dockerized SonarQube) and PostgreSQL instance (used as a database for SonarQube):
 ![](/images/sonarqube-101/sonar_arch.png)
