@@ -1,9 +1,7 @@
 # How-to deploy to Azure SonarQube
 
 ## Introduction
-SonarQube is an open source platform to perform automatic reviews with static analysis of code to detect bugs, code smells and security vulnerabilities on 25+ programming languages including Java, C#, JavaScript, TypeScript, C/C++, COBOL and more. SonarQube is the only product on the market that supports a leak approach as a practice to code quality.
-
-SonarQube is an open-source tool that assists in code quality analysis and reporting. It scans your source code looking for potential bugs, vulnerabilities, and maintainability issues, and then presents the results in a report which will allow you to identify potential issues in your application.
+SonarQube is an open source platform to perform automatic reviews with static analysis of code to detect bugs, code smells and security vulnerabilities.
 
 In this tutorial, we will learn how to deploy ready-to-use SonarQube environment on Azure.
 
@@ -19,14 +17,13 @@ As a result we will get running VM (with NGINX and dockerized SonarQube) and Pos
 ## Prerequisites
 To complete this tutorial, we will need:
 * Active [Azure subscription](https://azure.microsoft.com/en-us/pricing/purchase-options/)
-* Some Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed 'jq' package on it
-* [Azure CLI 2 version](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+* Some Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed ['jq'](https://stedolan.github.io/jq/) and ['Azure CLI'](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) packages on it
 
 ## Implementation
 There is one thing which should be done before running a deployment - we need to create a new resource group:
 ![](/images/sonarqube-101/azure_new_group.png)
 
-Now we can open our Linux environment (in this example has beend used Ubuntu on Linux), download [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh) file and execute it. To run it we will need to use following 3 paramaters (check the image below): 
+Now we can open our Linux environment (in this example has beend used Ubuntu on Linux), login to Azure CLI (by running command 'az login'), download [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh) file and execute it. As an iput 'script.sh' requires following 3 paramaters: 
 * Azure subscription Id
 * Azure deployment resource group name
 * Password for PostgreSQL
@@ -34,10 +31,11 @@ Now we can open our Linux environment (in this example has beend used Ubuntu on 
 ```
 PostgreSQL password must be at least 8 characters in length and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.).
 ```
+Now we can start to deploy our solution (order of parameters should be the same as on the image):
 
 ![](/images/sonarqube-101/deploy_param.png)
 
-Also, during the script execution, we will be asked for a password for the VM. Please provide password which conform to [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
+During the script execution, we will be asked for a password for the VM. Please provide password which conform to [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
 
 ![](/images/sonarqube-101/vm_password.png)
 
