@@ -3,6 +3,8 @@
 ## Introduction
 SonarQube is an open source platform to perform automatic reviews with static analysis of code to detect bugs, code smells and security vulnerabilities on 25+ programming languages including Java, C#, JavaScript, TypeScript, C/C++, COBOL and more. SonarQube is the only product on the market that supports a leak approach as a practice to code quality.
 
+SonarQube is an open-source tool that assists in code quality analysis and reporting. It scans your source code looking for potential bugs, vulnerabilities, and maintainability issues, and then presents the results in a report which will allow you to identify potential issues in your application.
+
 In this tutorial, we will learn how to deploy ready-to-use SonarQube environment on Azure.
 
 ## Architecture
@@ -39,9 +41,10 @@ Also, during the script execution, we will be asked for a password for the VM. P
 
 ![](/images/sonarqube-101/vm_password.png)
 
-The deployment could take about 20-30 minutes. After it will be finished, open newly created virtual machine, copy it DNS Name and access SonarQube using [default admin credentials - 
-(admin/admin)](https://docs.sonarqube.org/latest/instance-administration/security/#header-2):
+The deployment could take about 20-30 minutes. After it will be finished, we can open newly created virtual machine, copy it DNS Name and access SonarQube thru HTTPS:
 ![](/images/sonarqube-101/result.png)
+
+To [default Administrator credentials - admin/admin](https://docs.sonarqube.org/latest/instance-administration/security/#header-2)
 
 ### Post-configuration
 ![](/images/sonarqube-101/sonar_admin_pass.png)
