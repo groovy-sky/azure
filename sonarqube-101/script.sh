@@ -12,21 +12,19 @@ echo "Selecting subscription"
 az account set -s $subscription_id
 
 echo "Initial deploy"
-output_data=$(az group deployment create --resource-group $deployment_group --template-file azuredeploy.json --query "[properties.outputs]" --parameters postgresqlUsernamePassword=$sql_pass)
+#output_data=$(az group deployment create --resource-group $deployment_group --template-file azuredeploy.json --query "[properties.outputs]" --parameters postgresqlUsernamePassword=$sql_pass)
+output_data=$(az group deployment create --resource-group $deployment_group --template-uri https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/azuredeploy.json --query "[properties.outputs]" --parameters postgresqlUsernamePassword=$sql_pass)
 
 echo "Getting VM data"
 vm_name=$(echo $output_data | jq --raw-output '.[0]."vm-name".value')
 vm_fqdn=$(echo $output_data | jq --raw-output '.[0]."vm-fqdn".value')
 
+echo "Getting user account email for Certbot"
 email=$(az account show -o tsv --query user.name)
 
+echo "Getting SQL data"
 sql_server=$(echo $output_data | jq --raw-output '.[0]."sql-server".value')
 sql_user=$(echo $output_data | jq --raw-output '.[0]."sql-user".value')
-
-file_share=$(echo $output_data | jq --raw-output '.[0]."file-share".value')
-storage=$(echo $output_data | jq --raw-output '.[0]."storage".value')
-
-
 sql_jdbc="jdbc:postgresql://$sql_server.postgres.database.azure.com:5432/$sql_server?user=$sql_user@$sql_server&password=$sql_pass&sslmode=required"
 
 echo "Installing NGINX"
@@ -45,23 +43,12 @@ echo "Configuring and installing docker"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-get update; sudo apt-get install docker-ce -y;sudo apt-get install python-pip -y; export LC_ALL=C; sudo pip install docker-py;"}'
 
 echo "Installing docker compose"
-#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo pip install docker-compose;"}'
-#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-get install -y docker-compose;"}'
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo apt-get install -y docker-compose;"}'
 
-
-
-echo "Installing docker compose"
-#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo echo \"version: double_quotes2double_quotes \" > /opt/docker-compose.yml; sudo echo \"services:\" >> /opt/docker-compose.yml; sudo echo \"  sonarqube:\" >> /opt/docker-compose.yml; sudo echo \"    image: sonarqube:lts\" >> /opt/docker-compose.yml; sudo echo \"    ports:\" >> /opt/docker-compose.yml; sudo echo \"      - double_quotes9000:9000double_quotes \" >> /opt/docker-compose.yml; sudo echo \"    environment:\" >> /opt/docker-compose.yml; sudo echo \"      - sonar.jdbc='$sql_jdbc' \" >> /opt/docker-compose.yml;"}'
-
+echo "Building docker-compose.yml file"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo wget https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml -P /opt/;"}'
-
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings "{  \"commandToExecute\": \"sudo sed -i 's|sql_jdbc|"$sql_jdbc"|g' /opt/docker-compose.yml; \"}"
-
-
-#az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo docker-compose -f /opt/docker-compose.yml up -d;"}'
-
-az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo touch sim4805td;"}'
-
+az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo docker-compose -f /opt/docker-compose.yml up -d;"}'
 
 echo "NGINX configuring as reverse proxy"
 az vm extension set --resource-group $deployment_group --vm-name $vm_name --name customScript --publisher Microsoft.Azure.Extensions --settings '{  "commandToExecute": "sudo sed -i \"0,/listen 80/{s/listen 80/#listen 80/}\" /etc/nginx/sites-enabled/default;sudo sed -i \"/\slisten 80/d\" /etc/nginx/sites-enabled/default; sudo sed -i \"0,/#listen 80/{s/#listen 80/listen 80/}\" /etc/nginx/sites-enabled/default;"}'
