@@ -6,17 +6,21 @@ SonarQube is an open source platform to perform automatic reviews with static an
 In this tutorial, you will learn how to deploy ready-to-use SonarQube environment on Azure.
 
 ## Architecture
+[docker-compose.yml](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml)
+[script.sh](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/script.sh)
+[azuredeploy.json](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/azuredeploy.json)
 ![](/images/sonarqube-101/sonar_arch.png)
 
 ## Prerequisites
-List is following:
+To complete this tutorial, you will need:
+* Active Azure subscription
 * Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed 'jq' package on it
 * Azure CLI 2 version
-* Active Azure subscription
-
-![](/images/sonarqube-101/azure_new_group.png)
 
 ## Implementation
+Before running a deployment - create new resource group:
+![](/images/sonarqube-101/azure_new_group.png)
+
 To initialize the deployment we would need [script.sh file](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh). As input parameters it require 3 paramaters: 
 ![](/images/sonarqube-101/deploy_param.png)
 
