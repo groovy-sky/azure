@@ -36,7 +36,7 @@ PostgreSQL password must be at least 8 characters in length and contain characte
 ```
 Now we can start to deploy our solution (order of parameters should be the same as on the image):
 
-![](/images/sonarqube-101/deploy_params.png)
+![](/images/sonarqube-101/deploy_param.png)
 
 The deployment could take about 25-40 minutes. After it will be finished, we can open newly created virtual machine, copy it DNS Name and access SonarQube thru HTTPS:
 ![](/images/sonarqube-101/result.png)
