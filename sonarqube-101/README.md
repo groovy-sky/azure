@@ -27,7 +27,7 @@ Now we can open our Linux environment (in this example has beend used Ubuntu on 
 * Azure subscription Id
 * Azure deployment resource group name
 * Password for Virtual Machine (requirements you can find [here](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm))
-* Password for PostgreSQL (must be at least 8 characters in length and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.))
+* Password for PostgreSQL (must be at least 8 characters in length and contain characters from three of the following categories – uppercase letters, lowercase letters, numbers and non-alphanumeric characters)
 
 Now we can start to deploy our solution (order of parameters should be the same as on the image):
 
