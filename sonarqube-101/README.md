@@ -26,14 +26,9 @@ There is one thing which should be done before running a deployment - we need to
 Now we can open our Linux environment (in this example has beend used Ubuntu on Linux), login to Azure CLI (by running command 'az login'), download [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh) file and execute it. As an iput 'script.sh' requires following 3 paramaters: 
 * Azure subscription Id
 * Azure deployment resource group name
-* Password for Virtual Machine
-* Password for PostgreSQL
+* Password for Virtual Machine (requirements you can find [here](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm))
+* Password for PostgreSQL (must be at least 8 characters in length and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.))
 
-```
-Virtual machine password requirements you can find [here](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
-
-PostgreSQL password must be at least 8 characters in length and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.).
-```
 Now we can start to deploy our solution (order of parameters should be the same as on the image):
 
 ![](/images/sonarqube-101/deploy_param.png)
