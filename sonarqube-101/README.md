@@ -38,10 +38,6 @@ Now we can start to deploy our solution (order of parameters should be the same 
 
 ![](/images/sonarqube-101/deploy_params.png)
 
-During the script execution, we will be asked for a password for the VM. Please provide password which conform to 
-
-![](/images/sonarqube-101/vm_password.png)
-
 The deployment could take about 25-40 minutes. After it will be finished, we can open newly created virtual machine, copy it DNS Name and access SonarQube thru HTTPS:
 ![](/images/sonarqube-101/result.png)
 
