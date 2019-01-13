@@ -6,8 +6,8 @@ fi
 
 subscription_id=$1;
 deployment_group=$2;
-sql_pass=$3;
-vm_pass=$4;
+vm_pass=$3;
+sql_pass=$4;
 
 echo "Selecting subscription"
 az account set -s $subscription_id
