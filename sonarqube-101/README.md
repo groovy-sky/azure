@@ -1,4 +1,4 @@
-# How-to deploy to Azure SonarQube
+# How-to deploy SonarQube to Azure 
 
 ## Introduction
 SonarQube is an open source platform to perform automatic reviews with static analysis of code to detect bugs, code smells and security vulnerabilities.
