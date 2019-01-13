@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+if [ -z $1 ] || [ -z $2 ] || [ -z $3 ] || [ -z $4 ]
 then
  exit 1
 fi
@@ -7,13 +7,14 @@ fi
 subscription_id=$1;
 deployment_group=$2;
 sql_pass=$3;
+vm_pass=$4;
 
 echo "Selecting subscription"
 az account set -s $subscription_id
 
 echo "Initial deploy"
 #output_data=$(az group deployment create --resource-group $deployment_group --template-file azuredeploy.json --query "[properties.outputs]" --parameters postgresqlUsernamePassword=$sql_pass)
-output_data=$(az group deployment create --resource-group $deployment_group --template-uri https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/azuredeploy.json --query "[properties.outputs]" --parameters postgresqlUsernamePassword=$sql_pass)
+output_data=$(az group deployment create --resource-group $deployment_group --template-uri https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/azuredeploy.json --query "[properties.outputs]" --parameters postgresqlUsernamePassword=$sql_pass --parameters vmadminPassword=$vm_pass)
 
 echo "Getting VM data"
 vm_name=$(echo $output_data | jq --raw-output '.[0]."vm-name".value')
