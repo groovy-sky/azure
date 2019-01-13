@@ -33,7 +33,7 @@ PostgreSQL password must be at least 8 characters in length and contain characte
 ```
 Now we can start to deploy our solution (order of parameters should be the same as on the image):
 
-![](/images/sonarqube-101/deploy_param.png)
+![](/images/sonarqube-101/deploy_params.png)
 
 During the script execution, we will be asked for a password for the VM. Please provide password which conform to [password requirements](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm):
 
