@@ -11,19 +11,19 @@ To reproduce the solution we will need to download and run [script.sh](https://r
 1. Install NGINX and Certbot for providing secure access to SonarQube
 1. Install Docker and Docker compose for running containerized SonarQube instance using [docker-compose.yml](https://raw.githubusercontent.com/groovy-sky/azure/master/sonarqube-101/docker-compose.yml) template
 
-As a result we will get running VM (with NGINX and dockerized SonarQube) and PostgreSQL instance (used as a database for SonarQube):
+As a result, we will get running VM (with NGINX and containerized SonarQube instance) and PostgreSQL instance (used as a database for SonarQube):
 ![](/images/sonarqube-101/sonar_arch.png)
 
 ## Prerequisites
 To complete this tutorial, we will need:
 * Active [Azure subscription](https://azure.microsoft.com/en-us/pricing/purchase-options/)
-* Some Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed ['jq'](https://stedolan.github.io/jq/) and ['Azure CLI'](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) packages on it
+* Some Linux environment (Ubuntu, Debian, Centos, Suse or Windows Subsystem for Linux) with installed ['jq'](https://stedolan.github.io/jq/) and ['Azure CLI'](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)   packages on it
 
 ## Implementation
 There is one thing which should be done before running a deployment - we need to create a new resource group:
 ![](/images/sonarqube-101/azure_new_group.png)
 
-Now we can open our Linux environment (in this example has beend used Ubuntu on Linux), login to Azure CLI (by running command 'az login'), download [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh) file and execute it. As an iput 'script.sh' requires following 3 paramaters: 
+Now we can open our Linux environment (in this example has been used Ubuntu on Linux), login to Azure CLI (by running command 'az login'), download [script.sh](https://github.com/groovy-sky/azure/raw/master/sonarqube-101/script.sh) file and execute it. As an input 'script.sh' requires following 3 parameters: 
 * Azure subscription Id
 * Azure deployment resource group name
 * Password for Virtual Machine (requirements you can find [here](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm))
