@@ -28,6 +28,13 @@ https://azure.microsoft.com/en-us/services/devops
 
 ![](/images/sonarqube-101/new_pipeline.png)
 
+![](/images/sonarqube-101/pipeline_cleanup.png)
+
+![](/images/sonarqube-101/specify_pipeline_variable.png)
+![](/images/sonarqube-101/add_sonar_to_pipeline.png)
+![](/images/sonarqube-101/pipeline_config_1.png)
+![](/images/sonarqube-101/pipeline_config_2.png)
+
 
 ### Known limitations
 http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size
