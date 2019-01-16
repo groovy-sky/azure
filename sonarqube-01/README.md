@@ -9,7 +9,7 @@ Solution parts:
 * Source repository - in this example we will use [Azure CLI source code](https://github.com/Azure/azure-cli)
 * Build envinorment - Azure DevOps
 * SonarQube server
-![](images/sonarqube-101/build_pipeline.png)
+![](/images/sonarqube-101/build_pipeline.png)
 
 ## Prerequisites
 Azure DevOps (aka VSTS) with installed SonarQube extension
@@ -18,8 +18,16 @@ https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube
 Go to https://dev.azure.com/
 
 https://azure.microsoft.com/en-us/services/devops
+![](/images/sonarqube-101/sonar_marketplace.png)
+![](/images/sonarqube-101/sonar_marketplace_succeed.png)
 
 ## Implementation
+
+![](/images/sonarqube-101/devops_import_repo.png)
+![](/images/sonarqube-101/devops_import_repo_result.png)
+
+![](/images/sonarqube-101/new_pipeline.png)
+
 
 ### Known limitations
 http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size
