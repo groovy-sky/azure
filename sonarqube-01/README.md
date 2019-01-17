@@ -36,7 +36,7 @@ Once data is imported - we can create a new build pipeline:
 There is no need to run "Flake8" and "pytest" pipeline steps, so we can just remove or disable them(use right click to open the menu): 
 ![](/images/sonarqube-101/pipeline_cleanup.png)
 
-As [official documentation](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS) says - "To analyse your projects, the extension provides 3 tasks that you will use in your build definitions". Steps are following:
+Next, we need to add SonarQube part to the pipeline. As [official documentation](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS) says - "To analyse your projects, the extension provides 3 tasks that you will use in your build definitions". Steps are following:
 1. Prepare Analysis Configuration task, to configure all the required settings before executing the build. 
 1. Run Code Analysis task, to actually execute the analysis of the source code. 
 1. Publish Quality Gate Result task, to display the Quality Gate status in the build summary and give you a sense of whether the application is ready for production "quality-wise". 
@@ -69,7 +69,11 @@ sudo nano /etc/nginx/sites-enabled/default
 sudo systemctl reload nginx
 
 ## Results
+
+Once it completes, go to SonarQube to see analysis results:
+
 ![](/images/sonarqube-101/pipeline_run_result.png)
+
 ![](/images/sonarqube-101/sonarqube_azure_results.png)
 
 ## Useful documentation
