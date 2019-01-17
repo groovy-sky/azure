@@ -57,20 +57,25 @@ Now we can save and queue our build pipeline:
 
 ### Known limitations
 
+If build fails with "413 Request Entity Too Large" error - when you need to increase NGINX [the upload size limit](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size):
 ![](/images/sonarqube-101/sonar_error.png)
 
+NGINX is running as a service on SonarQube server. To change required parameter we could. To do so we need to remotely connect to the server:
+* Connect to VM using SSH - for that we need to add an [allow rule to NSG](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/nsg-quickstart-portal#create-an-inbound-security-rule)
+* Connect to VM using Serial console - for that we need to enable boot diagnostics
+This time we will use second option, after enabling it:
 ![](/images/sonarqube-101/serial_console_enable.png)
+For a login, please, use "adm1n" for a username and password, used during the template deployment from previous article(or if you don't remmember it - just [reset it](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess#reset-password)):
 ![](/images/sonarqube-101/serial_login.png)
+
+Now we can modify required parameter in your prefferable text editor (for example "sudo nano /etc/nginx/sites-enabled/default"): 
 ![](/images/sonarqube-101/add_client_max_param.png)
 
-
-http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size
-sudo nano /etc/nginx/sites-enabled/default
-sudo systemctl reload nginx
+So changes started to work we need to reload NGINX - "sudo systemctl reload nginx"
 
 ## Results
 
-Once it completes, go to SonarQube to see analysis results:
+Once build successfully completes, go to SonarQube to see analysis results:
 
 ![](/images/sonarqube-101/pipeline_run_result.png)
 
@@ -79,4 +84,7 @@ Once it completes, go to SonarQube to see analysis results:
 ## Useful documentation
 
 https://www.azuredevopslabs.com/labs/vstsextend/sonarqube/
+
 https://docs.sonarqube.org/latest/analysis/overview/
+
+https://www.keycdn.com/support/413-request-entity-too-large
