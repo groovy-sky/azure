@@ -37,6 +37,11 @@ Now we can register [SonarQube extension](https://marketplace.visualstudio.com/i
 ![](/images/sonarqube-101/pipeline_cleanup.png)
 
 ![](/images/sonarqube-101/specify_pipeline_variable.png)
+As [official documentation](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS) says - "To analyse your projects, the extension provides 3 tasks that you will use in your build definitions". Steps are following:
+1. Prepare Analysis Configuration task, to configure all the required settings before executing the build. 
+1. Run Code Analysis task, to actually execute the analysis of the source code. 
+1. Publish Quality Gate Result task, to display the Quality Gate status in the build summary and give you a sense of whether the application is ready for production "quality-wise". 
+Third step is not matadory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
 ![](/images/sonarqube-101/add_sonar_to_pipeline.png)
 ![](/images/sonarqube-101/pipeline_config_1.png)
 ![](/images/sonarqube-101/pipeline_config_2.png)
@@ -64,3 +69,4 @@ sudo systemctl reload nginx
 ## Useful documentation
 
 https://www.azuredevopslabs.com/labs/vstsextend/sonarqube/
+https://docs.sonarqube.org/latest/analysis/overview/
