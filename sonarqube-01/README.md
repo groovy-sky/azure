@@ -18,10 +18,12 @@ Solution parts:
 
 Azure DevOps (aka VSTS) with installed SonarQube extension
 If you don't have exsisting Azure DevOps project you can easily create a new one.
-https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube
-Go to https://dev.azure.com/
 
-https://azure.microsoft.com/en-us/services/devops
+Go to https://azure.microsoft.com/en-us/services/devops and create a project:
+![](/images/sonarqube-101/devops_first_project.png)
+
+
+Now we can register [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube):
 ![](/images/sonarqube-101/sonar_marketplace.png)
 ![](/images/sonarqube-101/sonar_marketplace_succeed.png)
 
