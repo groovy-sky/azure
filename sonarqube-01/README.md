@@ -30,23 +30,30 @@ As has been mentioned above for a source code we will use "Azure CLI" repository
 ![](/images/sonarqube-101/devops_import_repo.png)
 ![](/images/sonarqube-101/devops_import_repo_result.png)
 
-Once data 
+Once data is imported - we can create a new build pipeline:
 ![](/images/sonarqube-101/new_pipeline.png)
 
+There is no need to run "Flake8" and "pytest" pipeline steps, so we can just remove or disable them(use right click to open the menu): 
 ![](/images/sonarqube-101/pipeline_cleanup.png)
 
-![](/images/sonarqube-101/specify_pipeline_variable.png)
 As [official documentation](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS) says - "To analyse your projects, the extension provides 3 tasks that you will use in your build definitions". Steps are following:
 1. Prepare Analysis Configuration task, to configure all the required settings before executing the build. 
 1. Run Code Analysis task, to actually execute the analysis of the source code. 
 1. Publish Quality Gate Result task, to display the Quality Gate status in the build summary and give you a sense of whether the application is ready for production "quality-wise". 
-Third step is not matadory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
+Third task is not matadory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
 ![](/images/sonarqube-101/add_sonar_to_pipeline.png)
+
+Now we need to configure "Prepare Analysis Configuration" step:
 ![](/images/sonarqube-101/pipeline_config_1.png)
+
+Also we will need to specify "working directory" for "Build sdist" task:
 ![](/images/sonarqube-101/pipeline_config_2.png)
 
-![](/images/sonarqube-101/pipeline_run_result.png)
+By default build pipeline will use for a build multiple Python versions. As enhancement we can set only one version: 
+![](/images/sonarqube-101/specify_pipeline_variable.png)
 
+Now we can save and queue our build pipeline: 
+![](/images/sonarqube-101/run_a_pipeline.png)
 
 ### Known limitations
 
@@ -62,7 +69,7 @@ sudo nano /etc/nginx/sites-enabled/default
 sudo systemctl reload nginx
 
 ## Results
-
+![](/images/sonarqube-101/pipeline_run_result.png)
 ![](/images/sonarqube-101/sonarqube_azure_results.png)
 
 ## Useful documentation
