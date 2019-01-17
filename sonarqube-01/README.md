@@ -8,30 +8,29 @@
 ## Architecture
 Solution parts:
 
-* Source repository - in this example we will use [Azure CLI source code](https://github.com/Azure/azure-cli)
-* Build envinorment - Azure DevOps
+* Some code, which we will analyze - in this example we will copy [Azure CLI source code](https://github.com/Azure/azure-cli)
+* Build envinorment - Azure DevOps Build pipeline
 * SonarQube server
 
 ![](/images/sonarqube-101/build_pipeline.png)
 
 ## Prerequisites
+For this tutorial we would need to install [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube) from the Marketplace.
 
-Azure DevOps (aka VSTS) with installed SonarQube extension
-If you don't have exsisting Azure DevOps project you can easily create a new one.
-
-Go to https://azure.microsoft.com/en-us/services/devops and create a project:
+If you don't have exsisting Azure DevOps project you can easily create a new one. Just go to https://azure.microsoft.com/en-us/services/devops and create a new project:
 ![](/images/sonarqube-101/devops_first_project.png)
 
-
-Now we can register [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube):
+Next step is [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube) installation:
 ![](/images/sonarqube-101/sonar_marketplace.png)
 ![](/images/sonarqube-101/sonar_marketplace_succeed.png)
 
 ## Implementation
 
+As has been mentioned above for a source code we will use "Azure CLI" repository. Let's import it to our project: 
 ![](/images/sonarqube-101/devops_import_repo.png)
 ![](/images/sonarqube-101/devops_import_repo_result.png)
 
+Once data 
 ![](/images/sonarqube-101/new_pipeline.png)
 
 ![](/images/sonarqube-101/pipeline_cleanup.png)
