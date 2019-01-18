@@ -40,6 +40,7 @@ Next, we need to add SonarQube part to the pipeline. As [official documentation]
 1. Prepare Analysis Configuration task, to configure all the required settings before executing the build. 
 1. Run Code Analysis task, to actually execute the analysis of the source code. 
 1. Publish Quality Gate Result task, to display the Quality Gate status in the build summary and give you a sense of whether the application is ready for production "quality-wise". 
+
 Third task is not matadory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
 ![](/images/sonarqube-101/add_sonar_to_pipeline.png)
 
