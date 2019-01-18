@@ -9,7 +9,7 @@
 Solution parts:
 
 * Some code, which we will analyze - in this example we will copy [Azure CLI source code](https://github.com/Azure/azure-cli)
-* Build envinorment - Azure DevOps Build pipeline
+* Build environment - Azure DevOps Build pipeline
 * SonarQube server
 
 ![](/images/sonarqube-101/build_pipeline.png)
@@ -17,7 +17,7 @@ Solution parts:
 ## Prerequisites
 For this tutorial we would need to install [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube) from the Marketplace.
 
-If you don't have exsisting Azure DevOps project you can easily create a new one. Just go to https://azure.microsoft.com/en-us/services/devops and create a new project:
+If you don't have existing Azure DevOps project you can easily create a new one. Just go to https://azure.microsoft.com/en-us/services/devops and create a new project:
 ![](/images/sonarqube-101/devops_first_project.png)
 
 Next step is [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube) installation:
@@ -41,7 +41,7 @@ Next, we need to add SonarQube part to the pipeline. As [official documentation]
 1. Run Code Analysis task, to actually execute the analysis of the source code. 
 1. Publish Quality Gate Result task, to display the Quality Gate status in the build summary and give you a sense of whether the application is ready for production "quality-wise". 
 
-Third task is not matadory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
+Third task is not mandatory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
 ![](/images/sonarqube-101/add_sonar_to_pipeline.png)
 
 Now we need to configure "Prepare Analysis Configuration" step:
@@ -67,10 +67,10 @@ NGINX is running as a service on SonarQube server. To change required parameter 
 
 This time we will use second option. Let's enable it:
 ![](/images/sonarqube-101/serial_console_enable.png)
-For a login, please, use "adm1n" for a username and for a password you need to use password which you specified during template deployment from previous article(or if you don't remmember it - just [reset it](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess#reset-password)):
+For a login, please, use "adm1n" for a username and for a password you need to use password which you specified during template deployment from previous article(or if you don't remember it - just [reset it](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess#reset-password)):
 ![](/images/sonarqube-101/serial_login.png)
 
-Now we can modify required parameter in your prefferable text editor (for example "sudo nano /etc/nginx/sites-enabled/default"): 
+Now we can modify required parameter in your preferable text editor (for example "sudo nano /etc/nginx/sites-enabled/default"): 
 ![](/images/sonarqube-101/add_client_max_param.png)
 
 So changes started to work we need to reload NGINX - "sudo systemctl reload nginx"
