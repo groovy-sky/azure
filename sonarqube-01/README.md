@@ -58,7 +58,7 @@ Now we can save and queue our build pipeline:
 
 ### Known limitations
 
-If build fails with "413 Request Entity Too Large" error - when you need to increase NGINX [the upload size limit](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size):
+If build fails with "413 Request Entity Too Large" error - when you need to increase NGINX's [upload size limit](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size):
 ![](/images/sonarqube-101/sonar_error.png)
 
 NGINX is running as a service on SonarQube server. To change required parameter we could. To do so we need to remotely connect to the server:
