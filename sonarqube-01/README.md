@@ -44,8 +44,9 @@ Next, we need to add SonarQube part to the pipeline. As [official documentation]
 Third task is not mandatory, which is why we will skip it and add only "Prepare Analysis Configuration" and "Run Code Analysis" tasks:
 ![](/images/sonarqube-101/add_sonar_to_pipeline.png)
 
-Now we need to configure "Prepare Analysis Configuration" step:
+Now we need to configure "Prepare Analysis Configuration" step. To do so we need to generate new token on SonarQube server side:
 ![](/images/sonarqube-101/new_sonar_token.png)
+After that we need to add a new service connection to 
 ![](/images/sonarqube-101/devops_new_service.png)
 ![](/images/sonarqube-101/pipeline_config_1.png)
 
