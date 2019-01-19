@@ -45,6 +45,8 @@ Third task is not mandatory, which is why we will skip it and add only "Prepare 
 ![](/images/sonarqube-101/add_sonar_to_pipeline.png)
 
 Now we need to configure "Prepare Analysis Configuration" step:
+![](/images/sonarqube-101/new_sonar_token.png)
+![](/images/sonarqube-101/devops_new_service.png)
 ![](/images/sonarqube-101/pipeline_config_1.png)
 
 Also we will need to specify "working directory" for "Build sdist" task:
