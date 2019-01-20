@@ -46,7 +46,7 @@ Third task is not mandatory, which is why we will skip it and add only "Prepare 
 
 Now we need to configure "Prepare Analysis Configuration" step. To do so we need to generate new token on SonarQube server side:
 ![](/images/sonarqube-101/new_sonar_token.png)
-After that we need to add a new service connection to 
+Generated token we will use for a new service creation and, as we won't store sonarqube settings in our source code, manually provide in the pipeline:
 ![](/images/sonarqube-101/devops_new_service.png)
 ![](/images/sonarqube-101/pipeline_config_1.png)
 
