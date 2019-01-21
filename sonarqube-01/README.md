@@ -6,7 +6,7 @@
 
 
 ## Architecture
-In our scenario we will use configuration, which contain 3 main parts:
+In our scenario we will use configuration, which contains following parts:
 
 * Some code, which we will analyze - in this example we will copy [Azure CLI source code](https://github.com/Azure/azure-cli)
 * Build environment - Azure DevOps Build pipeline
