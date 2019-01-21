@@ -16,7 +16,7 @@ With the Tower we can manage playbooks and playbook directories by either placin
 
 ![Scheme](/images/ansible-tower/awx_current_flow.png)
 
-In our scenario we will use configuration, which contain 3 main parts:
+In our scenario we will use configuration, which contains following parts:
 * Source Code Management system - we will use [our demo Github repository](https://github.com/groovy-sky/tower-examples.git)
 * AWX Host
 * Test Azure VM - in our case we can create another virtual machine in Azure. To do that we can create [a free account virtual machine](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft.freeaccountvirtualmachine) (available for a [MSDN Azure subscription](https://azure.microsoft.com/en-us/pricing/member-offers/credit-for-visual-studio-subscribers/)) or  create [a standard Ubuntu VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal#create-virtual-machine):
