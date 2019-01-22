@@ -23,6 +23,8 @@ https://www.opcito.com/blogs/custom-inventory-management-using-ansible-awx-tower
 
 https://www.opcito.com/blogs/what-more-can-you-do-with-ansible-awx/
 
+https://www.redhat.com/files/summit/session-assets/2016/SS44918-self-service-it-and-delegation-with-ansible-tower.pdf
+
 
 ## References
 
