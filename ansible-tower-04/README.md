@@ -17,6 +17,8 @@
 
 ## Useful documentation
 
+https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html
+
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
 
 https://www.opcito.com/blogs/custom-inventory-management-using-ansible-awx-tower
