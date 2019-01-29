@@ -24,6 +24,10 @@ An Active Azure Subscription
 
 https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
+![](/images/ansible-tower/tower_playbooks.png)
+
+![](/images/ansible-tower/awx_update_project.png)
+
 ![](/images/ansible-tower/project_arch.png)
 
 ![](/images/ansible-tower/template_workflow_schema.png)
@@ -34,7 +38,6 @@ https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
 ![](/images/ansible-tower/awx_invent.png)
 
-![](/images/ansible-tower/tower_playbooks.png)
 
 ![](/images/ansible-tower/nginx_templates.png)
 
