@@ -11,7 +11,9 @@ The word “workflow” says it all. This particular feature in Ansible Tower en
 * Two playbooks - one deploy Azure environment and another installs NGINX
 
 ## Prerequisites
-
+Source Code Management system - we will use our demo Github repository
+AWX Host
+An Active Azure Subscription
 
 ## Implementation
 1. Assign 'Contributor' role on subscription to the Azure service account
@@ -19,6 +21,8 @@ The word “workflow” says it all. This particular feature in Ansible Tower en
 1. Create new inventory
 1. Create two projects
 1. Create workflow
+
+https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
 ## Results
 
