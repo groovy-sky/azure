@@ -26,7 +26,7 @@ https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
 ![](/images/ansible-tower/tower_playbooks.png)
 
-![](/images/ansible-tower/awx_update_project.png)
+![](/images/ansible-tower/sync_project.png)
 
 ![](/images/ansible-tower/project_arch.png)
 
