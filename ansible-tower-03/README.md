@@ -30,6 +30,9 @@ We will create a new service principal account and grant 'Contributor' role for 
 1. Find Tenant ID
 ![Find tenant ID](/images/ansible-tower/get_tenant_id.png)
 
+Now we can add Azure SPN to AWX:
+![Azure credential](/images/ansible-tower/awx_register_azure_spn.png)
+
 ## Implementation
 As we already added the SCM in the previous chapter we only need to update our project:
 ![Update the project](/images/ansible-tower/awx_update_project.png)
