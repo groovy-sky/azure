@@ -44,7 +44,7 @@ https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
 ![](/images/ansible-tower/workflow_part2.png)
 
-![](/images/ansible-tower/workflow_full.png)
+![](/images/ansible-tower/workflow_whole.png)
 
 ## Results
 
