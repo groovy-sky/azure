@@ -2,6 +2,9 @@
 
 ## Introduction
 
+Welcome to another post in our "Let's build a tower" series. In our previous posts, we discussed the basic structure of how you can [deploy AWX to Azure](https://lnkd.in/g3gsW3r), [configure its authentication](https://lnkd.in/gEdp66V) and [run a playbook](https://lnkd.in/diUNrU9).
+
+This time we will discuss how to set up Workflow Job Template and run them against Azure inventory.
 
 ## Architecture
 
@@ -22,9 +25,9 @@
 We will start on configuring Azure side 
 ![](/images/ansible-tower/assign_role.png)
 
-### Tower Project configuration
+### Project configuration
 
-Tower projects are a logical collection of Ansible Playbooks that are set up with each other based on what they might be doing or which hosts they might interact with.
+[Tower projects](https://www.ansible.com/blog/getting-started-with-ansible-tower-projects-inventories) are a logical collection of Ansible Playbooks that are set up with each other based on what they might be doing or which hosts they might interact with.
 
 Playbooks can be managed within Tower projects by either adding them manually to the project base path on your Tower server, (/var/lib/awx/projects) or by importing them from a source control management system (SCM) that is supported by Tower (Git, Subversion and Mercurial)
 
@@ -33,7 +36,7 @@ Playbooks can be managed within Tower projects by either adding them manually to
 ![](/images/ansible-tower/sync_project.png)
 
 
-### Tower Inventory configuration
+### Inventory configuration
 
 ![](/images/ansible-tower/awx_invent.png)
 
@@ -43,10 +46,9 @@ Within Tower, the hosts that you interact with are set up as collections within 
 
 ![](/images/ansible-tower/nginx_templates.png)
 
-Job templates are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
+[Job templates](https://www.ansible.com/blog/getting-started-setting-up-an-ansible-job-template) are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
 
 ### Inventory, Product, and Playbook Selection
-
 
 Arguably the most import three selections that you will make during the job template creation process, the inventory, project, and playbook all play an extremely important role in how this template will be used.
 
