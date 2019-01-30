@@ -30,36 +30,31 @@ Ansible Tower is centered around the idea of organizing Projects (which run your
 
 Playbooks can be managed within Tower projects by either adding them manually to the project base path on your Tower server, (/var/lib/awx/projects) or by importing them from a source control management system (SCM) that is supported by Tower (Git, Subversion and Mercurial)
 
+As mentioned before we will use [the Github repository](https://github.com/groovy-sky/tower-examples.git):
 ![](/images/ansible-tower/tower_playbooks.png)
 
+After project is added, we need to run initial synchronization:
 ![](/images/ansible-tower/sync_project.png)
 
 
 ### Inventory configuration
 
-![](/images/ansible-tower/awx_invent.png)
-
 Within Tower, the hosts that you interact with are set up as collections within Tower called inventories. Tower divides inventories into groups and the groups are what contain the actual hosts. Groups can be sourced manually by adding the IPs and hostnames into Tower, imported from an Ansible hosts file, or they can be sourced from one of Ansible Tower’s supported cloud providers.
 
-### Inventory, Product, and Playbook Selection
+We need to create two empty inventories - "LOCALHOST" and "NGINX inventory":
+![](/images/ansible-tower/awx_invent.png)
 
-Arguably the most import three selections that you will make during the job template creation process, the inventory, project, and playbook all play an extremely important role in how this template will be used.
-
-To start, you will need to select the inventory that you want to use this template against. To select one, you can hit the eyeglass in the textbox and this will display all of the available inventories that you have access to. Select the inventory you want to use for this job template. You can use “prompt at launch”, or you can invoke a more complex selection prompt at the beginning of a job using a survey. Once you’ve made a selection, you can move onto choosing the project.
-
-Remember that the project you select will dictate what playbook you can select. The playbook you want for this job template must be housed in the particular project repository so that you can select it. You can select the project you want by the same method you selected your inventory. Once you have your project selected, the playbooks that are housed in this project’s repository will become available to this template.
-
-Choosing the playbook is similar to previous fields on the selection process. Just note that Tower will not display the full file name. For example, if the file name for your playbook is AWS.yml, Ansible Tower will display it as AWS.
+During the workflow deployed VM IP address will be added to "NGINX inventory" inventory.
 
 ### Credentials configuration
-
-![](/images/ansible-tower/awx_credentials.png)
 
 Credentials play a crucial role in job templates as they are how Ansible Tower will connect to the machine or cloud to complete the execution of the ansible playbook.
 
 There is only one required but depending on what type of inventory you are acting against, others might be needed. The most important credential is the machine credential. This must be selected for the job template to save but it can also be changed on launch for on the fly template runs against different machines with an inventory.
 
 The other three options on this row of credentials are vault, cloud and network credentials. Here is where my previous statement about needed credentials comes into play. 
+
+![](/images/ansible-tower/awx_credentials.png)
 
 ### Job Templates configuration
 
