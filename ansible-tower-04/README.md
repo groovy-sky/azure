@@ -8,7 +8,7 @@ This time we will discuss how to set up Workflow Job Template and run them again
 
 ## Architecture
 
-Our Workflow contains following steps:
+Our Workflow will contain following steps:
 1. Get the latest version of playbooks from [our demo SCM](https://github.com/groovy-sky/tower-examples.git)
 2. Deploy Azure virtual machine
 3. Install NGINX on Azure VM
