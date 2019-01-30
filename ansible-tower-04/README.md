@@ -5,6 +5,7 @@
 
 ## Architecture
 
+![](/images/ansible-tower/project_arch.png)
 
 * Azure SPN account with contributor role on a subscription level
 * Tower SPN account
@@ -27,15 +28,28 @@ Tower projects are a logical collection of Ansible Playbooks that are set up wit
 
 Playbooks can be managed within Tower projects by either adding them manually to the project base path on your Tower server, (/var/lib/awx/projects) or by importing them from a source control management system (SCM) that is supported by Tower (Git, Subversion and Mercurial)
 
+![](/images/ansible-tower/tower_playbooks.png)
+
+![](/images/ansible-tower/sync_project.png)
+
+
 ### Tower Inventory
+
+![](/images/ansible-tower/awx_invent.png)
+
 
 Within Tower, the hosts that you interact with are set up as collections within Tower called inventories. Tower divides inventories into groups and the groups are what contain the actual hosts. Groups can be sourced manually by adding the IPs and hostnames into Tower, imported from an Ansible hosts file, or they can be sourced from one of Ansible Tower’s supported cloud providers.
 
 ### Job Templates
 
+![](/images/ansible-tower/nginx_templates.png)
+
+![](/images/ansible-tower/nginx_inven.png)
+
 Job templates are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
 
 ### Inventory, Product, and Playbook Selection
+
 
 Arguably the most import three selections that you will make during the job template creation process, the inventory, project, and playbook all play an extremely important role in how this template will be used.
 
@@ -46,6 +60,8 @@ Remember that the project you select will dictate what playbook you can select. 
 Choosing the playbook is similar to previous fields on the selection process. Just note that Tower will not display the full file name. For example, if the file name for your playbook is AWS.yml, Ansible Tower will display it as AWS.
 
 ### Credentials
+
+![](/images/ansible-tower/awx_credentials.png)
 
 Credentials play a crucial role in job templates as they are how Ansible Tower will connect to the machine or cloud to complete the execution of the ansible playbook.
 
@@ -59,24 +75,6 @@ The word “workflow” says it all. This particular feature enables users to cr
 
 https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
-![](/images/ansible-tower/tower_playbooks.png)
-
-![](/images/ansible-tower/sync_project.png)
-
-![](/images/ansible-tower/project_arch.png)
-
-![](/images/ansible-tower/template_workflow_schema.png)
-
-![](/images/ansible-tower/assign_role.png)
-
-![](/images/ansible-tower/awx_credentials.png)
-
-![](/images/ansible-tower/awx_invent.png)
-
-
-![](/images/ansible-tower/nginx_templates.png)
-
-![](/images/ansible-tower/nginx_inven.png)
 
 ![](/images/ansible-tower/workflow_part1.png)
 
