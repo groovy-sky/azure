@@ -1,4 +1,4 @@
-# Let's build a tower (part 5) [draft]
+# Let's build a tower (part 5)
 
 ## Introduction
 
@@ -84,7 +84,7 @@ Workflow enables users to create sequences consisting of any combination of job 
 At first we need to create and save a new workflow template:
 ![](/images/ansible-tower/nginx_inven.png)
 
-Once you’ve done that, go into “ WORKFLOW VISUALIZER”. This screen will come up, where we can add first step(which is project syncrhonization):
+Once you’ve done that, go into “WORKFLOW VISUALIZER”. This screen will come up, where we can add first step(which is project syncrhonization):
 ![](/images/ansible-tower/workflow_part1.png)
 
 After that we can add 'NGINX VM delpoy' job:
@@ -98,6 +98,7 @@ Save the workflow and run it:
 
 ## Results
 
+As our workflow accomplishes we can check newly created environment and access it through HTTP:
 ![](/images/ansible-tower/workflow_result_1.png)
 ![](/images/ansible-tower/workflow_result_2.png)
 
@@ -125,3 +126,5 @@ https://github.com/Azure-Samples/ansible-playbooks
 [Let's build a tower (part 3)](/ansible-tower-02/README.md)
 
 [Let's build a tower (part 4)](/ansible-tower-03/README.md)
+
+[Let's build a tower (part 5)](/ansible-tower-04/README.md)
