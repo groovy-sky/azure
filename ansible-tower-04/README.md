@@ -12,17 +12,17 @@
 * Two playbooks - one deploy Azure environment and another installs NGINX
 
 ## Prerequisites
-* Source Code Management system - we will use our demo Github repository
+* Source Code Management system - we will use our [demo Github repository](https://github.com/groovy-sky/tower-examples.git)
 * AWX Host
-* Any Active Azure Subscription, where you have admin rights
+* Any Active Azure Subscription
 
 ## Implementation
 
-### Azure
+### Azure configuration
 We will start on configuring Azure side 
 ![](/images/ansible-tower/assign_role.png)
 
-### Tower Project
+### Tower Project configuration
 
 Tower projects are a logical collection of Ansible Playbooks that are set up with each other based on what they might be doing or which hosts they might interact with.
 
@@ -33,16 +33,15 @@ Playbooks can be managed within Tower projects by either adding them manually to
 ![](/images/ansible-tower/sync_project.png)
 
 
-### Tower Inventory
+### Tower Inventory configuration
 
 ![](/images/ansible-tower/awx_invent.png)
 
 
 Within Tower, the hosts that you interact with are set up as collections within Tower called inventories. Tower divides inventories into groups and the groups are what contain the actual hosts. Groups can be sourced manually by adding the IPs and hostnames into Tower, imported from an Ansible hosts file, or they can be sourced from one of Ansible Tower’s supported cloud providers.
 
-### Job Templates
+### Job Templates configuration
 
-![](/images/ansible-tower/nginx_templates.png)
 
 ![](/images/ansible-tower/nginx_inven.png)
 
@@ -59,7 +58,7 @@ Remember that the project you select will dictate what playbook you can select. 
 
 Choosing the playbook is similar to previous fields on the selection process. Just note that Tower will not display the full file name. For example, if the file name for your playbook is AWS.yml, Ansible Tower will display it as AWS.
 
-### Credentials
+### Credentials configuration
 
 ![](/images/ansible-tower/awx_credentials.png)
 
@@ -69,12 +68,13 @@ There is only one required but depending on what type of inventory you are actin
 
 The other three options on this row of credentials are vault, cloud and network credentials. Here is where my previous statement about needed credentials comes into play. 
 
-### Workflow Job Template
+### Workflow Job Template configuration
 
 The word “workflow” says it all. This particular feature enables users to create sequences consisting of any combination of job templates, project syncs, and inventory syncs that are linked together in order to execute them as a single unit. Because of this, workflows can help you organize playbooks and job templates into separate groups.
 
 https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
+![](/images/ansible-tower/nginx_templates.png)
 
 ![](/images/ansible-tower/workflow_part1.png)
 
