@@ -94,7 +94,7 @@ Last chain it our workflow should be 'NGINX installation'. Final result:
 ![](/images/ansible-tower/workflow_whole.png)
 
 Save the workflow and run it:
-![](/images/ansible-tower/workflow_whole.png)
+![](/images/ansible-tower/run_worfklow.png)
 
 ## Results
 
