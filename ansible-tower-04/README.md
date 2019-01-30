@@ -37,13 +37,11 @@ Playbooks can be managed within Tower projects by either adding them manually to
 
 ![](/images/ansible-tower/awx_invent.png)
 
-
 Within Tower, the hosts that you interact with are set up as collections within Tower called inventories. Tower divides inventories into groups and the groups are what contain the actual hosts. Groups can be sourced manually by adding the IPs and hostnames into Tower, imported from an Ansible hosts file, or they can be sourced from one of Ansible Tower’s supported cloud providers.
 
 ### Job Templates configuration
 
-
-![](/images/ansible-tower/nginx_inven.png)
+![](/images/ansible-tower/nginx_templates.png)
 
 Job templates are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
 
@@ -74,7 +72,7 @@ The word “workflow” says it all. This particular feature enables users to cr
 
 https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
-![](/images/ansible-tower/nginx_templates.png)
+![](/images/ansible-tower/nginx_inven.png)
 
 ![](/images/ansible-tower/workflow_part1.png)
 
