@@ -17,14 +17,18 @@ Our Workflow will contain following steps:
 
 ## Prerequisites
 
-https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
 
-We will start on configuring Azure side 
+Before configuring AWX we need an Azure SPN (which we have configured [previously](https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites)), to which we could assign permissions.  
 ![](/images/ansible-tower/assign_role.png)
 
 ## Implementation
 
-Ansible Tower is centered around the idea of organizing Projects (which run your playbooks via Jobs) and Inventories (which describe the servers on which your playbooks should be run) inside of Organizations. Organizations can then be set up with different levels of access based on Users and Credentials grouped in different Teams. It can be a little overwhelming at first, but once you get the initial structure configured, you'll see how powerful and flexible Tower's Project workflow is.
+We will need to configure following items:
+* Project 
+* Inventory 
+* Credentials 
+* Job Template
+* Workflow Job Template
 
 ### Project configuration
 
@@ -105,8 +109,6 @@ As our workflow accomplishes we can check newly created environment and access i
 ## Useful documentation
 
 https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html
-
-https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
 
 https://www.opcito.com/blogs/custom-inventory-management-using-ansible-awx-tower
 
