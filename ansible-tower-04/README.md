@@ -17,6 +17,8 @@ Our Workflow contains following steps:
 
 ## Prerequisites
 
+https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
+
 We will start on configuring Azure side 
 ![](/images/ansible-tower/assign_role.png)
 
@@ -30,10 +32,8 @@ Ansible Tower is centered around the idea of organizing Projects (which run your
 
 Playbooks can be managed within Tower projects by either adding them manually to the project base path on your Tower server, (/var/lib/awx/projects) or by importing them from a source control management system (SCM) that is supported by Tower (Git, Subversion and Mercurial)
 
-As mentioned before we will use [the Github repository](https://github.com/groovy-sky/tower-examples.git):
+This time we will add [the Github repository](https://github.com/groovy-sky/tower-examples.git) and synhronize it:
 ![](/images/ansible-tower/tower_playbooks.png)
-
-After project is added, we need to run initial synchronization:
 ![](/images/ansible-tower/sync_project.png)
 
 
@@ -50,30 +50,50 @@ During the workflow deployed VM IP address will be added to "NGINX inventory" in
 
 Credentials play a crucial role in job templates as they are how Ansible Tower will connect to the machine or cloud to complete the execution of the ansible playbook.
 
-There is only one required but depending on what type of inventory you are acting against, others might be needed. The most important credential is the machine credential. This must be selected for the job template to save but it can also be changed on launch for on the fly template runs against different machines with an inventory.
-
-The other three options on this row of credentials are vault, cloud and network credentials. Here is where my previous statement about needed credentials comes into play. 
+To be able run job templates we will need to create following credentials:
+1. "Azure SPN" - service account credentials for Azure deployment
+1. "NGINX VM administrator" - deployed virtual machines access credentials
+1. "Tower Credentials" - AWX service account credentials, which will be used to store delpoyed VM public IP
 
 ![](/images/ansible-tower/awx_credentials.png)
 
 ### Job Templates configuration
 
+[Job templates](https://www.ansible.com/blog/getting-started-setting-up-an-ansible-job-template) are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
+
+For our project we will need 2 templates:
 ![](/images/ansible-tower/nginx_templates.png)
 
-[Job templates](https://www.ansible.com/blog/getting-started-setting-up-an-ansible-job-template) are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
+"NGINX VM deploy" project will "[azure-template-deploy-part-2/main.yml](https://raw.githubusercontent.com/groovy-sky/tower-examples/master/azure-template-deploy-part-2/main.yml)" for initial VM deployment. Please use Azure and Tower credentials, which we've specified in previous section, for this template. Also, as an input, we need to specify extra vairables accordingly to your environment. Extra variables template you can copy from here:
+```
+---
+deploy_group_location: XXXXXXXX
+deploy_group_name: XXXXXXXX
+vm_admin_username: XXXXXXXX
+vm_admin_password: XXXXXXXX
+awx_inevntory: "NGINX inventory"
+```
+
+Variables 'deploy_group_name' and 'deploy_group_location' - are Azure deployment resource group and location.
+'vm_admin_username' and 'vm_admin_password' variables - should match to values from "NGINX VM administrator" credentials.  'awx_inevntory' should match inventory name.
 
 ### Workflow Job Template configuration
 
-The word “workflow” says it all. This particular feature enables users to create sequences consisting of any combination of job templates, project syncs, and inventory syncs that are linked together in order to execute them as a single unit. Because of this, workflows can help you organize playbooks and job templates into separate groups.
+Workflow enables users to create sequences consisting of any combination of job templates, project syncs, and inventory syncs that are linked together in order to execute them as a single unit. 
 
-https://github.com/groovy-sky/azure/tree/master/ansible-tower-03#prerequisites
-
+At first we need to create and save a new workflow template:
 ![](/images/ansible-tower/nginx_inven.png)
 
+Once you’ve done that, go into “ WORKFLOW VISUALIZER”. This screen will come up, where we can add first step(which is project syncrhonization):
 ![](/images/ansible-tower/workflow_part1.png)
 
+After that we can add 'NGINX VM delpoy' job:
 ![](/images/ansible-tower/workflow_part2.png)
 
+Last chain it our workflow should be 'NGINX installation'. Final result:
+![](/images/ansible-tower/workflow_whole.png)
+
+Save the workflow and run it:
 ![](/images/ansible-tower/workflow_whole.png)
 
 ## Results
