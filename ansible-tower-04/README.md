@@ -90,7 +90,7 @@ Once you’ve done that, go into “WORKFLOW VISUALIZER”. This screen will com
 After that we can add 'NGINX VM delpoy' job:
 ![](/images/ansible-tower/workflow_part2.png)
 
-Last chain it our workflow should be 'NGINX installation'. Final result:
+Last chain in our workflow should be 'NGINX installation'. Final result:
 ![](/images/ansible-tower/workflow_whole.png)
 
 Save the workflow and run it:
