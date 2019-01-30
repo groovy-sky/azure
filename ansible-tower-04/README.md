@@ -2,28 +2,27 @@
 
 ## Introduction
 
-Welcome to another post in our "Let's build a tower" series. In our previous posts, we discussed the basic structure of how you can [deploy AWX to Azure](https://lnkd.in/g3gsW3r), [configure its authentication](https://lnkd.in/gEdp66V) and [run a playbook](https://lnkd.in/diUNrU9).
+Welcome to another post in our "Let's build a tower" series. In our previous posts, we discussed [how to deploy AWX to Azure](https://lnkd.in/g3gsW3r), [configure its authentication](https://lnkd.in/gEdp66V) and [run a playbook](https://lnkd.in/diUNrU9).
 
 This time we will discuss how to set up Workflow Job Template and run them against Azure inventory.
 
 ## Architecture
 
+Our Workflow contains following steps:
+1. Get the latest version of playbooks from [our demo SCM](https://github.com/groovy-sky/tower-examples.git)
+2. Deploy Azure virtual machine
+3. Install NGINX on Azure VM
 ![](/images/ansible-tower/project_arch.png)
 
-* Azure SPN account with contributor role on a subscription level
-* Tower SPN account
-* Two playbooks - one deploy Azure environment and another installs NGINX
 
 ## Prerequisites
-* Source Code Management system - we will use our [demo Github repository](https://github.com/groovy-sky/tower-examples.git)
-* AWX Host
-* Any Active Azure Subscription
+
+We will start on configuring Azure side 
+![](/images/ansible-tower/assign_role.png)
 
 ## Implementation
 
-### Azure configuration
-We will start on configuring Azure side 
-![](/images/ansible-tower/assign_role.png)
+Ansible Tower is centered around the idea of organizing Projects (which run your playbooks via Jobs) and Inventories (which describe the servers on which your playbooks should be run) inside of Organizations. Organizations can then be set up with different levels of access based on Users and Credentials grouped in different Teams. It can be a little overwhelming at first, but once you get the initial structure configured, you'll see how powerful and flexible Tower's Project workflow is.
 
 ### Project configuration
 
@@ -41,12 +40,6 @@ Playbooks can be managed within Tower projects by either adding them manually to
 ![](/images/ansible-tower/awx_invent.png)
 
 Within Tower, the hosts that you interact with are set up as collections within Tower called inventories. Tower divides inventories into groups and the groups are what contain the actual hosts. Groups can be sourced manually by adding the IPs and hostnames into Tower, imported from an Ansible hosts file, or they can be sourced from one of Ansible Tower’s supported cloud providers.
-
-### Job Templates configuration
-
-![](/images/ansible-tower/nginx_templates.png)
-
-[Job templates](https://www.ansible.com/blog/getting-started-setting-up-an-ansible-job-template) are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
 
 ### Inventory, Product, and Playbook Selection
 
@@ -67,6 +60,12 @@ Credentials play a crucial role in job templates as they are how Ansible Tower w
 There is only one required but depending on what type of inventory you are acting against, others might be needed. The most important credential is the machine credential. This must be selected for the job template to save but it can also be changed on launch for on the fly template runs against different machines with an inventory.
 
 The other three options on this row of credentials are vault, cloud and network credentials. Here is where my previous statement about needed credentials comes into play. 
+
+### Job Templates configuration
+
+![](/images/ansible-tower/nginx_templates.png)
+
+[Job templates](https://www.ansible.com/blog/getting-started-setting-up-an-ansible-job-template) are a definition and set of parameters for running an Ansible Playbook. In Ansible Tower, job templates are a visual realization of the ansible-playbook command and all flags you can utilize when executing from the command line. A job template defines the combination of a playbook from a project, an inventory, a credential and any other Ansible parameters required to run.
 
 ### Workflow Job Template configuration
 
