@@ -7,7 +7,9 @@
 ## Prerequisites
 
 ## Implementation
+![](/images/docker/first_run.png)
 
 ## Results
+![](/images/docker/run_results.png)
 
 ## Useful documentation
