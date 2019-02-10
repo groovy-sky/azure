@@ -33,7 +33,10 @@ If everything went according to plan you should see information about scaned VMs
 
 ## Useful documentation
 
-https://docs.microsoft.com/en-us/azure/security-center/
-https://azure.microsoft.com/en-us/pricing/details/security-center/
-https://docs.microsoft.com/en-us/azure/virtual-network/diagnose-network-traffic-filter-problem
-https://docs.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
+* https://docs.microsoft.com/en-us/azure/security-center/
+
+* https://azure.microsoft.com/en-us/pricing/details/security-center/
+
+* https://docs.microsoft.com/en-us/azure/virtual-network/diagnose-network-traffic-filter-problem
+
+* https://docs.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
