@@ -4,7 +4,7 @@
 Microsoft Azure has [dozens of tools](https://docs.microsoft.com/en-us/azure/security/azure-security-services-technologies
 ) to manage all aspects of security in the Azure. Regardless of that, sometimes it is necessary to check an open port along with their associated virtual machine. 
 
-This time we will use NMAP and Powershell combintation to scan the specified port of each Azure's virtual machine. For added convenience and portability, we will run that in a Docker container.
+This time we will use NMAP and Powershell combintation to scan the specified port of each running virtual machine in Azure. For added convenience and portability, we will run that in a Docker container.
 
 ## Architecture
 
@@ -17,7 +17,7 @@ A container is a runtime instance of an image - what the image becomes in memory
 ![](/images/docker/docker_image.png)
 
 ## Prerequisites
-* Docker environment
+Docker Engine is available for Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL, SUSE, and Ubuntu) or Windows Server operating systems and is based on containerd. Docker is available in two editions - Community (CE) and Enterprise (EE). In this article we will use Docker CE running on Ubuntu 16.04 LTS. Instruction how to install Docker on Ubuntu is available [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
 ## Implementation
 1. Download and run [the image](https://cloud.docker.com/u/groovysky/repository/docker/groovysky/azure-audit)
