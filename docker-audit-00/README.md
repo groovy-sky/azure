@@ -1,4 +1,4 @@
-# Audit virtual machines in Azure (part 1)
+# An Azure VM audit with NMAP and PowerShell (part 1)
 
 ## Introduction
 Microsoft Azure has [dozens of tools](https://docs.microsoft.com/en-us/azure/security/azure-security-services-technologies
@@ -6,6 +6,11 @@ Microsoft Azure has [dozens of tools](https://docs.microsoft.com/en-us/azure/sec
 
 ## Architecture
 
+A container is launched by running an image. An image is an executable package that includes everything needed to run an application - the code, a runtime, libraries, environment variables, and configuration files.
+
+A container is a runtime instance of an image - what the image becomes in memory when executed (that is, an image with state, or a user process). 
+
+Our image 
 https://blogs.msdn.microsoft.com/powershell/2018/01/10/powershell-core-6-0-generally-available-ga-and-supported/
 https://docs.microsoft.com/en-us/powershell/azure/new-azureps-module-az?view=azps-1.2.0
 https://nmap.org/
