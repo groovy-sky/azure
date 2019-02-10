@@ -6,6 +6,11 @@ Microsoft Azure has [dozens of tools](https://docs.microsoft.com/en-us/azure/sec
 
 ## Architecture
 
+https://blogs.msdn.microsoft.com/powershell/2018/01/10/powershell-core-6-0-generally-available-ga-and-supported/
+https://docs.microsoft.com/en-us/powershell/azure/new-azureps-module-az?view=azps-1.2.0
+https://nmap.org/
+![](/images/docker/docker_image.png)
+
 ## Prerequisites
 * Docker environment
 
