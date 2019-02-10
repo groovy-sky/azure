@@ -20,9 +20,10 @@ A container is a runtime instance of an image - what the image becomes in memory
 Docker Engine is available for Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL, SUSE, and Ubuntu) or Windows Server operating systems and is based on containerd. Docker is available in two editions - Community (CE) and Enterprise (EE). In this article we will use Docker CE running on Ubuntu 16.04 LTS. Instruction how to install Docker on Ubuntu is available [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
 ## Implementation
-1. Download and run [the image](https://hub.docker.com/r/groovysky/azure-audit)
-2. Enter a scan port
-3. Authenticate to https://aka.ms/devicelogin by entering an authorization code
+1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) ('docker pull groovysky/azure-audit')
+1. Run an instance interactively ('docker run -i groovysky/azure-audit')
+1. Enter a port
+1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
 
 ![](/images/docker/first_run.png)
 
