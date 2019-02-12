@@ -21,6 +21,7 @@ Point the Machine CLI at a running, managed host, and you can run docker command
 ## Implementation
 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
+
 docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' docker-cli-vm
 
 ![](/images/docker-azure-cli/docker_machine_create.png)
