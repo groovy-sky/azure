@@ -3,7 +3,15 @@
 ## Introduction
 
 ## Architecture
-https://docs.docker.com/machine/overview/
+![](/images/docker-azure-cli/arch.png)
+
+[Docker Machine](https://docs.docker.com/machine/overview/) is a tool that lets install Docker Engine on virtual hosts, and manage the hosts (which could be a local machine or cloud provider) with docker-machine commands. 
+
+Using docker-machine commands, you can start, inspect, stop, and restart a managed host, upgrade the Docker client and daemon, and configure a Docker client to talk to your host.
+
+Point the Machine CLI at a running, managed host, and you can run docker commands directly on that host. For example, run docker-machine env default to point to a host called default, follow on-screen instructions to complete env setup, and run docker ps, docker run hello-world, and so forth.
+
+
 https://docs.microsoft.com/en-us/azure/cloud-shell/overview
 Cloud Shell runs on a temporary host provided on a per-session, per-user basis
 ## Prerequisites
