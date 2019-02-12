@@ -8,6 +8,9 @@ https://docs.microsoft.com/en-us/azure/cloud-shell/overview
 Cloud Shell runs on a temporary host provided on a per-session, per-user basis
 ## Prerequisites
 [Setup Bash in Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart)
+![](/images/docker-azure-cli/shell_init.png)
+![](/images/docker-azure-cli/shell_init_result.png)
+
 ## Implementation
 
 docker-machine create --driver azure --azure-subscription-id <subs-id> <machine-name>
