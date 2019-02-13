@@ -1,9 +1,11 @@
 # Run Docker in a browser using Azure Cloud Shell (part 1)
 
 ## Introduction
+![](/images/docker-azure-cli/arch.png)
+
+Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. Which, in our case means, that to run Docker we will need a browser and  
 
 ## Architecture
-![](/images/docker-azure-cli/arch.png)
 
 ### Docker Machine
 
