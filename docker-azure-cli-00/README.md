@@ -26,11 +26,12 @@ Az it was mentioned earlier - we will use a Cloud Shell. If you run it for a fir
 ![](/images/docker-azure-cli/shell_init_result.png)
 
 ## Implementation
-
+### Provision
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' docker-cli-vm
 
+### Access configuration
 ![](/images/docker-azure-cli/docker_machine_create.png)
 Cloud Shell runs on a temporary host provided on a per-session, per-user basis
 
@@ -38,10 +39,13 @@ Cloud Shell runs on a temporary host provided on a per-session, per-user basis
 
 ![](/images/docker-azure-cli/docker_vm_nsg_new.png)
 
+### Connect to Docker-engine
+docker-machine list
 ![](/images/docker-azure-cli/get_docker_machine_list.png)
+docker-machine env --shell /bin/bash cli-vm
 
+### Startup configuration
 ![](/images/docker-azure-cli/docker_machine_env_startup.png)
-
 
 echo 'eval "$(docker-machine env --shell /bin/bash cli-vm)"' >> ~/.bashrc
 
