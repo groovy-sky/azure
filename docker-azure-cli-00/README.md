@@ -28,6 +28,9 @@ Az it was mentioned earlier - we will use a Cloud Shell. If you run it for a fir
 ![](/images/docker-azure-cli/shell_init_result.png)
 
 ## Implementation
+Docker client is installed on Cloud Shell but a Docker engine isn't configured yet:
+![](/images/docker-azure-cli/docker_run_err.png)
+
 ### Provision
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
