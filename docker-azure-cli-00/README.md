@@ -3,7 +3,7 @@
 ## Introduction
 ![](/images/docker-azure-cli/arch.png)
 
-Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. Which, in our case means, that to run Docker we will need a browser and  
+In this article we will use a Docker Machine and Azure Cloud Shell to create and configure Docker Engine. As a result we'll be able to manage containers from the Cloud Shell. 
 
 ## Architecture
 
@@ -28,10 +28,12 @@ Az it was mentioned earlier - we will use a Cloud Shell. If you run it for a fir
 ![](/images/docker-azure-cli/shell_init_result.png)
 
 ## Implementation
-Docker client is installed on Cloud Shell but a Docker engine isn't configured yet:
+
+Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. By default Docker client is installed on Cloud Shell but a Docker engine isn't configured. We can verify that: 
 ![](/images/docker-azure-cli/docker_run_err.png)
 
 ### Provision
+https://docs.docker.com/machine/drivers/azure/
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' docker-cli-vm
