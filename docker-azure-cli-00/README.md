@@ -3,7 +3,7 @@
 ## Introduction
 ![](/images/docker-azure-cli/arch.png)
 
-In this article we will use a Docker Machine and Azure Cloud Shell to create and configure Docker Engine. As a result we'll be able to manage containers from the Cloud Shell. 
+In this article we will use a Docker Machine and Microsoft Azure to create and configure Docker Engine. As a result we'll be able to manage containers from the Cloud Shell. 
 
 ## Architecture
 
