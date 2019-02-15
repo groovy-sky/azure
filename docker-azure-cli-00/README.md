@@ -9,7 +9,7 @@ In this article we will use a Docker Machine and Microsoft Azure to create and c
 
 ### Docker Machine
 
-When people say “Docker” they typically mean Docker Engine, the client-server application made up of the Docker daemon, a REST API that specifies interfaces for interacting with the daemon, and a command line interface (CLI) client that talks to the daemon (through the REST API wrapper). Docker Engine accepts docker commands from the CLI, such as docker run <image>, docker ps to list running containers, docker image ls to list images, and so on.
+When people say “Docker” they typically mean Docker Engine, the client-server application made up of the Docker daemon, a REST API that specifies interfaces for interacting with the daemon, and a command line interface (CLI) client that talks to the daemon (through the REST API wrapper). Docker Engine accepts docker commands from the CLI, such as "docker run <image>", "docker ps" to list running containers, "docker image ls" to list images, and so on.
 
 [Docker Machine](https://docs.docker.com/machine/overview/) is a tool that lets install Docker Engine on virtual hosts, and manage the hosts (which could be a local machine or cloud provider) with docker-machine commands. 
 
@@ -20,16 +20,16 @@ Point the Machine CLI at a running, managed host, and you can run docker command
 Docker Machine is a tool for provisioning and managing your Dockerized hosts (hosts with Docker Engine on them). Typically, you install Docker Machine on your local system. Docker Machine has its own command line client docker-machine and the Docker Engine client, docker. You can use Machine to install Docker Engine on one or more virtual systems. These virtual systems can be local (as when you use Machine to install and run Docker Engine in VirtualBox on Mac or Windows) or remote (as when you use Machine to provision Dockerized hosts on cloud providers). The Dockerized hosts themselves can be thought of, and are sometimes referred to as, managed “machines”.
 
 ### Azure Cloud Shell
-[Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) is an interactive, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work. Linux users can opt for a Bash experience, while Windows users can opt for PowerShell.
+[Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) is an interactive, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work. Linux users can opt for a Bash experience, while Windows users can opt for PowerShell. For this demo we need a Bash option.
 
 ## Prerequisites
-Az it was mentioned earlier - we will use a Cloud Shell. If you run it for a first time - you will need to configure which subscription should be used for a storage account:
+Before we can start - we need to activate the Shell. For a fist run it would require to configure which subscription should be used for a Shell's storage account:
 ![](/images/docker-azure-cli/shell_init.png)
 ![](/images/docker-azure-cli/shell_init_result.png)
 
 ## Implementation
 
-Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. By default Docker client is installed on Cloud Shell but a Docker engine isn't configured. We can verify that: 
+Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. By default Docker client is installed on Cloud Shell but a Docker engine isn't configured. Let's verify that: 
 ![](/images/docker-azure-cli/docker_run_err.png)
 
 ### Provision
