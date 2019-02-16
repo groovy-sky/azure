@@ -32,14 +32,18 @@ Before we can start - we need to activate the Shell. For a fist run it would req
 Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. By default Docker client is installed on Cloud Shell but a Docker engine isn't configured. Let's verify that: 
 ![](/images/docker-azure-cli/docker_run_err.png)
 
+So now we can create a Docker engine (which means that we will create a new virtual machine) and connect to it using Docker client.
+
 ### Provision
-https://docs.docker.com/machine/drivers/azure/
+We can get an idea of what information Docker Machine needs by running "docker-machine create -d azure --help" or by viewing 
+[official documentaiton](https://docs.docker.com/machine/drivers/azure/). Azure driver only has a single required argument - subscription Id, so 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
-docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' docker-cli-vm
+docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' 'docker-vm-name'
+![](/images/docker-azure-cli/docker_machine_create.png)
 
 ### Access configuration
-![](/images/docker-azure-cli/docker_machine_create.png)
+
 Cloud Shell runs on a temporary host provided on a per-session, per-user basis
 
 ![](/images/docker-azure-cli/docker_vm_nsg.png)
