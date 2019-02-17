@@ -32,7 +32,7 @@ So now we can create a Docker engine (which means that we will create a new virt
 
 ### Provision
 We can get an idea of what information Docker Machine needs by running "docker-machine create -d azure --help" or by viewing 
-[official documentaiton](https://docs.docker.com/machine/drivers/azure/). Azure driver requires one argument - a Subscription Id, so than a whole command will look like like:
+[official documentaiton](https://docs.docker.com/machine/drivers/azure/). Azure driver requires '--azure-subscription-id' argument - an Azure Subscription Id, so than a whole command will look like like:
 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
@@ -56,13 +56,11 @@ As Cloud Shell don't have a static public IP address we can use 'AzureCloud' ser
 
 ### Connect to Docker-engine
 
-Set environment variables to dictate that Docker cli should run a command against a particular machine(Docker engine).
-
-docker-machine env --shell /bin/bash 'docker-vm-name'
-
-![](/images/docker-azure-cli/docker_machine_env_startup.png)
+To start using the Docker machine we need to set environment variables using "docker-machine env --shell /bin/bash 'docker-vm-name'" command. But such solution works only until the shell's session remains open. It is possible to evade this limitation by customizing '~/.bashrc' login profile:
 
 echo 'eval "$(docker-machine env --shell /bin/bash 'docker-vm-name')"' >> ~/.bashrc
+
+![](/images/docker-azure-cli/docker_machine_env_startup.png)
 
 ## Results
 
