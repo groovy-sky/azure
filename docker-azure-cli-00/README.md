@@ -51,7 +51,7 @@ By design docker-machine don't limit an access to the newly created VM - SSH and
 
 We need to limit access to the Docker VM and allow access only from Cloud Shell IP. For that we can modify the [Network Security Group](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group#work-with-security-rules).
 
-As Cloud Shell don't have a static public IP address we can use 'AzureCloud' service tag:
+As Cloud Shell don't have a static public IP address we can use 'AzureCloud' service tag instead:
 ![](/images/docker-azure-cli/docker_vm_nsg_new.png)
 
 ### Connect to Docker-engine
