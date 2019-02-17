@@ -63,6 +63,8 @@ echo 'eval "$(docker-machine env --shell /bin/bash 'docker-vm-name')"' >> ~/.bas
 ![](/images/docker-azure-cli/docker_machine_env_startup.png)
 
 ## Results
+Once the Docker environment is configured we can start to use Docker cli. For example, run the ['azure-audit'](https://hub.docker.com/r/groovysky/azure-audit) image:
+![](/images/docker-azure-cli/docker_first_run.png)
 
 ## Useful documentation
 
