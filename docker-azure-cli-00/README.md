@@ -3,7 +3,7 @@
 ## Introduction
 ![](/images/docker-azure-cli/arch.png)
 
-In this article we will use a Docker Machine and Microsoft Azure to create and configure Docker Engine. As a result we'll be able to manage containers from the Cloud Shell. 
+In this article we will use a Docker Machine and Microsoft Azure to create and configure Docker Engine. As a result, we'll be able to manage containers from the Cloud Shell. 
 
 ## Architecture
 
@@ -25,7 +25,7 @@ Whereby is created new resource group with a storage account in it:
 
 ## Implementation
 
-Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. By default Docker client is installed on Cloud Shell but a Docker engine isn't accesible yet. Let's verify that: 
+Docker machine creates Docker Engines on Azure and then configures the Docker client (which is a part of Azure Cloud Shell) to securely talk to them. By default Docker client is installed on Cloud Shell but a Docker engine isn't accessible yet. Let's verify that: 
 ![](/images/docker-azure-cli/docker_run_err.png)
 
 So now we can create a Docker engine (which means that we will create a new virtual machine) and connect to it using Docker client.
@@ -36,12 +36,12 @@ We can get an idea of what information Docker Machine needs by running "docker-m
 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
-There are some additional parameters that we can use to fine-tune the behavior of a deployment. We will additioanly specify a deployment's resource group name/location and a virtual machine size:
+There are some additional parameters that we can use to fine-tune the behavior of a deployment. We will additionally specify a deployment's resource group name/location and a virtual machine size:
 
 docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' 'docker-vm-name'
 ![](/images/docker-azure-cli/docker_machine_create.png)
 
-After delpoyment is done we can assure oneself by executing 'docker-machine list' command:
+After deployment is done we can assure oneself by executing 'docker-machine list' command:
 ![](/images/docker-azure-cli/get_docker_machine_list.png)
 
 ### Access configuration
@@ -63,8 +63,5 @@ echo 'eval "$(docker-machine env --shell /bin/bash 'docker-vm-name')"' >> ~/.bas
 ![](/images/docker-azure-cli/docker_machine_env_startup.png)
 
 ## Results
-Once the Docker environment is configured we can start to use Docker cli. For example, run the ['azure-audit'](https://hub.docker.com/r/groovysky/azure-audit) image:
+Once the Docker environment is configured we can start to use Docker CLI. For example, run the ['azure-audit'](https://hub.docker.com/r/groovysky/azure-audit) image:
 ![](/images/docker-azure-cli/docker_first_run.png)
-
-## Useful documentation
-
