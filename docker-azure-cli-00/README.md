@@ -19,6 +19,8 @@ When people say “Docker” they typically mean Docker Engine, the client-serve
 ## Prerequisites
 Before we can start - we need to activate the Shell. For a fist run it would require to configure which subscription should be used for a Shell's storage account:
 ![](/images/docker-azure-cli/shell_init.png)
+
+Whereby is created new resource group with a storage account in it:
 ![](/images/docker-azure-cli/shell_init_result.png)
 
 ## Implementation
@@ -31,19 +33,22 @@ So now we can create a Docker engine (which means that we will create a new virt
 ### Provision
 We can get an idea of what information Docker Machine needs by running "docker-machine create -d azure --help" or by viewing 
 [official documentaiton](https://docs.docker.com/machine/drivers/azure/). Azure driver requires one argument - a Subscription Id, so than a whole command will look like like:
+
 docker-machine create --driver azure --azure-subscription-id 'subs-id' 'machine-name'
 
 There are some additional parameters that we can use to fine-tune the behavior of a deployment. We will additioanly specify a deployment's resource group name/location and a virtual machine size:
+
 docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' 'docker-vm-name'
 ![](/images/docker-azure-cli/docker_machine_create.png)
 
 ### Access configuration
 
-After deployment is finished we can improve 
-Cloud Shell runs on a temporary host provided on a per-session, per-user basis
-
+By design docker-machine don't limit an access to the newly created VM - SSH and Docker daemon ports (22 and 2376) are exposed to Internet. 
 ![](/images/docker-azure-cli/docker_vm_nsg.png)
 
+We need to limit access to the Docker VM and allow access only from Cloud Shell IP. For that we can modify the [Network Security Group](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-nsg-manage-log).
+
+As Cloud Shell don't have fixed public IP we can use 'AzureCloud' service tag:
 ![](/images/docker-azure-cli/docker_vm_nsg_new.png)
 
 ### Connect to Docker-engine
