@@ -41,25 +41,28 @@ There are some additional parameters that we can use to fine-tune the behavior o
 docker-machine create --driver azure --azure-subscription-id 'subs-id' --azure-resource-group 'docker-group' --azure-location 'northeurope' --azure-size 'Standard_D2s_v3' 'docker-vm-name'
 ![](/images/docker-azure-cli/docker_machine_create.png)
 
+After delpoyment is done we can assure oneself by executing 'docker-machine list' command:
+![](/images/docker-azure-cli/get_docker_machine_list.png)
+
 ### Access configuration
 
 By design docker-machine don't limit an access to the newly created VM - SSH and Docker daemon ports (22 and 2376) are exposed to Internet. 
 ![](/images/docker-azure-cli/docker_vm_nsg.png)
 
-We need to limit access to the Docker VM and allow access only from Cloud Shell IP. For that we can modify the [Network Security Group](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-nsg-manage-log).
+We need to limit access to the Docker VM and allow access only from Cloud Shell IP. For that we can modify the [Network Security Group](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group#work-with-security-rules).
 
-As Cloud Shell don't have fixed public IP we can use 'AzureCloud' service tag:
+As Cloud Shell don't have a static public IP address we can use 'AzureCloud' service tag:
 ![](/images/docker-azure-cli/docker_vm_nsg_new.png)
 
 ### Connect to Docker-engine
-docker-machine list
-![](/images/docker-azure-cli/get_docker_machine_list.png)
-docker-machine env --shell /bin/bash cli-vm
 
-### Startup configuration
+Set environment variables to dictate that Docker cli should run a command against a particular machine(Docker engine).
+
+docker-machine env --shell /bin/bash 'docker-vm-name'
+
 ![](/images/docker-azure-cli/docker_machine_env_startup.png)
 
-echo 'eval "$(docker-machine env --shell /bin/bash cli-vm)"' >> ~/.bashrc
+echo 'eval "$(docker-machine env --shell /bin/bash 'docker-vm-name')"' >> ~/.bashrc
 
 ## Results
 
