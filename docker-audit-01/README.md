@@ -17,7 +17,7 @@ A container is a runtime instance of an image - what the image becomes in memory
 ![](/images/docker/scan_arch.png)
 
 ## Prerequisites
-Setup Docker in Azure Cloud Shell (see how-to instruction (here)[/docker-azure-cli-00/README.md#Introduction])
+Setup Docker in Azure Cloud Shell (see how-to instruction [here](/docker-azure-cli-00/README.md#Introduction))
 
 ![](/images/docker/create_oms.png)
 
