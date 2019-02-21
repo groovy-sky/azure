@@ -26,7 +26,7 @@ Docker Engine is available for Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL
 ## Implementation
 1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) ('docker pull groovysky/azure-audit')
 1. Run an instance interactively ('docker run -it groovysky/azure-audit pwsh')
-1. 
+1. Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId 'xxxxx' -SharedKey 'xxxxx' 
 1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
 
 ![](/images/docker/cloud_run.png)
