@@ -17,18 +17,26 @@ A container is a runtime instance of an image - what the image becomes in memory
 ![](/images/docker/scan_arch.png)
 
 ## Prerequisites
-Setup Docker in Azure Cloud Shell (see how-to instruction [here](/docker-azure-cli-00/README.md#Introduction))
 
+* Setup Docker in Azure Cloud Shell (see how-to instruction [here](/docker-azure-cli-00/README.md#Introduction))
+
+* Create OMS workspace and copy it Id and Key:
 ![](/images/docker/create_oms.png)
 
 ![](/images/docker/get_oms_cred.png)
 
 ## Implementation
 1. Go to https://shell.azure.com/ 
-1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) ('docker pull groovysky/azure-audit')
-1. Run an instance interactively ('docker run -it groovysky/azure-audit pwsh')
-1. Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId 'xxxxx' -SharedKey 'xxxxx' 
+1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) and run it interactively
+1. Run Invoke-Audit cmdlet with required parameters 
 1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
+
+Full code would look 
+```
+docker pull groovysky/azure-audit:latest
+docker run -it groovysky/azure-audit:latest pwsh
+Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId 'xxxxx' -SharedKey 'xxxxx' 
+```
 
 ![](/images/docker/cloud_run.png)
 
