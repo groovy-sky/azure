@@ -14,10 +14,14 @@ A container is a runtime instance of an image - what the image becomes in memory
 
 [This article's image](https://hub.docker.com/r/groovysky/azure-audit) is build up from [Powershell 6.0 image](https://blogs.msdn.microsoft.com/powershell/2018/01/10/powershell-core-6-0-generally-available-ga-and-supported/), which uses [Az module](https://docs.microsoft.com/en-us/powershell/azure/new-azureps-module-az?view=azps-1.2.0) and [NMAP package](https://nmap.org/). At the start of container it will execute 'Invoke-Audit' function from ['main.psm1' script](https://raw.githubusercontent.com/groovy-sky/docker/master/azure-audit/main.psm1):
 
-![](/images/docker/docker_image.png)
+![](/images/docker/scan_arch.png)
 
 ## Prerequisites
 Docker Engine is available for Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL, SUSE, and Ubuntu) or Windows Server operating systems and is based on containerd. Docker is available in two editions - Community (CE) and Enterprise (EE). In this article we will use Docker CE running on Ubuntu 16.04 LTS. Instruction how to install Docker on Ubuntu is available [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+
+![](/images/docker/create_oms.png)
+
+![](/images/docker/get_oms_cred.png)
 
 ## Implementation
 1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) ('docker pull groovysky/azure-audit')
@@ -25,11 +29,11 @@ Docker Engine is available for Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL
 1. 
 1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
 
-![](/images/docker/first_run.png)
+![](/images/docker/cloud_run.png)
 
 ## Results
 If everything went according to plan you should see information about scaned VMs:
-![](/images/docker/run_results.png)
+![](/images/docker/oms_results.png)
 
 ## Useful documentation
 
