@@ -17,7 +17,7 @@ A container is a runtime instance of an image - what the image becomes in memory
 ![](/images/docker/scan_arch.png)
 
 ## Prerequisites
-Docker Engine is available for Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL, SUSE, and Ubuntu) or Windows Server operating systems and is based on containerd. Docker is available in two editions - Community (CE) and Enterprise (EE). In this article we will use Docker CE running on Ubuntu 16.04 LTS. Instruction how to install Docker on Ubuntu is available [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+Setup Docker in Azure Cloud Shell (see how-to instruction (here)[/docker-azure-cli-00/README.md#Introduction])
 
 ![](/images/docker/create_oms.png)
 
