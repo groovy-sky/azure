@@ -33,17 +33,17 @@ Before delving into techical details let’s first review what is needed to repr
 
 1. Open a Docker environment (in this demo it is https://shell.azure.com/ )
 1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) and run it interactively
-1. Run 'Invoke-Audit' command
-1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
-
-![](/images/docker/cloud_run.png)
-
-Full code would look:
 ```
 docker pull groovysky/azure-audit:latest
 docker run -it groovysky/azure-audit:latest pwsh
+```
+1. Run 'Invoke-Audit' command
+```
 Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId 'xxxxx' -SharedKey 'xxxxx' 
 ```
+1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
+
+![](/images/docker/cloud_run.png)
 
 ## Results
 If everything went according to plan you should see information about scaned VMs:
