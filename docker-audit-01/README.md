@@ -6,7 +6,7 @@
 
 [In the previous chapter](/docker-audit-00/README.md) we have used [a customized Docker image](https://hub.docker.com/r/groovysky/azure-audit) to scan Azure's VMs. 
 
-This time we will use Azure Monitor(aka Operations Management Suite) to collect the scan results and analyze the collected data.
+This time we will scan Linux virtual machines SSH port and send the collected data to Azure Monitor(aka Operations Management Suite).
 
 ## Architecture
 
@@ -20,21 +20,23 @@ Log data collected by Azure Monitor can be analyzed with queries to quickly retr
 
 ## Prerequisites
 
-* Setup Docker in Azure Cloud Shell (see how-to instruction [here](/docker-azure-cli-00/README.md#Introduction))
+Before delving into techical details let’s first review what is needed to reproduce it on your side. List is following:
 
-* Create OMS workspace and copy it Id and Key:
+* Setup a Docker environment(for example, in [Azure Cloud Shell](/docker-azure-cli-00/README.md#Introduction))
+
+* Create OMS workspace and copy it's Id and Key:
 ![](/images/docker/create_oms.png)
 
 ![](/images/docker/get_oms_cred.png)
 
 ## Implementation
 
-![](/images/docker/cloud_run.png)
-
-1. Go to https://shell.azure.com/ 
+1. Open a Docker environment (in this demo it is https://shell.azure.com/ )
 1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) and run it interactively
-1. Run Invoke-Audit cmdlet with required parameters 
+1. Run 'Invoke-Audit' command
 1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
+
+![](/images/docker/cloud_run.png)
 
 Full code would look:
 ```
