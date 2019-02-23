@@ -29,4 +29,4 @@ Some important facts that are important for all workflows:
 * A resource can interact with a resource in another resource groups when the two resources are related but they do not share the same life cycle (for example, a web app connecting to a database). 
 
 https://github.com/Azure/azure-arm-validator
-
+https://blogs.technet.microsoft.com/uktechnet/2016/02/25/introduction-to-azure-resource-manager-templates-for-the-it-pro/
