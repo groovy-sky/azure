@@ -30,6 +30,7 @@ Before delving into techical details let’s first review what is needed to repr
 ![](/images/docker/get_oms_cred.png)
 
 ## Implementation
+![](/images/docker/cloud_run.png)
 
 1. Open a Docker environment (in this demo it is https://shell.azure.com/ )
 2. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) and run it interactively
@@ -43,10 +44,8 @@ Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId '
 ```
 4. Authenticate to https://aka.ms/devicelogin by entering an authorization code
 
-![](/images/docker/cloud_run.png)
-
 ## Results
-If everything went according to plan you should see information about scaned VMs:
+If everything went according to plan we should see information about scaned VMs and query it: 
 ![](/images/docker/oms_results.png)
 
 ## Useful documentation
