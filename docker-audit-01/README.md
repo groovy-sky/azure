@@ -32,16 +32,16 @@ Before delving into techical details let’s first review what is needed to repr
 ## Implementation
 
 1. Open a Docker environment (in this demo it is https://shell.azure.com/ )
-1. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) and run it interactively
+2. Download [the image](https://hub.docker.com/r/groovysky/azure-audit) and run it interactively
 ```
 docker pull groovysky/azure-audit:latest
 docker run -it groovysky/azure-audit:latest pwsh
 ```
-1. Run 'Invoke-Audit' command
+3. Run 'Invoke-Audit' command
 ```
 Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId 'xxxxx' -SharedKey 'xxxxx' 
 ```
-1. Authenticate to https://aka.ms/devicelogin by entering an authorization code
+4. Authenticate to https://aka.ms/devicelogin by entering an authorization code
 
 ![](/images/docker/cloud_run.png)
 
