@@ -1,18 +1,24 @@
 # VMs audit with NMAP and PowerShell in Azure(part 2)
 
 ## Introduction
-Microsoft Azure has [dozens of tools](https://docs.microsoft.com/en-us/azure/security/azure-security-services-technologies
-) to manage all aspects of security in the Azure. Regardless of that, sometimes it is necessary to check an open port along with their associated virtual machine. 
+[In the previous chapter](/docker-audit-00/README.md) we have used [a customized Docker image](https://hub.docker.com/r/groovysky/azure-audit) to scan Azure's VMs. 
 
-This time we will use NMAP and Powershell combintation to scan the specified port of each running virtual machine in Azure. For added convenience and portability, we will run [the customized Docker image](https://hub.docker.com/r/groovysky/azure-audit).
+This time we will use Azure Monitor(aka Operations Management Suite) to collect the scan results and analyze the collected data.
+
 
 ## Architecture
 
-A container is launched by running an image. An image is an executable package that includes everything needed to run an application - the code, a runtime, libraries, environment variables, and configuration files.
+Azure Monitor, which now includes Log Analytics and Application Insights, provides sophisticated tools for collecting and analyzing telemetry that allow you to maximize the performance and availability of your cloud and on-premises resources and applications. It helps you understand how your applications are performing and proactively identifies issues affecting them and the resources they depend on.
 
-A container is a runtime instance of an image - what the image becomes in memory when executed (that is, an image with state, or a user process). 
+All data collected by Azure Monitor fits into one of two fundamental types, metrics and logs. Metrics are numerical values that describe some aspect of a system at a particular point in time. They are lightweight and capable of supporting near real-time scenarios. Logs contain different kinds of data organized into records with different sets of properties for each type. Telemetry such as events and traces are stored as logs in addition to performance data so that it can all be combined for analysis.
 
-[This article's image](https://hub.docker.com/r/groovysky/azure-audit) is build up from [Powershell 6.0 image](https://blogs.msdn.microsoft.com/powershell/2018/01/10/powershell-core-6-0-generally-available-ga-and-supported/), which uses [Az module](https://docs.microsoft.com/en-us/powershell/azure/new-azureps-module-az?view=azps-1.2.0) and [NMAP package](https://nmap.org/). At the start of container it will execute 'Invoke-Audit' function from ['main.psm1' script](https://raw.githubusercontent.com/groovy-sky/docker/master/azure-audit/main.psm1):
+For many Azure resources, you'll see data collected by Azure Monitor right in their Overview page in the Azure portal. Have a look at any virtual machine for example, and you'll see several charts displaying performance metrics. Click on any of the graphs to open the data in metrics explorer in the Azure portal, which allows you to chart the values of multiple metrics over time. You can view the charts interactively or pin them to a dashboard to view them with other visualizations.
+
+Metrics
+
+Log data collected by Azure Monitor can be analyzed with queries to quickly retrieve, consolidate, and analyze collected data. You can create and test queries using log analytics in the Azure portal and then either directly analyze the data using these tools or save queries for use with visualizations or alert rules.
+
+Azure Monitor uses a version of the Kusto query language used by Azure Data Explorer that is suitable for simple log queries but also includes advanced functionality such as aggregations, joins, and smart analytics. You can quickly learn the query language using multiple lessons. Particular guidance is provided to users who are already familiar with SQL and Splunk.
 
 ![](/images/docker/scan_arch.png)
 
@@ -47,3 +53,8 @@ If everything went according to plan you should see information about scaned VMs
 
 ## Useful documentation
 
+* https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-collector-api
+
+* https://docs.microsoft.com/en-us/azure/azure-monitor/learn/tutorial-viewdata
+
+* https://docs.microsoft.com/en-us/azure/azure-monitor/terminology
