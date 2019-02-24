@@ -28,6 +28,69 @@ Some important facts that are important for all workflows:
 * A resource group can contain resources that exist in different locations. 
 * A resource can interact with a resource in another resource groups when the two resources are related but they do not share the same life cycle (for example, a web app connecting to a database). 
 
+### Infrastructure as Code
+Organizations need to manage and operate their existing applications in a modern way, while also taking advantage of the cloud model whenever possible. This transformation shifts the organization from a traditional model to a cloud model.
+In the traditional model applications are configured manually; with scripts, user interfaces, management utilities or likely a combination of all these tools. The result of this process is an application that is released to a specific environment. During the lifecycle of the application different tooling manages different aspects of the application. When changes are made, they are performed in the management tooling, locally on the resource or in related resources that may be shared with other applications.
+Deploying two identical instances of an application with the same scripts on the same date, will most likely not have identical configurations over their complete lifecycle, even if that is the desired state.
+To overcome these challenges, the concept of Infrastructure as Code was introduced. It allows you to define the desired state of your application in a template. The template is then used to deploy the application. The template provides the ability to repeat a deployment exactly but it can also ensure that a deployed application stays consistent with the desired state defined in the template over time. If you want to make a change to the application, you would make that change in the template. The template
+can then be used to apply the desired state to the existing application instance over its complete lifecycle.
+
+Templates can be parameterized; creating a reusable artifact that is used to deploy the same application to different environments, accepting the relevant parameters for each environment.
+
+#### Imperative and declarative
+Deploying and configuring resources can be a challenging task. An average application that is running in production has a complex architecture with many configuration settings. For a single deployment it might seem more appealing and time effective to configure all these settings manually instead of investing in automation, but it is inevitable that a shortcut will eventually be inefficient.
+In general, we can distinguish two different programming types.
+* Imperative syntax describes the how. It requires you to think about how to configure all the individual components of the application, and define that in a programming language.
+* Declarative syntax describes the what. It requires you to define the desired state of your application and let a system determine the most efficient way to reach that state.
+In the remainder of this whitepaper is explained how the Azure Resource Manager API accepts both declarative and imperative programming.
+
+### Azure Resource Manager
+The Azure Resource Manager API is flexible allowing a range of different tools and languages to interact with the platform. Azure Resource Manager provides resource groups, template orchestration, role based access control, custom policies, tagging and auditing features to make it easier for you to build and manage your applications.
+
+#### Resources
+The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model. A typical application consists of various resources in a defined composition. Each type of resource is managed by a resource provider. Each resource provider serves resources of a similar type.
+For example, the resource provider for networking serves resource types like virtual networks, network interfaces and load balancers. The resource provider for storage serves a storage accounts resource type. Each resource provider implements an API to Azure Resource Manager that complies with a common contract, therefore allowing a consistent unified application model across all resource providers. When a new resource or even a completely new resource provider is introduced, the common contract ensures that your existing investments remain applicable as new services are introduced.
+Beside the common properties that are shared across all services, a resource also has properties specific to each resource type. For example, a virtual network contains a concept of subnets, that is not relevant for storage accounts. Inversely, a storage account contains different redundancy options that are not relevant for a virtual network. To allow resources to contain their own properties and enable the introduction of new features to existing resources, each resource has its own API version. API versions ensure that your current configuration remains valid as new updates to a resource type are introduced.
+The combination of the common contract and resource specific properties provides a solid foundation for future developments, while ensuring your current investments are applicable to new features and services for the public, hosted and private cloud. Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf.
+
+#### Resource Groups
+An application usually consists of multiple resources that are related to each other. Related application resources conceptually share a common lifecycle. Maintaining an application for its complete lifetime requires lifecycle management capabilities. In Azure Resource Manager, these capabilities are provided with Resource Groups. A resource group is an end-user facing concept that groups resources into a logical unit. A resource must always be part of a resource group and can only be part of a single resource group. By grouping resources into a resource group, an entire application can be managed as a single entity instead of a range of scattered individual resources.
+For example, a virtual machine consists of a virtual hard disk that is stored in a storage account, a network interface card connected to a virtual network and an allocation of compute (CPU & RAM) resources. These components of a virtual machine are distinct resources in Azure. A resource group allows you to manage these related resources as a single logical entity with a shared common lifecycle.
+A resource group can exist with no resources, a single resource or many resources. These resources can be sourced from one or multiple resource providers, spanning both IaaS and PaaS services.
+A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
+
+#### Template Orchestration
+Azure Resource Manager provides powerful Infrastructure as Code capabilities. Any type of resource
+that is available on the Microsoft cloud platform can be deployed and configured with Azure Resource
+Manager. With a single template, you can deploy and configure multiple resources as a single
+deployment operation. Templates allow you to deploy your complete application to an ideal operational
+end state.
+
+#### Language
+Azure Resource Manager accepts JavaScript Object Notation (JSON) templates that comply with a JSON schema. JSON is an industry standard, human readable language.
+
+You can follow along in this whitepaper as we build a simple template as the basis for this whitepaper. For our example create a new template file called azuredeploy.json. Copy and paste the following code, that contains all the top level elements, in to the file.
+```
+{
+"$schema": "https://schema.management.azure.com/schemas/2015-01-
+01/deploymentTemplate.json#",
+"contentVersion": "1.0.0.0",
+"parameters": {},
+"variables": {},
+"resources": [],
+"outputs": {}
+}
+```
+An Azure Resource Manager template uses 6 top level elements. Each element has a distinct role in the
+template:
+1. $schema - Location of the JSON schema file that describes the version of the template language
+1. contentVersion - Version of the template (such as 1.0.0.0). You can provide any value for this element. When deploying resources using the template, this value can be used to make sure that the right template is being used.
+1. parameters - Values that are provided when deployment is executed to customize resource deployment.
+1. variables - Values that are used as JSON fragments in the template to simplify template language expressions.
+1. resources - Resource types that are deployed or updated in a resource group.
+1. outputs - Values that are returned after deployment.
+
+
 https://github.com/Azure/azure-arm-validator
 
 https://blogs.technet.microsoft.com/uktechnet/2016/02/25/introduction-to-azure-resource-manager-templates-for-the-it-pro/
