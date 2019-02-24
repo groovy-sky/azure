@@ -72,8 +72,7 @@ Azure Resource Manager accepts JavaScript Object Notation (JSON) templates that 
 You can follow along in this whitepaper as we build a simple template as the basis for this whitepaper. For our example create a new template file called azuredeploy.json. Copy and paste the following code, that contains all the top level elements, in to the file.
 ```
 {
-"$schema": "https://schema.management.azure.com/schemas/2015-01-
-01/deploymentTemplate.json#",
+"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 "contentVersion": "1.0.0.0",
 "parameters": {},
 "variables": {},
@@ -90,6 +89,55 @@ template:
 1. resources - Resource types that are deployed or updated in a resource group.
 1. outputs - Values that are returned after deployment.
 
+### Tooling
+* https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-resource-groups-deployment-projects-create-deploy/
+* https://azure.microsoft.com/en-us/documentation/articles/resource-manager-vs-code/
+### Template functions
+Azure Resource Manager provides template functions that make the template orchestration engine very
+powerful. Template functions enable operations on values within the template at deployment time. A
+simple example of a template function is to concatenate two strings into a single string. You could use a
+function that concatenate strings and pass in the two strings as parameters to the functions.
+Template functions can be used in variables, resources and outputs in Azure Resource Manager
+templates. Template functions can reference parameters, other variables or even objects related to the
+deployment. For example, a template function can reference the ID of the resource group.
+
+https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-functions/
+
+### Parameter file
+The example template in this whitepaper currently contains one parameter for the storage account
+type. A template for a complete application can contain various different parameters. If you are
+frequently deploying your template during the authoring process, the values for the parameters need to
+be resubmitted each time. A parameter file can automate this process. A parameter file contains values
+for the parameters in the template, and can be parsed when the template is deployed. Instead of
+manually typing in the parameters, the values are pulled from the parameter file. You can create
+multiple parameter files, representing different stages of an environment (Development, Testing,
+Acceptance and Production – or, DTAP), different regions or different clouds.
+You can create a parameter file with the name azuredeploy.parameters.json. For the storage
+template, an example parameter file could contain the following code.
+
+### Template reusability across clouds
+Each Azure Resource Manager template needs to comply with a JSON schema. A JSON schema details a
+structure for JSON data. In the context of Azure Resource Manager, the schema is a contract that details
+the valid structure for an ARM template which is written in JSON. Each individual resource provider has
+their own schema referenced from the master schema. These individual schemas detail properties that
+are unique to each resource provider.
+Within the JSON schema you still have some flexibility. You can decide to use a parameter or a variable
+for a reusable value throughout the template. You can specify a fixed value or create a variable for
+everything. However, to ensure reusability of a template across clouds you need to avoid region specific
+dependencies in a template. Region specific dependencies are relevant when dealing with the location
+of a resource, endpoints and API versions.
+
+### Dependencies
+Real applications are often connected in various ways that creates dependencies. The creation of a
+resource in Azure can also depend on the existence of another resource. Creating a virtual machine,
+requires a storage account and a virtual network to be present. When all the dependent resources are
+deployed as part of the same template, the dependencies need to be defined. Without defining the
+dependencies, the platform cannot determine the correct order necessary to deploy the resources. To
+specify a dependency for a resource the following dependsOn attribute is used.
+
+
+-----------
+http://azuredeploy.net 
 
 https://github.com/Azure/azure-arm-validator
 
