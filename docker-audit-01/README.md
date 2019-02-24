@@ -20,7 +20,7 @@ Log data collected by Azure Monitor can be analyzed with queries to quickly retr
 
 ## Prerequisites
 
-Before delving into techical details let’s first review what is needed to reproduce it on your side. List is following:
+Before delving into technical details let’s first review what is needed to reproduce it on your side. List is following:
 
 * Setup a Docker environment(for example, in [Azure Cloud Shell](/docker-azure-cli-00/README.md#Introduction))
 
@@ -45,7 +45,7 @@ Invoke-Audit -AuditPort '22' -OSType 'Linux' -LogType 'AzureAudit' -CustomerId '
 4. Authenticate to https://aka.ms/devicelogin by entering an authorization code
 
 ## Results
-If everything went according to plan we should see information about scaned VMs and query it: 
+If everything went according to plan we should see information about scanned VMs and query it: 
 ![](/images/docker/oms_results.png)
 
 ## Useful documentation
