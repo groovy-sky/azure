@@ -1,32 +1,35 @@
-In the previous major version of Azure, a deployment backend model called Azure Service Manager (ASM) was used. With higher demand on scaling, being more flexible and more standardized a new model called the ARM was introduced and is now the standard way of
-using Azure. 
+In the previous major version of Azure, a deployment backend model called Azure Service Manager (ASM) was used. With higher demand on scaling, being more flexible and more standardized a new model called the ARM was introduced and is now the standard way of using Azure. 
 
-This includes a new portal, a new way of looking at things as resources and a standardized API that every tool, including the Azure portal, that interacts with Azure uses. 
+This includes a new portal, a new way of looking at things as resources and a standardized API that every tool, including the Azure portal, that interacts with Azure users. 
 
-With this API and architectural changes, it's possible to use such things as Azure Resource Manager templates for any size of deployment. ARM templates are written in JavaScript Object Notation (JSON) and are a convenient way to define one or more resources and their relationship to another programmatically. This structure is then deployed to a resource group.
-With this deployment model, it’s possible to define dependencies between resources as well as being able to deploy the exact same architecture again and again. The next part will dive a little deeper into resources. 
+### Main features ARM
 
-### REST API
-All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
-In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
+* Resources
+* Role Based Access Control
+* Infrastracture as a Code
 
-### Understanding the Azure resource manager 
+### Resources
+Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf.
 
-With the classic Azure system management, you could previously manage only one resource on the Azure platform at the same time. But what about more complex applications, as are common today? The infrastructure of today's applications typically consists of several components - a virtual machine, a storage account, a virtual network, a web app, a database, a database server, or a third-party service. To manage such complex applications, with the first preview of the Azure management portal 3.0, the concept of resource groups was introduced. 
+The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model.
+
+
+Beside the common properties that are shared across all services, a resource also has properties specific to each resource type. For example, a virtual network contains a concept of subnets, that is not relevant for storage accounts. Inversely, a storage account contains different redundancy options that are not relevant for a virtual network. To allow resources to contain their own properties and enable the introduction of new features to existing resources, each resource has its own API version. API versions ensure that your current configuration remains valid as new updates to a resource type are introduced.
+The combination of the common contract and resource specific properties provides a solid foundation for future developments, while ensuring your current investments are applicable to new features and services for the public, hosted and private cloud. 
+
+### Resource Groups
+An application usually consists of multiple resources that are related to each other. Related application resources conceptually share a common lifecycle. Maintaining an application for its complete lifetime requires lifecycle management capabilities. In Azure Resource Manager, these capabilities are provided with Resource Groups. A resource group is an end-user facing concept that groups resources into a logical unit. A resource must always be part of a resource group and can only be part of a single resource group. By grouping resources into a resource group, an entire application can be managed as a single entity instead of a range of scattered individual resources.
+For example, a virtual machine consists of a virtual hard disk that is stored in a storage account, a network interface card connected to a virtual network and an allocation of compute (CPU & RAM) resources. These components of a virtual machine are distinct resources in Azure. A resource group allows you to manage these related resources as a single logical entity with a shared common lifecycle.
+A resource group can exist with no resources, a single resource or many resources. These resources can be sourced from one or multiple resource providers, spanning both IaaS and PaaS services.
+A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
+
+
+With the classic Azure system management, you could previously manage only one resource on the Azure platform at the same time. But what about more complex applications, as are common today? The infrastructure of today's applications typically consists of several components - a virtual machine, a storage account, a virtual network, a web app, a database, a database server, or a third-party service. To manage such complex applications, , the concept of resource groups was introduced. 
 You now see your components no longer as separate entities, but as related and interdependent parts of a single entity. So you will be able to manage all the resources of your application simultaneously. 
 As an instrument for this type of management, the Azure resource manager (and the Azure resource manager tools) was introduced, and can be accessed via a variety of different technologies and interfaces. These access options include the following: 
 * The traditional way via the Azure management portal (portal version 3.0 and newer) 
 * The script-based way via Azure PowerShell (look for PowerShell modules with the prefix AzureRM) or via the cross-platform command-line interface Azure CLI 
 * For developers, there are also SDKs available (.NET and some other programming languages) and, as with all Azure services, an extensive REST API 
-
-### ARM
-We now know that the Azure resource manager serves as the technical base for the provision of resources. How are we going to continue? First, we will deal with the basic workflows in Azure resource manager. Then, in the second part, we will look at working with templates. 
-Some important facts that are important for all workflows: 
-* All of the resources in your resource group have the same life cycle. You will deploy, update, and delete them at the same time. 
-* Each resource can only exist in one resource group. 
-* You can add or remove a resource to a resource group at any time. You can also move a resource from one resource group to another. 
-* A resource group can contain resources that exist in different locations. 
-* A resource can interact with a resource in another resource groups when the two resources are related but they do not share the same life cycle (for example, a web app connecting to a database). 
 
 ### Infrastructure as Code
 Organizations need to manage and operate their existing applications in a modern way, while also taking advantage of the cloud model whenever possible. This transformation shifts the organization from a traditional model to a cloud model.
@@ -43,21 +46,6 @@ In general, we can distinguish two different programming types.
 * Imperative syntax describes the how. It requires you to think about how to configure all the individual components of the application, and define that in a programming language.
 * Declarative syntax describes the what. It requires you to define the desired state of your application and let a system determine the most efficient way to reach that state.
 In the remainder of this whitepaper is explained how the Azure Resource Manager API accepts both declarative and imperative programming.
-
-### Azure Resource Manager
-The Azure Resource Manager API is flexible allowing a range of different tools and languages to interact with the platform. Azure Resource Manager provides resource groups, template orchestration, role based access control, custom policies, tagging and auditing features to make it easier for you to build and manage your applications.
-
-#### Resources
-The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model. A typical application consists of various resources in a defined composition. Each type of resource is managed by a resource provider. Each resource provider serves resources of a similar type.
-For example, the resource provider for networking serves resource types like virtual networks, network interfaces and load balancers. The resource provider for storage serves a storage accounts resource type. Each resource provider implements an API to Azure Resource Manager that complies with a common contract, therefore allowing a consistent unified application model across all resource providers. When a new resource or even a completely new resource provider is introduced, the common contract ensures that your existing investments remain applicable as new services are introduced.
-Beside the common properties that are shared across all services, a resource also has properties specific to each resource type. For example, a virtual network contains a concept of subnets, that is not relevant for storage accounts. Inversely, a storage account contains different redundancy options that are not relevant for a virtual network. To allow resources to contain their own properties and enable the introduction of new features to existing resources, each resource has its own API version. API versions ensure that your current configuration remains valid as new updates to a resource type are introduced.
-The combination of the common contract and resource specific properties provides a solid foundation for future developments, while ensuring your current investments are applicable to new features and services for the public, hosted and private cloud. Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf.
-
-#### Resource Groups
-An application usually consists of multiple resources that are related to each other. Related application resources conceptually share a common lifecycle. Maintaining an application for its complete lifetime requires lifecycle management capabilities. In Azure Resource Manager, these capabilities are provided with Resource Groups. A resource group is an end-user facing concept that groups resources into a logical unit. A resource must always be part of a resource group and can only be part of a single resource group. By grouping resources into a resource group, an entire application can be managed as a single entity instead of a range of scattered individual resources.
-For example, a virtual machine consists of a virtual hard disk that is stored in a storage account, a network interface card connected to a virtual network and an allocation of compute (CPU & RAM) resources. These components of a virtual machine are distinct resources in Azure. A resource group allows you to manage these related resources as a single logical entity with a shared common lifecycle.
-A resource group can exist with no resources, a single resource or many resources. These resources can be sourced from one or multiple resource providers, spanning both IaaS and PaaS services.
-A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
 
 #### Template Orchestration
 Azure Resource Manager provides powerful Infrastructure as Code capabilities. Any type of resource
@@ -135,6 +123,26 @@ deployed as part of the same template, the dependencies need to be defined. With
 dependencies, the platform cannot determine the correct order necessary to deploy the resources. To
 specify a dependency for a resource the following dependsOn attribute is used.
 
+
+
+-----------
+With this API and architectural changes, it's possible to use such things as Azure Resource Manager templates for any size of deployment. ARM templates are written in JavaScript Object Notation (JSON) and are a convenient way to define one or more resources and their relationship to another programmatically. This structure is then deployed to a resource group.
+With this deployment model, it’s possible to define dependencies between resources as well as being able to deploy the exact same architecture again and again. The next part will dive a little deeper into resources. 
+
+
+### ARM
+We now know that the Azure resource manager serves as the technical base for the provision of resources. How are we going to continue? First, we will deal with the basic workflows in Azure resource manager. Then, in the second part, we will look at working with templates. 
+Some important facts that are important for all workflows: 
+* All of the resources in your resource group have the same life cycle. You will deploy, update, and delete them at the same time. 
+* Each resource can only exist in one resource group. 
+* You can add or remove a resource to a resource group at any time. You can also move a resource from one resource group to another. 
+* A resource group can contain resources that exist in different locations. 
+* A resource can interact with a resource in another resource groups when the two resources are related but they do not share the same life cycle (for example, a web app connecting to a database). 
+
+
+### REST API
+All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
+In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
 
 -----------
 http://azuredeploy.net 
