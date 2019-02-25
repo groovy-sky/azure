@@ -49,6 +49,14 @@ Azure includes several built-in roles that you can use. The following lists four
 * Contributor - Can create and manage all types of Azure resources but can’t grant access to others.
 * Reader - Can view existing Azure resources.
 
+#### Scope
+
+Scope is the set of resources that the access applies to. When you assign a role, you can further limit the actions allowed by defining a scope. This is helpful if you want to make someone a Website Contributor, but only for one resource group.
+
+In Azure, you can specify a scope at multiple levels: management group, subscription, resource group, or resource. Scopes are structured in a parent-child relationship.
+
+who has access to what
+
 ---------
 
 ### Infrastructure as Code
