@@ -1,35 +1,55 @@
+# Intruduction
+
 In the previous major version of Azure, a deployment backend model called Azure Service Manager (ASM) was used. With higher demand on scaling, being more flexible and more standardized a new model called the ARM was introduced and is now the standard way of using Azure. 
 
 This includes a new portal, a new way of looking at things as resources and a standardized API that every tool, including the Azure portal, that interacts with Azure users. 
 
-### Main features ARM
+## ARM
 
 * Resources
 * Role Based Access Control
 * Infrastracture as a Code
 
 ### Resources
-Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf.
-
-The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model.
-
-
-Beside the common properties that are shared across all services, a resource also has properties specific to each resource type. For example, a virtual network contains a concept of subnets, that is not relevant for storage accounts. Inversely, a storage account contains different redundancy options that are not relevant for a virtual network. To allow resources to contain their own properties and enable the introduction of new features to existing resources, each resource has its own API version. API versions ensure that your current configuration remains valid as new updates to a resource type are introduced.
-The combination of the common contract and resource specific properties provides a solid foundation for future developments, while ensuring your current investments are applicable to new features and services for the public, hosted and private cloud. 
+Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf. The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model.
 
 ### Resource Groups
-An application usually consists of multiple resources that are related to each other. Related application resources conceptually share a common lifecycle. Maintaining an application for its complete lifetime requires lifecycle management capabilities. In Azure Resource Manager, these capabilities are provided with Resource Groups. A resource group is an end-user facing concept that groups resources into a logical unit. A resource must always be part of a resource group and can only be part of a single resource group. By grouping resources into a resource group, an entire application can be managed as a single entity instead of a range of scattered individual resources.
-For example, a virtual machine consists of a virtual hard disk that is stored in a storage account, a network interface card connected to a virtual network and an allocation of compute (CPU & RAM) resources. These components of a virtual machine are distinct resources in Azure. A resource group allows you to manage these related resources as a single logical entity with a shared common lifecycle.
-A resource group can exist with no resources, a single resource or many resources. These resources can be sourced from one or multiple resource providers, spanning both IaaS and PaaS services.
-A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
+With the classic Azure system management, you could previously manage only one resource on the Azure platform at the same time.
+he infrastructure of today's applications usually consists of multiple resources that are related to each other. Related application resources conceptually share a common lifecycle. Maintaining an application for its complete lifetime requires lifecycle management capabilities. In Azure Resource Manager, these capabilities are provided with Resource Groups. A resource group is an end-user facing concept that groups resources into a logical unit. A resource must always be part of a resource group and can only be part of a single resource group. By grouping resources into a resource group, an entire application can be managed as a single entity instead of a range of scattered individual resources.
+
+Limitations:
+* A resource group allows you to manage these related resources as a single logical entity with a shared common lifecycle.
+* A resource group can exist with no resources, a single resource or many resources. These resources can be sourced from one or multiple resource providers, spanning both IaaS and PaaS services.
+* A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
+
+### A broad picture
 
 
-With the classic Azure system management, you could previously manage only one resource on the Azure platform at the same time. But what about more complex applications, as are common today? The infrastructure of today's applications typically consists of several components - a virtual machine, a storage account, a virtual network, a web app, a database, a database server, or a third-party service. To manage such complex applications, , the concept of resource groups was introduced. 
-You now see your components no longer as separate entities, but as related and interdependent parts of a single entity. So you will be able to manage all the resources of your application simultaneously. 
-As an instrument for this type of management, the Azure resource manager (and the Azure resource manager tools) was introduced, and can be accessed via a variety of different technologies and interfaces. These access options include the following: 
-* The traditional way via the Azure management portal (portal version 3.0 and newer) 
-* The script-based way via Azure PowerShell (look for PowerShell modules with the prefix AzureRM) or via the cross-platform command-line interface Azure CLI 
-* For developers, there are also SDKs available (.NET and some other programming languages) and, as with all Azure services, an extensive REST API 
+### RBAC
+Access management for cloud resources is a critical function for any organization that is using the cloud. Role-based access control (RBAC) helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to.
+
+The way you control access to resources using RBAC is to create role assignments. This is a key concept to understand – it’s how permissions are enforced. A role assignment consists of three elements: security principal, role definition, and scope.
+
+#### Security principal
+
+A security principal is an object that represents a user, group, service principal, or managed identity that is requesting access to Azure resources.
+
+* User - An individual who has a profile in Azure Active Directory. You can also assign roles to users in other tenants. For information about users in other organizations, see Azure Active Directory B2B.
+* Group - A set of users created in Azure Active Directory. When you assign a role to a group, all users within that group have that role.
+* Service principal - A security identity used by applications or services to access specific Azure resources. You can think of it as a user identity (username and password or certificate) for an application.
+* Managed identity - An identity in Azure Active Directory that is automatically managed by Azure. You typically use managed identities when developing cloud applications to manage the credentials for authenticating to Azure services.
+
+#### Role definition
+
+A role definition is a collection of permissions. It's sometimes just called a role. A role definition lists the operations that can be performed, such as read, write, and delete. Roles can be high-level, like owner, or specific, like virtual machine reader.
+
+Azure includes several built-in roles that you can use. The following lists four fundamental built-in roles. The first three apply to all resource types.
+
+* Owner - Has full access to all resources including the right to delegate access to others.
+* Contributor - Can create and manage all types of Azure resources but can’t grant access to others.
+* Reader - Can view existing Azure resources.
+
+---------
 
 ### Infrastructure as Code
 Organizations need to manage and operate their existing applications in a modern way, while also taking advantage of the cloud model whenever possible. This transformation shifts the organization from a traditional model to a cloud model.
@@ -156,3 +176,5 @@ https://docs.microsoft.com/en-us/azure/devops/learn/what-is-infrastructure-as-co
 https://blogs.msdn.microsoft.com/azuredev/2017/02/11/iac-on-azure-an-introduction-of-infrastructure-as-code-iac-with-azure-resource-manager-arm-template/
 
 https://www.slideshare.net/AmazonWebServices/devops-on-aws-deep-dive-on-infrastructure-as-code
+
+https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access
