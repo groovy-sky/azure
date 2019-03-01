@@ -98,12 +98,17 @@ You can follow along in this whitepaper as we build a simple template as the bas
 ```
 An Azure Resource Manager template uses 6 top level elements. Each element has a distinct role in the
 template:
-1. $schema - Location of the JSON schema file that describes the version of the template language
-1. contentVersion - Version of the template (such as 1.0.0.0). You can provide any value for this element. When deploying resources using the template, this value can be used to make sure that the right template is being used.
-1. parameters - Values that are provided when deployment is executed to customize resource deployment.
-1. variables - Values that are used as JSON fragments in the template to simplify template language expressions.
-1. resources - Resource types that are deployed or updated in a resource group.
-1. outputs - Values that are returned after deployment.
+* $schema - Location of the JSON schema file that describes the version of the template language
+* contentVersion - Version of the template (such as 1.0.0.0). You can provide any value for this element. When deploying resources using the template, this value can be used to make sure that the right template is being used.
+* parameters - Values that are provided when deployment is executed to customize resource deployment.
+* variables - Values that are used as JSON fragments in the template to simplify template language expressions.
+* resources - Resource types that are deployed or updated in a resource group.
+* outputs - Values that are returned after deployment.
+
+
+### REST API
+All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
+In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
 
 ### Tooling
 * https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-resource-groups-deployment-projects-create-deploy/
@@ -151,43 +156,21 @@ deployed as part of the same template, the dependencies need to be defined. With
 dependencies, the platform cannot determine the correct order necessary to deploy the resources. To
 specify a dependency for a resource the following dependsOn attribute is used.
 
+* http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
+* https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
+* https://azure.microsoft.com/en-us/updates/azure-portal-updates-for-classic-portal-users/
+* https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-deployment-model
 
+* http://azuredeploy.net 
 
------------
-With this API and architectural changes, it's possible to use such things as Azure Resource Manager templates for any size of deployment. ARM templates are written in JavaScript Object Notation (JSON) and are a convenient way to define one or more resources and their relationship to another programmatically. This structure is then deployed to a resource group.
-With this deployment model, it’s possible to define dependencies between resources as well as being able to deploy the exact same architecture again and again. The next part will dive a little deeper into resources. 
+* https://github.com/Azure/azure-arm-validator
 
+* https://blogs.technet.microsoft.com/uktechnet/2016/02/25/introduction-to-azure-resource-manager-templates-for-the-it-pro/
 
-### ARM
-We now know that the Azure resource manager serves as the technical base for the provision of resources. How are we going to continue? First, we will deal with the basic workflows in Azure resource manager. Then, in the second part, we will look at working with templates. 
-Some important facts that are important for all workflows: 
-* All of the resources in your resource group have the same life cycle. You will deploy, update, and delete them at the same time. 
-* Each resource can only exist in one resource group. 
-* You can add or remove a resource to a resource group at any time. You can also move a resource from one resource group to another. 
-* A resource group can contain resources that exist in different locations. 
-* A resource can interact with a resource in another resource groups when the two resources are related but they do not share the same life cycle (for example, a web app connecting to a database). 
+* https://docs.microsoft.com/en-us/azure/devops/learn/what-is-infrastructure-as-code
 
+* https://blogs.msdn.microsoft.com/azuredev/2017/02/11/iac-on-azure-an-introduction-of-infrastructure-as-code-iac-with-azure-resource-manager-arm-template/
 
-### REST API
-All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
-In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
+* https://www.slideshare.net/AmazonWebServices/devops-on-aws-deep-dive-on-infrastructure-as-code
 
-http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
-https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
-https://azure.microsoft.com/en-us/updates/azure-portal-updates-for-classic-portal-users/
-https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-deployment-model
-
------------
-http://azuredeploy.net 
-
-https://github.com/Azure/azure-arm-validator
-
-https://blogs.technet.microsoft.com/uktechnet/2016/02/25/introduction-to-azure-resource-manager-templates-for-the-it-pro/
-
-https://docs.microsoft.com/en-us/azure/devops/learn/what-is-infrastructure-as-code
-
-https://blogs.msdn.microsoft.com/azuredev/2017/02/11/iac-on-azure-an-introduction-of-infrastructure-as-code-iac-with-azure-resource-manager-arm-template/
-
-https://www.slideshare.net/AmazonWebServices/devops-on-aws-deep-dive-on-infrastructure-as-code
-
-https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access
+* https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access
