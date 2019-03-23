@@ -113,6 +113,7 @@ template:
 * outputs - Values that are returned after deployment.
 
 ### REST API
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/start_00.png)
 All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
 In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
 
@@ -165,9 +166,9 @@ dependencies, the platform cannot determine the correct order necessary to deplo
 specify a dependency for a resource the following dependsOn attribute is used.
 
 ---
-# Advanced labs
+# Advanced Labs
 
-
+---
 * http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
 * https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
 * https://azure.microsoft.com/en-us/updates/azure-portal-updates-for-classic-portal-users/
