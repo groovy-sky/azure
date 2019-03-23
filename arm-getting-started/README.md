@@ -1,4 +1,5 @@
 # Contents
+* [The presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 
 ## Intruduction
 
