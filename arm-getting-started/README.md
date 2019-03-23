@@ -1,4 +1,4 @@
-# Intruduction
+## Intruduction
 
 In the previous major version of Azure, a deployment backend model called Azure Service Manager (ASM) was used. With higher demand on scaling, being more flexible and more standardized a new model called the ARM was introduced and is now the standard way of using Azure. 
 
@@ -21,9 +21,6 @@ Limitations:
 * A resource group allows you to manage these related resources as a single logical entity with a shared common lifecycle.
 * A resource group can exist with no resources, a single resource or many resources. These resources can be sourced from one or multiple resource providers, spanning both IaaS and PaaS services.
 * A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
-
-### A broad picture
-
 
 ### RBAC
 Access management for cloud resources is a critical function for any organization that is using the cloud. Role-based access control (RBAC) helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to.
@@ -54,10 +51,6 @@ Azure includes several built-in roles that you can use. The following lists four
 Scope is the set of resources that the access applies to. When you assign a role, you can further limit the actions allowed by defining a scope. This is helpful if you want to make someone a Website Contributor, but only for one resource group.
 
 In Azure, you can specify a scope at multiple levels: management group, subscription, resource group, or resource. Scopes are structured in a parent-child relationship.
-
-who has access to what
-
----------
 
 ### Infrastructure as Code
 Organizations need to manage and operate their existing applications in a modern way, while also taking advantage of the cloud model whenever possible. This transformation shifts the organization from a traditional model to a cloud model.
