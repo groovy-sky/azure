@@ -1,5 +1,5 @@
 # Contents
-* [The presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
+* ["Hackathon - How to provision your Azure ARM Template" presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 * [Azure Resource Manager overview](#azure-resource-manager-overview)
 * [Advanced Labs](#advanced-labs)
 ---
