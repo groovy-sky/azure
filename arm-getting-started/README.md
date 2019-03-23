@@ -1,7 +1,7 @@
 # Contents
 * [The presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
-* [Azure Resource Manager overview](#introduction)
-* [Advanced Labs](#introduction)
+* [Azure Resource Manager overview](#azure-resource-manager-overview)
+* [Advanced Labs](#advanced-labs)
 ---
 # Azure Resource Manager overview
 
@@ -163,6 +163,10 @@ requires a storage account and a virtual network to be present. When all the dep
 deployed as part of the same template, the dependencies need to be defined. Without defining the
 dependencies, the platform cannot determine the correct order necessary to deploy the resources. To
 specify a dependency for a resource the following dependsOn attribute is used.
+
+---
+# Advanced labs
+
 
 * http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
 * https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
