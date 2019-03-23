@@ -2,7 +2,7 @@
 * [The presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 * [Introduction](#introduction)
 
-## Intruduction
+## Introduction
 
 In the previous major version of Azure, a deployment backend model called Azure Service Manager (ASM) was used. With higher demand on scaling, being more flexible and more standardized a new model called the ARM was introduced and is now the standard way of using Azure. 
 
