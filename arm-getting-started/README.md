@@ -15,6 +15,7 @@ This includes a new portal, a new way of looking at things as resources and a st
 * Infrastracture as a Code
 
 ### Resources
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/res_03.png)
 Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf. The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model.
 
 ### Resource Groups
@@ -27,6 +28,7 @@ Limitations:
 * A resource group cannot contain another resource group. All other Azure Resource Manager featuresintegrate tightly with the resource group concept.
 
 ### RBAC
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/rbac_02.png)
 Access management for cloud resources is a critical function for any organization that is using the cloud. Role-based access control (RBAC) helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to.
 
 The way you control access to resources using RBAC is to create role assignments. This is a key concept to understand – it’s how permissions are enforced. A role assignment consists of three elements: security principal, role definition, and scope.
@@ -73,6 +75,7 @@ In general, we can distinguish two different programming types.
 In the remainder of this whitepaper is explained how the Azure Resource Manager API accepts both declarative and imperative programming.
 
 #### Template Orchestration
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/decl_02.png)
 Azure Resource Manager provides powerful Infrastructure as Code capabilities. Any type of resource
 that is available on the Microsoft cloud platform can be deployed and configured with Azure Resource
 Manager. With a single template, you can deploy and configure multiple resources as a single
