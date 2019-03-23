@@ -1,8 +1,15 @@
 # Contents
 * [The presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
-* [Introduction](#introduction)
+* [Azure Resource Manager overview](#introduction)
+* [Advanced Labs](#introduction)
 ---
+# Azure Resource Manager overview
+
 ## Introduction
+
+Azure is a big cloud with lots of services, and for even the most experienced user it can be intimidating to know which service will best meet your needs. 
+
+## ASM vs ARM
 
 In the previous major version of Azure, a deployment backend model called Azure Service Manager (ASM) was used. With higher demand on scaling, being more flexible and more standardized a new model called the ARM was introduced and is now the standard way of using Azure. 
 
@@ -105,14 +112,15 @@ template:
 * resources - Resource types that are deployed or updated in a resource group.
 * outputs - Values that are returned after deployment.
 
-
 ### REST API
 All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
 In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
 
 ### Tooling
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/arm_05.png)
 * https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-resource-groups-deployment-projects-create-deploy/
 * https://azure.microsoft.com/en-us/documentation/articles/resource-manager-vs-code/
+
 ### Template functions
 Azure Resource Manager provides template functions that make the template orchestration engine very
 powerful. Template functions enable operations on values within the template at deployment time. A
