@@ -168,6 +168,10 @@ specify a dependency for a resource the following dependsOn attribute is used.
 ---
 # Advanced Labs
 
+* [Runing Docker from your browser using Azure Cloud Shell](https://lnkd.in/dy9nnnV)
+* [Create and configure Ansible Tower](https://lnkd.in/g3gsW3r)
+* [Scan Azure's virtual machines using dockerized NMAP](https://lnkd.in/gt7UMz2)
+
 ---
 * http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
 * https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
