@@ -168,10 +168,17 @@ specify a dependency for a resource the following dependsOn attribute is used.
 ---
 # Advanced Labs
 
-* [Runing Docker from your browser using Azure Cloud Shell](https://lnkd.in/dy9nnnV)
-* [Create and configure Ansible Tower](https://lnkd.in/g3gsW3r)
-* [Scan Azure's virtual machines using dockerized NMAP](https://lnkd.in/gt7UMz2)
-* [Build SonarQube server in Azure](https://lnkd.in/gjctEN8)
+Docker-related labs:
+1. [Runing Docker from a browser using Azure Cloud Shell](https://lnkd.in/dy9nnnV)
+1. [Scan Azure's virtual machines using dockerized NMAP](https://lnkd.in/gt7UMz2)
+
+Ansible-related labs:
+1. [Create and configure Ansible Tower](https://lnkd.in/g3gsW3r)
+1. [](https://github.com/groovy-sky/azure/tree/master/ansible-tower-04)
+
+SonarQube-related labs:
+1. [Build SonarQube server in Azure](https://lnkd.in/gjctEN8)
+1. [Integrate SonarQube with Azure DevOps pipeline](https://lnkd.in/gYpvA6D)
 
 ---
 * http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
