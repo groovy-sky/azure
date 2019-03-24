@@ -163,6 +163,27 @@ deployed as part of the same template, the dependencies need to be defined. With
 dependencies, the platform cannot determine the correct order necessary to deploy the resources. To
 specify a dependency for a resource the following dependsOn attribute is used.
 
+## Used materials
+
+* http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
+* https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
+* https://azure.microsoft.com/en-us/updates/azure-portal-updates-for-classic-portal-users/
+* https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-deployment-model
+
+* http://azuredeploy.net 
+
+* https://github.com/Azure/azure-arm-validator
+
+* https://blogs.technet.microsoft.com/uktechnet/2016/02/25/introduction-to-azure-resource-manager-templates-for-the-it-pro/
+
+* https://docs.microsoft.com/en-us/azure/devops/learn/what-is-infrastructure-as-code
+
+* https://blogs.msdn.microsoft.com/azuredev/2017/02/11/iac-on-azure-an-introduction-of-infrastructure-as-code-iac-with-azure-resource-manager-arm-template/
+
+* https://www.slideshare.net/AmazonWebServices/devops-on-aws-deep-dive-on-infrastructure-as-code
+
+* https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access
+
 ---
 # Labs
 ## Entry level labs
@@ -185,22 +206,3 @@ SonarQube-related labs:
 1. [Build SonarQube server in Azure](https://lnkd.in/gjctEN8)
 1. [Integrate SonarQube with Azure DevOps pipeline](https://lnkd.in/gYpvA6D)
 
----
-* http://geekswithblogs.net/Mathoms/archive/2008/10/28/red-dog--windows-azure-and-the-azure-services-platform.aspx
-* https://www.theregister.co.uk/2008/10/27/microsoft_amazon/
-* https://azure.microsoft.com/en-us/updates/azure-portal-updates-for-classic-portal-users/
-* https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-deployment-model
-
-* http://azuredeploy.net 
-
-* https://github.com/Azure/azure-arm-validator
-
-* https://blogs.technet.microsoft.com/uktechnet/2016/02/25/introduction-to-azure-resource-manager-templates-for-the-it-pro/
-
-* https://docs.microsoft.com/en-us/azure/devops/learn/what-is-infrastructure-as-code
-
-* https://blogs.msdn.microsoft.com/azuredev/2017/02/11/iac-on-azure-an-introduction-of-infrastructure-as-code-iac-with-azure-resource-manager-arm-template/
-
-* https://www.slideshare.net/AmazonWebServices/devops-on-aws-deep-dive-on-infrastructure-as-code
-
-* https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access
