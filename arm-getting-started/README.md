@@ -1,8 +1,9 @@
 # Contents
 * ["Hackathon - How to provision your Azure ARM Template" presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 * [Azure Resource Manager overview](#azure-resource-manager-overview)
-* [Beginner Labs](#beginner-labs)
-* [Advanced Labs](#advanced-labs)
+* [Beginner level labs](#beginner-level-labs)
+* [Intermediate level labs](#intermediate-level-labs)
+* [Advanced level labs](#advanced-level-labs)
 ---
 # Azure Resource Manager overview
 
@@ -161,12 +162,14 @@ dependencies, the platform cannot determine the correct order necessary to deplo
 specify a dependency for a resource the following dependsOn attribute is used.
 
 ---
-# Beginner Labs
+# Entry level labs
 * [Create resources using a portal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-quickstart-create-templates-use-the-portal)
-* [Create a VM using Azure CLI](https://docs.microsoft.com/en-us/cli/azure/azure-cli-vm-tutorial?view=azure-cli-latest)
-* [Create a VM using Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/azureps-vm-tutorial?view=azps-1.5.0)
 ---
-# Advanced Labs
+# Intermediate level labs
+* [Create a Linux VM using Azure CLI](https://docs.microsoft.com/en-us/cli/azure/azure-cli-vm-tutorial?view=azure-cli-latest)
+* [Create a Linux VM using Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/azureps-vm-tutorial?view=azps-1.5.0)
+---
+# Advanced level labs
 
 Docker-related labs:
 1. [Runing Docker from a browser using Azure Cloud Shell](https://lnkd.in/dy9nnnV)
