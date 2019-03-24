@@ -2,9 +2,9 @@
 * ["Hackathon - How to provision your Azure ARM Template" presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 * [Azure Resource Manager overview](#azure-resource-manager-overview)
 * [Labs](#labs)
-** [Entry level labs](#entry-level-labs)
-** [Intermediate level labs](#intermediate-level-labs)
-** [Advanced level labs](#advanced-level-labs)
+ * [Entry level labs](#entry-level-labs)
+ * [Intermediate level labs](#intermediate-level-labs)
+ * [Advanced level labs](#advanced-level-labs)
 
 ---
 # Azure Resource Manager overview
