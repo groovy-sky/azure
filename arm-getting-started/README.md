@@ -83,7 +83,7 @@ In general, we can distinguish two different programming types.
 In the remainder of this whitepaper is explained how the Azure Resource Manager API accepts both declarative and imperative programming.
 
 #### Template Orchestration
-![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/decl_02.png)
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/decl_00.png)
 Azure Resource Manager provides powerful Infrastructure as Code capabilities. Any type of resource
 that is available on the Microsoft cloud platform can be deployed and configured with Azure Resource
 Manager. With a single template, you can deploy and configure multiple resources as a single
@@ -92,6 +92,7 @@ end state.
 
 #### Language
 Azure Resource Manager accepts JavaScript Object Notation (JSON) templates that comply with a JSON schema. JSON is an industry standard, human readable language.
+![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/decl_02.png)
 
 You can follow along in this whitepaper as we build a simple template as the basis for this whitepaper. For our example create a new template file called azuredeploy.json. Copy and paste the following code, that contains all the top level elements, in to the file.
 ```
