@@ -1,6 +1,7 @@
 # Contents
 * ["Hackathon - How to provision your Azure ARM Template" presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 * [Azure Resource Manager overview](#azure-resource-manager-overview)
+* [Beginner Labs](#beginner-labs)
 * [Advanced Labs](#advanced-labs)
 ---
 # Azure Resource Manager overview
@@ -117,11 +118,6 @@ template:
 All Azure Services, including the Azure Management Portal, provide their own REST APIs for their functionality. They can, therefore, be accessed by any application that RESTful Services can process. 
 In order for software developers to write applications in the programming language of their choice, Microsoft offers wrapper classes for the REST APIs. 
 
-### Tooling
-![](https://raw.githubusercontent.com/groovy-sky/getting-started-with-arm-template/master/assets/img/arm_05.png)
-* https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-resource-groups-deployment-projects-create-deploy/
-* https://azure.microsoft.com/en-us/documentation/articles/resource-manager-vs-code/
-
 ### Template functions
 Azure Resource Manager provides template functions that make the template orchestration engine very
 powerful. Template functions enable operations on values within the template at deployment time. A
@@ -130,8 +126,6 @@ function that concatenate strings and pass in the two strings as parameters to t
 Template functions can be used in variables, resources and outputs in Azure Resource Manager
 templates. Template functions can reference parameters, other variables or even objects related to the
 deployment. For example, a template function can reference the ID of the resource group.
-
-https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-functions/
 
 ### Parameter file
 The example template in this whitepaper currently contains one parameter for the storage account
@@ -166,6 +160,11 @@ dependencies, the platform cannot determine the correct order necessary to deplo
 specify a dependency for a resource the following dependsOn attribute is used.
 
 ---
+# Beginner Labs
+* [Create resources using a portal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-quickstart-create-templates-use-the-portal)
+* [Create a VM using Azure CLI](https://docs.microsoft.com/en-us/cli/azure/azure-cli-vm-tutorial?view=azure-cli-latest)
+* [Create a VM using Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/azureps-vm-tutorial?view=azps-1.5.0)
+---
 # Advanced Labs
 
 Docker-related labs:
@@ -174,7 +173,7 @@ Docker-related labs:
 
 Ansible-related labs:
 1. [Create and configure Ansible Tower](https://lnkd.in/g3gsW3r)
-1. [](https://github.com/groovy-sky/azure/tree/master/ansible-tower-04)
+1. [Create Azure virtual machine using Ansible Tower](https://lnkd.in/diUNrU9)
 
 SonarQube-related labs:
 1. [Build SonarQube server in Azure](https://lnkd.in/gjctEN8)
