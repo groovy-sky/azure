@@ -1,9 +1,11 @@
 # Contents
 * ["Hackathon - How to provision your Azure ARM Template" presentation](https://gitpitch.com/groovy-sky/getting-started-with-arm-template/master)
 * [Azure Resource Manager overview](#azure-resource-manager-overview)
-* [Entry level labs](#entry-level-labs)
-* [Intermediate level labs](#intermediate-level-labs)
-* [Advanced level labs](#advanced-level-labs)
+* [Labs](#labs)
+** [Entry level labs](#entry-level-labs)
+** [Intermediate level labs](#intermediate-level-labs)
+** [Advanced level labs](#advanced-level-labs)
+
 ---
 # Azure Resource Manager overview
 
@@ -162,15 +164,15 @@ dependencies, the platform cannot determine the correct order necessary to deplo
 specify a dependency for a resource the following dependsOn attribute is used.
 
 ---
-# Entry level labs
+# Labs
+## Entry level labs
 * [Create resources using a portal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-quickstart-create-templates-use-the-portal)
----
-# Intermediate level labs
+
+## Intermediate level labs
 * [Create a Linux VM using Azure CLI](https://docs.microsoft.com/en-us/cli/azure/azure-cli-vm-tutorial?view=azure-cli-latest)
 * [Create a Linux VM using Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/azureps-vm-tutorial?view=azps-1.5.0)
----
-# Advanced level labs
 
+## Advanced level labs
 Docker-related labs:
 1. [Runing Docker from a browser using Azure Cloud Shell](https://lnkd.in/dy9nnnV)
 1. [Scan Azure's virtual machines using dockerized NMAP](https://lnkd.in/gt7UMz2)
