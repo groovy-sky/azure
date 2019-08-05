@@ -209,3 +209,4 @@ SonarQube-related labs:
 # Other resources
 * [Microsoft Learing Paths](https://docs.microsoft.com/learn)
 * [ARM QuickStart Templates](https://github.com/Azure/azure-quickstart-templates)
+* [Free Azure Courses from Pluralsight](https://www.pluralsight.com/partners/microsoft/azure)
