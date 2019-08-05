@@ -5,7 +5,7 @@
    * [Entry level labs](#entry-level-labs)
    * [Intermediate level labs](#intermediate-level-labs)
    * [Advanced level labs](#advanced-level-labs)
-
+* [Other resources](#other-resources)
 ---
 # Azure Resource Manager overview
 
@@ -206,6 +206,6 @@ SonarQube-related labs:
 1. [Build SonarQube server in Azure](https://lnkd.in/gjctEN8)
 1. [Integrate SonarQube with Azure DevOps pipeline](https://lnkd.in/gYpvA6D)
 
-## Other resources
+# Other resources
 * [Microsoft Learing Paths](https://docs.microsoft.com/learn)
 * [ARM QuickStart Templates](https://github.com/Azure/azure-quickstart-templates)
