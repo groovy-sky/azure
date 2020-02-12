@@ -2,9 +2,11 @@
 ![](/images/iac/logo_transparent.png)
 
 ## Introduction
-This article describes my personal experience of trying to build Infrastructure as Code by configuring a firewall solution in Azure.
+This article describes my personal experience configuring a firewall solution in Azure using Infrastructure as Code concept.
 
-Overall result contains multiple levels of abstractions and we will explore one by one. And a first Matryoshka in the chain is Azure Resource Manager: 
+With Infrastructure as Code (IaC) approach managing an environment should be in the same manner as managing a code.
+
+We will explore in a phased approach and this time let's take a look on Azure:
 
 ![](/images/iac/abstraction_00.png)
 
