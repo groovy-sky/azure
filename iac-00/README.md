@@ -1,8 +1,8 @@
-# Infrastructure as Code 
+# Infrastructure as Code (part 1)
 ![](/images/iac/logo_transparent.png)
 
 ## Introduction
-This article describes my personal experience configuring a firewall solution in Azure using Infrastructure as Code concept.
+This article describes my personal experience configuring a networking solution in Azure using Infrastructure as Code concept.
 
 With Infrastructure as Code (IaC) approach managing an environment should be in the same manner as managing a code.
 
@@ -30,6 +30,8 @@ In the remainder of this whitepaper is explained how the Azure Resource Manager 
 ARM template structure:
 ![](/images/iac/json_description.png)
 
+
+[Following template](https://github.com/Azure/azure-quickstart-templates/blob/82f89589987cef6a27073894079cd5f4ac5c4653/101-vm-simple-linux/azuredeploy.json) we will use as an example
 
 ## Results
 
