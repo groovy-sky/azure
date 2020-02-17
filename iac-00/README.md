@@ -31,7 +31,17 @@ ARM template structure:
 ![](/images/iac/json_description.png)
 
 
-[Following template](https://github.com/Azure/azure-quickstart-templates/blob/82f89589987cef6a27073894079cd5f4ac5c4653/101-vm-simple-linux/azuredeploy.json) we will use as an example
+## Practical part
+
+
+
+[Following template](/azure/azuredeploy.json) we will use as an initial 
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Fiac-00%2Fazure%2Fazuredeploy.json" target="_blank">
+<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
+</a>
+
+
 
 ## Results
 
