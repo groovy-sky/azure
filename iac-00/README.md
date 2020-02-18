@@ -2,11 +2,11 @@
 ![](/images/iac/logo_transparent.png)
 
 ## Introduction
-This article describes my personal experience configuring a networking solution in Azure using Infrastructure as Code concept.
+This and the following articles describe how to work with Infrastructure as Code (IaC) approach. 
+
 
 With Infrastructure as Code (IaC) approach managing an environment should be in the same manner as managing a code.
 
-We will explore in a phased approach and this time let's take a look on Azure:
 
 ![](/images/iac/abstraction_00.png)
 
