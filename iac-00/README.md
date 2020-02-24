@@ -1,6 +1,8 @@
 # Infrastructure as Code (part 1)
 ![](/images/iac/logo_transparent.png)
 
+---
+
 ## Introduction
 This and the following articles describe how to work with Infrastructure as Code (IaC) approach. 
 
@@ -46,15 +48,22 @@ Parameters should be used for collecting input to customize the deployment. Valu
 At first create new resource group:
 ![](/images/iac/az_create_demo_group.png)
 
-You can deploy [following template](/azure/azuredeploy.json) in any preferable for you way (different options described [here](https://github.com/Azure/azure-quickstart-templates/blob/master/101-vm-simple-linux/GettingStarted-linux.md)) or click on a button below and fill required fields: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Fiac-00%2Fazure%2Fazuredeploy.json" target="_blank">
-<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
+Once the group has been created the next thing that must be done is [following template](/azure/azuredeploy.json) deployment. This template deploys a Linux VM Ubuntu using the latest patched version. This will deploy a Standard_B2ms size VM and a 18.04-LTS Version with installed NGINX.
+
+You can deploy  in any preferable for you way or just click on a button below <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank">
+<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> and fill required fields: 
+
 </a> ![](/images/iac/az_template_finish.png)
 
 
 ## Results
+As a result, after deployment will be finished, you can check that vm was deployed and welcome page is accessible:
 ![](/images/iac/nginx_demo_check.png)
+
 ## Related information
 
 * https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/overview
 
 * https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview
+
+* https://github.com/Azure/azure-quickstart-templates/blob/master/101-vm-simple-linux/GettingStarted-linux.md
