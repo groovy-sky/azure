@@ -10,7 +10,7 @@ This and the following articles describe how to work with Infrastructure as Code
 With Infrastructure as Code (IaC) approach managing an environment should be in the same manner as managing a code.
 
 
-![](/images/iac/abstraction_00.png)
+![](/images/iac/cloud_journey_00.png)
 
 ## Azure Resource Manager
 ![](/images/iac/asm_vs_arm.png)
@@ -18,6 +18,8 @@ With Infrastructure as Code (IaC) approach managing an environment should be in 
 Azure Resource Manager is the replacement for Azure Service Manager (aka Azure Classic).
 
 Azure Resource Manager is a unified application model that provides consistent end user experiences while interacting with the resource providers on the user behalf. The Microsoft cloud platform delivers IaaS and PaaS services. These services are referred to as resources in the ARM model.
+
+![](/images/iac/one_script.png)
 
 
 #### Imperative and declarative
