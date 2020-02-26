@@ -1,9 +1,9 @@
 # Infrastructure as Code (part 1)
 ![](/images/iac/logo_transparent.png)
 
----
-
 ## Introduction
+In the cloud era provisioning an environment in a traditional way is a time-consuming and costly process. Application programming interfaces (API) provided by the cloud provider helps to automate the provisioning of it's infrastructure. IaC makes this automation possible.
+
 This and the following articles describe how to work with Infrastructure as Code (IaC) approach. 
 
 
@@ -69,3 +69,6 @@ As a result, after deployment will be finished, you can check that vm was deploy
 * https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview
 
 * https://github.com/Azure/azure-quickstart-templates/blob/master/101-vm-simple-linux/GettingStarted-linux.md
+
+* https://www.ibm.com/cloud/blog/cloud-computing-history
+
