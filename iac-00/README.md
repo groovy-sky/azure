@@ -42,12 +42,26 @@ Parameters should be used for collecting input to customize the deployment. Valu
 In the variables section, you construct values that can be used throughout your template. You don't need to define variables, but they often simplify your template by reducing complex expressions.
 
 #### Resources
-In the resources section, you define the resources that are deployed or updated.
+In the resources section, you define the resources that are deployed or updated. Each resource is defined separately. If there are dependencies between resources, they must be described in the resource definition. For example, if a Virtual Machine depends on a Storage Account, this will be defined in the Virtual Machine resource declaration. Azure Resource Manager analyzes dependencies to ensure resources are created in the correct order, and there is no meaning to the order in which the resources are defined in the template.
+
+### Template limitations
+Limit the size of your template to 4 MB, and each parameter file to 64 KB. The 4-MB limit applies to the final state of the template after it has been expanded with iterative resource definitions, and values for variables and parameters.
+
+You're also limited to:
+
+* 256 parameters
+* 256 variables
+* 800 resources (including copy count)
+* 64 output values
+* 24,576 characters in a template expression
+
 
 ## Practical part
 
 At first create new resource group:
 ![](/images/iac/az_create_demo_group.png)
+
+When you deploy resources to a resource group, the resource group stores metadata about the resources. The metadata is stored in the location of the resource group.
 
 Once the group has been created the next thing that must be done is [following template](/azure/azuredeploy.json) deployment. This template deploys a Linux VM Ubuntu using the latest patched version. This will deploy a Standard_B2ms size VM with Ubuntu 18.04-LTS version with installed NGINX.
 
@@ -61,7 +75,9 @@ You can deploy  in any preferable for you way or just click on a button below <a
 As a result, after deployment will be finished, you can check that vm was deployed and welcome page is accessible:
 ![](/images/iac/nginx_demo_check.png)
 
+Microsoft provide [ready to use templates ](https://azure.microsoft.com/en-us/resources/templates/)
 
+you don't have to define your entire infrastructure in a single template. Often, it makes sense to divide your deployment requirements into a set of targeted, purpose-specific templates.
 
 ## Related information
 
