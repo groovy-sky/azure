@@ -59,30 +59,27 @@ At first create new resource group (please don't use 'demo-group' name - choose 
 
 When you deploy resources to a resource group, the resource group stores metadata about the resources. The metadata is stored in the location of the resource group.
 
-Once the group has been created the next thing that must be done is [demo template](https://raw.githubusercontent.com/groovy-sky/iaac-demo/master/azure/azuredeploy.json) deployment. If you haven't used ARM template before - you can use <a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.png"/> </a> button for an overall view. Main parts are following:
+Once the group has been created the next thing that must be done is [demo template](https://raw.githubusercontent.com/groovy-sky/iaac-demo/master/azure/azuredeploy.json) deployment. If you haven't used ARM template before - you can use <a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.png"/> </a> button for an overall view. Main parts looks following:
 
 ![](/images/iac/arm_structure.png)
 
-The template deploys a Ubuntu OS VM and installs NGINX on that server.
-
-You can deploy in any preferable for you way or just click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button and fill required fields (please use [secure enough password](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm)): 
+You can start the deployment in any preferable for you way or just click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button and fill required fields (please use [secure enough password](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm)): 
 
 </a> ![](/images/iac/az_template_finish.png)
 
-
 ## Summary
-After deployment will be finished you can validate that VM is running and find out its DNS:
+As a result we should get Ubuntu OS VM with installed NGINX. After deployment is done you can validate that VM is in 'running' state and check its DNS:
 
 ![](/images/iac/nginx_demo_check_00.png)
 
-Check NGINX installation by accessing VMs DNS:
+You can make sure of everything went according to plan by accessing welcome page:
 
 ![](/images/iac/nginx_demo_check_01.png)
 
 
-One of main disadvantages of using a pure ARM template - you can't build and manage an infrastructure using only templates. On top of this, template deployment (filling in parameters is part of it) should be non-manual process.
+One of main disadvantages of using a pure ARM template - you can't build and manage whole infrastructure using only templates. On top of this, template deployment itself(filling in parameters is part of it) should be non-manual process.
 
-In the next chapter we will try to find the way how to make things better. 
+In the next chapter we will try to find the way how to make things better using an additional infrastructure orchestration tool.
 
 ## Related information
 
