@@ -30,9 +30,7 @@ In the imperative approach—also known as the procedural approach—the solutio
 Resource Manager template - A JavaScript Object Notation (JSON) file that defines one or more resources to deploy to a resource group or subscription. The template can be used to deploy the resources consistently and repeatedly. 
 declarative syntax - Syntax that lets you state "Here is what I intend to create" without having to write the sequence of programming commands to create it. 
 
-General Guidelines for ARM Templates is available [here](https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md#azure-resource-manager-templates---best-practices-guide).
-
-ARM template structure:
+General Guidelines for ARM Templates is available [here](https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md#azure-resource-manager-templates---best-practices-guide). ARM template structure:
 ![](/images/iac/json_description.png)
 
 #### Parameters
@@ -67,20 +65,24 @@ Once the group has been created the next thing that must be done is [demo templa
 
 The template deploys a Ubuntu OS VM and installs NGINX on that server.
 
-You can deploy in any preferable for you way or just click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button and fill required fields: 
+You can deploy in any preferable for you way or just click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fiaac-demo%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button and fill required fields (please use [secure enough password](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm)): 
 
 </a> ![](/images/iac/az_template_finish.png)
 
 
 ## Summary
 After deployment will be finished you can validate that VM is running and find out its DNS:
+
 ![](/images/iac/nginx_demo_check_00.png)
 
 Check NGINX installation by accessing VMs DNS:
+
 ![](/images/iac/nginx_demo_check_01.png)
 
 
-One of main disadvantages of using a pure ARM templating - you don't have to define your entire infrastructure in a single template. Often, it makes sense to divide your deployment requirements into a set of targeted, purpose-specific templates.
+One of main disadvantages of using a pure ARM template - you can't build and manage an infrastructure using only templates. On top of this, template deployment (filling in parameters is part of it) should be non-manual process.
+
+In the next chapter we will try to find the way how to make things better. 
 
 ## Related information
 
