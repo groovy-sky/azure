@@ -54,27 +54,26 @@ There are three types of Ansible modules:
 
 ## Prerequisites
 
-* Linux OS with installed Ansible and Azure module
-* 
+To be able to use Ansible for managing Microsoft Azure we will need:
+* Linux environment (Windows currently [is not supported](https://docs.ansible.com/ansible/latest/user_guide/windows_faq.html#can-ansible-run-on-windows)) to run Ansible engine. 
+* [Ansible cloud module](https://docs.ansible.com/ansible/latest/modules/list_of_cloud_modules.html#azure) for interacting with Azure services
+* Valid credentials for accessing Azure (Username/Password or Service Principal Credentials)
 
-## Practical Part
 
-### Accessing Azure from Ansible
 
-Using the Azure Resource Manager modules requires authenticating with the Azure API. You can choose from two authentication strategies:
-
-* Active Directory Username/Password
-* Service Principal Credentials
-
-### Configuring Azure CLI
-Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work. Linux users can opt for a Bash experience, while Windows users can opt for PowerShell. For this demo we need a Bash option:
+Azure Cloud Shell is an interactive, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work - Bash or PowerShell.
 
 ![](/images/iac/azure_cli_init.png)
 
+## Practical Part
+
+
+[![Embed launch](https://shell.azure.com/images/launchcloudshell.png "Launch Azure Cloud Shell")](https://shell.azure.com)
 ```
-git clone https://github.com/groovy-sky/iaac-demo
+[ ! -d "iaac-demo/.git" ] && git clone https://github.com/groovy-sky/iaac-demo
+cd iaac-demo && git pull
 export ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook iaac-demo/ansible/main.yml -e azure_group_name='demo-group'
+ansible-playbook ansible/main.yml -e azure_group_name='<azure-group-name>'
 ```
 
 
@@ -89,3 +88,7 @@ ansible-playbook iaac-demo/ansible/main.yml -e azure_group_name='demo-group'
 * https://docs.microsoft.com/en-us/azure/ansible/ansible-overview
 
 * https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
+
+* https://github.com/microsoft/AnsibleLabs
+
+* https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cloud-shell/persisting-shell-storage.md#create-new-storage
