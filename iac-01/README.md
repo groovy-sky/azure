@@ -9,8 +9,7 @@ This article describes the second part of Infrastructure as Code approach (previ
 
 Orchestration is about bringing together disparate things into a coherent whole. There are many different kinds of orchestrations solutions such as Chef, Terraform, Puppet, Ansible and many others. This time 
 
-This document gives a basic overview of of using Ansible with Azure. To run 
-https://github.com/groovy-sky/iaac-demo
+This document gives an example of using Ansible to manage Azure resources. 
 
 ## Theoretical Part
 
@@ -74,17 +73,28 @@ Before going to the next section you will need to do initial configuration(more 
 
 ## Practical Part
 
-Deployment repository is located [here](https://github.com/groovy-sky/iaac-demo). Its structure looks following:
+To deploy a demo environment you need to:
+1. Select or create a resource group in Azure Resource Manager
+2. Open Cloud Shell (from the Azure portal or by clicking on [![Embed launch](https://shell.azure.com/images/launchcloudshell.png "Launch Azure Cloud Shell")](https://shell.azure.com))
+3. Use the resource group name (by replacing ```<azure-group-name>``` value) to execute following commands in Cloud Shell:
 
-![](/images/iac/iac_ansible_structure.png)
-
-[![Embed launch](https://shell.azure.com/images/launchcloudshell.png "Launch Azure Cloud Shell")](https://shell.azure.com)
 ```
 [ ! -d "iaac-demo/.git" ] && git clone https://github.com/groovy-sky/iaac-demo
 cd iaac-demo && git pull
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook ansible/main.yml -e azure_group_name='<azure-group-name>'
 ```
+
+### How it works
+
+As you might have guessed, 'https://github.com/groovy-sky/iaac-demo' repository contains all required files:
+![](/images/iac/iac_repo_info.png)
+
+By running 'ansible/main.yml' 
+![](/images/iac/iac_ansible_structure.png)
+
+
+
 
 
 ## Summary
