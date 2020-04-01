@@ -7,7 +7,7 @@ This article describes the second part of Infrastructure as Code approach (previ
 
 ![](/images/iac/cloud_journey_01.png)
 
-Orchestration is about bringing together disparate things into a coherent whole. There are many different kinds of orchestrations solutions such as Chef, Terraform, Puppet, Ansible and many others. This time 
+Orchestration is about bringing together disparate things into a coherent whole. There are many different kinds of orchestrations solutions such as Chef, Terraform, Puppet, Ansible and many others. All of the referenced tools were developed with a specific purpose or intent in mind. Choosing an appropriate tool requires a way of understanding an application field. 
 
 This document gives an example of using Ansible to manage Azure resources. 
 
@@ -73,8 +73,10 @@ Before going to the next section you will need to do initial configuration(more 
 
 ## Practical Part
 
+**Azure Resource Manager and Ansible have declarative syntax, which allows to redeploy this demo as many times as you may wish.**
+
 To deploy a demo environment you need to:
-1. Select or create a resource group in Azure Resource Manager
+1. Choose existing or create a new resource group in Azure
 2. Open Cloud Shell (from the Azure portal or by clicking on [![Embed launch](https://shell.azure.com/images/launchcloudshell.png "Launch Azure Cloud Shell")](https://shell.azure.com))
 3. Use the resource group name (by replacing ```<azure-group-name>``` value) to execute following commands in Cloud Shell:
 
@@ -85,19 +87,34 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook ansible/main.yml -e azure_group_name='<azure-group-name>'
 ```
 
+The whole thing takes less than 10 minutes:
+![](/images/iac/ansible_in_shell.gif)
+
 ### How it works
 
 As you might have guessed, 'https://github.com/groovy-sky/iaac-demo' repository contains all required files:
 ![](/images/iac/iac_repo_info.png)
 
-By running 'ansible/main.yml' 
-![](/images/iac/iac_ansible_structure.png)
+Command ```ansible-playbook ansible/main.yml``` runs several plays, which simplified structure looks following:
+![](/images/iac/ansible_flow.png)
 
+From a practical point of view Ansible:
+1. Deploys Virtual Machine with installed NGINX
+2. Whitelists Ansible host's public IP in NSG
+3. Generates SSH private/public key and using them access VM
+4. Replace default web page with a custom content 
 
-
+## Results
+If deployment was successful you should, by accessing VM's public IP/DNS, get a hello message:
+![](/images/iac/ansible_results.png)
 
 
 ## Summary
+At this point you've deployed Azure environment and made some changes on it. Moreover, it used Cloud-native template file, which leads to the fact that Ansible can be used not only as a replacement of Azure, but rather as empowerment for it. 
+
+![](/images/iac/ans_and_arm.png)
+
+The main drawback of this approach is the absence of a centralized management. The next time I am going to come up with an idea how to improve a situation.
 
 ## Related information
 
@@ -109,18 +126,8 @@ By running 'ansible/main.yml'
 
 * https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
 
-* https://github.com/microsoft/AnsibleLabs
-
 * https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cloud-shell/persisting-shell-storage.md#create-new-storage
 
-* https://www.azuredevopslabs.com/labs/vstsextend/ansible/
-
-* https://azure.microsoft.com/en-gb/overview/what-is-iaas/
-
-* https://devblogs.microsoft.com/azuregov/utilizing-paas-services-and-arm-deployment-templates-on-azure-government/
-
 * https://www.ansible.com/use-cases/orchestration
-
-* https://serversforhackers.com/c/an-ansible2-tutorial
 
 * https://docs.microsoft.com/en-us/azure/ansible/ansible-run-playbook-in-cloudshell
