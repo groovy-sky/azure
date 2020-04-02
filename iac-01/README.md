@@ -110,7 +110,10 @@ If deployment was successful you should, by accessing VM's public IP/DNS, get a 
 
 
 ## Summary
-At this point you've deployed Azure environment and made some changes on it. Moreover, it used Cloud-native template file, which leads to the fact that Ansible can be used not only as a replacement of Azure, but rather as empowerment for it. 
+At this point you've deployed Azure environment and made some changes on it. Moreover, it used Cloud-native template file, which leads to the fact that Ansible can be used not only as a replacement of Azure, but rather as empowerment for it. If you're wondering what advantages has Azure Template together with Ansible usage over pure use of Ansible, here is the list:
+* Template support advanced scenarios. For example, you need to build non-standard environment - a virtual machine with two network cards, which is connected to internal and external Load Balancer. It is possible to create one template which will deploy such environment.
+* With a template you can use default values for parameters. For example, you can specify default VM size or a resource location. This makes Ansible clearer (as it has less parameters) 
+* Ansible modules doesn't cover all resources available in Azure. Azure have huge amount of different services and each day Microsoft announce something new. Of course ARM template covers that all as it is a part of Azure ecosystem.
 
 ![](/images/iac/ans_and_arm.png)
 
