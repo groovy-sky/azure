@@ -119,7 +119,7 @@ At this point you've deployed Azure environment and made some changes on it. Mor
 
 The main drawback of this approach is the absence of a centralized management. The next time I am going to come up with an idea how to improve a situation.
 
-## Related information
+## Related Information
 
 * https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html
 
