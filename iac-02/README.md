@@ -3,15 +3,17 @@
 
 ## Introduction
 
-This article describes the third part of Infrastructure as Code approach (previous part about Cloud orchestration is available [here](/iac-01/README.md)). With this in mind, let’s look at containers.
+This article describes the third part of Infrastructure as Code approach (previous part about Cloud orchestration is available [here](/iac-01/README.md)). With this in mind, let’s discuss how .
 
 ![](/images/iac/cloud_journey_02.png)
 
 Containerization has become a major trend in software development as an alternative or companion to virtualization. It involves encapsulating or packaging up software code and all its dependencies so that it can run uniformly and consistently on any infrastructure. The technology is quickly maturing, resulting in measurable benefits for developers and operations teams as well as overall software infrastructure.
 
-**This document gives an example of using Github Actions to build a Docker image.**
+This document gives an example of using Github Actions to build a Docker image.
 
 ## Theoretical Part
+
+Some of the tools and terminology you’ll encounter in this document. 
 
 ### Github Actions
 At Universe 2018, Github launched GitHub Actions, a community-led approach to build and share automation for software development, including a full CI/CD solution and native package management.
@@ -49,11 +51,17 @@ Below is a list of common Docker terms:
 
 * A container is a runnable instance of an image. Containers are made possible by operating system (OS) process isolation and virtualization, which enable multiple application components to share the resources of a single instance of an OS kernel.
 
-
-
 ## Prerequisites
 
+Before you begin, you’ll need:
+* Github account (registration available [here](https://github.com/join?source=header-home))
+* Docker Hub account (registration available [here](https://hub.docker.com/signup))
+
 ## Practical Part
+
+This section shows how to configure a Github workflow, which builds a custom Docker image. https://github.com/groovy-sky/iaac-demo
+
+![](/images/iac/auto_assembly_logo.png)
 
 At a high level, these are the steps to add a workflow file. You can find specific configuration examples in the sections that follow.
 
@@ -68,6 +76,8 @@ At a high level, these are the steps to add a workflow file. You can find specif
 
 ## Results
 
+https://hub.docker.com/repository/docker/gr00vysky/iac-demo
+
 ## Summary
 
 ## Related Information
@@ -76,3 +86,5 @@ At a high level, these are the steps to add a workflow file. You can find specif
 * https://help.github.com/en/actions
 
 * https://www.ibm.com/cloud/learn/docker
+
+* https://developer.ibm.com/tutorials/accessing-dockerhub-repos-in-iks/
