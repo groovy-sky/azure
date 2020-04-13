@@ -64,9 +64,13 @@ Before you begin, you’ll need:
 
 ## Practical Part
 
-This section shows how to configure a Github workflow, which builds a custom Docker image. To do so, you'll need two files - Dockerfile (to build an Image) and a Workflow file (presented as 'build_docker_image.yml' file and located under .github/workflows directory). Both of them you can find in [a demo repository](https://github.com/groovy-sky/iaac-demo):
+This section shows how to configure a Github workflow, which builds a custom Docker image. To do so, you'll need two files - Dockerfile (to build an Image) and a Workflow file (presented as 'build_docker_image.yml' file and located under .github/workflows directory). Both of them you can find in [a demo repository](https://github.com/groovy-sky/iaac-demo).
 
-![](/images/iac/workflow_repo.png)
+Dockerfile uses Ubuntu as a base image and install
+![](/images/iac/dockerfile_structure.png)
+
+![](/images/iac/build_workflow_structure.png)
+
 
 You will need to specify Docker Hub's credentials in Github in order to run the workflow. Docker Hub lets you create personal access tokens as alternatives to your password. For this demo let's use a token. At first go to Docker Hub and obtain/generate required data:
 ![](/images/iac/get_docker_credentials.png)
