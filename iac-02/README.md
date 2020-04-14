@@ -3,23 +3,18 @@
 
 ## Introduction
 
-This article describes the third part of Infrastructure as Code approach (previous part about Cloud orchestration is available [here](/iac-01/README.md)). With this in mind, let’s discuss how .
+This article describes the third part of Infrastructure as Code approach (previous part about Cloud orchestration is available [here](/iac-01/README.md)). With this in mind, let’s discuss a containerization.
 
 ![](/images/iac/cloud_journey_02.png)
 
 Containerization has become a major trend in software development as an alternative or companion to virtualization. It involves encapsulating or packaging up software code and all its dependencies so that it can run uniformly and consistently on any infrastructure. The technology is quickly maturing, resulting in measurable benefits for developers and operations teams as well as overall software infrastructure.
 
-This document gives an example of using Github Actions to build a Docker image.
+This document gives an example of using Github Actions to build a Docker image, which can be used to run a container.
 
 ## Theoretical Part
 
-
-Some of the tools and terminology you’ll encounter in this document. 
-
 ### Github Actions
 At Universe 2018, Github launched GitHub Actions, a community-led approach to build and share automation for software development, including a full CI/CD solution and native package management.
-
-You can use Actions to automatically publish new package versions to GitHub Packages, trigger package installs with Actions, and install packages and images hosted on GitHub Packages or your preferred registry of record with minimal configurations.
 
 ![](/images/iac/auto_assembly.png)
 
@@ -40,7 +35,7 @@ Docker container technology was launched in 2013 as an open source Docker Engine
 
 Containerized applications are “isolated” in that they do not bundle in a copy of the operating system. Instead, an open source Docker engine is installed on the host’s operating system and becomes the conduit for containers to share an operating system with other containers on the same computing system.
 
-![](/images/iac/docker_structure.png)
+![](/images/iac/docker_arch.png)
 
 Below is a list of common Docker terms:
 
@@ -64,26 +59,30 @@ Before you begin, you’ll need:
 
 ## Practical Part
 
-This section shows how to configure a Github workflow, which builds a custom Docker image. To do so, you'll need two files - Dockerfile (to build an Image) and a Workflow file (presented as 'build_docker_image.yml' file and located under .github/workflows directory). Both of them you can find in [a demo repository](https://github.com/groovy-sky/iaac-demo).
+As always, a start point is [iaac-demo repository](https://github.com/groovy-sky/iaac-demo). To build a Docker image you will need a workflow file and Dockerfile. You can either fork the whole repository or just copy [Dockerfile](https://raw.githubusercontent.com/groovy-sky/iaac-demo/master/docker/Dockerfile) and [build_docker_image.yml](https://raw.githubusercontent.com/groovy-sky/iaac-demo/master/.github/workflows/build_docker_image.yml) files.
 
-Dockerfile uses Ubuntu as a base image and install
+Dockerfile file looks following:
 ![](/images/iac/dockerfile_structure.png)
 
+Workflow file looks following:
 ![](/images/iac/build_workflow_structure.png)
 
-
-You will need to specify Docker Hub's credentials in Github in order to run the workflow. Docker Hub lets you create personal access tokens as alternatives to your password. For this demo let's use a token. At first go to Docker Hub and obtain/generate required data:
+Before you can run the workflow you need to obtain and store Docker Hub credentials - username and a personal access tokens (which is an alternatives to a password). At first go to Docker Hub and obtain/generate required data:
 ![](/images/iac/get_docker_credentials.png)
 
 Next, go to Github and create 'DockerHubToken' and 'DockerHubUser' secrets:
 ![](/images/iac/set_docker_credentials.png)
 
+Action will trigger on a push event. So, to trigger it, you can make small modifications of the workflow file (add a space in comments section) and push the changes to Github.
 
 ## Results
+If the workflow run was successful you can validate a result in Docker Hub:
+![](/images/iac/docker_build_result.png)
 
-https://hub.docker.com/repository/docker/gr00vysky/iac-demo
+If you want just to try - use this demo build. To do so, run ``docker run -it gr00vysky/iac-demo:latest`` command on your Docker host.
 
 ## Summary
+As was mentioned in the introduction section, this article gives an example of using Github Actions for building a Docker image. And as was expected, that can be done in a fairly straightforward way - both configuration files uses less than 100 lines of a code. The next time I am going to show how to run a Docker image on an another CI/CD platform.
 
 ## Related Information
 
@@ -93,5 +92,3 @@ https://hub.docker.com/repository/docker/gr00vysky/iac-demo
 * https://www.ibm.com/cloud/learn/docker
 
 * https://www.docker.com/blog/docker-hub-new-personal-access-tokens/
-
-* https://developer.ibm.com/tutorials/accessing-dockerhub-repos-in-iks/
