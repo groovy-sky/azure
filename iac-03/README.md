@@ -3,11 +3,12 @@
 
 
 ## Introduction
+This article describes the fourth part of Infrastructure as Code approach. We already learned about [Azure Cloud](/iac-00/README.md), [Ansible]((/iac-01/README.md)) and [Docker]((/iac-03/README.md)). This document gives an example of using Microsoft Azure DevOps pipeline to run a Docker Container.
 
 ![](/images/iac/cloud_journey_03.png)
 
 ## Theoretical Part
-Azure Pipelines is a cloud service that you can use to automatically build and test your code project and make it available to other users. It works with just about any language or project type.
+**Azure Pipelines** is a cloud service that you can use to automatically build and test your code project and make it available to other users. 
 
 Azure Pipelines combines continuous integration (CI) and continuous delivery (CD) to constantly and consistently test and build your code and ship it to any target.
 
@@ -46,11 +47,26 @@ The following list indicates common Pipeline terms:
 * **Demands** - ensures pipeline requirements are met before running a pipeline stage. Requires self-hosted agents.
 
 ## Prerequisites
+Before you begin the next section, you’ll need:
+* Azure DevOps account 
+* Azure Cloud account
 
 ## Practical Part
+**Azure Resource Manager and Ansible (both will be used) have declarative syntax, which allows to redeploy this demo as many times as you may wish.**
+
+https://dev.azure.com/Infrastructure-as-C0de/pipeline-demo/_build?definitionId=4&_a=summary
+
 
 ## Results
+If the pipeline run was successful you can validate a result by accessing web page:
+
 
 ## Summary
 
 ## Related Information
+
+* https://docs.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops
+
+* https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html
+
+* https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html
