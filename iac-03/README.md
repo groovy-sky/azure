@@ -3,6 +3,7 @@
 
 
 ## Introduction
+
 This article describes the fourth part of Infrastructure as Code approach. We already learned about [Azure Cloud](/iac-00/README.md), [Ansible Orchestration]((/iac-01/README.md)) and [Docker Containers]((/iac-02/README.md)). This document gives an example of using Microsoft Azure DevOps pipeline to run a Docker Container, which deploys ARM template using Ansible.
 
 ![](/images/iac/cloud_journey_03.png)
@@ -49,6 +50,7 @@ The following list indicates common Pipeline terms:
 * **Demands** - ensures pipeline requirements are met before running a pipeline stage. Requires self-hosted agents.
 
 ## Prerequisites
+
 Before you begin the next section, you’ll need:
 * Azure DevOps account 
 * Azure Cloud account
@@ -62,10 +64,11 @@ As always, a start point is [iaac-demo repository](https://github.com/groovy-sky
 ![](/images/iac/pipeline_structure.png)
 
 To setup a demo environment you need to:
-1. On Azure - register Service Account (aka Application) and grant to it "Contributor" role for a deployment resource group.
-2. On DevOps - create new YAML pipeline and specify some variables/secrets for it.
+1. In Azure - register Service Account (aka Application) and grant to it "Contributor" role for a deployment resource group.
+2. In DevOps - create new YAML pipeline and specify a few variables/secrets for it.
 
 ### Azure part
+
 At first you'll need to register new application in [Azure Active Directory](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps
 ):
 ![](/images/iac/az_app_reg.png)
@@ -87,6 +90,7 @@ And final step is a role assignment:
 ![](/images/iac/az_grp_spn_assign.png)
 
 ### Azure DevOps part
+
 Now you can configure new pipeline:
 
 ![](/images/iac/new_devops_pipeline.png)
@@ -104,6 +108,9 @@ If the pipeline run was successful you can validate a result by accessing web pa
 ![](/images/iac/pipeline_run_result.png)
 
 ## Summary
+
+At this point you've deployed Azure environment and made some changes on it. Moreover, you have used Docker as a deployment environment. Which means that you can run it on any agent/vm/solution which has a Docker engine(Github, Azure DevOps, your laptop etc.).
+The main drawback of this approach is the absence of a user-friendly interface. The next time I am going to come up with an idea how to improve a situation.
 
 ## Related Information
 
