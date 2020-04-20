@@ -3,7 +3,7 @@
 
 
 ## Introduction
-This article describes the fourth part of Infrastructure as Code approach. We already learned about [Azure Cloud](/iac-00/README.md), [Ansible]((/iac-01/README.md)) and [Docker]((/iac-03/README.md)). This document gives an example of using Microsoft Azure DevOps pipeline to run a Docker Container.
+This article describes the fourth part of Infrastructure as Code approach. We already learned about [Azure Cloud](/iac-00/README.md), [Ansible Orchestration]((/iac-01/README.md)) and [Docker Containers]((/iac-02/README.md)). This document gives an example of using Microsoft Azure DevOps pipeline to run a Docker Container, which deploys ARM template using Ansible.
 
 ![](/images/iac/cloud_journey_03.png)
 
@@ -13,6 +13,8 @@ This article describes the fourth part of Infrastructure as Code approach. We al
 Azure Pipelines combines continuous integration (CI) and continuous delivery (CD) to constantly and consistently test and build your code and ship it to any target.
 
 You can define pipelines using the YAML syntax or through the user interface (Classic). Certain pipeline features are only available when using YAML or when defining build or release pipelines with the Classic interface.
+
+![](/images/iac/devops_pipeline.png)
 
 The following list indicates common Pipeline terms:
 
@@ -52,14 +54,54 @@ Before you begin the next section, you’ll need:
 * Azure Cloud account
 
 ## Practical Part
-**Azure Resource Manager and Ansible (both will be used) have declarative syntax, which allows to redeploy this demo as many times as you may wish.**
 
-https://dev.azure.com/Infrastructure-as-C0de/pipeline-demo/_build?definitionId=4&_a=summary
+**Azure Resource Manager and Ansible (both will be used during the pipeline run) have declarative syntax, which allows to redeploy this demo as many times as you may wish.**
 
+As always, a start point is [iaac-demo repository](https://github.com/groovy-sky/iaac-demo). To run a DevOps pipeline you will need [the pipeline definition file](https://raw.githubusercontent.com/groovy-sky/iaac-demo/master/.github/pipelines/run_docker_image.yml). It's structure looks following:
+
+![](/images/iac/pipeline_structure.png)
+
+To setup a demo environment you need to:
+1. On Azure - register Service Account (aka Application) and grant to it "Contributor" role for a deployment resource group.
+2. On DevOps - create new YAML pipeline and specify some variables/secrets for it.
+
+### Azure part
+At first you'll need to register new application in [Azure Active Directory](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps
+):
+![](/images/iac/az_app_reg.png)
+
+Save "tenant" and "client_id" secrets for a latest use in a pipeline:
+
+![](/images/iac/az_app_id.png)
+
+Also you'll need to generate a client secret (of course save generated value): 
+
+![](/images/iac/az_app_key.png)
+
+Next, for a deployment group, store "group_name" and "subscription_id" values:
+
+![](/images/iac/az_res_grp_sub_id.png)
+
+And final step is a role assignment:
+
+![](/images/iac/az_grp_spn_assign.png)
+
+### Azure DevOps part
+Now you can configure new pipeline:
+
+![](/images/iac/new_devops_pipeline.png)
+
+Stored in previous sections variables/secrets (which are group_name, nginx_default_msg, client_id, secret, subscription_id, tenant) should be presented as variables(for nginx_default_msg you can use any value):
+
+![](/images/iac/pipeline_var_structure.png)
+
+You can always compare your pipeline with [the reference pipeline](https://dev.azure.com/Infrastructure-as-C0de/pipeline-demo/_build?definitionId=4&_a=summary).
 
 ## Results
+
 If the pipeline run was successful you can validate a result by accessing web page:
 
+![](/images/iac/pipeline_run_result.png)
 
 ## Summary
 
@@ -70,3 +112,5 @@ If the pipeline run was successful you can validate a result by accessing web pa
 * https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html
 
 * https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html
+
+* https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
