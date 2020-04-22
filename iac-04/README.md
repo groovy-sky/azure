@@ -9,7 +9,7 @@ Microsoft PowerApps is a tool that can integrate different kind applications and
 
 Azure Logic App is another integration platform. Power Automate and Azure Logic Apps are both designer-first integration services that can create workflows. Both services integrate with various SaaS and enterprise applications. Main difference between these two products is that Power Apps is a no-code/low-code platform for building simple solutions, whereas Logic Apps provide possibility to manage it as a code.
 
-Logic Apps are part of Azure and in the first chapter I already wrote how-to manage Azure resources. So this time let's use Power Automate to start a DevOps pipeline (running a custom Docker image), which will deploy and configure Azure environment using Ansible playbook. And by the way this is the final chapter.
+Logic Apps are part of Azure and in the first chapter I already described how Azure resources could be managed. So, this time, let's use Power Automate to start a DevOps pipeline (which runs a custom Docker image), which will deploy and configure Azure environment using Ansible playbook. And by the way this is the final chapter.
 
 ![](/images/iac/final_step.png)
 
@@ -26,7 +26,7 @@ The following list indicates common Power App terms:
 
 * **Connector** is a component that provides an interface to an external service. It uses the external service's REST or SOAP API to do its work. When you use a connector, it calls the service's underlying API for you.
 
-* **Flow** is series of steps/actions. There are different types of flow.
+* **Flow** is series of steps/actions. There are different types of a flow.
 
 * **Automated flows** that performs one or more tasks automatically after it's triggered by an event. 
 
@@ -44,19 +44,28 @@ Before you begin, you’ll need:
 * Azure Cloud account
 
 ## Practical Part
-Azure configuration was described in [previous chapter](/iac-03#practical-part). So it won't be covered here.
+Azure services configuration is described in [previous chapter](/iac-03#practical-part). So it won't be covered here.
 
-Power Apps is primarily an interface design tool and Flow is a workflow and process automation tool. To setup a demo environment you need to create a new workflow.
+Power Apps is primarily an interface design tool and Flow is a workflow and process automation tool. To setup a demo environment you need to create a new workflow. To do so, follow instruction below:
+1. Go to https://emea.flow.microsoft.com/ 
+2. Create Instant flow with manual trigger
+3. Create two inputs - "Resource Group" and "NGINX message"
+4. As a next step chose "Azure Devops" > "Queue a new build"
+5. Specify organization name, project name and build definition id
+6. Paste to "Parameters" section following code - ```{"group_name":"@{triggerBody()['text']}", "nginx_default_msg":"'@{triggerBody()['text_1']}'"}```
+7. Save the flow
 
-https://emea.flow.microsoft.com/en-us/
+Graphical interpretation of configuration process:
 ![](/images/iac/flow_creation.png)
+
+If Azure DevOps action is used for a first time, when you'll need to give your consent:
 ![](/images/iac/connection_creation.png)
+
+Now you can run the flow:
 ![](/images/iac/flow_run.png)
 
-
-
 ## Results
-
+Flow will start the pipeline. If the pipeline run was successful you can validate a result by accessing web page:
 ![](/images/iac/flow_run_result.png)
 
 ## Summary
