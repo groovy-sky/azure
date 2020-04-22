@@ -49,8 +49,20 @@ Azure configuration was described in [previous chapter](/iac-03#practical-part).
 Power Apps is primarily an interface design tool and Flow is a workflow and process automation tool. To setup a demo environment you need to create a new workflow.
 
 https://emea.flow.microsoft.com/en-us/
+![](/images/iac/flow_creation.png)
+![](/images/iac/connection_creation.png)
+![](/images/iac/flow_run.png)
+
+
+
 ## Results
+
+![](/images/iac/flow_run_result.png)
+
 ## Summary
+
+![](/images/iac/iac_end.png)
+
 ## Related Information
 
 * https://powerapps.microsoft.com/en-us/blog/microsoft-powerapps-learning-resources/
