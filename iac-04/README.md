@@ -1,4 +1,6 @@
 # Infrastructure as Code (part 5)
+![](/images/iac/logo_transparent.png)
+
 ## Introduction
 
 The aim of this work was to examine Infrastructure as Code approach. In previous chapters I touched on [Azure](/iac-00/README.md), [Ansible](/iac-01/README.md), [Docker](/iac-02/README.md) and [DevOps](/iac-03/README.md). With this in mind, let’s discuss how to solve integration problems between business and technical worlds. 
