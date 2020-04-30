@@ -1,6 +1,6 @@
 # Getting Started with Azure
 
-## Contents
+## Introduction
 
 ### Infrastructure as Code
 
@@ -22,7 +22,10 @@
 * [Part 4](/ansible-tower-03/README.md#introduction) - about managing Azure resources using AWX
 * [Part 5](/ansible-tower-04/README.md#introduction) - about running a workflow on AWX
 
-### 
-* SonarQube([1](/sonarqube-00/README.md),[2](/sonarqube-01/README.md))
-* VM's port audit ([1](/docker-audit-00/README.md),[2](/docker-audit-01/README.md))
-* [Run a Docker from Azure Cloud Shell](/docker-azure-cli-00/README.md)
+### Docker
+![](/images/docker-azure-cli/docker_cli.png)
+
+* How-to [run a Docker in Azure CLI](/docker-azure-cli-00/README.md#introduction)
+* How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
+* How-to [run SonarQube VM in Azure](/sonarqube-00/README.md#introduction) and [use it on Azure DevOps](/sonarqube-01/README.md#introduction)
+

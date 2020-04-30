@@ -183,30 +183,3 @@ specify a dependency for a resource the following dependsOn attribute is used.
 * https://www.slideshare.net/AmazonWebServices/devops-on-aws-deep-dive-on-infrastructure-as-code
 
 * https://docs.microsoft.com/en-us/azure/architecture/cloud-adoption/getting-started/azure-resource-access
-
----
-# Labs
-## Entry level labs
-* [Create resources using a portal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-quickstart-create-templates-use-the-portal)
-
-## Intermediate level labs
-* [Create a Linux VM using Azure CLI](https://docs.microsoft.com/en-us/cli/azure/azure-cli-vm-tutorial?view=azure-cli-latest)
-* [Create a Linux VM using Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/azureps-vm-tutorial?view=azps-1.5.0)
-
-## Advanced level labs
-Docker-related labs:
-1. [Runing Docker from a browser using Azure Cloud Shell](https://lnkd.in/dy9nnnV)
-1. [Scan Azure's virtual machines using dockerized NMAP](https://lnkd.in/gt7UMz2)
-
-Ansible-related labs:
-1. [Create and configure Ansible Tower](https://lnkd.in/g3gsW3r)
-1. [Create Azure virtual machine using Ansible Tower](https://lnkd.in/diUNrU9)
-
-SonarQube-related labs:
-1. [Build SonarQube server in Azure](https://lnkd.in/gjctEN8)
-1. [Integrate SonarQube with Azure DevOps pipeline](https://lnkd.in/gYpvA6D)
-
-# Other resources
-* [Microsoft Learing Paths](https://docs.microsoft.com/learn)
-* [ARM QuickStart Templates](https://github.com/Azure/azure-quickstart-templates)
-* [Free Azure Courses from Pluralsight](https://www.pluralsight.com/partners/microsoft/azure)

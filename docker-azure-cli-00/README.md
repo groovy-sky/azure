@@ -1,9 +1,12 @@
-# Run Docker in a browser using Azure Cloud Shell (part 1)
+# Run Docker in Azure CLI
+![](/images/docker-azure-cli/docker_cli.png)
 
 ## Introduction
-![](/images/docker-azure-cli/arch.png)
 
 In this article we will use a Docker Machine and Microsoft Azure to create and configure Docker Engine. As a result, we'll be able to manage containers from the Cloud Shell. 
+
+![](/images/docker-azure-cli/arch.png)
+
 
 ## Architecture
 

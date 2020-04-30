@@ -1,5 +1,7 @@
 # How-to deploy SonarQube to Azure (part 2)
 
+![](/images/docker-azure-cli/docker_cli.png)
+
 ## Introduction
 
 [In the previous chapter](/sonarqube-00/README.md) we have deployed and configured SonarQube environment on Azure. This time we will provision an Azure DevOps Project and configure CI pipeline to integrate it with SonarQube.
