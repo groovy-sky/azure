@@ -1,5 +1,7 @@
 # Let's build a tower (part 3)
 
+![](/images/ansible-tower/awx_logo.png)
+
 ## Introduction
 
 [On previous chapter](/ansible-tower-01) we configured Azure AD authentication and created hello-world project. Now we can try to do something more practical, for example, we could try to install NGINX package on a test environment. 

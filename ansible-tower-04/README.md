@@ -1,5 +1,7 @@
 # Let's build a tower (part 5)
 
+![](/images/ansible-tower/awx_logo.png)
+
 ## Introduction
 
 Welcome to another post in our "Let's build a tower" series. In our previous posts, we discussed [how to deploy AWX to Azure](https://lnkd.in/g3gsW3r), [configure its authentication](https://lnkd.in/gEdp66V) and [run a playbook](https://lnkd.in/diUNrU9).

@@ -1,5 +1,7 @@
 # Let's build a tower (part 2)
 
+![](/images/ansible-tower/awx_logo.png)
+
 ## Introduction
 
 One of the main AWX features is "Role-based access" option(which should be familiar if you worked before with Azure RM). It can be configured to centrally use OAuth2, SAML, RADIUS, or even LDAP. For our environment we will configure Azure AD OAuth2 authentication. For doing that, we will need to create new Azure user and register Azure AD application.

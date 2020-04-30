@@ -1,5 +1,7 @@
 # Let's build a tower (part 4)
 
+![](/images/ansible-tower/awx_logo.png)
+
 ## Introduction
 
 [Last time](https://github.com/groovy-sky/azure/blob/master/ansible-tower-02/README.md) we have installed NGINX package on Azure VM using AWX. In this chapter we will create an Azure environment using AWX.
