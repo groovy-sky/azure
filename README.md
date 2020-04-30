@@ -29,3 +29,9 @@
 * How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
 * How-to [run SonarQube VM in Azure](/sonarqube-00/README.md#introduction) and [use it on Azure DevOps](/sonarqube-01/README.md#introduction)
 
+
+### Other/Old
+![](/images/other/main_logo.png)
+
+* How-to [encrypt unmanaged Linux disk](/linux-vm-encryption-101/README.md#introduction)
+* [Azure Resource Manager overview](/arm-getting-started/README.md#introduction)

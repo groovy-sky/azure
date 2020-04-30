@@ -1,8 +1,8 @@
----
-Azure Unmanaged Data Disk Encryption for IaaS VMs
----
+# Azure Unmanaged Data Disk Encryption for IaaS VMs
 
-# Overview
+![](/images/other/main_logo.png)
+
+## Introduction
 
 This article details how to encrypt unmanaged data virtual disks on a Linux VM using the Azure CLI 2.0. 
 
@@ -15,7 +15,7 @@ Encryption scenarios:
 1. Long-running encryption (without formatting)
 2. Fast-running encryption (with formatting)
 
-# Long-running disk encryption
+## Long-running disk encryption
 
 ```
 deploy_group="group"$(date +%s)
@@ -50,6 +50,9 @@ done
 az vm restart -g $deploy_group -n $vm_name
 ```
 Important aspect of such encryption is data device name - during encryption, the order of drives changes on the VM. For example on the next two images you can see that a device with UUID="fcdfd67c-2172-4c81-8829-28052d1caebf" and LABEL="encryptiondisk" has changed it name from /dev/sdc1 to /dev/mapper/75a2b91d-b3b1-4f87-adcf-985c3fc6528c. Which is why it is important to use UUID to specify data drives in /etc/fstab instead of specifying the block device name.
+
+### Results
+
 Before encrytion:
 ![Before encryption](/images/linux-vm-encryption-101/before_encryption_00.png)
 After encrytion:
@@ -63,6 +66,8 @@ In case of empty data disk encryption add flag --encrypt-format-all, so that a c
 ```
 az vm encryption enable --disk-encryption-keyvault $vault_name --name $vm_name --resource-group $deploy_group --aad-client-id ${spn[0]} --aad-client-secret ${spn[1]} --volume-type DATA --encrypt-format-all
 ```
+
+### Results
 
 Before encrytion:
 ![Before encryption](/images/linux-vm-encryption-101/before_encryption_01.png)

@@ -1,13 +1,6 @@
-# Contents
-* ["Getting started with Azure Resource Manager" presentation](https://gitpitch.com/groovy-sky/arm-template-101/master)
-* [Azure Resource Manager overview](#azure-resource-manager-overview)
-* [Labs](#labs)
-   * [Entry level labs](#entry-level-labs)
-   * [Intermediate level labs](#intermediate-level-labs)
-   * [Advanced level labs](#advanced-level-labs)
-* [Other resources](#other-resources)
----
 # Azure Resource Manager overview
+
+![](/images/other/main_logo.png)
 
 ## Introduction
 
