@@ -1,6 +1,5 @@
-# Getting Started with Azure
-
 ## Introduction
+This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
 
 ### Infrastructure as Code
 
