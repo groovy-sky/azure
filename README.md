@@ -1,11 +1,11 @@
 ## Introduction
-![](/images/blog_icon.png)
+![](/images/logos/blog_icon.png)
 
 This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
 
 ### Infrastructure as Code
 
-![](/images/iac/logo_small.png)
+![](/images/logos/iac.png)
 
 * [Part 1](/iac-00#introduction) - about Azure Resource Manager (ARM) template deployment
 * [Part 2](/iac-01#introduction) - about using Ansible playbooks for ARM template deployment
@@ -15,7 +15,7 @@ This repository hosts a collection of articles about deploying, configuring  and
 
 ### Ansible Tower (aka AWX)
 
-![](/images/ansible-tower/awx_logo.png)
+![](/images/logos/awx.png)
 
 * [Part 1](/ansible-tower-00/README.md#introduction) - about AWX initial installation and configuration on Azure
 * [Part 2](/ansible-tower-01/README.md#introduction) - about AWX authentication configuration using Azure AD
@@ -24,7 +24,7 @@ This repository hosts a collection of articles about deploying, configuring  and
 * [Part 5](/ansible-tower-04/README.md#introduction) - about running a workflow on AWX
 
 ### Docker
-![](/images/docker-azure-cli/docker_cli.png)
+![](/images/logos/docker.png)
 
 * How-to [run a Docker in Azure CLI](/docker-azure-cli-00/README.md#introduction)
 * How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
@@ -32,7 +32,7 @@ This repository hosts a collection of articles about deploying, configuring  and
 
 
 ### Other/Old
-![](/images/other/main_logo.png)
+![](/images/logos/other.png)
 
 * How-to [encrypt unmanaged Linux disk](/linux-vm-encryption-101/README.md#introduction)
 * [Azure Resource Manager overview](/arm-getting-started/README.md#introduction)
