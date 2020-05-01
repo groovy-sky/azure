@@ -54,7 +54,10 @@
                     "apiVersion": "2018-07-01",
                     "dependsOn": [
                         "[variables('storageAccountName')]"
-                    ]
+                    ],
+                    "properties": {
+                      "publicAccess": "Container"
+                    }
                 }
             ]
         },
