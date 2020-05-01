@@ -63,7 +63,7 @@
         },
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2018-02-01",
+      "apiVersion": "2019-08-01",
       "name": "[variables('hostingPlanName')]",
       "location": "[parameters('location')]",
       "sku": {
@@ -73,7 +73,8 @@
       "kind": "linux",
       "properties": {
         "name": "[variables('hostingPlanName')]",
-        "computeMode": "Dynamic"
+        "computeMode": "Dynamic",
+        "reserved": true
       }
     },
     {
