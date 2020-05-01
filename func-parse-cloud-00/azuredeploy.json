@@ -70,17 +70,18 @@
         "name": "Y1",
         "tier": "Dynamic"
       },
+      "kind": "linux",
       "properties": {
         "name": "[variables('hostingPlanName')]",
         "computeMode": "Dynamic"
       }
     },
     {
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2018-11-01",
       "type": "Microsoft.Web/sites",
       "name": "[variables('functionAppName')]",
       "location": "[parameters('location')]",
-      "kind": "functionapp",
+      "kind": "functionapp,linux",
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
