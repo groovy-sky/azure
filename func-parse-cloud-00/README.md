@@ -3,23 +3,19 @@
 ![](/images/logos/function.png)
 ## Introduction
 
-Serverless compute is a great option for hosting business logic code in the cloud. With serverless offerings such as Azure Functions, you can write your business logic in the language of your choice. You get automatic scaling, you have no servers to manage, and you are charged based on what is used — not on reserved time. Here are some additional characteristics of a serverless solution for you to consider.
+Hosting a software application on the internet typically requires provisioning and managing a virtual or physical server and managing an operating system and web server hosting processes. Microsoft Azure provides several different ways to host and execute code or workflows without using Virtual Machines (VMs) including Azure Functions, Microsoft Power Automate, Azure Logic Apps, and Azure WebJobs. 
 
-Serverless is an approach to computing that offloads responsibility for common infrastructure management tasks (e.g., scaling, scheduling, patching, provisioning, etc.) to cloud providers and tools, allowing engineers to focus their time and effort on the business logic specific to their applications or process.
+This document **gives an example of using Azure Python Function** for obtaining Azure Datacenter and Office 365 IP addresses. Function execution will be started by schedule and obtained data will be stored in an Azure storage account.
 
 ![](/images/func-az-ip/az_time_func.png)
 
-The most useful way to define and understand serverless is focusing on the handful of core attributes that distinguish serverless computing from other compute models, namely:
+## Theoretical Part
 
-* The serverless model requires no management and operation of infrastructure, enabling developers to focus more narrowly on code/custom business logic.
-* Serverless computing runs code only on-demand on a per-request basis, scaling transparently with the number of requests being served.
-* Serverless computing enables end users to pay only for resources being used, never paying for idle capacity.
+### Azure Functions
 
-Serverless is fundamentally about spending more time on code, less on infrastructure.
+Serverless is an approach to computing that offloads responsibility for common infrastructure management tasks (e.g., scaling, scheduling, patching, provisioning, etc.) to cloud providers and tools, allowing engineers to focus their time and effort on the business logic specific to their applications or process.
 
 Azure Functions is a serverless application platform. It allows developers to host business logic that can be executed without provisioning infrastructure. Functions provides intrinsic scalability and you are charged only for the resources used. You can write your function code in the language of your choice, including C#, F#, JavaScript, Python, and PowerShell Core. 
-
-## Theoretical Part
 
 In Azure Functions, specific functions share a few core technical concepts and components, regardless of the language or binding you use.
 
@@ -31,7 +27,7 @@ A function is the primary concept in Azure Functions. A function contains two im
 * Functions trigger
 * Functions language
 
-### Hosting plans
+#### Hosting plans
 There are three hosting plans available for Azure Functions: Consumption plan, Premium plan, and Dedicated (App Service) plan.
 
 * **Consumption** - You're only charged for the time that your function app runs. This plan includes a free grant on a per subscription basis.
@@ -44,7 +40,7 @@ On any plan, a function app requires a general Azure Storage account, which supp
 
 More detailed information about hosting plans available [here](https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale).
 
-### Trigger events
+#### Trigger events
 
 Triggers are what cause a function to run. A trigger defines how a function is invoked and a function must have exactly one trigger. Triggers have associated data, which is often provided as the payload of the function.
 
@@ -62,54 +58,59 @@ Azure Functions support a wide range of trigger types:
 * **Event Hub trigger** - execute a function when an event hub receives a new event.
 * **Service Bus Queue/Topic trigger** - execute a function that react to and send queue/topic messages
 
-### Runtime
+#### Runtime
 A function app runs on a specific version of the Azure Functions runtime. There are three major versions: 1.x, 2.x, and 3.x. By default, function apps are created in version 2.x of the runtime. 
 
 The major versions of the Azure Functions runtime are related to the version of .NET on which the runtime is based. Runtime versions 3.x and 2.x are running on .NET Core, whereas 1.x is using .NET Framework .
 
 More detailed information about functions runtime you can find [here](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions).
 
-### Language
+#### Language
 
-Depending on which runtime version is used, different languages are supported. All runtimes support C#, JavaScript, F#. Java, Powershell, Pythin and TypeScript works on 2.x and 3.x. 
+Depending on which runtime version is used, different languages are supported. All runtimes support C#, JavaScript, F#. Java, Powershell, Python and TypeScript works on 2.x and 3.x versions. 
 
 More detailed information about supported languages is described [here](https://docs.microsoft.com/en-us/azure/azure-functions/supported-languages#languages-by-runtime-version)
 
-### Azure Functions Core Tools 
-Azure Functions Core Tools lets you develop and test your functions on your local computer from the command prompt or terminal. Your local functions can connect to live Azure services, and you can debug your functions on your local computer using the full Functions runtime. You can even deploy a function app to your Azure subscription.
+### Microsoft Azure and Office 365 IP Ranges 
+The Office 365 and Azure Cloud IP Addresses helps you better identify and differentiate Office 365/Azure network traffic, making it easier for you to evaluate, configure, and stay up to date with changes. 
 
-There are three versions of Azure Functions Core Tools. The version you use depends on your local development environment, choice of language, and level of support required:
+For the data on the Office 365 IP address use you have https://endpoints.office.com/endpoints/worldwide endpoint.
 
-* Version 1.x: Supports version 1.x of the Azure Functions runtime. This version of the tools is only supported on Windows computers and is installed from an npm package.
-
-* Version 2.x/3.x: Supports either version 2.x or 3.x of the Azure Functions runtime. These versions support Windows, macOS, and Linux and use platform-specific package managers or npm for installation.
+For obtaingin Azure Datacenter IP ranges you have to use https://azuredcip.azurewebsites.net/getazuredcipranges via an API. 
 
 ## Prerequisites
 
 Before you begin the next section, you’ll need:
-* Azure Cloud account
-* Local environment with installed: Python 3.6 version(or higher), Azure CLI and Azure Functions Core Tools 
-
-https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=windows%2Ccsharp%2Cbash#v2
+* [Azure Cloud account](https://azure.microsoft.com/free/)
+* Local environment with installed: [Python](https://www.python.org/downloads/) (version 3.6 or higher), [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest), [Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools#versionss) (newest available latest version) and [Git client](https://git-scm.com/downloads)
 
 ## Practical Part
+To run this demo you'll need to deploy ARM template (which creates functions environment in Azure) and publish functions code to Azure.
 
-The Consumption plan is the default hosting plan and offers the following benefits:
+ARM template [link](https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/storage.json). 
 
-* Pay only when your functions are running
-* Scale out automatically, even during periods of high load
+Function code [link](https://github.com/groovy-sky/azure-office-ip).
+
+![](/images/func-az-ip/func_structure_folder.png)
 
 
 ### Azure part
+There are a few ways to deploy demo ARM template. Easiest way how-to do so - use the button below:
+
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Ffunc-parse-cloud-00%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+
 ![](/images/func-az-ip/az_func_deploy.png)
 
 By default, after function starts to work, generated data will be accessible through the following link - `https://<storage-name>.blob.core.windows.net/$web/main.html`. Optionally, you can get a better URL (like `https://<storage-name>.z6.web.core.windows.net`) by enabling "Static website" feature:
 ![](/images/func-az-ip/az_func_static_website.png)
 
-
-
 ### Function part
+
+The Azure Functions Core Tools let you to run functions on your local computer or publish to Azure. When you publish a function using Core Tools - it don't ask you to sign in to Azure. Instead, they access your subscriptions and resources by loading your session information from the Azure CLI. If you don't have an active session in one of those tools, publishing will fail.
+
+Which is why before running this section - login to Azure CLI.
+
+
 ```
 [ ! -d "iaac-demo/.git" ] && git clone https://github.com/groovy-sky/azure-office-ip
 cd azure-office-ip && git pull
@@ -143,3 +144,30 @@ For example, a CRON expression to create a trigger that executes every five minu
 * https://www.ibm.com/cloud/learn/microservices
 
 * https://www.ibm.com/cloud/learn/serverless
+
+* 
+https://docs.microsoft.com/en-us/Office365/Enterprise/office-365-ip-web-service
+
+https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
+
+https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/storage
+
+https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website
+
+https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website-how-to?tabs=azure-portal
+
+https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/storage/azure-storage-blob/azure/storage/blob/_blob_client.py
+
+https://github.com/Azure/azure-functions-host/wiki/Retrieving-information-about-the-currently-running-function#python-on-functions-v2-or-higher
+
+https://github.com/Azure/Azure-Functions/wiki/Bring-your-own-storage-(Linux-consumption)
+
+https://www.serverlesslibrary.net/?technology=Functions%202.x&language=Python
+
+https://github.com/yokawasa/azure-functions-python-samples
+
+https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#function_app_edit_mode
+
+https://docs.microsoft.com/en-us/python/api/azure-functions/azure.functions?view=azure-python
+
+https://github.com/sendgrid/sendgrid-python#without-mail-helper-class
