@@ -2,11 +2,27 @@
 # 
 ![](/images/func-az-ip/azure_func.png)
 ## Introduction
+
+Serverless is an approach to computing that offloads responsibility for common infrastructure management tasks (e.g., scaling, scheduling, patching, provisioning, etc.) to cloud providers and tools, allowing engineers to focus their time and effort on the business logic specific to their applications or process.
+
+The most useful way to define and understand serverless is focusing on the handful of core attributes that distinguish serverless computing from other compute models, namely:
+
+    The serverless model requires no management and operation of infrastructure, enabling developers to focus more narrowly on code/custom business logic.
+    Serverless computing runs code only on-demand on a per-request basis, scaling transparently with the number of requests being served.
+    Serverless computing enables end users to pay only for resources being used, never paying for idle capacity.
+
+Serverless is fundamentally about spending more time on code, less on infrastructure.
+
 ## Theoretical Part
 ![](/images/func-az-ip/function_separation.png)
 
 
-When you create a function app in Azure, you must choose a hosting plan for your app. There are three hosting plans available for Azure Functions: Consumption plan, Premium plan, and Dedicated (App Service) plan.
+When you create a function in Azure, you must choose:
+* Hosting plan for your app
+* 
+
+
+There are three hosting plans available for Azure Functions: Consumption plan, Premium plan, and Dedicated (App Service) plan.
 
 * Consumption - You're only charged for the time that your function app runs. This plan includes a free grant on a per subscription basis.
 * Premium - Provides you with the same features and scaling mechanism as the Consumption plan, but with enhanced performance and VNET access. Cost is based on your chosen pricing tier. To learn more, see Azure Functions Premium plan.
@@ -106,8 +122,17 @@ Before you begin the next section, you’ll need:
 https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=windows%2Ccsharp%2Cbash#v2
 
 ## Practical Part
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Ffunc-parse-cloud-00%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
+### Azure part
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Ffunc-parse-cloud-00%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+![](/images/func-az-ip/az_func_deploy.png)
+
+By default, after function starts to work, generated data will be accessible through the following link - `https://<storage-name>.blob.core.windows.net/$web/main.html`. Optionally, you can get a better URL (like `https://<storage-name>.z6.web.core.windows.net`) by enabling "Static website" feature:
+![](/images/func-az-ip/az_func_static_website.png)
+
+
+
+### Function part
 ```
 [ ! -d "iaac-demo/.git" ] && git clone https://github.com/groovy-sky/azure-office-ip
 cd azure-office-ip && git pull
@@ -117,11 +142,16 @@ func azure functionapp publish <function_name> --python
 https://strgy5exht4o56pkq.blob.core.windows.net/$web/main.html
 https://strgy5exht4o56pkq.z6.web.core.windows.net/
 
+![](/images/func-az-ip/func_deploy.gif)
+
+
 ## Results
+![](/images/func-az-ip/az_trigger_func_res.png)
 
 
 ## Summary
 ## Related Information
 
+* https://www.ibm.com/cloud/learn/microservices
 
-
+* https://www.ibm.com/cloud/learn/serverless
