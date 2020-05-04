@@ -1,13 +1,15 @@
 
-# 
+# Timer trigger for Python Azure Function (part 1)
+
 ![](/images/logos/function.png)
+
 ## Introduction
 
 Hosting a software application on the internet typically requires provisioning and managing a virtual or physical server and managing an operating system and web server hosting processes. Microsoft Azure provides several different ways to host and execute code or workflows without using Virtual Machines (VMs) including Azure Functions, Microsoft Power Automate, Azure Logic Apps, and Azure WebJobs. 
 
-This document **gives an example of using Azure Python Function** for obtaining Azure Datacenter and Office 365 IP addresses. Function execution will be started by schedule and obtained data will be stored in an Azure storage account.
-
 ![](/images/func-az-ip/az_time_func.png)
+
+This document **gives an example of using Azure Python Function** for obtaining Azure Datacenter and Office 365 IP addresses. Function execution will be started by schedule and obtained data will be stored in an Azure storage account.
 
 ## Theoretical Part
 
@@ -85,31 +87,29 @@ Before you begin the next section, you’ll need:
 * Local environment with installed: [Python](https://www.python.org/downloads/) (version 3.6 or higher), [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest), [Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools#versionss) (newest available latest version) and [Git client](https://git-scm.com/downloads)
 
 ## Practical Part
-To run this demo you'll need to deploy ARM template (which creates functions environment in Azure) and publish functions code to Azure.
-
-ARM template [link](https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/storage.json). 
-
-Function code [link](https://github.com/groovy-sky/azure-office-ip).
+To run this demo you'll need to:
+1. Create Azure environment using ARM template. ARM template is available [here](https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/azuredeploy.json). 
+2. Publish function to Azure App Service. Function is stored [here](https://github.com/groovy-sky/azure-office-ip) and its structure looks following:
 
 ![](/images/func-az-ip/func_structure_folder.png)
 
 
-### Azure part
-There are a few ways to deploy demo ARM template. Easiest way how-to do so - use the button below:
+### ARM template deployment
+There are a few ways to deploy [the demo ARM template]((https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/azuredeploy.json)). Easiest way how-to do so, use the button below:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Ffunc-parse-cloud-00%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
+Provide required data and start the deployment:
+
 ![](/images/func-az-ip/az_func_deploy.png)
 
-By default, after function starts to work, generated data will be accessible through the following link - `https://<storage-name>.blob.core.windows.net/$web/main.html`. Optionally, you can get a better URL (like `https://<storage-name>.z6.web.core.windows.net`) by enabling "Static website" feature:
-![](/images/func-az-ip/az_func_static_website.png)
+Template create 4 resources with unique - App Service, Application Insights, App Service plan and Storage account. **In the next section you'll need to use the App Service name for function publishing**.
 
-### Function part
+### Function publishing
 
 The Azure Functions Core Tools let you to run functions on your local computer or publish to Azure. When you publish a function using Core Tools - it don't ask you to sign in to Azure. Instead, they access your subscriptions and resources by loading your session information from the Azure CLI. If you don't have an active session in one of those tools, publishing will fail.
 
-Which is why before running this section - login to Azure CLI.
-
+Which is why **before running this section - login to Azure CLI** and only then execute code below (**also don't forget to replace ```<function_name>``` with your App Service name**):
 
 ```
 [ ! -d "iaac-demo/.git" ] && git clone https://github.com/groovy-sky/azure-office-ip
@@ -117,26 +117,26 @@ cd azure-office-ip && git pull
 func azure functionapp publish <function_name> --python
 ```
 
-https://strgy5exht4o56pkq.blob.core.windows.net/$web/main.html
-https://strgy5exht4o56pkq.z6.web.core.windows.net/
+The whole thing takes less than 5 minutes: 
 
 ![](/images/func-az-ip/func_deploy.gif)
 
-https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python#folder-structure
 
 ## Results
+
+This demo timer trigger has a Schedule, which is set to run each 3 hours. If you aren't ready to wait so long - you can manually start the function:
+
+![](/images/func-az-ip/az_func_manual_run.png)
+
+
+By default, after function was published and triggered, generated data will be accessible through the following link - `https://<storage-name>.blob.core.windows.net/$web/main.html` (where `<storage-name>` is your Storage account name). Optionally, you can get a better URL (like `https://<storage-name>.z6.web.core.windows.net`) by enabling "Static website" feature:
+![](/images/func-az-ip/az_func_static_website.png)
+
+If the publishing and running was successful you can validate a result by accessing web page/storage account:
+
 ![](/images/func-az-ip/az_trigger_func_res.png)
 
-A timer trigger is a trigger that executes a function at a consistent interval. To create a timer trigger, you need to supply two pieces of information.
-
-* A Timestamp parameter name, which is simply an identifier to access the trigger in code.
-* A Schedule, which is a CRON expression that sets the interval for the timer.
-
-A CRON expression is a string that consists of six fields that represent a set of times.
-
-The order of the six fields in Azure is: {second} {minute} {hour} {day} {month} {day of the week}.
-
-For example, a CRON expression to create a trigger that executes every five minutes looks like:
+The main drawback of this approach is the absence of a proper monitoring. 
 
 ## Summary
 ## Related Information
@@ -145,29 +145,20 @@ For example, a CRON expression to create a trigger that executes every five minu
 
 * https://www.ibm.com/cloud/learn/serverless
 
-* 
-https://docs.microsoft.com/en-us/Office365/Enterprise/office-365-ip-web-service
+* https://docs.microsoft.com/en-us/Office365/Enterprise/office-365-ip-web-service
 
-https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
+* https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
 
-https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/storage
+* https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/storage
 
-https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website
+* https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website
 
-https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website-how-to?tabs=azure-portal
+* https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/storage/azure-storage-blob/azure/storage/blob/_blob_client.py
 
-https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/storage/azure-storage-blob/azure/storage/blob/_blob_client.py
+* https://github.com/Azure/Azure-Functions/wiki/Bring-your-own-storage-(Linux-consumption)
 
-https://github.com/Azure/azure-functions-host/wiki/Retrieving-information-about-the-currently-running-function#python-on-functions-v2-or-higher
+* https://www.serverlesslibrary.net/?technology=Functions%202.x&language=Python
 
-https://github.com/Azure/Azure-Functions/wiki/Bring-your-own-storage-(Linux-consumption)
+* https://github.com/sendgrid/sendgrid-python#without-mail-helper-class
 
-https://www.serverlesslibrary.net/?technology=Functions%202.x&language=Python
-
-https://github.com/yokawasa/azure-functions-python-samples
-
-https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#function_app_edit_mode
-
-https://docs.microsoft.com/en-us/python/api/azure-functions/azure.functions?view=azure-python
-
-https://github.com/sendgrid/sendgrid-python#without-mail-helper-class
+* https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python#folder-structure
