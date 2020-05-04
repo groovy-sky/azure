@@ -3,6 +3,12 @@
 
 This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
 
+### Azure Functions
+
+![](/images/logos/function.png)
+
+* How-to run [a Python function for storing Azure/Office 365 IP](/func-parse-cloud-00#introduction)
+
 ### Infrastructure as Code
 
 ![](/images/logos/iac.png)

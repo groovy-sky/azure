@@ -23,7 +23,7 @@ In Azure Functions, specific functions share a few core technical concepts and c
 
 ![](/images/func-az-ip/function_separation.png)
 
-A function is the primary concept in Azure Functions. A function contains two important pieces - your code and some config. When you are working with a function in Azure, you must choose following configurations:
+A function is the primary concept in Azure Functions. When you are working with a function in Azure, you must choose following configurations:
 * Functions hosting plan
 * Functions runtime
 * Functions trigger
@@ -88,14 +88,14 @@ Before you begin the next section, you’ll need:
 
 ## Practical Part
 To run this demo you'll need to:
-1. Create Azure environment using ARM template. ARM template is available [here](https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/azuredeploy.json). 
-2. Publish function to Azure App Service. Function is stored [here](https://github.com/groovy-sky/azure-office-ip) and its structure looks following:
+1. Create Azure environment using ARM [template](https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/azuredeploy.json), which creates Linux consumption plan, Python application service, storage account and Application Insights.  
+2. Publish [the demo function](https://github.com/groovy-sky/azure-office-ip) to Azure App Service. Its structure looks following:
 
 ![](/images/func-az-ip/func_structure_folder.png)
 
 
 ### ARM template deployment
-There are a few ways to deploy [the demo ARM template]((https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/azuredeploy.json)). Easiest way how-to do so, use the button below:
+There are a few ways to deploy [the demo ARM template]((https://raw.githubusercontent.com/groovy-sky/azure/master/func-parse-cloud-00/azuredeploy.json)). Easiest way how you can do so, by clicking to the button below:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Fmaster%2Ffunc-parse-cloud-00%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
@@ -109,7 +109,7 @@ Template create 4 resources with unique - App Service, Application Insights, App
 
 The Azure Functions Core Tools let you to run functions on your local computer or publish to Azure. When you publish a function using Core Tools - it don't ask you to sign in to Azure. Instead, they access your subscriptions and resources by loading your session information from the Azure CLI. If you don't have an active session in one of those tools, publishing will fail.
 
-Which is why **before running this section - login to Azure CLI** and only then execute code below (**also don't forget to replace ```<function_name>``` with your App Service name**):
+Which is why **before publishing you need to login to Azure CLI** and only then execute code below (**also don't forget to replace ```<function_name>``` with your App Service name**):
 
 ```
 [ ! -d "iaac-demo/.git" ] && git clone https://github.com/groovy-sky/azure-office-ip
@@ -124,7 +124,7 @@ The whole thing takes less than 5 minutes:
 
 ## Results
 
-This demo timer trigger has a Schedule, which is set to run each 3 hours. If you aren't ready to wait so long - you can manually start the function:
+This demos timer trigger has a schedule, which is set to run each 3 hours. If you don't want to wait 3 hours you can manually start the code execution:
 
 ![](/images/func-az-ip/az_func_manual_run.png)
 
@@ -136,9 +136,13 @@ If the publishing and running was successful you can validate a result by access
 
 ![](/images/func-az-ip/az_trigger_func_res.png)
 
-The main drawback of this approach is the absence of a proper monitoring. 
-
 ## Summary
+
+At this point you've deployed Azure environment, published and executed Function. 
+
+The main drawback of this approach is the absence of a proper monitoring. In the next chapter we will try to find the way how to make things better using an get a better visibility.
+
+
 ## Related Information
 
 * https://www.ibm.com/cloud/learn/microservices
