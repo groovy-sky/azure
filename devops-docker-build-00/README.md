@@ -1,12 +1,13 @@
-# Running a self-hosted build agent in Docker
+# Running a self-hosted build agent on Azure Container Instance
 ## Introduction
 
-Azure Container Instances enables a layered approach to orchestration, providing all of the scheduling and management capabilities required to run a single container, while allowing orchestrator platforms to manage multi-container tasks on top of it.
+Containers are becoming the preferred way to package, deploy, and manage cloud applications. Azure Container Instances offers the fastest and simplest way to run a container in Azure, without having to manage any virtual machines and without having to adopt a higher-level service.
 
-Because the underlying infrastructure for container instances is managed by Azure, an orchestrator platform does not need to concern itself with finding an appropriate host machine on which to run a single container. The elasticity of the cloud ensures that one is always available. Instead, the orchestrator can focus on the tasks that simplify the development of multi-container architectures, including scaling and coordinated upgrades.
+To build your code or deploy your software using Azure DevOps Pipelines, you need a build agent. Using containers as a build agents, maintenance and upgrades are taken care of for you.
 
 ![](/images/devops-docker/devops_docker_logo.png)
 
+This document gives an **example of using Azure Container Instance as Azure DevOps pipelines build agent**. To do so you'll need build a custom Docker image and use it to create Container Instance in Azure Cloud.
 
 ## Theoretical Part
 
@@ -81,9 +82,9 @@ When you configure an agent, it is registered with a single pool, and when you c
 
 ## Azure Container Instances
 
-Containers are becoming the preferred way to package, deploy, and manage cloud applications. Azure Container Instances offers the fastest and simplest way to run a container in Azure, without having to manage any virtual machines and without having to adopt a higher-level service.
+Azure Container Instances enables a layered approach to orchestration, providing all of the scheduling and management capabilities required to run a single container, while allowing orchestrator platforms to manage multi-container tasks on top of it.
 
-Azure Container Instances is a great solution for any scenario that can operate in isolated containers, including simple applications, task automation, and build jobs. 
+Because the underlying infrastructure for container instances is managed by Azure, an orchestrator platform does not need to concern itself with finding an appropriate host machine on which to run a single container. The elasticity of the cloud ensures that one is always available. Instead, the orchestrator can focus on the tasks that simplify the development of multi-container architectures, including scaling and coordinated upgrades.
 
 ### Container group
 The top-level resource in Azure Container Instances is the container group. A container group is a collection of containers that get scheduled on the same host machine. The containers in a container group share a lifecycle, resources, local network, and storage volumes
@@ -124,10 +125,24 @@ Before you begin the next section, you’ll need:
 
 To run this demo you'll need to:
 1. Build Docker image
-2. Deploy Azure Container instance from the Docker image
+2. Generate Personal Access Token on Azure DevOps
+3. Deploy Azure Container instance
 
 ![](/images/devops-docker/docker-devops-agent_github.png)
 
+
+### Build Docker image
+![](/images/devops-docker/configure_docker_build_pipeline.png)
+
+Configured pipeline - https://dev.azure.com/Infrastructure-as-C0de/docker-devops-agent/_build?definitionId=6&_a=summary
+
+Published image - https://hub.docker.com/r/gr00vysky/devops-agent
+
+### Generate PAT
+
+https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-personal-access-tokens-to-authenticate-access
+
+### Deploy Azure Container instance
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fdocker-devops-agent%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
@@ -135,9 +150,13 @@ To run this demo you'll need to:
 
 
 ## Results
+
 ![](/images/devops-docker/docker_agent_result.png)
 
 ## Summary
+
+
+
 ## Related Information
 
 * https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/docker?view=azure-devops#environment-variables
