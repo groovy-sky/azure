@@ -125,37 +125,52 @@ Before you begin the next section, you’ll need:
 
 To run this demo you'll need to:
 1. Build Docker image
-2. Generate Personal Access Token on Azure DevOps
-3. Deploy Azure Container instance
+2. Generate Personal Access Token (PAT) on Azure DevOps
+3. Deploy Azure Container Instance
+
+Everything for running this demo is stored in [docker-devops-agent repository](https://github.com/groovy-sky/docker-devops-agent). It's structure looks following:
 
 ![](/images/devops-docker/docker-devops-agent_github.png)
 
 
 ### Build Docker image
+At first, configure a new pipeline and specify docker-related variables (imageName, registryLogin, registryPassword):
+
 ![](/images/devops-docker/configure_docker_build_pipeline.png)
 
-Configured pipeline - https://dev.azure.com/Infrastructure-as-C0de/docker-devops-agent/_build?definitionId=6&_a=summary
+The pipeline is triggered every day. Another way to run it - start manually. As a result you should get a customized Docker image. 
 
-Published image - https://hub.docker.com/r/gr00vysky/devops-agent
+If you don't want to build your own image, just use this [demo image](https://hub.docker.com/r/gr00vysky/devops-agent) (builded by [demo pipeline](https://dev.azure.com/Infrastructure-as-C0de/docker-devops-agent/_build?definitionId=6&_a=summary))
 
 ### Generate PAT
+Before running a Container Instance you'll need to obtain Personal Access Token:
 
-https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-personal-access-tokens-to-authenticate-access
+![](/images/devops-docker/pat_creation.png)
+
+Complete information about PAT configuration is available [here](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-personal-access-tokens-to-authenticate-access
+).
 
 ### Deploy Azure Container instance
+Finally you can deploy [the ARM template](https://raw.githubusercontent.com/groovy-sky/docker-devops-agent/master/azure/azuredeploy.json) by providing required parameters. Especially be careful with DevOps part - AZP_URL should be your organization URL, AZP_TOKEN is PAT token obtained in previous section and AZP_POOL is Agent pool name to which new agent will be added. 
+
+
+Easiest way how you can start the deployment - just click to the button below:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fdocker-devops-agent%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+
+Provide required data and start the deployment:
 
 ![](/images/devops-docker/az_container_deployment.png)
 
 
 ## Results
 
+If everything went according to plan, then a new agent should appear in the agent pool:
+
 ![](/images/devops-docker/docker_agent_result.png)
 
 ## Summary
-
-
+To sum up, this work shows how easily you can configure and run self-hosted agent from scratch. However, the picture is thus still incomplete and in the next chapter we will try to find the way how to make things better.
 
 ## Related Information
 
