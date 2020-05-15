@@ -13,3 +13,4 @@
 * http://blog.geuer-pollmann.de/blog/2019/02/28/call-azure-arm-api-with-curl/
 * https://docs.microsoft.com/en-us/azure/templates/microsoft.resources/2019-05-01/deployments#DeploymentProperties
 * https://azuredevopslabs.com/labs/vstsextend/azurekeyvault/
+* https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-applications/key-vault-access
