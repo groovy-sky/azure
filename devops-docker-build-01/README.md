@@ -14,3 +14,4 @@
 * https://docs.microsoft.com/en-us/azure/templates/microsoft.resources/2019-05-01/deployments#DeploymentProperties
 * https://azuredevopslabs.com/labs/vstsextend/azurekeyvault/
 * https://docs.microsoft.com/en-us/azure/azure-resource-manager/managed-applications/key-vault-access
+* https://docs.microsoft.com/en-us/rest/api/container-instances/containergroups/update
