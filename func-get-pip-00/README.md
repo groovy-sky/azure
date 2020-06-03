@@ -1,5 +1,7 @@
 # Use Azure Functions for getting public IP
 
+![](/images/logos/function.png)
+
 ## Introduction
 
 Each device on your network has a private IP address only seen by other devices on the local network. But your ISP assigns you a public IP address that other devices on the Internet can see. 
@@ -111,7 +113,6 @@ If the publishing was successful you can validate a result by accessing website:
 
 ![](/images/func-az-ip/get_ip_using_function.png)
 
-## Summary
 
 At this point you've deployed Azure environment, published and executed Function. 
 
