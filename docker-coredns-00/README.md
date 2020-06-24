@@ -1,14 +1,22 @@
 # 
 ## Introduction
-In nowdays Microsoft provides a wide range of publicly available services in Azure. Some time ago small part of these services got additional feature, called private endpoint, which allowed to get access by private IP and private DNS name. Unfortanully accessing by DNS name works only from Virtual Network on which the endpoint was published.  
 
-This document gives an example of using Azure Container instance as a private recursive (forwarding) DNS for sharing Azure Authoritative Private DNS records outside the original virtual network.
+
+In nowdays Microsoft provides a wide range of publicly available services in Azure. Some time ago small part of these services got additional feature, called private endpoint, which allowed to get access by private IP and private DNS name. Unfortunately accessing such private DNS works only from the same Virtual Network on which the endpoint was published.  Resolve such kind of limitation could a simple recursive DNS.
+
+![](/images/docker/coredns_recur_arch.png)
+
+This document gives an example of using **Azure Container instance as a private recursive (aka forwarding) Name Server** for sharing Azure or/and non-Azure Authoritative DNS records.
 
 ## Theoretical Part
 
 ### DNS
 
+![](/images/docker/dns_logo.png)
+
 Computers on a network can find one another by IP addresses. To make it easier to work within a computer network, people can use a Domain Name System (DNS) to associate human-friendly domain names with IP addresses, similar to a phonebook. A DNS can also associate other information beyond just computer network addresses to domain names. 
+
+![](/images/docker/dns_simple.png)
 
 Domain Name System (DNS) is what makes it possible for users to connect to websites using Internet domain names and searchable URLs rather than numerical Internet protocol addresses. 
 
@@ -18,15 +26,17 @@ There are two name server configuration types:
 * Authoritative - to resource records that are part of their zones only. This category includes both primary (master) and secondary (slave) name servers. 
 * Recursive - offer resolution services, but they are not authoritative for any zone. Answers for all resolutions are cached in a memory for a fixed period of time, which is specified by the retrieved resource record. 
 
+![](/images/docker/how_dns_works.png)
+
 Although a name server can be both authoritative and recursive at the same time, it is recommended not to combine the configuration types. To be able to perform their work, authoritative servers should be available to all clients all the time. On the other hand, since the recursive lookup takes far more time than authoritative responses, recursive servers should be available to a restricted number of clients only, otherwise they are prone to distributed denial of service (DDoS) attacks. 
 
 #### Private vs Public
 There are two zone types, which name server can use:
 
-* Zone with records, which have public IP addresses. Such zone, probably, is publicly available and can be accessed by anyone, regardless of the device they use or the network they are attached to.
-* Zone with records, which have private IP addresses. This type of zone probably resides behind a company firewall and only holds records of internal sites. In this case, the private DNS is limited in its scope to remembering IP addresses from the internal sites and services being used and can't be accessed outside of the private network.
+* Zone with records, which have public IP addresses. Such zone, probably, is stored on publicly available Name Server and can be accessed by anyone, regardless of the device they use or the network they are attached to.
+* Zone with records, which have private IP addresses. This type of zone probably resides behind a company firewall and only holds records of internal sites. 
 
-Although a name server can contain both type of zones, it is not recommended to share publicly DNS server with private zone. In this case, the private zone is available for external usage.
+Although a name server can contain both type of zones, it is not recommended to share a public DNS server with private zones. In this case, the private zone is available for external usage.
 
 ### Azure Authoritative Private DNS 
 
@@ -34,15 +44,9 @@ Azure Private DNS provides a reliable, secure DNS service to manage and resolve 
 
 To resolve the records of a private DNS zone from your virtual network, you must link the virtual network with the zone. Linked virtual networks have full access and can resolve all DNS records published in the private zone. Additionally, you can also enable autoregistration on a virtual network link. If you enable autoregistration on a virtual network link, the DNS records for the virtual machines on that virtual network are registered in the private zone. When autoregistration is enabled, Azure DNS also updates the zone records whenever a virtual machine is created, changes its' IP address, or is deleted.
 
-### Azure Private Endpoint
-Azure Private Endpoint is a network interface that connects you privately and securely to a service powered by Azure Private Link. Private Endpoint uses a private IP address from your VNet, effectively bringing the service into your VNet. The service could be an Azure service such as Azure Storage, Azure Cosmos DB, SQL, etc. or your own Private Link Service.
-
-### Private Endpoint DNS configuration
-When you're connecting to a private link resource using a fully qualified domain name (FQDN) as part of the connection string, it's important to correctly configure your DNS settings to resolve to the allocated private IP address. Existing Microsoft Azure services might already have a DNS configuration to use when connecting over a public endpoint. This configuration needs to be overridden to connect using your private endpoint.
-
-The network interface associated with the private endpoint contains the complete set of information required to configure your DNS, including FQDN and private IP addresses allocated for a particular private link resource.
-
 ### Azure Container Instances
+
+![](/images/docker/az_container.png)
 
 Azure Container Instances enables a layered approach to orchestration, providing all of the scheduling and management capabilities required to run a single container, while allowing orchestrator platforms to manage multi-container tasks on top of it.
 
