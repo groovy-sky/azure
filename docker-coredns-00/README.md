@@ -2,11 +2,15 @@
 ## Introduction
 
 
-In nowdays Microsoft provides a wide range of publicly available services in Azure. Some time ago small part of these services got additional feature, called private endpoint, which allowed to get access by private IP and private DNS name. Unfortunately accessing such private DNS works only from the same Virtual Network on which the endpoint was published.  Resolve such kind of limitation could a simple recursive DNS.
+In nowdays Microsoft provides a wide range of publicly available services in Azure. At the same time Azure allows you to extend your on-premises networks into the Microsoft cloud using, for example, ExpressRoute circuit or VPN Gateway. 
+
+Some time ago some part of services available in Azure Marketplace got additional feature, called private endpoint, which allowed to get access by private IP and private DNS name. 
+
+A challenge crop up then you need to resolve Azure and On-Premises private zones using one Name Server. For example, if you want to [access a private Azure Kubernetes Service cluster from on-premises](https://docs.microsoft.com/en-us/azure/aks/private-clusters#hub-and-spoke-with-custom-dns). In such case obvius solution would be to use Azure private recursive DNS, but unfortunately currently you can get (as a service) only authoritative one.  
 
 ![](/images/docker/coredns_recur_arch.png)
 
-This document gives an example of using **Azure Container instance as a private recursive (aka forwarding) Name Server** for sharing Azure or/and non-Azure Authoritative DNS records.
+This document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a private recursive (aka forwarding) Name Server** for sharing Azure private and on-premises private DNS zones.
 
 ## Theoretical Part
 
@@ -18,7 +22,7 @@ Computers on a network can find one another by IP addresses. To make it easier t
 
 ![](/images/docker/dns_simple.png)
 
-Domain Name System (DNS) is what makes it possible for users to connect to websites using Internet domain names and searchable URLs rather than numerical Internet protocol addresses. 
+In other words, DNS is a directory of easily readable domain names that translate to numeric IP addresses used by computers to communicate with each other. For example, when you type a URL into a browser, DNS converts the URL into an IP address of a web server associated with that name. 
 
 #### Authoritative vs Recursive
 There are two name server configuration types:
@@ -38,7 +42,7 @@ There are two zone types, which name server can use:
 
 Although a name server can contain both type of zones, it is not recommended to share a public DNS server with private zones. In this case, the private zone is available for external usage.
 
-### Azure Authoritative Private DNS 
+### Azure Authoritative Private Name Server 
 
 Azure Private DNS provides a reliable, secure DNS service to manage and resolve domain names in a virtual network without the need to add a custom DNS solution. By using private DNS zones, you can use your own custom domain names rather than the Azure-provided names available today. Using custom domain names helps you to tailor your virtual network architecture to best suit your organization's needs. It provides name resolution for virtual machines (VMs) within a virtual network and between virtual networks. Additionally, you can configure zones names with a split-horizon view, which allows a private and a public DNS zone to share the name.
 
@@ -79,6 +83,8 @@ Before you begin the next section, you’ll need:
 * Docker Hub account
 
 ## Practical Part
+
+
 ## Results
 ## Summary
 ## Related Information
@@ -88,3 +94,4 @@ Before you begin the next section, you’ll need:
 * https://docs.microsoft.com/en-us/azure/dns/dns-overview
 * https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-dns#on-premises-workloads-using-a-dns-forwarder
 * https://docs.microsoft.com/en-us/azure/aks/private-clusters#hub-and-spoke-with-custom-dns
+* https://cloud.google.com/dns/docs/dns-overview
