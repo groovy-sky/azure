@@ -10,7 +10,7 @@ A challenge crop up then you need to resolve Azure and On-Premises private zones
 
 ![](/images/docker/coredns_recur_arch.png)
 
-This document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a private recursive (aka forwarding) Name Server** for sharing Azure private and on-premises private DNS zones.
+This document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones.
 
 ## Theoretical Part
 
@@ -83,7 +83,17 @@ Before you begin the next section, you’ll need:
 * Docker Hub account
 
 ## Practical Part
+![](/images/docker/coredns_public_or_private.png)
 
+Private
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+
+Public
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%public-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+
+https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json
+
+https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json
 
 ## Results
 ## Summary
