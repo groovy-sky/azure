@@ -77,23 +77,25 @@ Azure Container Instances support both Windows and Linux containers.
 
 ## Prerequisites
 
-Before you begin the next section, you’ll need:
-
-* Azure Cloud account
-* Docker Hub account
+Before you begin the next section, you’ll need an Azure Cloud account.
 
 ## Practical Part
+
 ![](/images/docker/coredns_public_or_private.png)
 
-Private
+As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. Which 
+
+
+Privately available CoreDNS instance [template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json)
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
-Public
+Publicly available CoreDNS instance [template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json)
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%public-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
-https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json
+![](/images/docker/dockerfile_and_corefile_structure.png)
 
-https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json
+
+
 
 ## Results
 ## Summary
