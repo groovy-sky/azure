@@ -81,21 +81,26 @@ Before you begin the next section, you’ll need an Azure Cloud account.
 
 ## Practical Part
 
+Everything that you need to run this demo is stored in [one repository](https://github.com/groovy-sky/azure-coredns/blob/master/README.md):
+
+![](/images/docker/coredns_repo_struct.png)
+
+### Deploy Private or Public Instance
+
+As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. Which one to deploy - private or public, is up to you.
+
 ![](/images/docker/coredns_public_or_private.png)
 
-As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. Which 
+To deploy and run privately accessible CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json) or click on the button below:
 
-
-Privately available CoreDNS instance [template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json)
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
-Publicly available CoreDNS instance [template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json)
+To deploy and run publicly available CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json) or click on the button below:
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%public-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
+In both cases the final solution will be able to resolve only public records, as by design it uses [Azure-native DNS server](https://docs.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16). If you want to use this instance for exposing your private DNS records - you will need to specify them in Corefile and build your own Docker image:
+
 ![](/images/docker/dockerfile_and_corefile_structure.png)
-
-
-
 
 ## Results
 ## Summary
