@@ -81,7 +81,7 @@ Before you begin the next section, you’ll need an Azure Cloud account.
 
 ## Practical Part
 
-Everything that you need to run this demo is stored in [one repository](https://github.com/groovy-sky/azure-coredns/blob/master/README.md):
+Everything that you need to run this demo is stored in [one repository](https://github.com/groovy-sky/azure-coredns):
 
 ![](/images/docker/coredns_repo_struct.png)
 
