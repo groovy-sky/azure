@@ -1,4 +1,4 @@
-# 
+# Running CoreDNS on Azure Container Instance
 ## Introduction
 
 
@@ -81,7 +81,7 @@ Before you begin the next section, you’ll need an Azure Cloud account.
 
 ## Practical Part
 
-Everything that you need to run this demo is stored in [one repository](https://github.com/groovy-sky/azure-coredns/blob/master/README.md):
+Everything that you need to run this demo is stored in [one repository](https://github.com/groovy-sky/azure-coredns):
 
 ![](/images/docker/coredns_repo_struct.png)
 
@@ -91,19 +91,31 @@ As was stated in the Introduction, this document gives an example of **using [Co
 
 ![](/images/docker/coredns_public_or_private.png)
 
+<<<<<<< HEAD
 #### Running CoreDNS instance with private IP
 ![](/images/docker/red_dns_icon.png)
 
 To deploy and run privately accessible CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json) or click on the button below:
+=======
+#### Private CoreDNS 
+>>>>>>> a20b7ef345595bdc00a8aff6129d9b2376518efa
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+To deploy and run privately accessible CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json) or click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button.
 
+<<<<<<< HEAD
 #### Running CoreDNS instance with public IP
 ![](/images/docker/blue_dns_icon.png)
 
 To deploy and run publicly available CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json) or click on the button below:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%public-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+=======
+#### Public CoreDNS
+
+To deploy and run publicly available CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json) or click <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%public-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button.
+
+#### Real Case Scenario
+>>>>>>> a20b7ef345595bdc00a8aff6129d9b2376518efa
 
 #### Real-world scenario
 
