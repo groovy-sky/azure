@@ -107,13 +107,16 @@ In both cases the final solution will be able to resolve only public records, as
 
 ![](/images/docker/dockerfile_and_corefile_structure.png)
 
-## Results
+## Summary
 
-As stated in the Introduction, main target was to give an example of using CoreDNS Container Instance as a recursive Name Server. 
+As stated in the Introduction, main target was to give an example of using CoreDNS Container Instance as a recursive Name Server. In order to do so choose a template and run it. Below you can see public instance deploy:
+
+![](/images/docker/coredns_deploy_from_arm.png)
+
+After the deployment is complete, you can test newly created resource:
 
 ![](/images/docker/coredns_deploy_result.png)
 
-## Summary
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview
 * https://www.ibm.com/cloud/learn/dns
