@@ -99,7 +99,7 @@ To deploy and run privately accessible CoreDNS instance use [applicable template
 #### Running CoreDNS instance with public IP
 ![](/images/docker/blue_dns_icon.png)
 
-To deploy and run publicly available CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json) or click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%public-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button.
+To deploy and run publicly available CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json) or click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fpublic-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button.
 
 #### Real-world scenario
 
@@ -109,6 +109,7 @@ In both cases the final solution will be able to resolve only public records, as
 
 ## Results
 
+As stated in the Introduction, main target was to give an example of using CoreDNS Container Instance as a recursive Name Server. 
 
 ![](/images/docker/coredns_deploy_result.png)
 
