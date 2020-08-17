@@ -32,6 +32,7 @@ This repository hosts a collection of articles about deploying, configuring  and
 ### Docker
 ![](/images/logos/docker.png)
 
+* How-to [run a build agent on Azure Container Instance](/devops-docker-build-00/README.md#introduction)
 * How-to [run a Docker in Azure CLI](/docker-azure-cli-00/README.md#introduction)
 * How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
 * How-to [run SonarQube VM in Azure](/sonarqube-00/README.md#introduction) and [use it on Azure DevOps](/sonarqube-01/README.md#introduction)
