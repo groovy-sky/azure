@@ -1,7 +1,11 @@
 # Azure Functions custom handler in Go
+
 ![](/images/logos/function.png)
+
 ## Introduction
 Azure Functions allows to run a code without worrying about application infrastructure. Even though Azure Functions supports many language handlers by default, in some cases you want more.
+
+![](/images/func-az-ip/go_handler_logo.png)
 
 ## Theoretical Part
 ## Prerequisites
