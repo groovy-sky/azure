@@ -3,7 +3,11 @@
 ## Introduction
 Azure Functions allows to run a code without worrying about application infrastructure. Even though Azure Functions supports many language handlers by default, in some cases you want more.
 
+![](/images/go_handler_logo.png)                                                                               
+
 ## Theoretical Part
+
+Azure Functions is a serverless compute service, which  is "triggered" by a specific type of event. Every Functions app is executed by a language-specific handler. While Azure Functions supports many language handlers by default, there are cases where you may want additional control over the app execution environment. Custom handlers give you this additional control.
 
 ## Prerequisites                                                                                              
                                                                                                               
