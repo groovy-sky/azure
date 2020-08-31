@@ -28,17 +28,22 @@ To implement a custom handler, you need the following aspects to your applicatio
                                                                                                               
 Before you begin the next section, you’ll need:                                                               
 * [Azure Cloud account](https://azure.microsoft.com/free/)                                                    
-* Local environment with installed: [Python](https://www.python.org/downloads/) (version 3.6 or higher), [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest), [Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools#versionss) (newest available latest version) and [Git client](https://git-scm.com/downloads)
                                                                                                               
 ## Practical Part                                                                                             
 To run this demo you'll need to:                                                                              
 1. Create Functions environment in Azure portal.                                                              
-2. Publish [functions code](https://github.com/groovy-sky/azure-func-go-handler/tree/master/Function) to Azure App Service.                
+2. Publish [functions code](https://github.com/groovy-sky/azure-func-go-handler/tree/master/Function) using Azure CLI.               
                                                                                                               
                                                                                                               
 ### Functions environment deployment
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-func-go-handler%2Fmaster%2FTemplate%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
+
+```
+[ ! -d "azure-func-go-handler/.git" ] && git clone https://github.com/groovy-sky/azure-func-go-handler
+cd azure-func-go-handler/Function && git pull
+func azure functionapp publish <function_name> --no-build --force
+```
 
 ## Results
 ## Summary
