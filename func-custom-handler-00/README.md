@@ -13,14 +13,14 @@ The following diagram shows the relationship between the Functions host and a we
 
 ![](/images/func-az-ip/az_func_handler.png)
 
-* Events trigger a request sent to the Functions host. The event carries either a raw HTTP payload (for HTTP-triggered functions with no bindings), or a payload that holds input binding data for the function.
-* The Functions host then proxies the request to the web server by issuing a request payload.
-* The web server executes the individual function, and returns a response payload to the Functions host.
-* The Functions host proxies the response as an output binding payload to the target.
+1 Events trigger a request sent to the Functions host. The event carries either a raw HTTP payload (for HTTP-triggered functions with no bindings), or a payload that holds input binding data for the function.
+2 The Functions host then proxies the request to the web server by issuing a request payload.
+3 The web server executes the individual function, and returns a response payload to the Functions host.
+4 The Functions host proxies the response as an output binding payload to the target.
 
 To implement a custom handler, you need the following aspects to your application:
 
-* A host.json file at the root of your app
+* A host.json file at the root of your app, to tell the Functions host where to send requests
 * A function.json file for each function (inside a folder that matches the function name)
 * A command, script, or executable, which runs a web server
 
@@ -30,22 +30,34 @@ Before you begin the next section, you’ll need:
 * [Azure Cloud account](https://azure.microsoft.com/free/)                                                    
                                                                                                               
 ## Practical Part                                                                                             
-To run this demo you'll need to:                                                                              
-1. Create Functions environment in Azure portal.                                                              
-2. Publish [functions code](https://github.com/groovy-sky/azure-func-go-handler/tree/master/Function) using Azure CLI.               
                                                                                                               
-                                                                                                              
-### Functions environment deployment
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-func-go-handler%2Fmaster%2FTemplate%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
+As always, everything that you'll need to run this demo is stored in [one repository](https://github.com/groovy-sky/azure-func-go-handler). Easiest way how to do that using Azure CLI and following script:
 
 ```
-[ ! -d "azure-func-go-handler/.git" ] && git clone https://github.com/groovy-sky/azure-func-go-handler
-cd azure-func-go-handler/Function && git pull
-func azure functionapp publish <function_name> --no-build --force
+deploy_region="westeurope"                                                                                    
+deploy_group="go-custom-function"                                                                            
+az group create -l $deploy_region -n $deploy_group                                                            
+function=$(az deployment group create --resource-group $deploy_group --template-uri https://raw.githubusercontent.com/groovy-sky/azure-func-go-handler/master/Template/azuredeploy.json | jq -r '. | .properties | .dependencies | .[] | .resourceName')                                                     
+[ ! -d "azure-func-go-handler/.git" ] && git clone https://github.com/groovy-sky/azure-func-go-handler        
+cd azure-func-go-handler/Function && git pull                                                                 
+go build *.go && func azure functionapp publish $function --no-build --force
+
 ```
+The whole thing takes less than 5 minutes:
+
+![](/images/func-az-ip/go_custom_func_result.gif)                                                                               
+
+After function will be publishes you'll get a link to the functions URL:
+
+![](/images/func-az-ip/go_func_deploy_end_result.png)
 
 ## Results
+
+
+If the publishing was successful you can validate a result by accessing a newly created function:
+
+![](/images/func-az-ip/get_ip_using_function.png)                                                                               
+
 ## Summary
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/azure-functions/functions-custom-handlers
