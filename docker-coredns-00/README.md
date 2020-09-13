@@ -27,7 +27,7 @@ In other words, DNS is a directory of easily readable domain names that translat
 #### Authoritative vs Recursive
 There are two name server configuration types:
 
-* Authoritative - to resource records that are part of their zones only. This category includes both primary (master) and secondary (slave) name servers. 
+* Authoritative - to resource records that are part of their zones only. This category includes both primary and secondary name servers. 
 * Recursive - offer resolution services, but they are not authoritative for any zone. Answers for all resolutions are cached in a memory for a fixed period of time, which is specified by the retrieved resource record. 
 
 ![](/images/docker/how_dns_works.png)
