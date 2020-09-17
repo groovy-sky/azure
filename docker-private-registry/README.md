@@ -25,9 +25,44 @@ For this demo specific configurations will be used exactly for `storage` and `au
 Even though registry configuration is based on a YAML file, you can use environment variables as alternative. For that create an environment variable named REGISTRY_variable where variable is the name of the configuration option and the _ (underscore) represents indention levels. 
 
 ## Prerequisites
+
+Before you begin the next section, you’ll need:                                                               
+* [Azure Cloud account](https://azure.microsoft.com/free/)
+
 ## Practical Part
+
+As usual, everything that you'll need to run this demo is stored in [one repository](https://github.com/groovy-sky/self-registry). Easiest way how to do that - use [Azure Cloud Shell in Bash mode](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) and execute following script:
+
+
+```
+export grpName="demo-registry-group"                                                                                 
+export grpRegion="westeurope"                                                                                        
+export strgConfig="config"                                                                                           
+export strgData="data"                                                                                               
+export authConfig="htpasswd" 
+
+[ ! -d "self-registry/.git" ] && git clone https://github.com/groovy-sky/self-registry
+cd self-registry && git pull
+./run.sh
+
+```
+
+The whole thing takes less than 5 minutes:
+
+![](/images/docker/registy_build.gif)
+
 ## Results
+
+If the deployment was successful you can validate a result by logging to your private registry and pushing an image from computer with installed Docker Engine:
+
+![](/images/docker/using_private_registry.png)
+
 ## Summary
+
+[Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae)
+
+![](/images/docker/private_registry_pricing.png)
+
 ## Related Information
 
 * https://docs.docker.com/registry/configuration/
