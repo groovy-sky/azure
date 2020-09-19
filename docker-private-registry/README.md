@@ -1,6 +1,10 @@
 # 
 ## Introduction
 
+Recently Docker has enabled download rate limits for pull requests and container image retention limits on Docker Hub for Free plans. This mak
+
+![](/images/docker/private_registry_logo.png)
+
 This page gives an example of hosting your own Docker registry using Azure App Service. 
 
 ## Theoretical Part
