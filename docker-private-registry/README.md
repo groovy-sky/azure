@@ -9,7 +9,7 @@ This page gives an example of hosting your own Docker registry using Azure App S
 
 ## Theoretical Part
 
-![](/images/docker/oyster-registry.png =150px)
+![](/images/docker/oyster-registry.png | width=100 )
 
 A registry is a storage and content delivery system, holding named Docker images, available in different tagged versions. By default, Docker users pull images from Docker's public registry instance, but you can host your own private registry as an alternative option. 
 
