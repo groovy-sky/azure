@@ -5,7 +5,7 @@ Recently Docker has enabled [download rate limits for pull requests and containe
 
 ![](/images/docker/private_registry_logo.png)
 
-This page gives **an example of hosting your own Docker registry using Azure App Service**. 
+This page gives **an example of hosting your own Docker registry using Azure App Service**. Main aim of it is to examine posibility to run a private registry with a minimal effort needed to maintain its infrastructure.
 
 ## Theoretical Part
 
@@ -52,7 +52,7 @@ Scripts execution logic:
 4. Create an App Service with 'registry' container instance
 5. Mount the storage (with htpasswd file) to the App Service
 
-Even though registry configuration is based on a YAML file, you can use environment variables as alternative. This is used in the template, which deploys a registry (every environment variable starts with `REGISTRY_`): 
+Even though registry configuration is based on a YAML file, you can use environment variables as alternative. This is used in the template, which deploys a registry (every environment variable which starts with `REGISTRY_` is a part of registry configuration): 
 
 ![](/images/docker/docker_registry_arm_variables.png)
 
@@ -88,9 +88,15 @@ If the deployment was successful you can validate a result by logging to your pr
 
 ## Summary
 
+
+
 [Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae)
 
 ![](/images/docker/private_registry_pricing.png)
+
+[Azure Container Registry](https://azure.microsoft.com/en-us/pricing/details/container-registry/)
+
+![](/images/docker/azure_registry_pricing.png)
 
 ## Related Information
 
