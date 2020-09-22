@@ -88,7 +88,25 @@ If the deployment was successful you can validate a result by logging to your pr
 
 ## Summary
 
+As stated in the Introduction, main target was to examine posibility to run a private registry with a minimal effort needed to maintain its infrastructure. This work has demonstrated that it is possible to accomplish that using few resources. 
 
+### Pros
+
+* **Custom domain**
+
+* **TLS**
+
+* **Access Restriction**
+
+* **Scaling**
+
+* **Advanced scenarios** https://docs.microsoft.com/en-us/azure/app-service/tutorial-send-email?tabs=dotnet
+
+* **Registry storage encryption** https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption
+
+### Cons
+
+**Price**
 
 [Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae)
 
@@ -98,9 +116,12 @@ If the deployment was successful you can validate a result by logging to your pr
 
 ![](/images/docker/azure_registry_pricing.png)
 
+* **Content Trust** https://docs.microsoft.com/en-us/azure/container-registry/container-registry-content-trust
+
 ## Related Information
 
 * https://docs.docker.com/registry/configuration/
 * https://github.com/docker/distribution
 * https://github.com/docker/distribution/blob/master/Dockerfile
 * https://github.com/docker/distribution/blob/master/docs/spec/api.md
+* https://docs.microsoft.com/en-us/learn/modules/intro-to-containers/
