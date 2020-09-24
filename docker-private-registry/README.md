@@ -5,7 +5,7 @@ Recently Docker has enabled [download rate limits for pull requests and containe
 
 ![](/images/docker/private_registry_logo.png)
 
-This page gives **an example of hosting your own Docker registry using Azure App Service**. Main aim of it is to examine posibility to run a private registry with a minimal effort needed to maintain its infrastructure.
+This page gives **an example of hosting your own Docker registry using Azure App Service**. Main aim of it is to examine possibility to run a private registry with a minimal effort needed to maintain its infrastructure.
 
 ## Theoretical Part
 
@@ -23,7 +23,7 @@ For this demo I will use custom Linux container [running on App Service with mou
 
 A registry is a storage and content delivery system, holding named Docker images, available in different tagged versions. By default, Docker users pull images from Docker's public registry instance, but you can host your own private registry as an alternative option. 
 
-Docker Inc. provides [a set of toolkit components](https://github.com/docker/distribution#distribution). One of these explains [how-to deploy and run your own private registry as a container instance](https://github.com/docker/docker.github.io/blob/master/registry/deploying.md). Basiclly, registry is just a storage and content delivery system, holding named Docker images, available in different tagged versions. Its configuration is based on a YAML file, which has [a wide variety of options](https://github.com/docker/distribution/blob/master/docs/configuration.md#list-of-configuration-options). Most important of them:
+Docker Inc. provides [a set of toolkit components](https://github.com/docker/distribution#distribution). One of these explains [how-to deploy and run your own private registry as a container instance](https://github.com/docker/docker.github.io/blob/master/registry/deploying.md). Basically, registry is just a storage and content delivery system, holding named Docker images, available in different tagged versions. Its configuration is based on a YAML file, which has [a wide variety of options](https://github.com/docker/distribution/blob/master/docs/configuration.md#list-of-configuration-options). Most important of them:
 
 * log - configures the behavior of the logging system
 * storage - defines which storage backend is in use
@@ -41,7 +41,7 @@ To run the demo you’ll need [an Azure Cloud account](https://azure.microsoft.c
 
 ## Practical Part
 
-As usual, everything for running this demo is stored in [one repository](https://github.com/groovy-sky/self-registry). To start the depoyment you'll use [run.sh](https://github.com/groovy-sky/self-registry/blob/master/run.sh), which has following structure: 
+As usual, everything for running this demo is stored in [one repository](https://github.com/groovy-sky/self-registry). To start the deployment you'll use [run.sh](https://github.com/groovy-sky/self-registry/blob/master/run.sh), which has following structure: 
 
 ![](/images/docker/run_sh_sctructure.png)
 
@@ -56,7 +56,7 @@ Even though registry configuration is based on a YAML file, you can use environm
 
 ![](/images/docker/docker_registry_arm_variables.png)
 
-Easiest way how you can deploy a demo environment - use [Azure Cloud Shell in Bash mode](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) for following script execution:
+The Easiest way how you can deploy a demo environment - use [Azure Cloud Shell in Bash mode](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) for following script execution:
 
 
 ```
@@ -88,27 +88,25 @@ If the deployment was successful you can validate a result by logging to your pr
 
 ## Summary
 
-As stated in the Introduction, main target was to examine posibility to run a private registry with a minimal effort needed to maintain its infrastructure. This work has demonstrated that it is possible to accomplish that using few resources. To sum up, this solution has some advantages and disadvantages, which are presented below.
+As stated in the Introduction, main target was to examine possibility to run a private registry with a minimal effort needed to maintain its infrastructure. This work has demonstrated that it is possible to accomplish that using few resources. To sum up, this solution has some advantages and disadvantages, which are presented below.
 
 ### Pros
 
-* You can use a **custom domain/certificate** for your app. By default .azurewebsites.net
+* You can use a [**custom domain/certificate**](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain) for your app or leave the default(`.azurewebsites.net`). 
 
-* You can **restrict access** for your app by defining allow/deny list that controls network access to your app. The list can include IP addresses or Azure Virtual Network subnets.
+* You can [**restrict access**](https://docs.microsoft.com/en-us/azure/app-service/app-service-ip-restrictions) for your app by defining allow/deny list that controls network access to your app. The list can include IP addresses or Azure Virtual Network subnets.
 
-* You can **scale an App Service plan up and down** by changing the pricing tier and hardware level that it runs on
+* You can [**scale an App Service plan up and down**](https://docs.microsoft.com/en-us/azure/app-service/manage-scale-up) by changing the pricing tier and hardware level that it runs on.
 
-* You can run **advanced scenarios**, like [using CDN](https://docs.microsoft.com/en-us/azure/cdn/cdn-add-to-web-app?toc=/azure/cdn/toc.json), [sending email](https://docs.microsoft.com/en-us/azure/app-service/tutorial-send-email), [controlling a traffic with Traffic Manager](https://docs.microsoft.com/en-us/azure/app-service/web-sites-traffic-manager) etc. 
-
-* Docker registry storage (which uses Azure Storage) is [**automatically encrypted**](https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption)
+* You can run **advanced scenarios**, like [using CDN](https://docs.microsoft.com/en-us/azure/cdn/cdn-add-to-web-app?toc=/azure/cdn/toc.json), [sending email](https://docs.microsoft.com/en-us/azure/app-service/tutorial-send-email), [controlling traffic with Traffic Manager](https://docs.microsoft.com/en-us/azure/app-service/web-sites-traffic-manager) etc. 
 
 ### Cons
 
-* **Price** for self-hosted registry is relatively expensibe. [Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae) for self-hosted registry:
+* **Price** for self-hosted registry is relatively expensive. [Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae) for self-hosted registry:
 
 ![](/images/docker/private_registry_pricing.png)
 
-[Azure Container Registry price](https://azure.microsoft.com/en-us/pricing/details/container-registry/):
+At the same time, [Basic Azure Container Registry](https://azure.microsoft.com/en-us/pricing/details/container-registry/) is much cheaper:
 
 ![](/images/docker/azure_registry_pricing.png)
 
