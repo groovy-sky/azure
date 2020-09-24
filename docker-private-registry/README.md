@@ -88,31 +88,29 @@ If the deployment was successful you can validate a result by logging to your pr
 
 ## Summary
 
-As stated in the Introduction, main target was to examine posibility to run a private registry with a minimal effort needed to maintain its infrastructure. This work has demonstrated that it is possible to accomplish that using few resources. 
+As stated in the Introduction, main target was to examine posibility to run a private registry with a minimal effort needed to maintain its infrastructure. This work has demonstrated that it is possible to accomplish that using few resources. To sum up, this solution has some advantages and disadvantages, which are presented below.
 
 ### Pros
 
-* **Custom domain**
+* You can use a **custom domain/certificate** for your app. By default .azurewebsites.net
 
-* **TLS**
+* You can **restrict access** for your app by defining allow/deny list that controls network access to your app. The list can include IP addresses or Azure Virtual Network subnets.
 
-* **Access Restriction**
+* You can **scale an App Service plan up and down** by changing the pricing tier and hardware level that it runs on
 
-* **Scaling**
+* You can run **advanced scenarios**, like [using CDN](https://docs.microsoft.com/en-us/azure/cdn/cdn-add-to-web-app?toc=/azure/cdn/toc.json), [sending email](https://docs.microsoft.com/en-us/azure/app-service/tutorial-send-email), [controlling a traffic with Traffic Manager](https://docs.microsoft.com/en-us/azure/app-service/web-sites-traffic-manager) etc. 
 
-* **Advanced scenarios** https://docs.microsoft.com/en-us/azure/app-service/tutorial-send-email?tabs=dotnet
-
-* **Registry storage encryption** https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption
+* Docker registry storage (which uses Azure Storage) is [**automatically encrypted**](https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption)
 
 ### Cons
 
-**Price**
+* **Price**
 
-[Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae)
+[Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae) for self-hosted registry:
 
 ![](/images/docker/private_registry_pricing.png)
 
-[Azure Container Registry](https://azure.microsoft.com/en-us/pricing/details/container-registry/)
+[Azure Container Registry price](https://azure.microsoft.com/en-us/pricing/details/container-registry/):
 
 ![](/images/docker/azure_registry_pricing.png)
 
