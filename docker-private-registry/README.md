@@ -104,17 +104,13 @@ As stated in the Introduction, main target was to examine posibility to run a pr
 
 ### Cons
 
-* **Price**
-
-[Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae) for self-hosted registry:
+* **Price** for self-hosted registry is relatively expensibe. [Estimated monthly cost](https://azure.com/e/2e33c3703a6e496f81de41dd8344fbae) for self-hosted registry:
 
 ![](/images/docker/private_registry_pricing.png)
 
 [Azure Container Registry price](https://azure.microsoft.com/en-us/pricing/details/container-registry/):
 
 ![](/images/docker/azure_registry_pricing.png)
-
-* **Content Trust** https://docs.microsoft.com/en-us/azure/container-registry/container-registry-content-trust
 
 ## Related Information
 
