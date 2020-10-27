@@ -1,4 +1,8 @@
-## Configuring HTTP/2 on Azure Functions
+# Configuring HTTP/2 on Azure Functions
+
+## Introduction
+
+This document gives an example of **enabling HTTP/2 for an Azure Functions running on Consumption App Service**.  
 
 ![](/images/func-az-ip/http2_func_logo.png)
 
@@ -6,7 +10,7 @@ The Hypertext Transfer Protocol (HTTP) is one of the most ubiquitous and widely 
 
 HTTP/2 makes applications faster, simpler, and more robust by allowing to undo many of the HTTP/1.1 workarounds previously done within our applications and address these concerns within the transport layer itself. Even better, it also opens up a number of entirely new opportunities to optimize our applications and improve performance!
 
-Some time ago [Microsoft has announced HTTP/2 support in Azure App Service](https://azure.microsoft.com/en-us/blog/announcing-http-2-support-in-azure-app-service/?ref=msdn). There are several ways to enable HTTP/2 for an application running on Azure App Service. Easiest way how to do that is by using Application Settings, but not all plans support that - for example, on Azure Functions running on Consumption App Service plan. This document gives an example of **enabling HTTP/2 for an Azure Functions running on Consumption App Service**.  
+Some time ago [Microsoft has announced HTTP/2 support in Azure App Service](https://azure.microsoft.com/en-us/blog/announcing-http-2-support-in-azure-app-service/?ref=msdn). There are several ways to enable HTTP/2 for an application running on Azure App Service. Easiest way how to do that is by using Application Settings, but not all plans support that - for example, on Azure Functions running on Consumption App Service plan. 
 
 ## Deploying and configuring Azure Functions
 
@@ -20,7 +24,6 @@ To start the deployment execute command below:
 
 ```
 wget https://raw.githubusercontent.com/groovy-sky/azure/master/func-http2/script.sh && chmod +x script.sh && ./script.sh
-
 ```
 
 Whole thing takes less than 5 minutes:
