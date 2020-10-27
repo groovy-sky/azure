@@ -1,5 +1,7 @@
 ## Configuring HTTP/2 on Azure Functions
 
+![](/images/func-az-ip/http2_func_logo.png)
+
 The Hypertext Transfer Protocol (HTTP) is one of the most ubiquitous and widely adopted application protocols on the Internet: it is the common language between clients and servers, enabling the modern web. HTTP has evolved from an early protocol to exchange files in a semi-trusted laboratory environment, to the modern maze of the Internet. In the first half of the 2010s Google demonstrated an experimental protocol SPDY, which served as the foundations of the HTTP/2 protocol. 
 
 HTTP/2 makes applications faster, simpler, and more robust by allowing to undo many of the HTTP/1.1 workarounds previously done within our applications and address these concerns within the transport layer itself. Even better, it also opens up a number of entirely new opportunities to optimize our applications and improve performance!
