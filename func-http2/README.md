@@ -1,4 +1,4 @@
-## 
+## Configuring HTTP/2 on Azure Functions
 
 The Hypertext Transfer Protocol (HTTP) is one of the most ubiquitous and widely adopted application protocols on the Internet: it is the common language between clients and servers, enabling the modern web. HTTP has evolved from an early protocol to exchange files in a semi-trusted laboratory environment, to the modern maze of the Internet. In the first half of the 2010s Google demonstrated an experimental protocol SPDY, which served as the foundations of the HTTP/2 protocol. 
 
@@ -8,17 +8,29 @@ Some time ago [Microsoft has announced HTTP/2 support in Azure App Service](http
 
 ## Deploying and configuring Azure Functions
 
+You can use [Bash Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) or Azure CLI on Linux to run the [script.sh](https://raw.githubusercontent.com/groovy-sky/azure/master/func-http2/script.sh), which will:
 
+1. Create a new resource group and empty Azure Function
+2. Enable HTTP/2 on Azure App Service
+3. Build and publish [the demo code](https://github.com/groovy-sky/azure-func-go-handler/blob/master/Function/GoCustomHandler.go) to the function 
+
+To start the deployment execute command below:
 
 ```
 wget https://raw.githubusercontent.com/groovy-sky/azure/master/func-http2/script.sh && chmod +x script.sh && ./script.sh
 
 ```
 
-## Results
+Whole thing takes less than 5 minutes:
 
 ![](/images/func-az-ip/function_http2_configuration.gif)
-## Summary
+
+## Result
+
+If the deployment was successful you can validate that function uses HTTP/2 protocol using [a number of tools](https://edit.co.uk/blog/test-website-supports-http2-0/):
+
+![](/images/func-az-ip/http2_website_check.png)
+
 ## Related Information
 
 * https://developers.google.com/web/fundamentals/performance/http2/
