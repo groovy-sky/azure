@@ -3,6 +3,9 @@
 
 This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
 
+### Video Tutorials
+* [Azure Fundamentals [part 1]](https://youtu.be/U5qlgZeBZAo)
+
 ### Azure Functions
 
 ![](/images/logos/function.png)
