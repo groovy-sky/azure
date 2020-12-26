@@ -8,6 +8,8 @@ This repository hosts a collection of articles about deploying, configuring  and
 ![](/images/logos/video.png)
 
 * [Azure Fundamentals [part 1]](https://youtu.be/U5qlgZeBZAo)
+* [Azure Fundamentals [part 2]](https://youtu.be/ndNf0amiwhk)
+
 
 ### Azure Functions
 
