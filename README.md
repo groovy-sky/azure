@@ -3,14 +3,7 @@
 
 This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
 
-### Video Tutorials
 
-![](/images/logos/video.png)
-
-
-* [Azure Fundamentals [part 1]](https://youtu.be/U5qlgZeBZAo)
-* [Azure Fundamentals [part 2]](https://youtu.be/ndNf0amiwhk)
-* [Azure Fundamentals [part 3]](https://youtu.be/I5rOxq56NnU)
 
 ### Azure Functions
 
@@ -48,6 +41,11 @@ This repository hosts a collection of articles about deploying, configuring  and
 * How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
 * How-to [run SonarQube VM in Azure](/sonarqube-00/README.md#introduction) and [use it on Azure DevOps](/sonarqube-01/README.md#introduction)
 
+### Video Tutorials
+
+![](/images/logos/video.png)
+
+* [Azure Fundamentals series[5 parts]](https://www.youtube.com/watch?v=U5qlgZeBZAo&list=PLIvCkiRhoPtYUxLZTgxpXIoPA94hFHYrQ&index=1)
 
 ### Other/Old
 ![](/images/logos/other.png)
