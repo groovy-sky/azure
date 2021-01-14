@@ -9,6 +9,7 @@ This repository hosts a collection of articles about deploying, configuring  and
 
 ![](/images/logos/function.png)
 
+* How-to use [a custom Go handler in a function](/func-custom-handler-00#introduction)
 * How-to use [a function for obtaining a public IP](/func-get-pip-00#introduction)
 * How-to run [a Python function for storing Azure/Office 365 IP](/func-parse-cloud-00#introduction)
 
