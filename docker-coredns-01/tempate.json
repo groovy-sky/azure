@@ -29,6 +29,30 @@
         "adminUsername": {
             "type": "String",
             "defaultValue": "sup3radm1nk0"
+        },
+        "vmSubnetName": {
+            "type": "string",
+            "defaultValue": "vm-subnet"
+        },
+        "vmSubnetRange": {
+            "type": "string",
+            "defaultValue": "10.173.44.0/25"
+        },
+        "endpointSubnetName": {
+            "type": "string",
+            "defaultValue": "vm-subnet"
+        },
+        "endpointSubnetRange": {
+            "type": "string",
+            "defaultValue": "10.173.44.128/26"
+        },
+        "dnsSubnetName": {
+            "type": "string",
+            "defaultValue": "dns-subnet"
+        },
+        "dnsSubnetRange": {
+            "type": "string",
+            "defaultValue": "10.173.44.192/26"
         }
     },
     "variables": {
@@ -41,8 +65,11 @@
         "virtualNetworkName": "[concat('net-',uniquestring(subscription().subscriptionId))]",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
-        "subnetName": "default",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
+        "vmSubnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('vmSubnetName'))]",
+        "endpointSubnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('endpointSubnetName'))]",
+        "dnsSubnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('dnsSubnetName'))]",
+        "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]",
+        "privateEndpointName": "[concat('endpoint-',variables('storageAccountName'))]",
         "storageContainerUri": "[concat(concat('https://', variables('storageAccountName'), '.blob.core.windows.net/'), 'vhds/')]"
     },
     "resources": [
@@ -62,7 +89,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "subnet": {
-                                "id": "[variables('subnetRef')]"
+                                "id": "[variables('vmSubnetRef')]"
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
@@ -96,14 +123,98 @@
                 },
                 "subnets": [
           {
-            "name": "[variables('subnetName')]",
+            "name": "[parameters('vmSubnetName')]",
             "properties": {
-              "addressPrefix": "[parameters('addressPrefixes')]"
+              "addressPrefix": "[parameters('vmSubnetRange')]"
+            }
+          },
+          {
+            "name": "[parameters('endpointSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('endpointSubnetRange')]",
+              "privateEndpointNetworkPolicies": "Disabled"
+            }
+          },
+          {
+            "name": "[parameters('dnsSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('dnsSubnetRange')]"
             }
           }
         ]
             }
         },
+      {
+        "type": "Microsoft.Network/privateEndpoints",
+        "apiVersion": "2020-06-01",
+        "name": "[variables('privateEndpointName')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[variables('vnetId')]"
+        ],
+        "properties": {
+          "subnet": {
+            "id": "[variables('endpointSubnetRef')]"
+          },
+          "privateLinkServiceConnections": [
+            {
+              "name": "[variables('privateEndpointName')]",
+              "properties": {
+                "privateLinkServiceId": "[variables('privateLinkServiceId')]",
+                "groupIds": [
+                  "file"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "Microsoft.Network/privateDnsZones",
+        "apiVersion": "2020-01-01",
+        "name": "[variables('privateDnsZoneName')]",
+        "location": "global",
+        "dependsOn": [
+            "[variables('vnetId')]"
+        ],
+        "properties": ""
+      },
+      {
+        "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
+        "apiVersion": "2020-01-01",
+        "name": "[concat(variables('privateDnsZoneName'), '/', variables('privateDnsZoneName'), '-link')]",
+        "location": "global",
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDnsZoneName'))]",
+          "[variables('vnetId')]"
+        ],
+        "properties": {
+          "registrationEnabled": false,
+          "virtualNetwork": {
+            "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
+          }
+        }
+      },
+      {
+        "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+        "apiVersion": "2020-06-01",
+        "name": "[variables('pvtendpointdnsgroupname')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDnsZoneName'))]",
+          "[variables('privateEndpointName')]"
+        ],
+        "properties": {
+          "privateDnsZoneConfigs": [
+            {
+              "name": "config1",
+              "properties": {
+                "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDnsZoneName'))]"
+              }
+            }
+          ]
+        }
+      },
         {
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
