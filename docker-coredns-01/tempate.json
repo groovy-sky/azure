@@ -40,7 +40,7 @@
         },
         "endpointSubnetName": {
             "type": "string",
-            "defaultValue": "vm-subnet"
+            "defaultValue": "endpoint-subnet"
         },
         "endpointSubnetRange": {
             "type": "string",
@@ -53,11 +53,16 @@
         "dnsSubnetRange": {
             "type": "string",
             "defaultValue": "10.173.44.192/26"
+        },
+        "privateDnsZoneName":{
+          "type": "string",
+          "defaultValue": "privatelink.file.core.windows.net"
         }
     },
     "variables": {
         "virtualMachineName": "[uniqueString(subscription().subscriptionId)]",
         "storageAccountName": "[uniqueString(subscription().subscriptionId)]",
+        "fileStorageAccountName":  "[concat('file',uniquestring(subscription().subscriptionId))]",
         "adminPassword": "[concat('SUPERP@SSW0RD',uniqueString(subscription().subscriptionId))]",
         "networkInterfaceName": "[concat('nic-',uniquestring(subscription().subscriptionId))]",
         "publicIpAddressName": "[concat('pip-',uniquestring(subscription().subscriptionId))]",
@@ -68,11 +73,31 @@
         "vmSubnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('vmSubnetName'))]",
         "endpointSubnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('endpointSubnetName'))]",
         "dnsSubnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('dnsSubnetName'))]",
-        "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]",
-        "privateEndpointName": "[concat('endpoint-',variables('storageAccountName'))]",
+        "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts',variables('fileStorageAccountName'))]",
+        "privateEndpointName": "[concat('endpoint-',variables('fileStorageAccountName'))]",
+        "pvtendpointdnsgroupname": "[concat(variables('privateEndpointName'),'/mydnsgroupname')]",
         "storageContainerUri": "[concat(concat('https://', variables('storageAccountName'), '.blob.core.windows.net/'), 'vhds/')]"
     },
     "resources": [
+      {
+        "apiVersion": "2019-06-01",
+        "type": "Microsoft.Storage/storageAccounts",
+        "name": "[variables('fileStorageAccountName')]",
+        "location": "[parameters('location')]",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "kind": "StorageV2",
+        "properties": {
+          "accessTier": "Hot",
+          "networkAcls": {
+            "defaultAction": "Allow",
+            "bypass": "AzureServices"
+          },
+          "allowBlobPublicAccess": true
+        }
+      },
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
@@ -172,7 +197,7 @@
       {
         "type": "Microsoft.Network/privateDnsZones",
         "apiVersion": "2020-01-01",
-        "name": "[variables('privateDnsZoneName')]",
+        "name": "[parameters('privateDnsZoneName')]",
         "location": "global",
         "dependsOn": [
             "[variables('vnetId')]"
@@ -182,10 +207,10 @@
       {
         "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
         "apiVersion": "2020-01-01",
-        "name": "[concat(variables('privateDnsZoneName'), '/', variables('privateDnsZoneName'), '-link')]",
+        "name": "[concat(parameters('privateDnsZoneName'), '/', parameters('privateDnsZoneName'), '-link')]",
         "location": "global",
         "dependsOn": [
-          "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDnsZoneName'))]",
+          "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZoneName'))]",
           "[variables('vnetId')]"
         ],
         "properties": {
@@ -201,7 +226,7 @@
         "name": "[variables('pvtendpointdnsgroupname')]",
         "location": "[parameters('location')]",
         "dependsOn": [
-          "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDnsZoneName'))]",
+          "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZoneName'))]",
           "[variables('privateEndpointName')]"
         ],
         "properties": {
@@ -209,7 +234,7 @@
             {
               "name": "config1",
               "properties": {
-                "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDnsZoneName'))]"
+                "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZoneName'))]"
               }
             }
           ]
