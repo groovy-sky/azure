@@ -76,7 +76,8 @@
         "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts',variables('fileStorageAccountName'))]",
         "privateEndpointName": "[concat('endpoint-',variables('fileStorageAccountName'))]",
         "pvtendpointdnsgroupname": "[concat(variables('privateEndpointName'),'/mydnsgroupname')]",
-        "storageContainerUri": "[concat(concat('https://', variables('storageAccountName'), '.blob.core.windows.net/'), 'vhds/')]"
+        "storageContainerUri": "[concat(concat('https://', variables('storageAccountName'), '.blob.core.windows.net/'), 'vhds/')]",
+        "commandToExecute": "[concat('nslookup ',variables('fileStorageAccountName'),'.',parameters('privateDnsZoneName'))]"
     },
     "resources": [
       {
@@ -216,7 +217,7 @@
         "properties": {
           "registrationEnabled": false,
           "virtualNetwork": {
-            "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
+            "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]"
           }
         }
       },
@@ -309,7 +310,7 @@
         },
           {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('virtualMachineName'),'/installcustomscript')]",
+      "name": "[concat(variables('virtualMachineName'),'/CustomScript')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
       "dependsOn": [
@@ -321,15 +322,15 @@
         "typeHandlerVersion": "2.0",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "commandToExecute": "whoami"
+          "commandToExecute": "[variables('commandToExecute')]"
         }
       }
     }
     ],
     "outputs": {
-        "adminUsername": {
+        "commandOutput": {
             "type": "String",
-            "value": "[parameters('adminUsername')]"
+            "value": "[reference(concat('Microsoft.Compute/virtualMachines/', variables('virtualMachineName'),'/extensions/CustomScript')).instanceView.statuses[0].message]"
         }
     }
 }
