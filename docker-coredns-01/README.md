@@ -44,17 +44,24 @@ It is important to note that to be able access a public resource privately, you'
 
 This sample demonstrates how to create a Linux Virtual Machine in a virtual network that can privately accesses [Azure File Share](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction) Gen 2 blob storage account using an Azure Private Endpoint. 
 
-
-
-
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-endpoints%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
-The ARM template deploys the following resources:
+The ARM template deploys the many resources, which could be logically separeted in 3 parts:
+
+1. Public resource, which in this example is a storage account
+2. Resources for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)
+3. Virtual Machine, which will be deployed in the same VNet as the private endpoint is used
 
 ![](/images/network/priv_end_arch_00.png)
 
-1. The Virtual Machine submits a DNS query for the FQDN of the xxx.file.core.windows.net storage account to the default DNS server (which is 168.63.129.16)
-2. 
+During the template deployment,
+
+![](/images/network/priv_end_arch_01.png)
+
+
+1. The Virtual Machine submits a DNS query for the FQDN of the `<account name>.file.core.windows.net` storage account to the default DNS server (which is `168.63.129.16`)
+2. If the private endpoint is published in the same VNet where Virtual Machine and private zone are published, then query will be forwarded to the private zone.
+3. 
 
 When creating a Private Endpoint, the related A record will automatically be created in the target Private DNS Zone with the private IP address of the network interface associated to the Private Endpoint and the name of the Azure resource referenced by the Private Endpoint
 
