@@ -3,7 +3,7 @@
 
 Azure Private endpoint is the fundamental building block for Private Link in Azure. It enables Azure resources, like virtual machines (VMs), to communicate with Private Link resources privately. 
 
-This document gives an example of using 
+This document gives an example of using private endpoints for exposing a public resource privately.
 
 ## Theoretical Part
 
@@ -46,7 +46,7 @@ This sample demonstrates how to create a Linux Virtual Machine in a virtual netw
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-endpoints%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
-The ARM template deploys the many resources, which could be logically separeted in 3 parts:
+A private endpoint is a special network interface for an Azure service in your Virtual Network (VNet). When you create a private endpoint for your storage account, it provides secure connectivity between clients on your VNet and your storage. The private endpoint is assigned an IP address from the IP address range of your VNet. The connection between the private endpoint and the storage service uses a secure private link. ARM template deploys multiple resources, which could be grouped in 3 mains parts:
 
 1. Public resource, which in this example is a storage account
 2. Resources for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)
@@ -54,15 +54,14 @@ The ARM template deploys the many resources, which could be logically separeted 
 
 ![](/images/network/priv_end_arch_00.png)
 
-During the template deployment, custom script will be executed on Virtual Machine. It will tries to resolve file shares IP address (using nslookup command). VM will use [Azure default DNS server](https://docs.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16) to resolve any kind of records, which by default has 168.63.129.16 IP address. So nslookup execution will cause following query flow:
+During initial template deployment, a custom script will be executed on the Virtual Machine, which will resolve Files Shares IP address (using nslookup command). VM will use [Azure default DNS server](https://docs.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16) to resolve any kind of records, which by default has 168.63.129.16 IP address. So nslookup execution will cause following flow:
 
 ![](/images/network/priv_end_arch_01.png)
 
-1. Virtual Machine submits a DNS query for the FQDN of the `<account name>.file.core.windows.net` storage account to the default DNS server (which is `168.63.129.16`)
+1. Virtual Machine submits a DNS query of Storage Account Fileshares FQDN (`<account name>.file.core.windows.net`)  to the default DNS server (which is `168.63.129.16`)
 2. As private endpoint is published in the same VNet where Virtual Machine and private zone are published, then query will be forwarded to the private zone.
-3. During private endpoint's creation the DNS CNAME resource record for the storage account is updated to an alias in a subdomain with the prefix privatelink (which in this example is privatelink.file.core.windows.net) and A type record (which points to private endpoints IP address). 
-
-A private endpoint is a special network interface for an Azure service in your Virtual Network (VNet). When you create a private endpoint for your storage account, it provides secure connectivity between clients on your VNet and your storage. The private endpoint is assigned an IP address from the IP address range of your VNet. The connection between the private endpoint and the storage service uses a secure private link.
+3. During private endpoint's creation the DNS CNAME resource record for the storage account is updated to an alias in a subdomain with the prefix privatelink (which in this example is privatelink.file.core.windows.net) and A type record (which points to private endpoints IP address). As a result, `<account name>.file.core.windows.net` record will have CNAME record, which points to `<account name>.privatelink.file.core.windows.net`. `<account name>.privatelink.file.core.windows.net` will point to private endpoints IP address.
+4. As a result, respond will be resolved against the private endpoint.
 
 When you resolve the storage endpoint URL from outside the VNet with the private endpoint, it resolves to the public endpoint of the storage service. When resolved from the VNet hosting the private endpoint, the storage endpoint URL resolves to the private endpoint's IP address.
 
