@@ -11,20 +11,20 @@ This document gives an example of using private endpoints for exposing a public 
 
 If you're new to Azure Private Endpoints, there are some terms you might not be familiar with:
 
-* ![](/images/network/res_symbol.png) - **Public Azure Resource/Service**. Public Azure Resource is a manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources.
+* ![](/images/network/res_symbol.png) **Public Azure Resource/Service** - a manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources.
   
 
-* **Private Endpoint** - an Azure service, which allows to access publicly available resources privately
-  ![](/images/network/endpoint_symbol.png)
+*  ![](/images/network/endpoint_symbol.png) **Private Endpoint** - an Azure service, which allows to access publicly available resources privately
 
-* **Virtual Network** - enables Azure resources, such as VMs, web apps, and databases, to communicate with each other.
-  ![](/images/network/vnet_symbol.png)
 
-* **Network Interface Card** - allows Azure resources to be a part of a specific Virtual Network, by allocating a private IP address 
-  ![](/images/network/nic_symbol.png)
+*  ![](/images/network/vnet_symbol.png) **Virtual Network** - enables Azure resources, such as VMs, web apps, and databases, to communicate with each other.
 
-* **Private DNS Zone** - used to host the DNS records for a particular domain and are accessible from one or multiple Virtual Networks
-  ![](/images/network/dns_symbol.png)
+
+*  ![](/images/network/nic_symbol.png) **Network Interface Card** - allows Azure resources to be a part of a specific Virtual Network, by allocating a private IP address 
+
+
+*  ![](/images/network/dns_symbol.png) **Private DNS Zone** - used to host the DNS records for a particular domain and are accessible from one or multiple Virtual Networks
+
 
 ### Overview
 
