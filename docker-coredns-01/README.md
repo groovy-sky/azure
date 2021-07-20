@@ -11,8 +11,8 @@ This document gives an example of using private endpoints for exposing a public 
 
 If you're new to Azure Private Endpoints, there are some terms you might not be familiar with:
 
-* **Public Azure Resource/Service** - a manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources.
-  ![](/images/network/res_symbol.png)
+* ![](/images/network/res_symbol.png) - **Public Azure Resource/Service**. Public Azure Resource is a manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources.
+  
 
 * **Private Endpoint** - an Azure service, which allows to access publicly available resources privately
   ![](/images/network/endpoint_symbol.png)
