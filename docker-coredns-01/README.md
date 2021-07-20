@@ -40,13 +40,16 @@ Here are some key details about private endpoints:
 It is important to note that to be able access a public resource privately, you'll need to correctly configure your DNS settings to resolve to the allocated private IP address. Existing Azure services might already have a DNS configuration to use when connecting over a public endpoint. This needs to be overridden to connect using your private endpoint.
 
 ## Prerequisites
+
+To be able to run the next section you’ll need an Azure Cloud account.
+
 ## Practical Part
 
 This sample demonstrates how to create a Linux Virtual Machine in a virtual network that can privately accesses [Azure File Share](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction) Gen 2 blob storage account using an Azure Private Endpoint. 
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-endpoints%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
-A private endpoint is a special network interface for an Azure service in your Virtual Network (VNet). When you create a private endpoint for your storage account, it provides secure connectivity between clients on your VNet and your storage. The private endpoint is assigned an IP address from the IP address range of your VNet. The connection between the private endpoint and the storage service uses a secure private link. ARM template deploys multiple resources, which could be grouped in 3 mains parts:
+A private endpoint is a special network interface for an Azure service in your Virtual Network (VNet). When you create a private endpoint for your storage account, it provides secure connectivity between clients on your VNet and your storage. The private endpoint is assigned an IP address from the IP address range of your VNet. The connection between the private endpoint and the storage service uses a secure private link. ARM template deploys multiple resources, which could be grouped on 3 main parts:
 
 1. Public resource, which in this example is a storage account
 2. Resources for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)
