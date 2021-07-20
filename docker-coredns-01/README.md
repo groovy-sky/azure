@@ -66,10 +66,33 @@ During initial template deployment, a custom script will be executed on the Virt
 3. During private endpoint's creation the DNS CNAME resource record for the storage account is updated to an alias in a subdomain with the prefix privatelink (which in this example is privatelink.file.core.windows.net) and A type record (which points to private endpoints IP address). As a result, `<account name>.file.core.windows.net` record will have CNAME record, which points to `<account name>.privatelink.file.core.windows.net`. `<account name>.privatelink.file.core.windows.net` will point to private endpoints IP address.
 4. As a result, respond will be resolved against the private endpoint.
 
-When you resolve the storage endpoint URL from outside the VNet with the private endpoint, it resolves to the public endpoint of the storage service. When resolved from the VNet hosting the private endpoint, the storage endpoint URL resolves to the private endpoint's IP address.
+
 
 ## Results
+
+![](/images/network/priv_end_res_grp_00.png)
+
+When you resolve the storage endpoint URL from outside the VNet with the private endpoint, it resolves to the public endpoint of the storage service. When resolved from the VNet hosting the private endpoint, the storage endpoint URL resolves to the private endpoint's IP address. After the deployment is completed you can make sure that it is so.
+
+At first, validate that private endpoint has private DNS Zone integration:
+
+![](/images/network/priv_end_dns_zone_00.png)
+
+Next, check how storage accounts FQDN was resolved on Virtual Machine. To do so, open 'Extensions' section under Virtual Machines settings: 
+
+![](/images/network/priv_end_vm_cust_ext_00.png)
+
+Output value should contain private endpoints private IP address: 
+
+![](/images/network/priv_end_vm_cust_ext_01.png)
+
+Finally, you can resolve storage service from non-Azure environment (for example, your own computer):
+
+![](/images/network/priv_end_res_resolv_pub.png)
+
+
 ## Summary
+
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
 * https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview
