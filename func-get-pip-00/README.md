@@ -9,7 +9,7 @@ Each device on your network has a private IP address only seen by other devices 
 ![](/images/func-az-ip/google_what_is_my_ip.png)
 
 
-This document gives an **example of using Azure Python Function for showing your public IP**. 
+This document explains how Azure Functions are working and gives an example of using Azure Python Function for showing your public IP. 
 
 ## Theoretical Part
 
