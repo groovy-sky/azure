@@ -15,8 +15,8 @@
     "vmDatastorageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
     "vmName": "[concat(uniquestring(resourceGroup().id), 'virtualmachine')]",
     "vmimagePublisher": "Canonical",
-    "vmimageOffer": "UbuntuServer",
-    "vmimageOSVersion": "16.04-LTS",
+    "vmimageOffer": "0001-com-ubuntu-server-focal",
+    "vmimageOSVersion": "20_04-LTS",
     "vmOSDiskName": "osdiskforlinux",
     "vmDataDiskName": "datadiskforlinux",
     "vmOSstorageAccountType": "Premium_LRS",
@@ -31,7 +31,7 @@
     "vNetName": "[concat(uniquestring(resourceGroup().id), 'VNET')]",
     "NSGName": "[concat(variables('vmName'),'NSG')]",
     "SubVnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('SubvNetName'))]",
-    "dnsName":"[concat(uniquestring(resourceGroup().id),'pip')]"
+    "dnsName":"[concat('pip',uniquestring(resourceGroup().id))]"
   },
   "resources": [
     {
