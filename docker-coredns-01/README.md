@@ -1,4 +1,4 @@
-# 
+# Using private endpoints
 ## Introduction
 
 Azure Private endpoint is the fundamental building block for Private Link in Azure. It enables Azure resources, like virtual machines (VMs), to communicate with Private Link resources privately. 
