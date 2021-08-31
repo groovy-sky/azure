@@ -14,10 +14,220 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg15309"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="main2021.svg">
   <defs
      id="defs15303">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1111"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1109"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1107"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1105"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1103"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1101"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1099"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1097"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1095"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1093"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1091"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1089"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1087"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1085"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1083"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1081"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1079"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1077"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1075"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1073"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1059"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1057"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1055"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1053"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1051"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1049"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1047"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1045"
+         inkscape:connector-curvature="0" />
+    </marker>
     <marker
        inkscape:stockid="Arrow1Mend"
        orient="auto"
@@ -87,7 +297,8 @@
        refX="0"
        id="marker25075"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path25073"
@@ -102,7 +313,8 @@
        refX="0"
        id="marker24963"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path24961"
@@ -117,7 +329,8 @@
        refX="0"
        id="marker21953"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path21951"
@@ -132,7 +345,8 @@
        refX="0"
        id="marker21877"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path21875"
@@ -179,7 +393,8 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow1Mend">
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
       <path
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
@@ -194,7 +409,8 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow1Mend">
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
       <path
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
@@ -303,7 +519,8 @@
        refX="0"
        id="marker20762-0"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path20760-0"
@@ -318,7 +535,8 @@
        refX="0"
        id="marker20826-1"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path20824-5"
@@ -366,16 +584,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="2073.2682"
-     inkscape:cy="438.79017"
+     inkscape:zoom="0.35"
+     inkscape:cx="4333.1757"
+     inkscape:cy="605.82349"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -402,6 +620,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       ry="36.156124"
+       rx="40.172489"
+       transform="matrix(0.11761011,0,0,0.13067472,971.392,194.8414)"
+       y="99.235153"
+       x="1286.9343"
+       height="144.45181"
+       width="469.72095"
+       id="rect947-3"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8.06643963;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     <rect
        style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect15946"
@@ -487,15 +715,15 @@
        style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker17835);marker-end:url(#marker17863)"
        transform="matrix(-1,0,0,1,36136.787,-724.78292)" />
     <rect
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.13521528;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.31366777;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect15946-4"
        width="469.72095"
        height="144.45181"
        x="1286.9343"
        y="99.235153"
-       transform="matrix(0.29583972,0,0,0.12818175,-91.590876,125.2757)"
-       rx="15.970441"
-       ry="36.85931" />
+       transform="matrix(0.27663223,0,0,0.12802902,-62.36102,125.30189)"
+       rx="17.079321"
+       ry="36.903282" />
     <text
        transform="translate(-35187.967,-589.27679)"
        xml:space="preserve"
@@ -558,14 +786,15 @@
          x="282.08115"
          y="220.94373">Try Bastion+NSG</tspan></text>
     <rect
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.02690077;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect18180-0"
        width="164.48868"
        height="18.568459"
        x="527.96777"
        y="138.57938"
-       rx="4.7246909"
-       ry="4.7246909" />
+       rx="4.9754663"
+       ry="4.7311859"
+       transform="matrix(0.94959763,0,0,0.99862718,30.756135,0.20298942)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -581,14 +810,15 @@
          x="536.91217"
          y="152.12518">Try Access Restriction</tspan></text>
     <rect
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.03204405;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect18180-3"
        width="151.72401"
        height="18.543905"
        x="598.97516"
        y="208.08174"
-       rx="4.7246909"
-       ry="4.7246909" />
+       rx="5.0241013"
+       ry="4.7324376"
+       transform="matrix(0.94040516,0,0,0.99836309,40.216812,0.35578838)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -604,14 +834,15 @@
          x="607.95148"
          y="221.61525">Try Service Endpoint</tspan></text>
     <rect
-       ry="4.7246909"
-       rx="4.7246909"
+       ry="4.7348785"
+       rx="5.1202583"
        y="208.08174"
        x="764.32001"
        height="18.543905"
        width="151.72401"
        id="rect18270"
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.04214215;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       transform="matrix(0.92274466,0,0,0.99784836,64.908547,0.46766705)" />
     <text
        inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
        inkscape:export-ydpi="50"
@@ -783,14 +1014,15 @@
          x="633.159"
          y="114.29091">Yes</tspan></text>
     <rect
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.03822827;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect15946-4-7"
        width="138.96211"
        height="18.516087"
        x="703.44397"
        y="138.07101"
-       rx="4.7246909"
-       ry="4.7246909" />
+       rx="5.0828733"
+       ry="4.7339458"
+       transform="matrix(0.92953153,0,0,0.99804502,54.466841,0.28802554)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -874,5 +1106,445 @@
          id="tspan26592"
          sodipodi:role="line"
          style="font-size:11.28888893px;stroke-width:0.26458332">Yes</tspan></text>
+    <rect
+       ry="4.7246909"
+       rx="4.7246904"
+       y="0.45341903"
+       x="491.94577"
+       height="18.556612"
+       width="158.13922"
+       id="rect925"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       transform="translate(683.00297)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text929"
+       y="13.993286"
+       x="497.00833"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(683.00297)"><tspan
+         y="13.993286"
+         x="497.00833"
+         id="tspan927"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">What kind of resource?</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="493.30133"
+       y="44.609356"
+       id="text933"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       transform="translate(683.00297)"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan931"
+         x="493.30133"
+         y="44.609356">IaaS (VM)</tspan></text>
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text937"
+       y="44.383575"
+       x="593.01337"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(683.00297)"><tspan
+         y="44.383575"
+         x="593.01337"
+         id="tspan935"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">PaaS (like WebApp)</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.92988747;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect939"
+       width="199.52036"
+       height="18.6234"
+       x="636.34155"
+       y="68.09066"
+       rx="4.1000438"
+       ry="4.7078104"
+       transform="matrix(1.1523512,0,0,1.0035857,583.44551,-0.27754346)" />
+    <path
+       transform="matrix(-1,0,0,1,36819.79,-724.78292)"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker1091);marker-end:url(#marker1095)"
+       d="m 35555.501,743.93512 c 0,46.42285 -6.335,58.71031 -52.137,58.91667"
+       id="path945"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <rect
+       ry="36.85931"
+       rx="15.970441"
+       transform="matrix(0.29583972,0,0,0.12818175,605.39722,125.2757)"
+       y="99.235153"
+       x="1286.9343"
+       height="144.45181"
+       width="469.72095"
+       id="rect947"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.13521528;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text951"
+       y="740.79224"
+       x="35486.113"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(-34490.979,-589.27679)"><tspan
+         y="740.79224"
+         x="35486.113"
+         id="tspan949"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">With minimum cost?</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="417.8165"
+       y="220.31544"
+       id="text957"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       transform="translate(709.55111)"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan955"
+         x="417.8165"
+         y="220.31544">Try NSG</tspan></text>
+    <rect
+       ry="4.7246909"
+       rx="4.7246909"
+       y="208.3622"
+       x="275.85977"
+       height="18.367149"
+       width="113.79417"
+       id="rect959"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       transform="translate(696.98809)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text963"
+       y="220.94373"
+       x="282.08115"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(693.64567)"><tspan
+         y="220.94373"
+         x="282.08115"
+         id="tspan961"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">Try Firewall+NSG</tspan></text>
+    <rect
+       ry="4.7246909"
+       rx="4.7246909"
+       y="208.08174"
+       x="598.97516"
+       height="18.543905"
+       width="151.72401"
+       id="rect971"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       transform="translate(839.62295)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text975"
+       y="221.61525"
+       x="607.95148"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(839.62295)"><tspan
+         y="221.61525"
+         x="607.95148"
+         id="tspan973"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">Try VNet integration</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.8475669;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect977"
+       width="151.72401"
+       height="18.543905"
+       x="764.32001"
+       y="208.08174"
+       rx="3.4207551"
+       ry="4.6878409"
+       transform="matrix(1.3811837,0,0,1.0078609,145.44922,-1.7085804)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="773.29639"
+       y="221.61525"
+       id="text981"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       transform="translate(434.6614)"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan979"
+         x="773.29639"
+         y="221.61525">Try Firewall+VNet integration</tspan></text>
+    <rect
+       ry="36.576485"
+       rx="9.7034454"
+       transform="matrix(0.48690852,0,0,0.12917291,351.45094,55.254231)"
+       y="99.235153"
+       x="1286.9343"
+       height="144.45181"
+       width="469.72095"
+       id="rect983"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.98740768;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text987"
+       y="740.79224"
+       x="35486.113"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(-34505.242,-659.12832)"><tspan
+         y="740.79224"
+         x="35486.113"
+         id="tspan985"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">Need to limit access to Internet?</tspan></text>
+    <path
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path989"
+       d="m 35512.738,743.93512 c 0,46.42285 -7.555,58.91667 -36.231,58.91667"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker1099);marker-end:url(#marker1103)"
+       transform="translate(-34268.978,-724.78292)" />
+    <path
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path991"
+       d="m 35533.318,743.93512 c 1.069,15.41958 -5.168,32.40729 -24.204,50.36405"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker19397-3);marker-end:url(#marker19437-8)"
+       transform="translate(-34450.651,-657.25254)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="484.41107"
+       y="134.87473"
+       id="text995"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       transform="translate(670.52976)"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan993"
+         x="484.41107"
+         y="134.87473">No</tspan></text>
+    <path
+       transform="translate(-34485.396,-587.36827)"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker20762);marker-end:url(#marker20826)"
+       d="m 35533.318,743.93512 c 1.069,15.41958 -5.168,32.40729 -24.204,50.36405"
+       id="path997"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text1001"
+       y="740.79224"
+       x="35486.113"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(-34392.25,-559.23013)"><tspan
+         y="740.79224"
+         x="35486.113"
+         id="tspan999"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">Yes</tspan></text>
+    <path
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker1047);marker-end:url(#marker1051)"
+       d="m 479.8868,86.68258 0.01,120.28965"
+       id="path1003"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       transform="translate(670.52976)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text1007"
+       y="740.79224"
+       x="35486.113"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(-34433.096,-626.82918)"><tspan
+         y="740.79224"
+         x="35486.113"
+         id="tspan1005"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">Yes</tspan></text>
+    <text
+       transform="translate(-34459.859,-559.98111)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="35486.113"
+       y="740.79224"
+       id="text1011"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan1009"
+         x="35486.113"
+         y="740.79224">No</tspan></text>
+    <path
+       transform="matrix(-1,0,0,1,36620.961,-587.30277)"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker1055);marker-end:url(#marker1059)"
+       d="m 35533.318,743.93512 c 1.069,15.41958 -2.144,56.40878 -32.708,57.5456"
+       id="path1013"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
+    <path
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path1015"
+       d="m 663.58635,87.01044 -0.41701,50.36405"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker1083);marker-end:url(#marker1087)"
+       transform="translate(771.73645)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text1019"
+       y="114.29091"
+       x="633.159"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(766.9256)"><tspan
+         y="114.29091"
+         x="633.159"
+         id="tspan1017"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">Yes</tspan></text>
+    <rect
+       ry="4.7246909"
+       rx="4.7246909"
+       y="138.07101"
+       x="703.44397"
+       height="18.516087"
+       width="138.96211"
+       id="rect1021"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       transform="translate(662.15595)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text1025"
+       y="151.59064"
+       x="712.45459"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(662.15595)"><tspan
+         y="151.59064"
+         x="712.45459"
+         id="tspan1023"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">With minimum cost?</tspan></text>
+    <path
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path1033"
+       d="m 738.33128,156.56685 c 1.069,15.41958 -5.168,32.40729 -24.204,50.36405"
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker1107);marker-end:url(#marker1111)"
+       transform="translate(662.15595)" />
+    <text
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text1037"
+       y="180.81113"
+       x="819.14435"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       transform="translate(554.17906)"><tspan
+         y="180.81113"
+         x="819.14435"
+         id="tspan1035"
+         sodipodi:role="line"
+         style="font-size:11.28888893px;stroke-width:0.26458332">No</tspan></text>
+    <path
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#marker26040);marker-end:url(#marker26176)"
+       d="m 808.98604,156.56685 c -1.069,15.41958 5.168,32.40729 24.204,50.36405"
+       id="path1039"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       transform="translate(662.15595)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="706.32361"
+       y="181.5621"
+       id="text1043"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"
+       transform="translate(778.15092)"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan1041"
+         x="706.32361"
+         y="181.5621">Yes</tspan></text>
+    <text
+       transform="translate(-34165.025,-659.12832)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="35486.113"
+       y="740.79224"
+       id="text1063"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Github/azure/images/iac/docker_structure.png"><tspan
+         style="font-size:11.28888893px;stroke-width:0.26458332"
+         sodipodi:role="line"
+         id="tspan1061"
+         x="35486.113"
+         y="740.79224">Need to access private resources?</tspan></text>
   </g>
 </svg>
