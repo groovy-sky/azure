@@ -45,7 +45,7 @@ To be able to run the next section you’ll need an Azure Cloud account.
 
 ## Practical Part
 
-This sample demonstrates how to create a Linux Virtual Machine in a virtual network that can privately accesses [Azure File Share](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction) Gen 2 blob storage account using an Azure Private Endpoint. 
+[This sample](https://github.com/groovy-sky/azure-coredns/blob/master/azure/private-endpoints/azuredeploy.json) demonstrates how to create a Linux Virtual Machine in a virtual network that can privately accesses [Azure File Share](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction) Gen 2 blob storage account using an Azure Private Endpoint. 
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-endpoints%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
