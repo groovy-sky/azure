@@ -26,7 +26,18 @@ Simple to set up with less management overhead: You no longer need reserved, pub
 
 Virtual network service endpoints allow you to secure Azure Storage accounts to your virtual networks, fully removing public internet access to these resources. Service endpoints provide optimal routing by always keeping traffic destined to Azure Storage on the Azure backbone network. This optimal route overrides any routes directing traffic through on-premises or virtual appliances.
 
+![](/images/network/web_app_vnet_integration_00.png)
+
+![](/images/network/web_app_vnet_integration_01.png)
+
+![](/images/network/func_access_restriction.png)
+
+
 ## Results
+
+
+![](/images/network/web_deny_msg_example.png)
+
 
 ## Summary
 ## Related Information
