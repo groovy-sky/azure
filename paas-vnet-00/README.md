@@ -1,4 +1,8 @@
-# 
+# Integrate Platform as a service with Virtual Networks (part 1)
+
+![](/images/network/paas_vnet_logo.png)
+
+
 ## Introduction
 
 
@@ -41,3 +45,6 @@ Virtual network service endpoints allow you to secure Azure Storage accounts to 
 
 ## Summary
 ## Related Information
+
+* https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
+* https://docs.microsoft.com/en-us/azure/virtual-network/vnet-integration-for-azure-services
