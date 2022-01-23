@@ -30,13 +30,22 @@ With Virtual Network Service Endpoints, you can allow traffic only from selected
 
 Virtual Network (VNet) service endpoint provides secure and direct connectivity to Azure services over an optimized route over the Azure backbone network. Endpoints allow you to secure your critical Azure service resources to only your virtual networks. Service Endpoints enables private IP addresses in the VNet to reach the endpoint of an Azure service without needing a public IP address on the VNet.
 
-
-
 A virtual network service endpoint provides the identity of your virtual network to the Azure service. Once you enable service endpoints in your virtual network, you can add a virtual network rule to secure the Azure service resources to your virtual network.
 
-Today, Azure service traffic from a virtual network uses public IP addresses as source IP addresses. With service endpoints, service traffic switches to use virtual network private addresses as the source IP addresses when accessing the Azure service from a virtual network. This switch allows you to access the services without the need for reserved, public IP addresses used in IP firewalls.
+Service endpoints provide secure and direct connectivity to Azure services over the Azure backbone network. Endpoints allow you to secure your Azure resources to only your virtual networks. Service endpoints enable private IP addresses in the VNet to reach an Azure service without the need of an outbound public IP.
 
-### 
+Without service endpoints, restricting access to just your VNet can be challenging. The source IP address could change or could be shared with other customers. For example, PaaS services with shared outbound IP addresses. With service endpoints, the source IP address that the target service sees becomes a private IP address from your VNet. This ingress traffic change allows for easily identifying the origin and using it for configuring appropriate firewall rules. For example, allowing only traffic from a specific subnet within that VNet.
+
+With service endpoints, DNS entries for Azure services remain as-is and continue to resolve to public IP addresses assigned to the Azure service.
+
+In the diagram below, the right side is the same target PaaS service. On the left, there's a customer VNet with two subnets: Subnet A which has a Service Endpoint towards Microsoft.Sql, and Subnet B, which has no Service Endpoints defined.
+
+When a resource in Subnet B tries to reach any SQL Server, it will use a public IP address for outbound communication. This traffic is represented by the blue arrow. The SQL Server firewall must use that public IP address to allow or block the network traffic.
+
+When a resource in Subnet A tries to reach a database server, it will be seen as a private IP address from within the VNet. This traffic is represented by the green arrows. The SQL Server firewall can now specifically allow or block Subnet A. Knowledge of the public IP address of the source service is unneeded.
+
+###
+
 Service endpoints provide the following benefits:
 
 * Improved security for your Azure service resources: VNet private address spaces can overlap. You can't use overlapping spaces to uniquely identify traffic that originates from your VNet. Service endpoints provide the ability to secure Azure service resources to your virtual network by extending VNet identity to the service. Once you enable service endpoints in your virtual network, you can add a virtual network rule to secure the Azure service resources to your virtual network. The rule addition provides improved security by fully removing public internet access to resources and allowing traffic only from your virtual network.
@@ -53,23 +62,21 @@ Service endpoints provide the following limitations:
 * Endpoints are enabled on subnets configured in Azure virtual networks. Endpoints can't be used for traffic from your premises to Azure services. 
 *For some services (like Azure SQL) a service endpoint applies only to Azure service traffic within a virtual network's region. 
 
-For Azure Data Lake Storage (ADLS) Gen 1, the VNet Integration capability is only available for virtual networks within the same region. Also note that virtual network integration for ADLS Gen1 uses the virtual network service endpoint security between your virtual network and Azure Active Directory (Azure AD) to generate additional security claims in the access token. These claims are then used to authenticate your virtual network to your Data Lake Storage Gen1 account and allow access. The Microsoft.AzureActiveDirectory tag listed under services supporting service endpoints is used only for supporting service endpoints to ADLS Gen 1. Azure AD doesn't support service endpoints natively. For more information about Azure Data Lake Store Gen 1 VNet integration, see Network security in Azure Data Lake Storage Gen1.
-
 
 ## Prerequisites
 ## Practical Part
+
+
 
 ![](/images/network/from_webapp2func_flow.png)
 
 
 You can use Bash Cloud Shell or Azure CLI on Linux to run the [script.sh](https://github.com/groovy-sky/vnet-service-endpoints/blob/main/deploy.sh), which will:
-1.
+
+1. 
 2.
 3.
 
-```
-wget https://raw.githubusercontent.com/groovy-sky/vnet-service-endpoints/main/deploy.sh && chmod +x script.sh && ./script.sh
-```
 
 
 
@@ -92,7 +99,7 @@ Function's access restriction:
 Web App's outbound IP:
 ![](/images/network/web_app_out_ip_in_func.png)
 
-Function's response from public IP:
+To validate that the access restriction works and the function is not publicly available you can try to open it directly:
 ![](/images/network/web_deny_msg_example.png)
 
 ## Summary
