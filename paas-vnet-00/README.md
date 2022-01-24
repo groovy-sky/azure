@@ -10,25 +10,42 @@ By default most of Azure Platform as a services are publicly available. To be ab
 
 ## Theoretical Part
 
-### Inbound or Outbound
+### Inbound vs Outbound
 
-Inbound or Outbound is the direction traffic moves between resources. It is relative to whichever resource you are referencing. Inbound traffic refers to information coming-in into a resource. Outbound is outgoing from a resource traffic:
+Not directly related (but still very important) topic which should be explained before Service Endpoints is traffic's direction.
+
+Inbound or Outbound is the direction traffic moves between resources. It is relative to whichever resource you are referencing. Inbound traffic refers to information coming-in into a resource. Outbound is outgoing from a resource traffic. In the picture below incoming to Azure resource from "Service X" traffic is inbound and outgoing from Azure service traffic to "Service Y" is outbound:
 
 ![](/images/network/service_inbound_and_outbound.png)
 
-VNet integration https://docs.microsoft.com/en-us/azure/app-service/overview-vnet-integration
+#### Access restriction (Inbound)
 
-![](/images/network/paas_vnet_int.png)
-
-access restrictions https://docs.microsoft.com/en-us/azure/app-service/app-service-ip-restrictions
+By setting up access restrictions, you can define a priority-ordered allow/deny list that controls network access to your app. The list can include IP addresses or Azure Virtual Network subnets. When there are one or more entries, an implicit deny all exists at the end of the list.
 
 ![](/images/network/paas_acc_restr.png)
 
+The ability to restrict access to your web app from an Azure virtual network is enabled by service endpoints. With service endpoints, you can restrict access to a multi-tenant service from selected subnets. It doesn't work to restrict traffic to apps that are hosted in an App Service Environment. If you're in an App Service Environment, you can control access to your app by applying IP address rules.
+
+https://docs.microsoft.com/en-us/azure/app-service/app-service-ip-restrictions
+
+
+#### Vnet Integration (Outbound)
+
+Virtual network integration gives your app access to resources in your virtual network, but it doesn't grant inbound private access to your app from the virtual network. Private site access refers to making an app accessible only from a private network, such as from within an Azure virtual network. Virtual network integration is used only to make outbound calls from your app into your virtual network.
+
+![](/images/network/paas_vnet_int.png)
+
+https://docs.microsoft.com/en-us/azure/app-service/overview-vnet-integration
+
+No matter which version is used, virtual network integration gives your app access to resources in your virtual network, but it doesn't grant inbound private access to your app from the virtual network. Private site access refers to making your app accessible only from a private network, such as from within an Azure virtual network. Virtual network integration is only for making outbound calls from your app into your virtual network.
+
 ### Service Endpoints
 
-With Virtual Network Service Endpoints, you can allow traffic only from selected virtual networks and subnets, creating a secure network boundary for your data.
+With Virtual Network Service Endpoints, you can allow traffic only from selected virtual networks and subnets(i.e. control inbound traffic), creating a secure network boundary for your data.
 
 Virtual Network (VNet) service endpoint provides secure and direct connectivity to Azure services over an optimized route over the Azure backbone network. Endpoints allow you to secure your critical Azure service resources to only your virtual networks. Service Endpoints enables private IP addresses in the VNet to reach the endpoint of an Azure service without needing a public IP address on the VNet.
+
+![](/images/network/azure_service_endpoint_struct.png)
 
 A virtual network service endpoint provides the identity of your virtual network to the Azure service. Once you enable service endpoints in your virtual network, you can add a virtual network rule to secure the Azure service resources to your virtual network.
 
@@ -84,7 +101,9 @@ You can use Bash Cloud Shell or Azure CLI on Linux to run the [script.sh](https:
 
 ## Results
 
-Web App's VNet integration configuration:
+Web App's VNet integration(outbound) configuration.
+
+When all traffic routing is enabled, all outbound traffic is sent into your virtual network. If all traffic routing isn't enabled, only private traffic (RFC1918) and service endpoints configured on the integration subnet will be sent into the virtual network and outbound traffic to the internet will go through the same channels as normal.
 
 ![](/images/network/web_app_vnet_integration.png)
 
@@ -92,7 +111,7 @@ VNet subnet's configuration:
 
 ![](/images/network/vnet_deleg4web.png)
 
-Function's access restriction:
+Function's access restriction(inbound):
 
 ![](/images/network/func_access_restriction.png)
 

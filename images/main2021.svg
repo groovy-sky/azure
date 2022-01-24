@@ -19,6 +19,33 @@
    sodipodi:docname="main2021.svg">
   <defs
      id="defs15303">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2657">
+      <stop
+         style="stop-color:#999999;stop-opacity:1;"
+         offset="0"
+         id="stop2653" />
+      <stop
+         style="stop-color:#d5d5d5;stop-opacity:1"
+         offset="1"
+         id="stop2655" />
+    </linearGradient>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker2626"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send">
+      <path
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#999999;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path2624"
+         inkscape:connector-curvature="0" />
+    </marker>
     <marker
        inkscape:isstock="true"
        style="overflow:visible"
@@ -2701,21 +2728,6 @@
          stop-color="#0078d4"
          offset="1" />
     </radialGradient>
-    <marker
-       inkscape:stockid="Arrow2Send"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="marker13480-2"
-       style="overflow:visible"
-       inkscape:isstock="true">
-      <path
-         inkscape:connector-curvature="0"
-         id="path13478-2"
-         style="fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke:#ff2a2a;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="matrix(-0.3,0,0,-0.3,0.69,0)" />
-    </marker>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#f020fb7e-2243-4501-8153-5d69bd3c34f7"
@@ -2744,6 +2756,50 @@
        y1="8.59"
        x2="4.11"
        y2="10.23" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="16.01"
+       x2="9"
+       y1="-0.88"
+       x1="9"
+       id="a"
+       gradientTransform="matrix(1.911619,0,0,1.911619,3140.6688,1095.9111)">
+      <stop
+         id="stop2284"
+         stop-color="#32d4f5"
+         offset=".22"
+         style="stop-color:#4f9aea;stop-opacity:1" />
+      <stop
+         id="stop2286"
+         stop-color="#31d1f2"
+         offset=".43" />
+      <stop
+         id="stop2288"
+         stop-color="#2dc6e9"
+         offset="0.55943847" />
+      <stop
+         id="stop2290"
+         stop-color="#28b5d9"
+         offset=".76" />
+      <stop
+         id="stop2292"
+         stop-color="#1f9dc4"
+         offset=".91" />
+      <stop
+         id="stop2294"
+         stop-color="#198ab3"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2657"
+       id="linearGradient2659"
+       x1="3128.395"
+       y1="1085.9792"
+       x2="3124.1677"
+       y2="1063.8093"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(8.3052254)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -2752,9 +2808,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="11588.779"
-     inkscape:cy="-2755.3062"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="11203.004"
+     inkscape:cy="-2683.841"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -10516,27 +10572,36 @@
          x="3624.9155"
          y="699.14697">(Outbound)</tspan></text>
     <path
-       style="fill:none;fill-opacity:1;stroke:#ff2a2a;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13480-2)"
-       d="m 3103.0319,1073.6264 h 74.9945 l 19.1623,-27.9624"
+       style="fill:none;fill-opacity:1;stroke:#999999;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:7.00000019, 3.5000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 3053.8194,1042.4056 23.2848,31.2208 36.4151,0"
+       id="path2622"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#999999;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:7.00000019, 3.5000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 3123.0094,1073.6264 55.017,0 19.1623,-27.9624"
        id="path3529-8-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/from_webapp2func_flow.png"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
        inkscape:export-xdpi="100"
        inkscape:export-ydpi="100" />
     <path
        style="fill:#4f9aea;fill-opacity:1;stroke:#4f9aea;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-mid:url(#Arrow2Send-3)"
-       d="m 3061.8095,1024.6142 h 24.214 81.9441 21.0203"
+       d="m 3061.8095,1024.6142 c 0,0 27.7843,0 35.8557,0 30.4015,0 79.5628,0 79.5628,0 l 11.7599,0"
        id="path3529-06"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc"
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/from_webapp2func_flow.png"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
        inkscape:export-xdpi="100"
        inkscape:export-ydpi="100" />
     <g
        id="g3466-4"
-       transform="translate(-77.094079,373.46744)"
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/from_webapp2func_flow.png"
+       transform="translate(-69.421162,373.46744)"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
        inkscape:export-xdpi="100"
        inkscape:export-ydpi="100">
       <g
@@ -10629,28 +10694,62 @@
         </g>
       </g>
     </g>
-    <g
-       id="g13484-3"
-       transform="matrix(1.0141622,0,0,0.72299174,-282.36098,594.10448)"
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/from_webapp2func_flow.png"
+    <path
+       sodipodi:type="star"
+       style="fill:#999999;fill-opacity:1;stroke-width:0.26458332"
+       id="path3403-8"
+       sodipodi:sides="6"
+       sodipodi:cx="1948.4672"
+       sodipodi:cy="429.66962"
+       sodipodi:r1="112.68826"
+       sodipodi:r2="56.344131"
+       sodipodi:arg1="0.78539816"
+       sodipodi:arg2="1.3089969"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 2028.1498,509.35225 -108.8485,29.16587 -79.6826,-79.68263 29.1658,-108.84851 108.8485,-29.16587 79.6827,79.68264 z"
+       inkscape:transform-center-x="-2.2851654e-05"
+       inkscape:transform-center-y="2.965739e-05"
+       transform="matrix(0.20037434,-0.05369013,0.05369013,0.20037434,2720.1828,1092.3354)"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
        inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <path
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path3529-8-9-1"
-         d="m 3379.9206,680.00416 24.1944,-32.50595"
-         style="fill:none;fill-opacity:1;stroke:#ff2a2a;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         style="fill:none;fill-opacity:1;stroke:#ff2a2a;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 3404.115,680.00416 -24.1944,-32.50595"
-         id="path13476-1"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cc" />
-    </g>
+       inkscape:export-ydpi="100" />
+    <path
+       transform="matrix(0.17373549,-0.04655227,0.04655227,0.17373549,2775.1546,1089.8734)"
+       inkscape:transform-center-y="3.4039249e-05"
+       inkscape:transform-center-x="6.4816261e-06"
+       d="m 2028.1498,509.35225 -108.8485,29.16587 -79.6826,-79.68263 29.1658,-108.84851 108.8485,-29.16587 79.6827,79.68264 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="true"
+       sodipodi:arg2="1.3089969"
+       sodipodi:arg1="0.78539816"
+       sodipodi:r2="56.344131"
+       sodipodi:r1="112.68826"
+       sodipodi:cy="429.66962"
+       sodipodi:cx="1948.4672"
+       sodipodi:sides="6"
+       id="path3405-9"
+       style="fill:#ffffff;stroke-width:0.26458332"
+       sodipodi:type="star"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
+    <path
+       style="fill:url(#linearGradient2659);fill-opacity:1;stroke-width:1.91161895"
+       inkscape:connector-curvature="0"
+       d="m 3149.6851,1077.1798 a 7.3597332,7.3597332 0 0 0 -6.3465,-7.1495 9.2713522,9.2713522 0 0 0 -9.4626,-8.9846 9.558095,9.558095 0 0 0 -9.0801,6.2892 8.755215,8.755215 0 0 0 -7.6465,8.5259 8.9081445,8.9081445 0 0 0 9.1566,8.6596 5.734857,5.734857 0 0 0 0.8029,0 h 14.8151 a 1.2234362,1.2234362 0 0 0 0.3823,0 7.4553141,7.4553141 0 0 0 7.3788,-7.3406 z"
+       id="path2299"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
     <g
        id="g2604"
-       transform="translate(-114.49827,-139.30726)">
+       transform="translate(-114.49827,-139.30726)"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100">
       <g
          transform="translate(1226.4977,657.46638)"
          id="g4391-7">
@@ -10699,7 +10798,10 @@
     </g>
     <g
        transform="translate(49.391404,-139.30726)"
-       id="g2616">
+       id="g2616"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100">
       <g
          id="g2611"
          transform="translate(1226.4977,657.46638)">
@@ -10746,5 +10848,38 @@
          d="m 3157.5389,1172.5535 7.9803,-1.41 0.08,-0.016 -4.1043,-4.8825 a 694.45394,694.45394 0 0 1 -4.1036,-4.9049 c 0,-0.024 4.2379,-11.6936 4.2628,-11.7349 0,-0.014 2.8909,4.9648 6.9905,12.0685 l 7.0314,12.189 0.049,0.093 h -13.0432 -13.044 l 7.9039,-1.396 z m -15.6532,-1.4857 c 0,-0.01 1.9348,-3.3643 4.2976,-7.4611 l 4.2984,-7.4492 5.0089,-4.2032 c 2.7533,-2.3106 5.0147,-4.2054 5.0244,-4.2085 a 0.8802198,0.8802198 0 0 1 -0.08,0.2026 l -5.4396,11.6648 -5.3421,11.4548 -3.8831,0.01 c -2.1351,0 -3.8847,10e-5 -3.8847,-0.01 z"
          id="path2614" />
     </g>
+    <text
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"
+       inkscape:export-ydpi="100"
+       inkscape:export-xdpi="100"
+       id="text937-5-6-7"
+       y="1105.7837"
+       x="3133.3706"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       xml:space="preserve"><tspan
+         y="1105.7837"
+         x="3133.3706"
+         sodipodi:role="line"
+         style="font-size:9.3182106px;text-align:center;text-anchor:middle;fill:#999999;fill-opacity:1;stroke-width:0.21839553"
+         id="tspan12121-4">Public Internet</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#4f9aea;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       x="3132.8281"
+       y="986.95367"
+       id="text2663"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/azure_service_endpoint_struct.png"><tspan
+         style="font-size:9.3182106px;text-align:center;text-anchor:middle;fill:#4f9aea;fill-opacity:1;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="3135.6235"
+         y="986.95367"
+         id="tspan2665">VNet w/ service endpoint </tspan><tspan
+         style="font-size:9.3182106px;text-align:center;text-anchor:middle;fill:#4f9aea;fill-opacity:1;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="3132.8281"
+         y="998.60144"
+         id="tspan2671">enabled on a subnet</tspan></text>
   </g>
 </svg>
