@@ -73,35 +73,37 @@ For this demo I have created [a separate repository](https://github.com/groovy-s
 
 ![](/images/network/service_paas_deploy.gif)
 
-Deployment script will create 2 resource groups ('webapp-res-grp' and 'func-res-grp'), which contains 3 main components - Azure Web App, Virtual Network and Azure Function App. VNet has one subnet, used by Web App for VNet integration (for outbound traffic). From the same subnet only is allowed to access the Function (thanks to service endpoint and access restriction). Web App is publicly available. Full structure:
+Deployment script will create 2 resource groups ('webapp-res-grp' and 'func-res-grp'), which contains 3 main components:
 
-![](/images/network/from_webapp2func_flow.png)
+1. Virtual Network
+2. Azure Web App
+3. Azure Function App
 
-
-[Web App's code]((https://github.com/groovy-sky/vnet-service-endpoints/blob/main/webapp/code/app.py)) is running on Python and works as a proxy to incoming requests, to a specified in URL address. [Function's code](https://github.com/groovy-sky/vnet-service-endpoints/blob/main/func/code/GoCustomHandler.go) is written on Go and it is used to show requester's IP address (more about how it works you can read [here](../func-custom-handler-00/README.md)).
-
-After deployment is finished you can 
-
-### Web Application's Outbound configuration
-
-![](/images/network/web_app_vnet_integration.png)
-
-### Virtual Network's Service Endpoints configuration
-
+VNet has only one subnet, which has Service Endpoints delegation for Web Apps:
 
 ![](/images/network/vnet_deleg4web.png)
 
+Web App uses the same subnet for VNet integration (for routing an outbound traffic): 
 
-### Function Application's Inbound configuration
+![](/images/network/web_app_vnet_integration.png)
+
+Function app have access restriction (for controlling inbound traffic) with one allow rule from Web App's subnet:
 
 ![](/images/network/func_access_restriction.png)
 
+[Web App's code]((https://github.com/groovy-sky/vnet-service-endpoints/blob/main/webapp/code/app.py)) is running on Python and works as a web proxy. [Function's code](https://github.com/groovy-sky/vnet-service-endpoints/blob/main/func/code/GoCustomHandler.go) is written on Go and it is used to show requester's IP address (more about how it works you can read [here](../func-custom-handler-00/README.md)). Full structure:
+
+![](/images/network/from_webapp2func_flow.png)
+
+Thanks to the Web App you can validate actually see from what IP comes request to the Function App. 
 
 ## Results
- 
+
+As soon as last command from the deployment script has been executed, you'll see what IP address was used by Web App for quering Function App:
+
 ![](/images/network/web_app_out_ip_in_func.png)
 
-To validate that the access restriction works and the function is not publicly available you can try to open it directly:
+To validate that the access restriction works (and public access is denied) you can try to open function directly:
 ![](/images/network/web_deny_msg_example.png)
 
 ## Summary
