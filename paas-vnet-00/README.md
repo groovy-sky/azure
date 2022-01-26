@@ -2,11 +2,11 @@
 
 ## Introduction
 
-By default most of Azure Platform as a services are publicly available. To be able to expose a service privately different solutions are available. 
+By default, most of Azure Platform as a services are publicly available. To be able to expose/access a service privately, Microsoft provides  different solutions (like using dedicated instances, publishing Private Endpoints etc.).
 
 ![](/images/network/paas_vnet_logo.png)
 
-**This document gives an example of using Service Endpoints to restrict access to a Platform as a Service (PaaS).**
+This document gives an example of using **Service Endpoints** to allow one PaaS (Azure Web App) access another PaaS (Azure Function App) privately.
 
 ## Theoretical Part
 
@@ -18,7 +18,7 @@ In the picture below incoming to Azure resource from "Service X" traffic is inbo
 
 ![](/images/network/service_inbound_and_outbound.png)
 
-As this paper gives an example of networking for Platform as a Service, two main features will be used for controlling Inbound and Outbound traffic - Access Restriction for limiting Inbound and VNet integration for routing Outbound.
+As this paper gives an example of Azure's PaaS, two App Services features will be used for controlling Inbound and Outbound traffic - Access Restriction for limiting inbound and VNet Integration for routing outbound.
 
 #### Access Restriction (Inbound)
 
@@ -49,31 +49,17 @@ Without service endpoints, restricting access to just your VNet can be challengi
 
 With service endpoints, DNS entries for Azure services remain as-is and continue to resolve to public IP addresses assigned to the Azure service.
 
-Service endpoints provide the following benefits:
-
-* Improved security for your Azure service resources: VNet private address spaces can overlap. You can't use overlapping spaces to uniquely identify traffic that originates from your VNet. Service endpoints provide the ability to secure Azure service resources to your virtual network by extending VNet identity to the service. Once you enable service endpoints in your virtual network, you can add a virtual network rule to secure the Azure service resources to your virtual network. The rule addition provides improved security by fully removing public internet access to resources and allowing traffic only from your virtual network.
-
-* Optimal routing for Azure service traffic from your virtual network: Today, any routes in your virtual network that force internet traffic to your on-premises and/or virtual appliances also force Azure service traffic to take the same route as the internet traffic. Service endpoints provide optimal routing for Azure traffic.
-
-* Endpoints always take service traffic directly from your virtual network to the service on the Microsoft Azure backbone network. Keeping traffic on the Azure backbone network allows you to continue auditing and monitoring outbound Internet traffic from your virtual networks, through forced-tunneling, without impacting service traffic. For more information about user-defined routes and forced-tunneling, see Azure virtual network traffic routing.
-
-* Simple to set up with less management overhead: You no longer need reserved, public IP addresses in your virtual networks to secure Azure resources through IP firewall. There are no Network Address Translation (NAT) or gateway devices required to set up the service endpoints. You can configure service endpoints through a simple click on a subnet. There's no additional overhead to maintaining the endpoints.
-
-Service endpoints provide the following limitations:
-
-* The feature is available only to virtual networks deployed through the Azure Resource Manager deployment model.
-* Endpoints are enabled on subnets configured in Azure virtual networks. Endpoints can't be used for traffic from your premises to Azure services. 
-*For some services (like Azure SQL) a service endpoint applies only to Azure service traffic within a virtual network's region. 
-
-
 ## Prerequisites
+
+For this demo you'll need a Linux environment with additional software (Azure CLI, Python, Go, Azure Functions Core Tools, curl). Or you can can use [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/features) (which already contains all nessecary packages).
+
 ## Practical Part
 
-For this demo I have created [a separate repository](https://github.com/groovy-sky/vnet-service-endpoints) for deploying a demonstration environment. To deploy it you'll need to clone the repository and execute commands from [script.sh](https://github.com/groovy-sky/vnet-service-endpoints/blob/main/deploy.sh):
+For this demo I have created [a separate repository](https://github.com/groovy-sky/vnet-service-endpoints). To deploy it you'll need to copy and execute commands from [script.sh](https://github.com/groovy-sky/vnet-service-endpoints/blob/main/deploy.sh):
 
 ![](/images/network/service_paas_deploy.gif)
 
-Deployment script will create 2 resource groups ('webapp-res-grp' and 'func-res-grp'), which contains 3 main components:
+Deployment will create 2 resource groups ('webapp-res-grp' and 'func-res-grp'), which contains 3 main components:
 
 1. Virtual Network
 2. Azure Web App
@@ -83,11 +69,11 @@ VNet has only one subnet, which has Service Endpoints delegation for Web Apps:
 
 ![](/images/network/vnet_deleg4web.png)
 
-Web App uses the same subnet for VNet integration (for routing an outbound traffic): 
+Web App uses the same subnet for VNet integration (for routing outbound traffic): 
 
 ![](/images/network/web_app_vnet_integration.png)
 
-Function app have access restriction (for controlling inbound traffic) with one allow rule from Web App's subnet:
+Function app have access restriction (for controlling inbound traffic) with only one allow rule from Web App's subnet:
 
 ![](/images/network/func_access_restriction.png)
 
@@ -95,24 +81,23 @@ Function app have access restriction (for controlling inbound traffic) with one 
 
 ![](/images/network/from_webapp2func_flow.png)
 
-Thanks to the Web App you can validate actually see from what IP comes request to the Function App. 
+Thanks to the Web App you can obtain information about from what IP was the Function accessed. 
 
 ## Results
 
-As soon as last command from the deployment script has been executed, you'll see what IP address was used by Web App for quering Function App:
+As soon as last command from the deployment script has been executed, you should get Function App response forwarded by Web App:
 
 ![](/images/network/web_app_out_ip_in_func.png)
 
-To validate that the access restriction works (and public access is denied) you can try to open function directly:
+To be sure that access restriction works(and public access is denied) you can try to open function's URL directly:
 ![](/images/network/web_deny_msg_example.png)
 
 ## Summary
 
-To sum up Service Endpoints allows you to share access to yours services privately (through a subnet). On top of that there's no additional charge for using service endpoints.
+Service Endpoints allows you to share access to yours services privately (through a subnet). Also there's no additional charge for using service endpoints.
 
-However, Microsoft recommends use of Azure Private Endpoint for secure and private access to services hosted on Azure platform. What is the difference between these two features (Service and Private Endpoints) and which one to use will be evalueted in the next section.
+However, Microsoft recommends to use of Azure Private Endpoint for secure and private access to services hosted on Azure platform. How Private Ednpoints works will be explained in the next section.
 
 ## Related Information
 
 * https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
-* https://docs.microsoft.com/en-us/azure/virtual-network/vnet-integration-for-azure-services

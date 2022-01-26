@@ -103,3 +103,4 @@ Finally, you can resolve storage service from non-Azure environment (for example
 * https://github.com/Azure/azure-quickstart-templates/tree/master/201-private-aks-cluster
 * https://github.com/Azure/azure-quickstart-templates/tree/master/custom-private-dns
 * https://docs.microsoft.com/en-us/azure/architecture/hybrid/hybrid-dns-infra
+* https://docs.microsoft.com/en-us/azure/virtual-network/vnet-integration-for-azure-services
