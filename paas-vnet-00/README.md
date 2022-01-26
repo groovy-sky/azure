@@ -108,9 +108,9 @@ To validate that the access restriction works (and public access is denied) you 
 
 ## Summary
 
-Service endpoints are available for limited Azure services and regions. 
+To sum up Service Endpoints allows you to share access to yours services privately (through a subnet). On top of that there's no additional charge for using service endpoints.
 
-Microsoft recommends use of Azure Private Endpoint for secure and private access to services hosted on Azure platform. In the next chapter this 
+However, Microsoft recommends use of Azure Private Endpoint for secure and private access to services hosted on Azure platform. What is the difference between these two features (Service and Private Endpoints) and which one to use will be evalueted in the next section.
 
 ## Related Information
 
