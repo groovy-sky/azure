@@ -1,32 +1,13 @@
-# Using private endpoints
+# Integrate Platform as a Services with Virtual Networks (part 2)
 ## Introduction
 
 Azure Private endpoint is the fundamental building block for Private Link in Azure. It enables Azure resources, like virtual machines (VMs), to communicate with Private Link resources privately. 
 
-This document gives an example of using private endpoints for exposing a public resource privately.
+![](/images/network/paas_vnet_logo.png)
+
+This document gives an example of using private endpoints for exposing a public Platform as a Service privately.
 
 ## Theoretical Part
-
-### Terminology
-
-If you're new to Azure Private Endpoints, there are some terms you might not be familiar with:
-
-* ![](/images/network/res_symbol.png) **Public Azure Resource/Service** - a manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources.
-  
-
-*  ![](/images/network/endpoint_symbol.png) **Private Endpoint** - an Azure service, which allows to access publicly available resources privately
-
-
-*  ![](/images/network/vnet_symbol.png) **Virtual Network** - enables Azure resources, such as VMs, web apps, and databases, to communicate with each other.
-
-
-*  ![](/images/network/nic_symbol.png) **Network Interface Card** - allows Azure resources to be a part of a specific Virtual Network, by allocating a private IP address 
-
-
-*  ![](/images/network/dns_symbol.png) **Private DNS Zone** - used to host the DNS records for a particular domain and are accessible from one or multiple Virtual Networks
-
-
-### Overview
 
 Endpoint is a special kind network interface that connects you privately and securely to a service powered by Azure Private Link. Private Endpoint uses a private IP address from a VNet. 
 
@@ -104,3 +85,4 @@ Finally, you can resolve storage service from non-Azure environment (for example
 * https://github.com/Azure/azure-quickstart-templates/tree/master/custom-private-dns
 * https://docs.microsoft.com/en-us/azure/architecture/hybrid/hybrid-dns-infra
 * https://docs.microsoft.com/en-us/azure/virtual-network/vnet-integration-for-azure-services
+* https://docs.microsoft.com/en-us/azure/dns/private-dns-virtual-network-links
