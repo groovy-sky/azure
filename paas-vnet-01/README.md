@@ -17,7 +17,7 @@ Endpoint is a special kind network interface that connects you privately and sec
 Here are some key details about private endpoints:
 1. Network connections can only be initiated by clients connecting to the Private endpoint, Service providers do not have any routing configuration to initiate connections into service consumers. Connections can only be established in a single direction.
 2. When creating a private endpoint, a read-only network interface is also created for the lifecycle of the resource. The interface is assigned dynamically private IP addresses from the subnet that maps to the private link resource. The value of the private IP address remains unchanged for the entire lifecycle of the private endpoint.
-3. A private endpoint consist of the following resources: a **private endpoint** itself, a **network interface** and (if DNS integration is used) a **DNS record** in resource's private DNS zone.
+3. A private endpoint consist of the following resources: a **Private Endpoint** itself, a **Network Interface Card** and (if DNS integration is used) a DNS record in resource's **private DNS zone**.
 
 It is important to note that to be able access a public resource privately, you'll need to correctly configure your DNS settings to resolve to the allocated private IP address. Existing Azure services might already have a DNS configuration to use when connecting over a public endpoint. This needs to be overridden to connect using your private endpoint.
 
@@ -74,6 +74,8 @@ Finally, you can resolve storage service from non-Azure environment (for example
 
 
 ## Summary
+
+![](/images/network/priv_end_acc_from_on_prem_struct.png)
 
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
