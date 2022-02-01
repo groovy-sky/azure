@@ -1,7 +1,8 @@
 # Integrate Platform as a Services with Virtual Networks (part 2)
 ## Introduction
 
-Azure Private endpoint is the fundamental building block for Private Link in Azure. It enables Azure resources, like virtual machines (VMs), to communicate with Private Link resources privately. 
+In [the previous part](/paas-vnet-00/README.md) I've tried to explain how Service Endpoints works and how it can be used for inbound access restriction. 
+Azure Private endpoint service is the fundamental building block for Private Link in Azure. It enables Azure resources, like virtual machines (VMs), to communicate with Private Link resources privately. 
 
 ![](/images/network/paas_vnet_logo.png)
 
