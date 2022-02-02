@@ -2,7 +2,7 @@
 
 ## Introduction
 
-By default, most of Azure Platform as a services are publicly available. To be able to expose/access a service privately, Microsoft provides  different solutions (like using dedicated instances, publishing Private Endpoints etc.).
+By default, most of Azure Platform as a services are publicly available. To be able to expose/access a service privately, Microsoft provides different solutions (like using dedicated instances, publishing Private Endpoints etc.).
 
 ![](/images/network/paas_vnet_logo.png)
 
@@ -96,7 +96,7 @@ To be sure that access restriction works(and public access is denied) you can tr
 
 Service Endpoints allows you to share access to yours services privately (through a subnet). Also there's no additional charge for using service endpoints.
 
-However, Microsoft recommends to use of Azure Private Endpoint for secure and private access to services hosted on Azure platform. How Private Ednpoints works will be explained in the next section.
+However, Microsoft recommends to use of Azure Private Endpoint for secure and private access to services hosted on Azure platform. How Private Ednpoints works will be explained [next time](/paas-vnet-01/README.md) .
 
 ## Related Information
 

@@ -8,7 +8,8 @@ Some time ago some part of services available in Azure Marketplace got additiona
 
 A challenge crop up then you need to resolve Azure and On-Premises private zones using one Name Server. For example, if you want to [access a private Azure Kubernetes Service cluster from on-premises](https://docs.microsoft.com/en-us/azure/aks/private-clusters#hub-and-spoke-with-custom-dns). In such case obvius solution would be to use Azure private recursive DNS, but unfortunately currently you can get (as a service) only authoritative one.  
 
-![](/images/docker/coredns_recur_arch.png)
+![](/images/network/priv_end_acc_from_on_prem_struct.png)
+
 
 This document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones.
 
