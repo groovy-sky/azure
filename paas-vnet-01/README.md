@@ -1,7 +1,7 @@
 # Integrate Platform as a Services with Virtual Networks (part 2)
 ## Introduction
 
-As was stated [in the previous part](/paas-vnet-00/README.md), Service Endpoints can be used to expose some of Platfom as a Services (PaaS) privately. An alternative solution, though slightly more complicated is Private Endpoint service. It is a special network interface for an Azure service in your Virtual Network (VNet).
+As was stated [in the previous part](/paas-vnet-00/README.md), Service Endpoints can be used to expose some of Platform as a Services (PaaS) privately. An alternative solution, though slightly more complicated is Private Endpoint service. 
 
 ![](/images/network/paas_vnet_logo.png)
 
@@ -88,13 +88,13 @@ Finally, you can resolve storage service from non-Azure environment (for example
 
 ## Summary
 
-As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionnaly private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
+As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionally private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
 
 A real private IP address, assigned to a resource, allows to access it from non-Azure environment (by using, for example, VPN/ExpressRoute connection). The most important limitation is imposed by a private DNS zone, which is accessible from Azure only. Since private DNS is inaccessible from on-prem - you can access a Private Endpoint only by its IP address:
 
 ![](/images/network/priv_end_acc_from_on_prem_struct.png)
 
-A more practical solution for Private Endpoint accesibility can be achieved by using a DNS forwarder. More details on this will be given in the next part. 
+A more practical solution for Private Endpoint accessibility can be achieved by using a DNS forwarder. More details on this will be given in the next part. 
 
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
