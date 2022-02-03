@@ -12,7 +12,7 @@ This document gives an example of using **Private Endpoints** for exposing a pub
 
 ### Private DNS Zone
 
-Azure Private DNS provides a reliable, secure DNS service to manage and resolve domain names in a virtual network without the need to add a custom DNS solution. By using private DNS zones, you can use your own custom domain names rather than the Azure-provided names available today.
+[Azure Private DNS Zone](https://docs.microsoft.com/en-us/azure/dns/private-dns-overview) provides a reliable, secure DNS service to manage and resolve domain names in a virtual network without the need to add a custom DNS solution. By using private DNS zones, you can use your own custom domain names rather than the Azure-provided names available today.
 
 The records contained in a private DNS zone aren't resolvable from the Internet. DNS resolution against a private DNS zone works only from virtual networks that are linked to it.
 
@@ -22,7 +22,7 @@ After you create a private DNS zone in Azure, you'll need to link a virtual netw
 
 ### Private Endpoint
 
-You can use private endpoints for PaaS to allow clients on a Virtual Network (VNet) to securely access data over a private link. The Private Endpoint uses an IP address from the VNet address space. Optionally, you can use [a private DNS zone](https://docs.microsoft.com/en-us/azure/dns/private-dns-overview) to be able to access a service using its Fully Qualified Domain Name (FQDN). The Network Interface Card (NIC) associated with the private endpoint contains the information required to configure your DNS. The information includes the FQDN and private IP address for a private link resource.
+You can use private endpoints for PaaS to allow clients on a Virtual Network (VNet) to securely access data over a private link. The Private Endpoint uses an IP address from the VNet address space. Optionally, you can use a private DNS zone to be able to access a service using its Fully Qualified Domain Name (FQDN). The Network Interface Card (NIC) associated with the private endpoint contains the information required to configure your DNS. The information includes the FQDN and private IP address for a private link resource.
 
 ![](/images/network/priv_end_struct.png)
 
