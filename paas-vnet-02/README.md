@@ -1,23 +1,16 @@
-# Running CoreDNS on Azure Container Instance
+# Integrate Platform as a Services with Virtual Networks (part 3)
 ## Introduction
 
 
-In nowdays Microsoft provides a wide range of publicly available services in Azure. At the same time Azure allows you to extend your on-premises networks into the Microsoft cloud using, for example, ExpressRoute circuit or VPN Gateway. 
+In nowdays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous the previous parts, [Private Endpoint](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access privately. 
 
-Some time ago some part of services available in Azure Marketplace got additional feature, called private endpoint, which allowed to get access by private IP and private DNS name. 
+![](/images/network/paas_vnet_logo.png)
 
-A challenge crop up then you need to resolve Azure and On-Premises private zones using one Name Server. For example, if you want to [access a private Azure Kubernetes Service cluster from on-premises](https://docs.microsoft.com/en-us/azure/aks/private-clusters#hub-and-spoke-with-custom-dns). In such case obvius solution would be to use Azure private recursive DNS, but unfortunately currently you can get (as a service) only authoritative one.  
-
-![](/images/network/priv_end_acc_from_on_prem_struct.png)
-
-
-This document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones.
+This document explains how a **DNS forwarder** can for used for expanding Private DNS zone to On-Premises.
 
 ## Theoretical Part
 
 ### DNS
-
-![](/images/docker/dns_logo.png)
 
 Computers on a network can find one another by IP addresses. To make it easier to work within a computer network, people can use a Domain Name System (DNS) to associate human-friendly domain names with IP addresses, similar to a phonebook. A DNS can also associate other information beyond just computer network addresses to domain names. 
 
@@ -50,8 +43,6 @@ Azure Private DNS provides a reliable, secure DNS service to manage and resolve 
 To resolve the records of a private DNS zone from your virtual network, you must link the virtual network with the zone. Linked virtual networks have full access and can resolve all DNS records published in the private zone. Additionally, you can also enable autoregistration on a virtual network link. If you enable autoregistration on a virtual network link, the DNS records for the virtual machines on that virtual network are registered in the private zone. When autoregistration is enabled, Azure DNS also updates the zone records whenever a virtual machine is created, changes its' IP address, or is deleted.
 
 ### Azure Container Instances
-
-![](/images/docker/az_container.png)
 
 Azure Container Instances enables a layered approach to orchestration, providing all of the scheduling and management capabilities required to run a single container, while allowing orchestrator platforms to manage multi-container tasks on top of it.
 
@@ -90,23 +81,15 @@ Everything that you need to run this demo is stored in [one repository](https://
 
 As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. Which type of instance to deploy (privately or publicly available) is up to you.
 
-![](/images/docker/coredns_public_or_private.png)
 
 #### Running CoreDNS instance with private IP
-![](/images/docker/red_dns_icon.png)
 
 To deploy and run privately accessible CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/private-dns/azuredeploy.json) or click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fprivate-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button.
-
-#### Running CoreDNS instance with public IP
-![](/images/docker/blue_dns_icon.png)
-
-To deploy and run publicly available CoreDNS instance use [applicable template](https://raw.githubusercontent.com/groovy-sky/azure-coredns/master/azure/public-dns/azuredeploy.json) or click on <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure-coredns%2Fmaster%2Fazure%2Fpublic-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> button.
 
 #### Real-world scenario
 
 In both cases the final solution will be able to resolve only public records, as by design it uses [Azure-native DNS server](https://docs.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16). If you want to use this instance for exposing your private DNS records - you will need to specify them in Corefile and build your own Docker image:
 
-![](/images/docker/dockerfile_and_corefile_structure.png)
 
 ## Result
 
