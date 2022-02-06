@@ -1,7 +1,7 @@
 # Integrate Platform as a Services with Virtual Networks (part 2)
 ## Introduction
 
-As was stated [in the previous part](/paas-vnet-00/README.md), Service Endpoints can be used to expose some of Platfom as a Services (PaaS) privately. An alternative solution, though slightly more complicated is Private Endpoint service. It is a special network interface for an Azure service in your Virtual Network (VNet).
+As was stated [in the previous part](/paas-vnet-00/README.md), Service Endpoints can be used to expose some of Platform as a Services (PaaS) privately. An alternative solution, though slightly more complicated is Private Endpoint service. 
 
 ![](/images/network/paas_vnet_logo.png)
 
@@ -12,7 +12,7 @@ This document gives an example of using **Private Endpoints** for exposing a pub
 
 ### Private DNS Zone
 
-Azure Private DNS provides a reliable, secure DNS service to manage and resolve domain names in a virtual network without the need to add a custom DNS solution. By using private DNS zones, you can use your own custom domain names rather than the Azure-provided names available today.
+[Azure Private DNS Zone](https://docs.microsoft.com/en-us/azure/dns/private-dns-overview) provides a reliable, secure DNS service to manage and resolve domain names in a virtual network without the need to add a custom DNS solution. By using private DNS zones, you can use your own custom domain names rather than the Azure-provided names available today.
 
 The records contained in a private DNS zone aren't resolvable from the Internet. DNS resolution against a private DNS zone works only from virtual networks that are linked to it.
 
@@ -22,7 +22,7 @@ After you create a private DNS zone in Azure, you'll need to link a virtual netw
 
 ### Private Endpoint
 
-You can use private endpoints for PaaS to allow clients on a Virtual Network (VNet) to securely access data over a private link. The Private Endpoint uses an IP address from the VNet address space. Optionally, you can use [a private DNS zone](https://docs.microsoft.com/en-us/azure/dns/private-dns-overview) to be able to access a service using its Fully Qualified Domain Name (FQDN). The Network Interface Card (NIC) associated with the private endpoint contains the information required to configure your DNS. The information includes the FQDN and private IP address for a private link resource.
+You can use private endpoints for PaaS to allow clients on a Virtual Network (VNet) to securely access data over a private link. The Private Endpoint uses an IP address from the VNet address space. Optionally, you can use a private DNS zone to be able to access a service using its Fully Qualified Domain Name (FQDN). The Network Interface Card (NIC) associated with the private endpoint contains the information required to configure your DNS. The information includes the FQDN and private IP address for a private link resource.
 
 ![](/images/network/priv_end_struct.png)
 
@@ -88,13 +88,13 @@ Finally, you can resolve storage service from non-Azure environment (for example
 
 ## Summary
 
-As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionnaly private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
+As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionally private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
 
 A real private IP address, assigned to a resource, allows to access it from non-Azure environment (by using, for example, VPN/ExpressRoute connection). The most important limitation is imposed by a private DNS zone, which is accessible from Azure only. Since private DNS is inaccessible from on-prem - you can access a Private Endpoint only by its IP address:
 
 ![](/images/network/priv_end_acc_from_on_prem_struct.png)
 
-A more practical solution for Private Endpoint accesibility can be achieved by using a DNS forwarder. More details on this will be given in the next part. 
+A more practical solution for Private Endpoint accessibility can be achieved by using a DNS forwarder. More details on this will be given in the next part. 
 
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
