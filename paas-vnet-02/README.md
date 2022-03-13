@@ -49,7 +49,7 @@ ARM template deploys multiple resources, which could be grouped to:
 
 1. PaaS itself, which in this example is a storage account
 2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)
-3. DNS Forwarder, used to 
+3. DNS Forwarder, which is running as a container instance, used for private endpoint's resolve (by forwarding all incoming requests to Azure DNS). It's configuration files are available [here](https://github.com/groovy-sky/private-endpoint-with-on-prem/tree/master/docker)
 4. Virtual Machine, which will be deployed in the same VNet as the private endpoint and used to check if Private Endpoint is accessible
 
 ![](/images/network/priv_end_w_forward_arch.png)
@@ -57,13 +57,18 @@ ARM template deploys multiple resources, which could be grouped to:
 
 ## Result
 
-
+After the deployment is completed you can check VM's output
 
 ![](/images/network/priv_end_with_dns_result.png)
 
-
-
 ## Summary
+
+As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionally private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
+
+Now, using a private endpoint and DNS forwarder, PaaS services can be accessed from On-Premises privately:
+
+![](/images/network/priv_end_acc_w_forw_from_on_prem_struct.png)
+
 
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview
