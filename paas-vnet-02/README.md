@@ -6,7 +6,7 @@ In nowdays Microsoft provides a wide range of publicly available Platform as a S
 
 ![](/images/network/paas_vnet_logo.png)
 
-This document explains how a **DNS forwarder** can for used for expanding Private DNS zone to On-Premises.
+This document explains how a **DNS forwarder** can for used for expanding Private DNS zone to other environment(another Azure VNet or On-Premises network).
 
 ## Theoretical Part
 
@@ -36,6 +36,13 @@ To resolve the records of a private DNS zone from your virtual network, you must
 
 ## Practical Part
 
+https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/private-endpoint-w-dns/azuredeploy.json
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fprivate-endpoint-with-on-prem%2Fmaster%2Fazure%2Fprivate-endpoint-w-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
+
+![](/images/network/priv_end_w_forward_arch.png)
+
+
 As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. Which type of instance to deploy (privately or publicly available) is up to you.
 
 ![](/images/network/priv_end_with_dns_deploy.png)
@@ -44,9 +51,9 @@ As was stated in the Introduction, this document gives an example of **using [Co
 ## Result
 
 
+
 ![](/images/network/priv_end_with_dns_result.png)
 
-![](/images/network/priv_end_w_forward_arch.png)
 
 
 ## Summary
