@@ -40,11 +40,11 @@ To be able to run the next section you’ll need an Azure Cloud account.
 
 ## Practical Part
 
-[This sample](https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/private-endpoints/azuredeploy.json) creates a Storage Account and its Private Endpoint, VNET, private DNS Zone and Linux Virtual Machine. To start the deployment just click the button below:
+[This sample](https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/azuredeploy.json) creates a Storage Account and its Private Endpoint, VNET, private DNS Zone and Linux Virtual Machine. To start the deployment just click the button below:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fprivate-endpoint-with-on-prem%2Fmaster%2Fazure%2Fprivate-endpoints%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
- When you create a private endpoint for your storage account, it provides secure connectivity between clients on your VNet and your storage. The private endpoint is assigned an IP address from the IP address range of your VNet. The connection between the private endpoint and the storage service uses a secure private link. ARM template deploys multiple resources, which could be grouped to:
+When you create a private endpoint for your storage account, it provides secure connectivity between clients on your VNet and your storage. The private endpoint is assigned an IP address from the IP address range of your VNet. The connection between the private endpoint and the storage service uses a secure private link. ARM template deploys multiple resources, which could be grouped to:
 
 1. PaaS itself, which in this example is a storage account
 2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)

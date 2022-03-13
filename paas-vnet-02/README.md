@@ -36,16 +36,23 @@ To resolve the records of a private DNS zone from your virtual network, you must
 
 ## Practical Part
 
-https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/private-endpoint-w-dns/azuredeploy.json
+[This sample](https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/azuredeploy.json) creates a Storage Account and its Private Endpoint, VNET, private DNS Zone and Linux Virtual Machine. To start the deployment just click the button below:
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fprivate-endpoint-with-on-prem%2Fmaster%2Fazure%2Fprivate-endpoint-w-dns%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fprivate-endpoint-with-on-prem%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
-![](/images/network/priv_end_w_forward_arch.png)
-
-
-As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. Which type of instance to deploy (privately or publicly available) is up to you.
+As was stated in the Introduction, this document gives an example of **using [CoreDNS](https://github.com/coredns/coredns) Container Instance as a recursive (aka forwarding) Name Server** for sharing Azure private and/or on-premises private DNS zones. 
 
 ![](/images/network/priv_end_with_dns_deploy.png)
+
+
+ARM template deploys multiple resources, which could be grouped to:
+
+1. PaaS itself, which in this example is a storage account
+2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)
+3. DNS Forwarder, used to 
+4. Virtual Machine, which will be deployed in the same VNet as the private endpoint and used to check if Private Endpoint is accessible
+
+![](/images/network/priv_end_w_forward_arch.png)
 
 
 ## Result
