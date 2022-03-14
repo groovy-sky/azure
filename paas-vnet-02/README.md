@@ -2,7 +2,7 @@
 ## Introduction
 
 
-In nowdays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous parts, [Private Endpoints](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access PaaS privately. 
+In nowadays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous parts, [Private Endpoints](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access PaaS privately. 
 
 ![](/images/network/paas_vnet_logo.png)
 
@@ -57,7 +57,7 @@ ARM template deploys multiple resources, which could be grouped to:
 
 ## Result
 
-After the deployment is completed you can check VM's output
+After the deployment is completed, you can check VM's Custom Script executions output:
 
 ![](/images/network/priv_end_with_dns_result.png)
 
@@ -65,7 +65,7 @@ After the deployment is completed you can check VM's output
 
 As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionally private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
 
-Now, using a private endpoint and DNS forwarder, PaaS services can be accessed from On-Premises privately:
+Now, using a private endpoint and DNS forwarder, PaaS services can be resolved from On-Premises by it's private IP address:
 
 ![](/images/network/priv_end_acc_w_forw_from_on_prem_struct.png)
 
