@@ -38,13 +38,7 @@ To resolve the records of a private DNS zone from your virtual network, you must
 
 As was stated in the Introduction, this document gives an example of **using a DNS forwarder (aka Recursive DNS)** for sharing Azure private and/or on-premises private DNS zones. For that purpose will be used [CoreDNS](https://github.com/coredns/coredns) running as [an Azure Container Instance](https://azure.microsoft.com/en-us/services/container-instances/). 
 
-![](/images/network/priv_end_with_dns_deploy.png)
-
-[This sample](https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/azuredeploy.json) creates a Storage Account and its Private Endpoint, VNET, private DNS Zone, DNS forwarder and Linux Virtual Machine. To start the deployment just click the button below:
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fprivate-endpoint-with-on-prem%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
-
-ARM template deploys multiple resources, which could be grouped to:
+For the environment deployment [following ARM template](https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/azuredeploy.json) will be used. It deploys multiple resources, which could be grouped to:
 
 1. PaaS itself, which in this example is a storage account
 2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS zone)
@@ -53,6 +47,13 @@ ARM template deploys multiple resources, which could be grouped to:
 
 ![](/images/network/priv_end_w_forward_arch.png)
 
+You start the deployment by using any prefferable way (Powershell, CLI etc.) or by clicking the button below:
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fprivate-endpoint-with-on-prem%2Fmaster%2Fazure%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
+
+> **_NOTE:_**  'With Dns Forwarder' option should be true
+
+![](/images/network/priv_end_with_dns_deploy.png)
 
 ## Result
 
