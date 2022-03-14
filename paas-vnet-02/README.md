@@ -48,9 +48,9 @@ As was stated in the Introduction, this document gives an example of **using [Co
 ARM template deploys multiple resources, which could be grouped to:
 
 1. PaaS itself, which in this example is a storage account
-2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS)
-3. DNS Forwarder, which is running as a container instance, used for private endpoint's resolve (by forwarding all incoming requests to Azure DNS). It's configuration files are available [here](https://github.com/groovy-sky/private-endpoint-with-on-prem/tree/master/docker)
-4. Virtual Machine, which will be deployed in the same VNet as the private endpoint and used to check if Private Endpoint is accessible
+2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS zone)
+3. DNS Forwarder, which is just a container instance, used for private endpoint's resolve (by forwarding all incoming requests to a VNet with linked private DNS zone). It's configuration you can check [here](https://github.com/groovy-sky/private-endpoint-with-on-prem/tree/master/docker)
+4. Virtual Machine, which will be used to resolve the PaaS privately (using Private Endpoint) and publicly using Custom Script extension.
 
 ![](/images/network/priv_end_w_forward_arch.png)
 
