@@ -2,11 +2,11 @@
 ## Introduction
 
 
-In nowadays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous parts, [Private Endpoints](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access PaaS privately. 
+In nowadays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous parts, [Private Endpoints](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access PaaS privately. Main limitation for both solutions is an absence of On-Premises access.
 
 ![](/images/network/paas_vnet_logo.png)
 
-This document gives an example of how a **DNS forwarder** can be used for exposing Private Endpoint's DNS to other environment(which can be another Azure VNet or On-Premises network).
+This document gives an example of how a **self-hosted DNS forwarder** can be used for exposing Private Endpoint's DNS. This allows to use such forwarder for On-Premises access.
 
 ## Theoretical Part
 
@@ -41,7 +41,7 @@ As was stated in the Introduction, this document gives an example of **using a D
 For the environment deployment [following ARM template](https://github.com/groovy-sky/private-endpoint-with-on-prem/blob/master/azure/azuredeploy.json) will be used. It deploys multiple resources, which could be grouped to:
 
 1. PaaS itself, which in this example is a storage account
-2. Resources used for exposing the public resource privately (NIC, private endpoint, VNet, private DNS zone)
+2. Resources used for exposing the public resource privately (NIC, private endpoint, private DNS zone)
 3. DNS Forwarder, which is just a container instance, used for private endpoint's resolve (by forwarding all incoming requests to a VNet with linked private DNS zone). It's configuration you can check [here](https://github.com/groovy-sky/private-endpoint-with-on-prem/tree/master/docker)
 4. Virtual Machine, which will be used to resolve the PaaS privately (using Private Endpoint) and publicly using Custom Script extension.
 
@@ -63,9 +63,7 @@ After the deployment is completed, you can check VM's Custom Script executions o
 
 ## Summary
 
-As shown in the previous section, Private Endpoint allows to expand a service to a VNet as read-only Network Card. Optionally private DNS could be used (for a seamless access by domain name). This means that PaaS has two IP addresses - public (available by default) and private (NIC's address). 
-
-Now, using a private endpoint and DNS forwarder, PaaS services can be resolved from On-Premises by it's private IP address:
+As shown in [the previous section](/paas-vnet-01/README.md), Private Endpoint allows to expand a service to a VNet as read-only Network Card. For on-premises workloads to resolve the FQDN of a private endpoint a DNS forwarder is needed. As in this demo for a DNS forwarder CoreDNS container instance were used, you can use the same approach to work with Private Endpoints from On-Premises:
 
 ![](/images/network/priv_end_acc_w_forw_from_on_prem_struct.png)
 
