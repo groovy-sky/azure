@@ -2,11 +2,11 @@
 ## Introduction
 
 
-In nowdays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous the previous parts, [Private Endpoint](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access privately. 
+In nowdays Microsoft provides a wide range of publicly available Platform as a Services in Azure. As was discussed in previous parts, [Private Endpoints](/paas-vnet-01/README.md) and [Service Endpoints](/paas-vnet-00/README.md) allows to expose/limit access PaaS privately. 
 
 ![](/images/network/paas_vnet_logo.png)
 
-This document explains how a **DNS forwarder** can for used for expanding Private DNS zone to other environment(another Azure VNet or On-Premises network).
+This document gives an example of how a **DNS forwarder** can be used for exposing Private Endpoint's DNS to other environment(which can be another Azure VNet or On-Premises network).
 
 ## Theoretical Part
 
