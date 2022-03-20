@@ -30,7 +30,7 @@
       <path
          id="path4429"
          d="M -5.0,-5.0 L -5.0,5.0 L 5.0,5.0 L 5.0,-5.0 L -5.0,-5.0 z "
-         style="fill-rule:evenodd;stroke:#808080;stroke-width:1pt;stroke-opacity:1;fill:#808080;fill-opacity:1"
+         style="fill-rule:evenodd;stroke:#1560b0;stroke-width:1pt;stroke-opacity:1;fill:#1560b0;fill-opacity:1"
          transform="scale(0.4)" />
     </marker>
     <marker
@@ -6246,9 +6246,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.8101934"
-     inkscape:cx="36558.474"
-     inkscape:cy="2832.8378"
+     inkscape:zoom="0.64"
+     inkscape:cx="35870.75"
+     inkscape:cy="2417.3034"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -6282,6 +6282,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path11929"
+       d="m 9406.1958,-469.11356 330.8748,0 v 279.32169 l -330.8748,0 z"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
        y="-438.1077"
        x="9017.4023"
@@ -25264,34 +25270,6 @@
          id="path4236"
          inkscape:connector-curvature="0" />
     </g>
-    <rect
-       style="opacity:1;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:8.4149828;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect4249"
-       width="189.28964"
-       height="23.0161"
-       x="9483.3984"
-       y="-461.29941" />
-    <rect
-       y="-460.06644"
-       x="9485.1152"
-       height="20.550087"
-       width="185.85364"
-       id="rect4251"
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:7.87891388;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <text
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
-       inkscape:export-ydpi="50"
-       inkscape:export-xdpi="50"
-       id="text4255"
-       y="-443.60092"
-       x="9578.6445"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:23.15974236px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:-0.21881066px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:0.5250842"
-       xml:space="preserve"><tspan
-         id="tspan4253"
-         y="-443.60092"
-         x="9578.5352"
-         sodipodi:role="line"
-         style="font-size:18.23751831px;text-align:center;letter-spacing:-0.21881066px;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.5250842">WebApp Networking</tspan></text>
     <g
        transform="translate(384.80034,9.7142932)"
        id="g4266">
@@ -25361,7 +25339,7 @@
          y="-356.51208"
          x="9450.1973"
          sodipodi:role="line"
-         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553">· Limit access to a WebApp from a specific subnet</tspan><tspan
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553">· Limit access to a Web App from a specific subnet</tspan><tspan
          y="-347.69263"
          x="9450.1973"
          sodipodi:role="line"
@@ -25465,7 +25443,7 @@
          sodipodi:role="line"
          x="9473.6611"
          y="-246.145"
-         id="tspan4313">· Allows a WebApp to access resources in/through a VNet</tspan><tspan
+         id="tspan4313">· Allows a Web App to access resources in/through a VNet</tspan><tspan
          id="tspan4315"
          style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
          sodipodi:role="line"
@@ -25556,10 +25534,38 @@
            id="tspan4342">Inbound</tspan></text>
     </g>
     <path
-       style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker4619);marker-end:url(#marker7974)"
+       style="fill:none;stroke:#1560b0;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker4619);marker-end:url(#marker7974)"
        d="m 9673.4469,-450.3876 59.5378,0 v 256.96923 l -322.4246,0 v -256.00502 h 71.2567"
        id="path6835"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccc" />
+    <rect
+       style="opacity:1;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:8.4149828;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4249"
+       width="203.90594"
+       height="23.0161"
+       x="9476.0898"
+       y="-461.29941" />
+    <rect
+       y="-460.06644"
+       x="9477.5146"
+       height="20.550087"
+       width="201.05458"
+       id="rect4251"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:7.87891388;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text4255"
+       y="-443.60092"
+       x="9578.6445"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:23.15974236px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:-0.21881066px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:0.5250842"
+       xml:space="preserve"><tspan
+         id="tspan4253"
+         y="-443.60092"
+         x="9578.5352"
+         sodipodi:role="line"
+         style="font-size:18.23751831px;text-align:center;letter-spacing:-0.21881066px;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.5250842">Web App Networking</tspan></text>
   </g>
 </svg>
