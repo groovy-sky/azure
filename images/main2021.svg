@@ -20,13 +20,87 @@
   <defs
      id="defs15303">
     <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4741"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="SquareS">
+      <path
+         transform="scale(0.2)"
+         style="fill:#1560b0;fill-opacity:1;fill-rule:evenodd;stroke:#1560b0;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         id="path4739"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="SquareS"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4737"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4735"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         style="fill:#1560b0;fill-opacity:1;fill-rule:evenodd;stroke:#1560b0;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.2)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4605"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="SquareM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#1560b0;stroke-width:1pt;stroke-opacity:1;fill:#1560b0;fill-opacity:1"
+         d="M -5.0,-5.0 L -5.0,5.0 L 5.0,5.0 L 5.0,-5.0 L -5.0,-5.0 z "
+         id="path4603" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4601"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="SquareM">
+      <path
+         transform="scale(0.4)"
+         style="fill-rule:evenodd;stroke:#1560b0;stroke-width:1pt;stroke-opacity:1;fill:#1560b0;fill-opacity:1"
+         d="M -5.0,-5.0 L -5.0,5.0 L 5.0,5.0 L 5.0,-5.0 L -5.0,-5.0 z "
+         id="path4599" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4597"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="SquareS">
+      <path
+         transform="scale(0.2)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         id="path4595"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
        inkscape:stockid="SquareM"
        orient="auto"
        refY="0.0"
        refX="0.0"
        id="marker4619"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          id="path4429"
          d="M -5.0,-5.0 L -5.0,5.0 L 5.0,5.0 L 5.0,-5.0 L -5.0,-5.0 z "
@@ -40,7 +114,8 @@
        refX="0"
        id="marker4354"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          inkscape:connector-curvature="0"
          id="path4352"
@@ -55,7 +130,8 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="SquareS">
+       inkscape:stockid="SquareS"
+       inkscape:collect="always">
       <path
          transform="scale(0.2)"
          style="fill:#1560b0;fill-opacity:1;fill-rule:evenodd;stroke:#1560b0;stroke-width:1.00000003pt;stroke-opacity:1"
@@ -70,7 +146,8 @@
        refX="0.0"
        id="marker7974"
        style="overflow:visible"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          id="path7972"
          d="M -5.0,-5.0 L -5.0,5.0 L 5.0,5.0 L 5.0,-5.0 L -5.0,-5.0 z "
@@ -6238,6 +6315,21 @@
          id="path4571-9"
          inkscape:connector-curvature="0" />
     </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4573-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="SquareS">
+      <path
+         transform="scale(0.2)"
+         style="fill:#1560b0;fill-opacity:1;fill-rule:evenodd;stroke:#1560b0;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         id="path4571-0"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -6247,8 +6339,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.64"
-     inkscape:cx="35870.75"
-     inkscape:cy="2417.3034"
+     inkscape:cx="37894.675"
+     inkscape:cy="2320.6844"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -24888,12 +24980,6 @@
            id="tspan4308">Outbound</tspan></text>
     </g>
     <path
-       sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0"
-       id="path4312"
-       d="m 10106.526,-438.1099 h -91.059 v 256.96923 h 306.696"
-       style="fill:none;stroke:#1560b0;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#DiamondMstart)" />
-    <path
        style="fill:none;stroke:#1560b0;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4441)"
        d="m 9223.592,-402.41185 h 32.5213 v 9.2787"
        id="path4314"
@@ -25425,9 +25511,9 @@
          id="tspan4305">Private Endpoint</tspan></text>
     <rect
        y="-260.61987"
-       x="9467.0107"
-       height="47.646931"
-       width="251.25682"
+       x="9468.458"
+       height="40.205524"
+       width="249.80988"
        id="rect4311"
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <text
@@ -25439,25 +25525,20 @@
        inkscape:export-xdpi="50"
        inkscape:export-ydpi="50"
        inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
-         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
-         sodipodi:role="line"
-         x="9473.6611"
-         y="-246.145"
-         id="tspan4313">· Allows a Web App to access resources in/through a VNet</tspan><tspan
          id="tspan4315"
          style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
          sodipodi:role="line"
          x="9473.6611"
-         y="-237.32556">· Can reach on-premises if &quot;Route All&quot; option is enabled</tspan><tspan
+         y="-246.145">· Allows a Web App to access resources in/through a VNet</tspan><tspan
          id="tspan4317"
          style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
          sodipodi:role="line"
          x="9473.6611"
-         y="-228.50612">· With no additional charge</tspan><tspan
+         y="-237.32556">· With no additional charge</tspan><tspan
          style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
          sodipodi:role="line"
          x="9473.6611"
-         y="-219.68668"
+         y="-228.50612"
          id="tspan4319">· Doesn't grant inbound private access from a VNet </tspan></text>
     <g
        transform="translate(583.59249,-49.562785)"
@@ -25567,5 +25648,533 @@
          x="9578.5352"
          sodipodi:role="line"
          style="font-size:18.23751831px;text-align:center;letter-spacing:-0.21881066px;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.5250842">Web App Networking</tspan></text>
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 9823.6374,-469.11356 h 330.8756 v 279.32169 h -330.8756 z"
+       id="path4250"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4252"
+       d="m 9823.6374,-469.11356 h 330.8756 v 269.59625 h -330.8756 z"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       y="-368.93958"
+       x="9861.7588"
+       height="40.205524"
+       width="224.38507"
+       id="rect4254"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <g
+       style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+       transform="matrix(0.24253217,0,0,0.24253217,9897.5042,-582.57665)"
+       id="g4287">
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4260">
+        <g
+           style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+           id="g4258">
+          <title
+             id="title4256">Sheet.1071</title>
+        </g>
+      </g>
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4262" />
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4268" />
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4270" />
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4281">
+        <g
+           style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+           id="g4279">
+          <g
+             style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+             id="g4274">
+            <path
+               style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+               inkscape:connector-curvature="0"
+               d="m 621,310.6 c 27.5,12.9 45.5,42.1 45.5,75.5 0,38.6 -24,71.2 -56.7,79.8 l -11.2,2.6 H 208.2 c -45.5,0 -82.4,-41.2 -82.4,-91 0,-49.8 36.9,-91 82.4,-91 3.4,0 6,0 9.4,0.9 13.7,-24 36.9,-37.8 62.7,-37.8 6.9,0 13.7,0.9 20.6,3.4 0,-0.9 0,-2.6 0,-3.4 0,-59.2 42.9,-106.4 96.1,-106.4 36.9,0 71.2,24.9 86.7,61.8 13.7,-8.6 29.2,-13.7 45.5,-13.7 51.5,0 92.7,46.4 92.7,103 0.8,5.2 0,10.3 -0.9,16.3 z"
+               id="path4272" />
+          </g>
+          <g
+             style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+             id="g4277" />
+        </g>
+      </g>
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4283" />
+      <g
+         style="fill:#1560b0;fill-opacity:1;stroke-width:2.62287951"
+         id="g4285" />
+    </g>
+    <g
+       id="g4316"
+       transform="matrix(0.21852652,0,0,0.21852652,9906.5172,-570.31281)"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951">
+      <g
+         id="g4293"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951">
+        <g
+           id="g4291"
+           style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951">
+          <title
+             id="title4289">Sheet.1071</title>
+        </g>
+      </g>
+      <g
+         id="g4295"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+      <g
+         id="g4297"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+      <g
+         id="g4299"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+      <g
+         id="g4310"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951">
+        <g
+           id="g4308"
+           style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951">
+          <g
+             id="g4303"
+             style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951">
+            <path
+               sodipodi:nodetypes="csccssscscsscscc"
+               id="path4301"
+               d="m 621,310.6 c 27.5,12.9 45.5,42.1 45.5,75.5 0,38.6 -24,71.2 -56.7,79.8 l -11.2,2.6 H 208.2 c -45.5,0 -82.4,-41.2 -82.4,-91 0,-49.8 36.9,-91 82.4,-91 3.4,0 6,0 9.4,0.9 13.7,-24 48.18472,-37.8 73.98472,-37.8 6.9,0 13.7,0.9 20.6,3.4 v -3.4 c 0,-59.2 31.61528,-106.4 84.81528,-106.4 36.9,0 71.2,24.9 86.7,61.8 13.7,-8.6 29.2,-13.7 45.5,-13.7 51.5,0 92.7,46.4 92.7,103 0.8,5.2 0,10.3 -0.9,16.3 z"
+               inkscape:connector-curvature="0"
+               style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+          </g>
+          <g
+             id="g4305"
+             style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+        </g>
+      </g>
+      <g
+         id="g4312"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+      <g
+         id="g4314"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:2.62287951" />
+    </g>
+    <g
+       transform="matrix(3.9766849,0,0,3.9766849,-24587.245,493.99387)"
+       id="g4324"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:0.13204068"
+       aria-label="    ABC">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4318"
+         style="font-size:11.28888893px;text-align:center;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.13204068"
+         d="m 8686.8166,-242.81115 0.4221,-8.50214 1.4483,-0.29921 3.7457,7.64105 -1.1166,0.23069 -0.9425,-1.99546 -2.3658,0.48878 -0.075,2.2056 z m 1.225,-3.38851 1.9236,-0.39743 -1.0728,-2.2913 q -0.3029,-0.62907 -0.4983,-1.07284 -0.1954,-0.44377 -0.2518,-0.60503 0.012,0.1704 0.01,0.65528 0,0.48488 -0.024,1.16913 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4320"
+         style="font-size:11.28888893px;text-align:center;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.13204068"
+         d="m 8693.9855,-243.97297 0.091,-8.24039 2.3818,0.0263 q 1.1401,0.0126 1.7884,0.59548 0.6598,0.57175 0.6489,1.56511 -0.01,0.66601 -0.3511,1.12509 -0.3437,0.45908 -0.9325,0.61065 0.664,0.18795 1.0532,0.73414 0.3892,0.5349 0.3804,1.33636 -0.012,1.06109 -0.6959,1.67448 -0.6728,0.61351 -1.8242,0.60082 z m 1.1475,-4.75155 1.2756,0.0141 q 0.6321,0.007 0.9969,-0.31641 0.365,-0.33466 0.3713,-0.91036 0.01,-0.58699 -0.3511,-0.91833 -0.3575,-0.34262 -0.9784,-0.34946 l -1.2868,-0.0142 z m -0.042,3.78155 1.3433,0.0148 q 0.6886,0.008 1.0877,-0.34928 0.3992,-0.36816 0.4061,-1.0003 0.01,-0.65471 -0.3834,-1.06544 -0.3906,-0.41073 -1.0792,-0.41832 l -1.3433,-0.0148 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4322"
+         style="font-size:11.28888893px;text-align:center;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.13204068"
+         d="m 8703.1044,-243.10137 q -1.1059,-0.27743 -1.6091,-1.05541 -0.4895,-0.78619 -0.2175,-1.87021 l 0.8982,-3.58052 q 0.2692,-1.07306 1.069,-1.52418 0.8136,-0.45931 1.9195,-0.18188 1.095,0.27468 1.5844,1.06087 0.5004,0.78894 0.234,1.85105 l -1.084,-0.27194 q 0.162,-0.64602 -0.1005,-1.08431 -0.2624,-0.43829 -0.8756,-0.59211 -0.6242,-0.15657 -1.0624,0.10592 -0.4383,0.26249 -0.6004,0.90852 l -0.8982,3.58052 q -0.1648,0.65698 0.098,1.09526 0.2625,0.43829 0.8866,0.59486 0.6132,0.15382 1.0515,-0.10867 0.4382,-0.26249 0.6031,-0.91946 l 1.084,0.27193 q -0.2692,1.07306 -1.0828,1.53238 -0.8026,0.46207 -1.8975,0.18738 z" />
+    </g>
+    <path
+       style="fill:none;stroke:#1560b0;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4441)"
+       d="m 10036.258,-416.50938 h 32.522 v 9.2787"
+       id="path4339"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <g
+       id="g4347"
+       transform="translate(823.31455,-7.8963682)">
+      <rect
+         y="-414.57706"
+         x="9134.9629"
+         height="11.25516"
+         width="78.222061"
+         id="rect4341"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+         inkscape:export-ydpi="50"
+         inkscape:export-xdpi="50"
+         id="text4345"
+         y="-406.67905"
+         x="9174.0986"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+         xml:space="preserve"><tspan
+           id="tspan4343"
+           y="-406.67905"
+           x="9174.0986"
+           sodipodi:role="line"
+           style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553">What direction?</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       x="9867.6387"
+       y="-353.36237"
+       id="text4355"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="9867.6387"
+         y="-353.36237"
+         id="tspan4349">· Limit access to a Web App from a specific subnet</tspan><tspan
+         id="tspan4351"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="9867.6387"
+         y="-344.54291">· By default isn't reachable from on-premises</tspan><tspan
+         id="tspan4353"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="9867.6387"
+         y="-335.72348">· With no additional charge </tspan></text>
+    <rect
+       style="opacity:1;fill:#1560b0;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4357"
+       width="78.222061"
+       height="11.25516"
+       x="9864.1055"
+       y="-374.60403" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       x="9903.2412"
+       y="-366.70599"
+       id="text4361"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
+         style="font-size:7.05555534px;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="9903.2412"
+         y="-366.70599"
+         id="tspan4359">Service Endpoints</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4363"
+       width="251.36217"
+       height="39.9132"
+       x="9840.5322"
+       y="-311.83502" />
+    <text
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text4371"
+       y="-296.11163"
+       x="9845.1826"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       xml:space="preserve"><tspan
+         id="tspan4365"
+         y="-296.11163"
+         x="9845.1826"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553">· Is a read-only network interface attached to a subnet</tspan><tspan
+         y="-287.29218"
+         x="9845.1826"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         id="tspan4367">· By default is reachable from on-premises only by its IP</tspan><tspan
+         y="-278.47275"
+         x="9845.1826"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         id="tspan4369">· With an additional charge (incl. data transfer) </tspan></text>
+    <rect
+       y="-317.49951"
+       x="9843.4639"
+       height="11.25516"
+       width="78.222061"
+       id="rect4373"
+       style="opacity:1;fill:#1560b0;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text4377"
+       y="-309.60147"
+       x="9882.5996"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       xml:space="preserve"><tspan
+         id="tspan4375"
+         y="-309.60147"
+         x="9882.5996"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.21839553">Private Endpoint</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4379"
+       width="249.80988"
+       height="40.205524"
+       x="9883.832"
+       y="-258.06345" />
+    <text
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text4387"
+       y="-243.05942"
+       x="9889.0352"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       xml:space="preserve"><tspan
+         y="-243.05942"
+         x="9889.0352"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         id="tspan4381">· Allows a Web App to access resources in/through a VNet</tspan><tspan
+         y="-234.23997"
+         x="9889.0352"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553"
+         id="tspan4383">· With no additional charge</tspan><tspan
+         id="tspan4385"
+         y="-225.42053"
+         x="9889.0352"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:start;text-anchor:start;stroke-width:0.21839553">· Doesn't grant inbound private access from a VNet </tspan></text>
+    <g
+       id="g4395"
+       transform="translate(998.96704,-47.006345)">
+      <rect
+         style="opacity:1;fill:#1560b0;fill-opacity:1;stroke:#1560b0;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4389"
+         width="78.222061"
+         height="11.25516"
+         x="9050.5967"
+         y="-216.72153" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+         x="9089.7324"
+         y="-208.82349"
+         id="text4393"
+         inkscape:export-xdpi="50"
+         inkscape:export-ydpi="50"
+         inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
+           style="font-size:7.05555534px;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.21839553"
+           sodipodi:role="line"
+           x="9089.7324"
+           y="-208.82349"
+           id="tspan4391">VNet Integration</tspan></text>
+    </g>
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path4397"
+       d="m 9958.324,-416.50938 h -32.5213 v 9.2787"
+       style="fill:none;stroke:#1560b0;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4573)" />
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path4399"
+       d="m 9906.993,-394.28351 h -8.13 v 18.83302"
+       style="fill:none;stroke:#1560b0;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4573-8)" />
+    <path
+       style="fill:none;stroke:#1560b0;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4737)"
+       d="m 9906.993,-396.98752 h -54.9022 v 78.26083"
+       id="path4401"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path4403"
+       d="m 10087.229,-395.30665 h 14.561 v 130.43386"
+       style="fill:none;stroke:#1560b0;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4741)" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60034823;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4405"
+       width="79.488304"
+       height="19.756104"
+       x="9885.3125"
+       y="-406.26001" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       x="9925.0527"
+       y="-398.85141"
+       id="text4409"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
+         style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="9925.0527"
+         y="-398.85141"
+         id="tspan4407">Inbound</tspan><tspan
+         id="tspan4723"
+         style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553"
+         sodipodi:role="line"
+         x="9925.0527"
+         y="-390.03195">(incoming traffic)</tspan></text>
+    <path
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path4413"
+       d="m 10090.889,-450.31068 h 59.538 v 247.18466 h -322.4253 v -246.25717 h 71.2567"
+       style="fill:none;stroke:#1560b0;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker4601);marker-end:url(#marker4605)" />
+    <rect
+       y="-461.29941"
+       x="9893.5312"
+       height="23.0161"
+       width="203.90594"
+       id="rect4415"
+       style="opacity:1;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:8.4149828;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:7.87891388;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4417"
+       width="201.05458"
+       height="20.550087"
+       x="9894.9561"
+       y="-460.06644" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:23.15974236px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:-0.21881066px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke:none;stroke-width:0.5250842"
+       x="9996.0859"
+       y="-443.60092"
+       id="text4421"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
+         style="font-size:18.23751831px;text-align:center;letter-spacing:-0.21881066px;text-anchor:middle;fill:#1560b0;fill-opacity:1;stroke-width:0.5250842"
+         sodipodi:role="line"
+         x="9995.9766"
+         y="-443.60092"
+         id="tspan4419">Web App Networking</tspan></text>
+    <g
+       id="g4675"
+       transform="translate(33.567872,1.0812744)">
+      <path
+         transform="matrix(0.20037434,-0.05369013,0.05369013,0.20037434,9912.9157,-352.69734)"
+         inkscape:transform-center-y="2.965739e-05"
+         inkscape:transform-center-x="-2.2851654e-05"
+         d="m 2028.1498,509.35225 -108.8485,29.16587 -79.6826,-79.68263 29.1658,-108.84851 108.8485,-29.16587 79.6827,79.68264 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="true"
+         sodipodi:arg2="1.3089969"
+         sodipodi:arg1="0.78539816"
+         sodipodi:r2="56.344131"
+         sodipodi:r1="112.68826"
+         sodipodi:cy="429.66962"
+         sodipodi:cx="1948.4672"
+         sodipodi:sides="6"
+         id="path3553-3-4-2-7"
+         style="fill:#1560b0;fill-opacity:1;stroke-width:0.26458332"
+         sodipodi:type="star" />
+      <path
+         sodipodi:type="star"
+         style="fill:#ffffff;stroke-width:0.26458332"
+         id="path3555-8-0-9-6"
+         sodipodi:sides="6"
+         sodipodi:cx="1948.4672"
+         sodipodi:cy="429.66962"
+         sodipodi:r1="112.68826"
+         sodipodi:r2="56.344131"
+         sodipodi:arg1="0.78539816"
+         sodipodi:arg2="1.3089969"
+         inkscape:flatsided="true"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 2028.1498,509.35225 -108.8485,29.16587 -79.6826,-79.68263 29.1658,-108.84851 108.8485,-29.16587 79.6827,79.68264 z"
+         inkscape:transform-center-x="6.4816261e-06"
+         inkscape:transform-center-y="3.4039249e-05"
+         transform="matrix(0.17373549,-0.04655227,0.04655227,0.17373549,9967.8875,-355.15933)" />
+      <path
+         style="fill:#1560b0;fill-opacity:1;stroke-width:0.92464495"
+         inkscape:connector-curvature="0"
+         d="m 10325.325,-363.14837 6.821,-1.2051 0.07,-0.0138 -3.508,-4.17308 a 593.54084,593.54084 0 0 1 -3.507,-4.19213 c 0,-0.0208 3.622,-9.99438 3.643,-10.02968 0,-0.012 2.471,4.24338 5.975,10.3148 l 6.009,10.41779 0.04,0.0793 h -11.148 -11.148 l 6.755,-1.19313 z m -13.378,-1.26983 c 0,-0.007 1.653,-2.87544 3.673,-6.37688 l 3.674,-6.36673 4.281,-3.59246 c 2.353,-1.97484 4.286,-3.59428 4.294,-3.59695 a 0.75231253,0.75231253 0 0 1 -0.07,0.17315 l -4.649,9.96977 -4.566,9.79025 -3.319,0.007 c -1.825,0 -3.32,7e-5 -3.32,-0.007 z"
+         id="path3559-0-2-9-4" />
+    </g>
+    <g
+       id="g4545"
+       transform="translate(154.81034,142.07046)">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="rect4405-6"
+         d="m 10145.125,-517.94915 h 39.8 l 2.184,5.90596 -2.184,5.58191 h -39.8 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60034823;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+         inkscape:export-ydpi="50"
+         inkscape:export-xdpi="50"
+         id="text4409-9"
+         y="-509.79578"
+         x="10166.082"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+         xml:space="preserve"><tspan
+           id="tspan4407-2"
+           y="-509.79578"
+           x="10166.082"
+           sodipodi:role="line"
+           style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553">Inbound</tspan></text>
+    </g>
+    <g
+       id="g4550"
+       transform="translate(143.02811,142.07046)">
+      <path
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60034823;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 10236.703,-517.94915 h 39.8 l 2.184,5.90596 -2.184,5.58191 h -39.8 z"
+         id="path4536"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+         x="10257.72"
+         y="-509.79578"
+         id="text4540"
+         inkscape:export-xdpi="50"
+         inkscape:export-ydpi="50"
+         inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"><tspan
+           style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553"
+           sodipodi:role="line"
+           x="10257.72"
+           y="-509.79578"
+           id="tspan4538">Outbound</tspan></text>
+    </g>
+    <rect
+       y="-406.26001"
+       x="10031.19"
+       height="18.94219"
+       width="76.633888"
+       id="rect4326"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#1560b0;stroke-width:0.60034823;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_with_dns_result.png"
+       inkscape:export-ydpi="50"
+       inkscape:export-xdpi="50"
+       id="text4330"
+       y="-399.22308"
+       x="10069.504"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
+       xml:space="preserve"><tspan
+         id="tspan4328"
+         y="-399.22308"
+         x="10069.504"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553">Outbound</tspan><tspan
+         id="tspan4725"
+         y="-390.40363"
+         x="10069.504"
+         sodipodi:role="line"
+         style="font-size:7.05555534px;text-align:center;text-anchor:middle;stroke-width:0.21839553">(outgoing traffic)</tspan></text>
   </g>
 </svg>
