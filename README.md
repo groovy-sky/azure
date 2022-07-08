@@ -3,7 +3,14 @@
 
 This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
 
+### Platform as a Services networking
 
+![](/images/logos/vnet.png)
+
+* [Part 1](/paas-vnet-00#introduction) - about using Service Endpoints for PaaS access
+* [Part 2](/paas-vnet-01#introduction) - about using Private Endpoints for PaaS access
+* [Part 3](/paas-vnet-02#introduction) - about using DNS forwarder for Private Endpoints access from on-premises
+* [Part 4](/paas-vnet-03) - PaaS networking summary
 
 ### Azure Functions
 
