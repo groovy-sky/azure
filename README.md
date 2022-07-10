@@ -48,14 +48,9 @@ This repository hosts a collection of articles about deploying, configuring  and
 * How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
 * How-to [run SonarQube VM in Azure](/sonarqube-00/README.md#introduction) and [use it on Azure DevOps](/sonarqube-01/README.md#introduction)
 
-### Video Tutorials
-
-![](/images/logos/video.png)
-
-* [Azure Fundamentals series[5 parts]](https://www.youtube.com/watch?v=U5qlgZeBZAo&list=PLIvCkiRhoPtYUxLZTgxpXIoPA94hFHYrQ&index=1)
-
 ### Other/Old
 ![](/images/logos/other.png)
 
 * How-to [encrypt unmanaged Linux disk](/linux-vm-encryption-101/README.md#introduction)
 * [Azure Resource Manager overview](/arm-getting-started/README.md#introduction)
+* [Azure Fundamentals video tutorials[5 parts]](https://www.youtube.com/watch?v=U5qlgZeBZAo&list=PLIvCkiRhoPtYUxLZTgxpXIoPA94hFHYrQ&index=1)
