@@ -7,8 +7,8 @@ In this article, will explore how you can limit network access to your PaaS and 
 # Overview
 
 Without any network access restrictions, your PaaS will be fully open to the internet. This means that anyone with the right credentials can access your data, which is not safe. 
-To limit network access to your PaaS, you can try to use Network Access Restrictions and Private Endpoints. 
 
+Virtual Network Service Endpoints and Private Endpoints are two Azure features that allow you to securely access Azure services over a private network connection. Virtual Network Service Endpoints enable you to extend your virtual network to Azure services over a private connection. This means that you can access Azure services such as Azure Storage or Azure SQL Database over a private IP address, instead of over the public internet. This provides a more secure and reliable way to access your data. Private Endpoints take this concept further, providing a private connection to a specific Azure service instance. Private Endpoints enable you to access the Azure service over a private IP address in your virtual network, as if the service was hosted on your own private network. This provides a more secure and direct connection to the service, without the need for public IP addresses or NAT devices. 
 
 # Access Restriction
 
@@ -59,3 +59,7 @@ Cons:
 * Limited Availability: Private Endpoints are not available for all Azure services, so you may not be able to use them for all of your applications and resources. 
 * Additional Configuration: Setting up Private Endpoints can be complex and requires additional configuration, which may require additional time and resources.
 * Cloud only: By default Private Endpoints are available only from Azure and requires additional resource (Azure Private DNS Resolver) for on-premises access.
+
+# Summary
+
+In summary, Virtual Network Service Endpoints and Private Endpoints are two Azure features that provide a more secure and reliable way to access Azure services over a private network connection. By using these features, you can keep your data safe and secure, and reduce your reliance on public IP addresses and NAT devices.
