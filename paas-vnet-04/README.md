@@ -52,7 +52,7 @@ Cons:
 
 Storage firewall rules apply to the public endpoint of a storage account. You don't need any firewall access rules to allow traffic for private endpoints of a storage account. The process of approving the creation of a private endpoint grants implicit access to traffic from the subnet that hosts the private endpoint.
 
-![](/images/network/storage_disable.png)
+![](/images/network/storage_net_priv_endpoint.png)
 
 Private Endpoints enable you to access your storage account over a private endpoint in your virtual network, instead of over the public internet. This provides a more secure and reliable way to access your data. 
 To set up Private Endpoints for your PaaS, you need to create a virtual network in the Azure portal, and then create a Private Endpoint for your storage account. Once you've done this, you can connect to your storage account using the Private Endpoint and access your data securely. 
@@ -67,6 +67,10 @@ Cons:
 * Cloud only: By default Private Endpoints are available only from Azure. It is possible to expose Private Endpoints to on-prem, but it requires to setup additional environment (private connection between Azure and On-Premises and Azure Private DNS Resolver) for on-premises access.
 * Storage Accounts V1 are not supported
 
-# Summary
+### Fully disable public access  
+
+![](/images/network/storage_disable.png)
+
+## Summary
 
 In summary, IP/VNet restriction and Private Endpoints are two Azure features that provide a more secure and reliable way to access Azure services. By using these features, you can improve your data safety, but it will require additonal steps.
