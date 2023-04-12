@@ -8,9 +8,16 @@ In this article, will explore how you can limit network access to your PaaS and 
 
 Without any network access restrictions, your PaaS will be fully open to the internet. This means that anyone with the right credentials can access your data, which is not safe. 
 
+![](/images/network/storage_v2_example.png)
+
+![](/images/network/storage_net_default.png)
+
+
 Virtual Network Service Endpoints and Private Endpoints are two Azure features that allow you to securely access Azure services over a private network connection. Virtual Network Service Endpoints enable you to extend your virtual network to Azure services over a private connection. This means that you can access Azure services such as Azure Storage or Azure SQL Database over a private IP address, instead of over the public internet. This provides a more secure and reliable way to access your data. Private Endpoints take this concept further, providing a private connection to a specific Azure service instance. Private Endpoints enable you to access the Azure service over a private IP address in your virtual network, as if the service was hosted on your own private network. This provides a more secure and direct connection to the service, without the need for public IP addresses or NAT devices. 
 
 # Access Restriction
+
+![](/images/network/storage_net_limit.png)
 
 Access Restriction is a powerful and cost-effective solution for securing your Azure PaaS services. However, it may not work with all scenarios and may require additional configuration. As always, it is important to follow best practices for network security and to regularly review and update your network configuration to ensure that it meets your organization's needs. 
 
@@ -45,6 +52,8 @@ May not work with all scenarios: Service Endpoint may not work with all scenario
 * Limited Access: Service Endpoint only allows access to specific Azure services, so you may need to use other networking solutions for other services. 
 
 # Private Endpoints
+
+![](/images/network/storage_disable.png)
 
 Private Endpoints enable you to access your storage account over a private endpoint in your virtual network, instead of over the public internet. This provides a more secure and reliable way to access your data. 
 To set up Private Endpoints for your PaaS, you need to create a virtual network in the Azure portal, and then create a Private Endpoint for your storage account. Once you've done this, you can connect to your storage account using the Private Endpoint and access your data securely. 
