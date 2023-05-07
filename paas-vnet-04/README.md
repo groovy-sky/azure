@@ -4,9 +4,11 @@
 
 Most Azure Platform-as-a-Services (PaaS) have a public endpoint that is accessible through the internet. You can limit public access to your service or even fully close it, by using differenet kind of technologies
 
-This document gives overview of possible scenarios for limiting network access to your PaaS.
+One of the key challenges of using publicly available PaaS is to secure data stored in it. In this article, we will discuss various techniques for limiting access to PaaS, by using as an example, Azure Storage service.
 
 ## Overview
+
+Azure Storage Account is a cloud-based storage service, which provides various features, such as Blob storage, Table storage, Queue storage, and File storage.
 
 So, let's say you have created a new Azure Storage Account V2:
 
@@ -74,3 +76,6 @@ Cons:
 ## Summary
 
 In summary, IP/VNet restriction and Private Endpoints are two Azure features that provide a more secure and reliable way to access Azure services. By using these features, you can improve your data safety, but it will require additonal steps.
+
+
+https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction
