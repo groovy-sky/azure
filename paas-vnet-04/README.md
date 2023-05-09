@@ -10,6 +10,8 @@ One of the key challenges of using publicly available PaaS is to secure data sto
 
 Azure Storage Account is a cloud-based storage service, which provides various features, such as Blob storage, Table storage, Queue storage, and File storage.
 
+![](images/network/storage_classification.png)
+
 So, let's say you have created a new Azure Storage Account V2:
 
 ![](/images/network/storage_v2_example.png)
