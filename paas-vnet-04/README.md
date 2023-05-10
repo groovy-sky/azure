@@ -8,25 +8,49 @@ One of the key challenges of using publicly available PaaS is to secure data sto
 
 ## Overview
 
-Azure Storage Account is a cloud-based storage service, which provides various features, such as Blob storage, Table storage, Queue storage, and File storage.
+Azure Storage Account is a cloud-based storage service, which provides various features:
 
-![](images/network/storage_classification.png)
+![](/images/network/storage_classification.png)
 
-So, let's say you have created a new Azure Storage Account V2:
+Any Azure Storage account has a publicly available DNS name:
+
+| Storage service  |	Endpoint |
+| --- | --- |
+| Blob Storage 	| `https://<storage-account-name>.blob.core.windows.net` |
+| Data Lake Storage Gen2 | `https://<storage-account-name>.dfs.core.windows.net` |
+| Azure Files |	`https://<storage-account-name>.file.core.windows.net` |
+| Queue Storage | `https://<storage-account-name>.queue.core.windows.net` |
+| Table Storage | `https://<storage-account-name>.table.core.windows.net` |
+| Static Website | `https://<storage-account-name>.z<number>.web.core.windows.net` |
+
+As a storage account name has public DNS, each of it must be unique within Azure. No two storage accounts can have the same name. 
+
+So, let's say you have created new Locally Redundant Standard Azure Storage Account V2:
 
 ![](/images/network/storage_v2_example.png)
+
 
 By default, it has no network restrictions:
 
 ![](/images/network/storage_net_default.png)
 
-Which means that your PaaS will be fully open to the internet and anyone with the right credentials (like storage account key) can access it and you can use one the following scenarios for access restriction:
-1. Limit access to it from certain IP addresses (by using firewall rules) and/or VNets (by using Service Endpoints)
-2. Expose access to PaaS privately (by using Private Endpoints)
-3. Limit public and expose private accesses (combination of previous options)
-4. Fully close public access and use Private Endpoints only
+For a Storage account exsist 3 restriction modes:
 
-## Public access restriction
+![](/images/network/az_strg_rest_meter.png)
+
+1. No limitation for incoming IP address [Default]
+2. Limit access and allow from specific public IP addresses and/or Azure Vnets
+3. Fully close public access
+
+## No restrictions
+
+![](/images/network/az_strg_rest_00.png)
+
+
+## IP restriction
+
+![](/images/network/az_strg_rest_01.png)
+
 
 Turning on firewall rules for your storage account blocks incoming requests for data by default, unless the requests originate from a service operating within an Azure Virtual Network (VNet) or from allowed public IP addresses. Requests that are blocked include those from other Azure services, from the Azure portal, from logging and metrics services, and so on.
 
@@ -35,6 +59,10 @@ Access Restriction is a powerful and cost-effective solution for securing your A
 ![](/images/network/storage_net_limit.png)
 
 [Service Endpoints](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview) allows to secure access to Storage Account from certain virtual networks. Each storage account supports up to 200 subnets.
+
+## VNet restriction
+
+![](/images/network/az_strg_rest_02.png)
 
 [Firewall rules](https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security?tabs=azure-portal#grant-access-from-an-internet-ip-range) allows to access a Storage from specific public IP address ranges. Each storage account supports up to 200 rules.
 
@@ -52,7 +80,9 @@ Cons:
 * Manual IP management: Each new IP address/range should be whitelisted separately (outdated IP cleanup also requires manual work)
 * Limited rule number: Maximum number of IP/VNet rules is 200 for each
 
-## Private access exposure
+## No Public Access
+
+![](/images/network/az_strg_rest_03.png)
 
 Storage firewall rules apply to the public endpoint of a storage account. You don't need any firewall access rules to allow traffic for private endpoints of a storage account. The process of approving the creation of a private endpoint grants implicit access to traffic from the subnet that hosts the private endpoint.
 
