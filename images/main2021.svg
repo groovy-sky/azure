@@ -7136,8 +7136,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.22627417"
-     inkscape:cx="52843.526"
-     inkscape:cy="1501.1045"
+     inkscape:cx="50722.206"
+     inkscape:cy="970.77441"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -7171,6 +7171,15 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4924"
+       width="664.97119"
+       height="163.70258"
+       x="10552.222"
+       y="-90.039665"
+       rx="80.693863"
+       ry="80.693863" />
     <rect
        ry="4.7246909"
        rx="4.7246904"
@@ -29695,17 +29704,26 @@
        style="opacity:1;fill:#ffff5a;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 13835.968,-57.883805 a 110.49923,110.49923 0 0 0 -43.63,9.040275 l 19.524,33.817574 a 71.912201,71.912201 0 0 1 24.106,-4.271057 71.912201,71.912201 0 0 1 24.096,4.266406 l 19.494,-33.76383 a 110.49923,110.49923 0 0 0 -43.59,-9.089368 z"
        id="path9752"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <path
        style="opacity:1;fill:#6be06b;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 13884.61,-46.435409 -19.324,33.470309 a 71.912201,71.912201 0 0 1 39.653,45.381725 h 39.589 a 110.49923,110.49923 0 0 0 -59.918,-78.852034 z"
        id="path9750"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <path
        style="opacity:1;fill:#ff7070;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 13787.325,-46.418354 a 110.49923,110.49923 0 0 0 -59.931,78.834979 h 39.604 a 71.912201,71.912201 0 0 1 39.655,-45.356403 z"
        id="path9728"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <rect
        ry="4.7246909"
        rx="4.7246904"
@@ -29714,9 +29732,12 @@
        height="18.556614"
        width="100.16951"
        id="rect4645-3-3"
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <text
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_acc_w_forw_from_on_prem_struct.png"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
        inkscape:export-ydpi="50"
        inkscape:export-xdpi="50"
        id="text27981-91-4-1-8-3"
@@ -29737,9 +29758,12 @@
        height="18.556614"
        width="100.16951"
        id="rect9778"
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <text
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_acc_w_forw_from_on_prem_struct.png"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
        inkscape:export-ydpi="50"
        inkscape:export-xdpi="50"
        id="text9782"
@@ -29760,7 +29784,10 @@
        x="13775.253"
        y="-93.471466"
        rx="4.7246904"
-       ry="4.7246909" />
+       ry="4.7246909"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.8238821px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21839553"
@@ -29769,7 +29796,7 @@
        id="text9477-0"
        inkscape:export-xdpi="50"
        inkscape:export-ydpi="50"
-       inkscape:export-filename="/home/adm1n/Git/azure/images/network/priv_end_acc_w_forw_from_on_prem_struct.png"><tspan
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"><tspan
          id="tspan9475-4"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke-width:0.21839553"
          sodipodi:role="line"
@@ -29780,29 +29807,44 @@
        d="m 13704.796,-36.623048 24.908,24.908041 h 38.138"
        id="path9820"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <path
        sodipodi:nodetypes="ccc"
        inkscape:connector-curvature="0"
        id="path10383"
        d="m 13968.263,-36.623048 -24.908,24.908041 h -38.138"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker10391)" />
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker10391)"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path10383-6"
        d="m 13835.861,-74.911622 v 38.138"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker10391-5)" />
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker10391-5)"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <path
        style="fill:#4f9aea;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 13824.009,15.053344 11.939,4.322734 11.939,-4.322734 -11.939,-47.343363 z"
        id="path10994"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50" />
     <g
        id="g10723"
        transform="matrix(1.2310361,0,0,1.2310361,-2802.3191,-7.6226523)"
-       style="stroke-width:0.81232387">
+       style="stroke-width:0.81232387"
+       inkscape:export-filename="/home/adm1n/Git/azure/images/network/az_strg_rest_meter_01.png"
+       inkscape:export-xdpi="50"
+       inkscape:export-ydpi="50">
       <g
          id="g3557-8-8-6-5-1-9"
          transform="translate(11583.354,-471.60537)"
