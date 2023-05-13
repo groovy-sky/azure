@@ -42,8 +42,6 @@ For the Storage account can be configured one of the following restrictions:
 
 ### No restrictions
 
-![](/images/network/az_strg_rest_meter_00.png)
-
 Even though for this scenario the storage is avaialable for all IPs, 
 there are a few things to improve:
 
@@ -56,8 +54,6 @@ All of these settings you can find under 'Configuration' section:
 ![](/images/network/az_storage_sec_conf.png)
 
 ### IP/VNet restriction
-
-![](/images/network/az_strg_rest_meter_01.png)
 
 Turning on firewall rules for your storage account blocks incoming requests for data by default, unless the requests originate from allowed public IP addresses or private Azure VNet's subnets:
 
@@ -92,8 +88,6 @@ This is how it looks like from the practical point of view for our demo storage:
 
 ### No Public Access
 
-![](/images/network/az_strg_rest_meter_02.png)
-
 Storage firewall rules apply to the public endpoint of a storage account. You don't need any firewall access rules to allow traffic for private endpoints of a storage account. The process of approving the creation of a private endpoint grants implicit access to traffic from the subnet that hosts the private endpoint.
 
 ![](/images/network/storage_net_priv_endpoint.png)
@@ -112,9 +106,14 @@ Virtual machine disk traffic (including mount and unmount operations, and disk I
 
 ## Summary
 
-In summary, IP/VNet restriction and Private Endpoints are two Azure features that provide a more secure and reliable way to access Azure services. By using these features, you can improve your data safety, but it will require additonal steps.
+![](/images/network/storage_net_access_overview.png)
 
-IP restriction
+| | | |
+| --- | --- | --- |
+| ![](/images/network/az_strg_rest_meter_00.png) |  ![](/images/network/az_strg_rest_meter_01.png) | ![](/images/network/az_strg_rest_meter_02.png) | 
+| | | |
+
+
 
 Pros: 
 
