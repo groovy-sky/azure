@@ -25,22 +25,24 @@ Any Azure Storage account has a publicly available DNS name:
 
 As a storage account name has public DNS, each of it must be unique within Azure. No two storage accounts can have the same name. 
 
-So, let's say you have created a **Locally Redundant Standard Azure Storage Account V2 in West Europe**:
-
-![](/images/network/storage_v2_example.png)
-
-
-By default, it has no network restrictions:
-
-![](/images/network/storage_net_default.png)
-
 For the Storage account can be configured one of the following restrictions:
 
 1. No limitation for incoming IP address [Default]
 2. Limit access and allow from specific public IP addresses and/or Azure Vnets
 3. Fully close public access
 
-### No restrictions
+## No restrictions
+
+So, let's say you have created a **Locally Redundant Standard Azure Storage Account V2 in West Europe**:
+
+![](/images/network/storage_v2_example.png)
+
+
+## No restrictions
+
+By default, it has no network restrictions:
+
+![](/images/network/storage_net_default.png)
 
 Even though for this scenario the storage is avaialable for all IPs, 
 there are a few things to improve:
@@ -53,13 +55,13 @@ All of these settings you can find under 'Configuration' section:
 
 ![](/images/network/az_storage_sec_conf.png)
 
-### IP/VNet restriction
+## IP/VNet restriction
 
 Turning on firewall rules for your storage account blocks incoming requests for data by default, unless the requests originate from allowed public IP addresses or private Azure VNet's subnets:
 
 ![](/images/network/storage_net_limit.png)
 
-#### Restriction by IP
+### Restriction by IP
 
 You can use [IP network rules](https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security?tabs=azure-portal#grant-access-from-an-internet-ip-range) to allow access from specific public internet IP address ranges by creating IP network rules. These rules grant access to specific internet-based services and on-premises networks and block general internet traffic. IP restictions features/limitations:
 
@@ -73,7 +75,17 @@ This is how it looks like from the practical point of view for our demo storage:
 
 ![](/images/network/az_strg_rest_01.png)
 
-#### Restriction by VNet
+Pros: 
+
+* Improved Security: Access Restriction helps to secure your PaaS services by allowing you to restrict access to only those who have authorized access. 
+* Easy to Configure: Access Restriction can be easily configured using the Azure portal, Azure PowerShell or Azure CLI. 
+* Cost-effective: No additional cost is applied to the service, as it does not require any additional resources or infrastructure to be set up.
+
+Cons: 
+* Manual IP management: Each new IP address/range should be whitelisted separately (outdated IP cleanup also requires manual work)
+* Limited rule number: Maximum number of IP/VNet rules is 200 for each
+
+### Restriction by VNet
 
 Virtual network restriction (aka Service Endpoints) allows you to secure Azure Storage accounts to a virtual network over an optimized route over the Azure backbone network. VNet restictions features/limitations:
 * <span style="color:red">Works for Azure environment only</span>(for example, not possible to use from on-premises)
@@ -86,47 +98,6 @@ This is how it looks like from the practical point of view for our demo storage:
 
 ![](/images/network/az_strg_rest_02.png)
 
-### No Public Access
-
-Storage firewall rules apply to the public endpoint of a storage account. You don't need any firewall access rules to allow traffic for private endpoints of a storage account. The process of approving the creation of a private endpoint grants implicit access to traffic from the subnet that hosts the private endpoint.
-
-![](/images/network/storage_net_priv_endpoint.png)
-
-Private Endpoints enable you to access your storage account over a private endpoint in your virtual network, instead of over the public internet. This provides a more secure and reliable way to access your data. 
-To set up Private Endpoints for your PaaS, you need to create a virtual network in the Azure portal, and then create a Private Endpoint for your storage account. Once you've done this, you can connect to your storage account using the Private Endpoint and access your data securely. 
-
-
-### Fully disable public access  
-
-![](/images/network/storage_disable.png)
-
-
-
-Virtual machine disk traffic (including mount and unmount operations, and disk IO) is not affected by network rules. REST access to page blobs is protected by network rules.
-
-## Summary
-
-![](/images/network/storage_net_access_overview.png)
-
-| | | |
-| --- | --- | --- |
-| ![](/images/network/az_strg_rest_meter_00.png) |  ![](/images/network/az_strg_rest_meter_01.png) | ![](/images/network/az_strg_rest_meter_02.png) | 
-| | | |
-
-
-
-Pros: 
-
-* Improved Security: Access Restriction helps to secure your PaaS services by allowing you to restrict access to only those who have authorized access. 
-* Easy to Configure: Access Restriction can be easily configured using the Azure portal, Azure PowerShell or Azure CLI. 
-* Cost-effective: No additional cost is applied to the service, as it does not require any additional resources or infrastructure to be set up.
-
-Cons: 
-* Manual IP management: Each new IP address/range should be whitelisted separately (outdated IP cleanup also requires manual work)
-* Limited rule number: Maximum number of IP/VNet rules is 200 for each
-
-VNet restriction
-
 Pros: 
 * Improved Security: You can keep your data and applications private, even if they are hosted in a public cloud environment. 
 * Reduced Latency: With Azure Private Endpoints, you can reduce the latency between your applications and data by keeping them within the same network.
@@ -136,6 +107,38 @@ Cons:
 * Additional Configuration: Setting up Private Endpoints can be complex and requires additional configuration (initial deploy creates private endpoint, network interface card attached to it and Private DNS Zone)
 * Cloud only: By default Private Endpoints are available only from Azure. It is possible to expose Private Endpoints to on-prem, but it requires to setup additional environment (private connection between Azure and On-Premises and Azure Private DNS Resolver) for on-premises access.
 * Storage Accounts V1 are not supported
+
+## Fully restricted (No Public Access)
+
+![](/images/network/storage_disable.png)
+
+Virtual machine disk traffic (including mount and unmount operations, and disk IO) is not affected by network rules. REST access to page blobs is protected by network rules.
+
+### Private Endpoints
+
+Storage firewall rules apply to the public endpoint of a storage account. You don't need any firewall access rules to allow traffic for private endpoints of a storage account. The process of approving the creation of a private endpoint grants implicit access to traffic from the subnet that hosts the private endpoint.
+
+![](/images/network/storage_net_priv_endpoint.png)
+
+Private Endpoints enable you to access your storage account over a private endpoint in your virtual network, instead of over the public internet. This provides a more secure and reliable way to access your data. 
+To set up Private Endpoints for your PaaS, you need to create a virtual network in the Azure portal, and then create a Private Endpoint for your storage account. Once you've done this, you can connect to your storage account using the Private Endpoint and access your data securely. 
+
+![](/images/network/az_strg_rest_03.png)
+
+
+## Summary
+
+![](/images/network/storage_net_access_overview.png) 
+
+| ![](/images/network/az_strg_rest_meter_00.png) |  ![](/images/network/az_strg_rest_meter_01.png) | ![](/images/network/az_strg_rest_meter_02.png) | 
+| --- | --- | --- |
+|  · Less secure </br> · No need to configure |  · Imporved security </br> · No extra charge </br> · Maximum 200 rules </br> · IP restriction doesn't work for Azure resource in the same region | · Most secure </br> · Requires additional environment for access (extra complexety and cost) |
+
+
+
+VNet restriction
+
+
 
 https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction
 
