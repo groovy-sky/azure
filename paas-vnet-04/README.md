@@ -1,10 +1,10 @@
-# Access limit to PaaS 
+# Restricting access to Storage Account
 
 ## Introduction
 
 Most Azure Platform-as-a-Services (PaaS) have a public endpoint that is accessible through the internet. You can limit public access to your service or even fully close it, by using differenet kind of technologies
 
-One of the key challenges of using publicly available PaaS is to secure data stored in it. In this article, we will discuss various techniques for limiting access to PaaS, by using as an example, Azure Storage service.
+One of the key challenges of using publicly available PaaS is to secure data stored in it. In this article, we will discuss various techniques for limiting access to Azure Storage account.
 
 ## Overview
 
@@ -129,15 +129,19 @@ In our example, demo storage with disabled access and private endpoint looks fol
 
 ## Summary
 
+Full picture:
 
+![](/images/network/storage_net_access_arch.png) 
 
-![](/images/network/storage_net_access_overview.png) 
+Short summary of each solution:
 
 | ![](/images/network/az_strg_rest_meter_00.png) |  ![](/images/network/az_strg_rest_meter_01.png) | ![](/images/network/az_strg_rest_meter_02.png) | 
 | --- | --- | --- |
 |  · Less secure </br> · No need to configure |  · Imporved security </br> · No extra charge </br> · Maximum 200 rules </br> · IP restriction doesn't work for Azure resource in the same region | · Most secure </br> · Requires additional environment for access (extra complexety and cost) |
 
+For those who aren't sure which way to go, you can try following flow:
 
+![](/images/network/storage_net_flow.png) 
 
 ## Related Information
 
