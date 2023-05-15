@@ -132,7 +132,7 @@ In our example, demo storage with disabled access and private endpoint looks fol
 ## Summary
 
 Azure allows you to access your PaaS in various ways:
-1, No restrictions - default state, which exposes your resource to everyone
+1. No restrictions - default state, which exposes your resource to everyone
 2. Restriction by IP works only for public IPs, located in non-Azure environment or/and different from PaaS Azure regions. 
 3. Restriction buy VNet (aka Service Endpoints) - works only for Azure VNet, i.e. for Azure private IPs in any region. More detailed explanation you can read [here](/paas-vnet-00/README.md).
 4. Fully closed access will block all incoming requests, but Private Endpoints allow to expose your PaaS to an Azure VNet and access from it. More detailed explanation you can read [here](/paas-vnet-01/README.md). 
