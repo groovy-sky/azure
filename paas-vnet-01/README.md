@@ -94,7 +94,7 @@ A real private IP address, assigned to a resource, allows to access it from non-
 
 ![](/images/network/priv_end_acc_from_on_prem_struct.png)
 
-A more practical solution for Private Endpoint accessibility can be achieved by using a DNS forwarder. More details on this will be given in the next part. 
+A more practical solution for Private Endpoint accessibility can be achieved by using a DNS forwarder. More details on this will be given in [the next chapter](/paas-vnet-02/README.md). 
 
 ## Related Information
 * https://docs.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
