@@ -38,6 +38,11 @@ To run a demo application, you need to have an Azure subscription. If you don't 
 
 On top of that you'll need to compile the application's code below and build a Docker image. Or you can use [following Docker image](https://hub.docker.com/repository/docker/gr00vysky/myip) instead.
 
+
+### Application code
+
+main.go:
+
 ```
 package main
 
@@ -79,6 +84,16 @@ func main() {
         log.Println("[INF] Listening on port", httpInvokerPort)
         log.Fatal(http.ListenAndServe(":"+httpInvokerPort, mux))
 }
+```
+
+Dockerfile:
+```
+FROM golang:1.20-alpine
+ENV HTTP_PORT=8080
+EXPOSE ${HTTP_PORT}/tcp
+COPY /main.go .
+RUN apk add --no-cache ca-certificates && update-ca-certificates && mkdir -p /etc/pki/ca-trust/source && ln -s /usr/local/share/ca-certificates /etc/pki/ca-trust/source/anchors && go build main.go
+CMD ["/go/main"]
 ```
 
 ### Deploying the application
