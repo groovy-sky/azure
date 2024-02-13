@@ -96,3 +96,5 @@ In the next chapter we will try to find the way how to make things better using 
 * https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/deployment-models
 
 * https://azure.microsoft.com/en-us/resources/templates/
+
+* https://spacelift.io/blog/arm-template
