@@ -1,5 +1,7 @@
 # Lazy Introduction to Terraform on Azure (part 1)
 
+![](/images/terraform/lazy_intro_logo.png)
+
 ## Introduction
 
 This tutorial offers a quick introduction to using Terraform, an open-source tool, for managing infrastructure in Microsoft Azure. It is designed for beginners who want to understand the basics of Terraform and how to use it to manage infrastructure on Azure.  
@@ -36,35 +38,27 @@ For this tutorial, all examples are stored in a separate repository, which can b
 
 However, for the sake of simplicity and due to our inherent laziness, we'll be using Azure Cloud Shell for our demonstrations. The Cloud Shell eliminates the need to install any local tools or shell configurations for the tutorial, allowing us to focus on the learning process.
 
-First, you need to clone the repository. This will create a copy of the repository's content on your local system.
+First, you need to clone the repository and navigate to it:
 
 ```
 git clone https://github.com/groovy-sky/lazy-intro-az-terraform.git  
-```
- 
-Next, navigate to the directory lazy-intro-az-terraform/deployment-00. This command will take you into the directory where we will be working.
-
-```
 cd lazy-intro-az-terraform/deployment-00  
 ```
- 
-Now, initialize your Terraform configuration. This prepares your directory to be used with Terraform, by downloading the necessary provider plugins.
 
-```
-terraform init  
-```
- 
-To create an execution plan, run the following command. This will show you a preview of what changes Terraform will make to your infrastructure, without actually applying these changes. It's a way to check your work before making real changes.
+Now, initialize your Terraform configuration with ``` terraform init ```  command.:
 
-```
-terraform plan  
-```
- 
-Finally, apply the changes required to reach the desired state of your configuration. This will make the actual changes to your infrastructure as per your configuration.
 
-```
-terraform apply  
-```
+![](/images/terraform/00_tf_init.png)
+
+To create an execution plan, run ``` terraform plan ``` command:
+
+![](/images/terraform/00_tf_plan.png)
+
+This will show you a preview of what changes Terraform will make to your infrastructure, without actually applying these changes. It's a way to check your work before making real changes.
+ 
+Finally, apply the changes, using ``` terraform apply ``` command, required to reach the desired state of your configuration. This will make the actual changes to your infrastructure as per your configuration:
+
+![](/images/terraform/00_tf_apply.png)
  
 ## Results
 
