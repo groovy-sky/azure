@@ -1,8 +1,8 @@
 # Lazy Introduction to Terraform on Azure (part 2)
 
-![](/images/terraform/lazy_intro_logo.png)
-
 ## Introduction
+
+![](/images/terraform/lazy_intro_logo.png)
 
 Welcome back to the second part of the tutorial series - A Lazy Introduction to Terraform on Azure. In [the previous part](../tf-intro-00/README.md), the fundamentals of Terraform were covered, including its core components, workflow, and a general overview of how it works. It's now time to dive deeper into the practical implementation of what has been learned. This tutorial will guide you through creating an Azure resource group, a virtual network (VNet), and a network security group (NSG) that will be associated with it. By following this hands-on example, you'll gain a better understanding of how to deploy Azure resources using Terraform and develop the necessary skills to take on more complex projects. So, let's get started!
 

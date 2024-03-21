@@ -1,8 +1,8 @@
 # Lazy Introduction to Terraform on Azure (part 1)
 
-![](/images/terraform/lazy_intro_logo.png)
-
 ## Introduction
+
+![](/images/terraform/lazy_intro_logo.png)
 
 This tutorial offers a quick introduction to using Terraform, an open-source tool, for managing infrastructure in Microsoft Azure. It is designed for beginners who want to understand the basics of Terraform and how to use it to manage infrastructure on Azure.  
 
