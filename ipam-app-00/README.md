@@ -1,6 +1,8 @@
 # Running Azure IPAM on Container Apps 
 ## Introduction
-Azure IPAM is a lightweight solution developed on top of the Azure platform designed to help Azure customers manage their IP Address space easily and effectively. This document explains how-to run Azure IPAM using Container Apps. For doing that 
+
+Azure IP Address Management is a comprehensive solution, which provides centralized control and visibility over IP address allocation, usage, and management across various Azure services and resources. It simplifies the process of tracking, assigning, and reclaiming IP addresses. This document describes how you can deploy IPAM using two Azure Container Instances.
+
 
 ## Prerequisites
 
@@ -8,23 +10,31 @@ To successfully deploy the solution, the following prerequisites must be met:
 
 * Be [an owner](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/privileged#owner) of an Azure Subscription (to deploy the solution into)
 * Be [Global Administrator](https://learn.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#global-administrator) of Entra ID, to be able to grant admin consent for the App Registration API permissions
-* Own a public DNS name, used to assign as [a custom domain](https://learn.microsoft.com/en-us/azure/dns/dns-custom-domain) for UI and Egnine 
+* Own a public DNS name, used to assign as [a custom domain](https://learn.microsoft.com/en-us/azure/dns/dns-custom-domain) for Container Apps
 
 ## Theoretical Part
 
-The Azure IPAM solution is delivered via a container running as Container Apps. The container is built and published to a public Azure Container Registry. Here is a more specific breakdown of the components used:
+Detailed explanation what Azure IPAM is and how it could be used you can find in [official documentation page](https://azure.github.io/ipam/#/). This article will focus only on deployment-related details. Main IPAM components are:
 
-* Two App Registrations for Engine and UI
+* Two App Registrations in Entra ID(for Engine and UI)
 * Cosmos DB for IPAM datastore
-* Key Vault (optional) to store DB key and Engine SPN secret
+* Key Vault (optional) for secrets store
 * Two Container Apps, used for running Engine and UI
+* Custom DNS for both Containers
 
-### SPN
+### Entra ID
 
-https://github.com/Azure/ipam/tree/main/docs/deployment#azure-identities-only-deployment
+**Engine**:
+* Granted **reader** permission to the [Root Management Group](https://learn.microsoft.com/azure/governance/management-groups/overview#root-management-group-for-each-directory) to facilitate IPAM Admin operations (global visibility)
+* Authentication point for IPAM API operations ([on-behalf-of](https://learn.microsoft.com/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow) flow)
+
+**UI**:
+* Granted **read** permissions for Microsoft Graph API's
+* Added as a *known client application* for the *Engine* App Registration
+* Authentication point for the IPAM UI ([auth code](https://learn.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow) flow)
 
 
-### Engine App configuration
+### Engine Container App
 
 azureipam.azurecr.io/ipam-engine:3.4.0
 
@@ -38,7 +48,7 @@ DATABASE_NAME | ipam-db
 COSMOS_KEY | [DB Access Key]
 CLIENT_SECRET | [Engine SPN Secret]
 
-### UI App configuration
+### UI Container App
 
 azureipam.azurecr.io/ipam-ui:3.3.0
 
