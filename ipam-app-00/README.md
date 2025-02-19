@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Azure IP Address Management (IPAM) is a comprehensive solution that provides centralized control and visibility over IP address allocation, usage, and management across various Azure services and resources.
+Azure IP Address Management (IPAM) is a comprehensive solution that provides centralized control and visibility over IP address allocation, usage, and management across various Azure services and resources. This document explains how to run IPAM using two Container Apps with custom DNS.
 
 ## Prerequisites
 
