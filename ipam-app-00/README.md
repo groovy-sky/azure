@@ -23,6 +23,10 @@ The deployment involves:
 - Two Container Apps for running the Engine and UI
 - Custom DNS for both Containers
 
+### Cosmos DB
+
+Use "ipam-db" database with two containers - "ipam-ctr" and "ipam-engine" with "/tenant_id" primary keys. 
+
 ### Entra ID
 
 **Engine**:
