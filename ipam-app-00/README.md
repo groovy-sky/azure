@@ -170,7 +170,6 @@ The IPAM dashboard should display an overview of your IP address utilization acr
 
 ## Summary
 
-This guide walked you through the process of deploying Azure IPAM using Container Apps. We covered:
 
 - Setting up the required Entra ID app registrations
 - Configuring the necessary Azure resources (Cosmos DB, Key Vault)
@@ -180,7 +179,7 @@ This guide walked you through the process of deploying Azure IPAM using Containe
 
 Azure IPAM provides a robust solution for managing IP addresses across your Azure environment, helping to prevent IP conflicts, track usage, and plan for future network growth. Using Container Apps for deployment offers a scalable, maintainable approach that can easily be integrated into your existing Azure infrastructure.
 
-In the next section, we'll explore how to get started with using IPAM after deployment, including initial configuration steps, creating your first IP spaces, and managing address allocations effectively.
+This guide walked through the process of deploying Azure IPAM using Container Apps. In the next section, will explore how to get started using IPAM.
 
 ## Related Information
 
