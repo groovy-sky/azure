@@ -62,7 +62,7 @@ By default, ACI containers are deployed with public IPs, exposing them to the in
 
 # Set the resource group name and Azure location.
 export RG_NAME="aci-vnet-rg"
-export LOCATION="eastus"
+export LOCATION="westeurope"
 
 # Create a new resource group in the specified location.
 az group create \
