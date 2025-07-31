@@ -4,6 +4,8 @@ This guide shows how to deploy an Azure Container Instance (ACI) into a private 
 
 ---
 
+## Theoretical part
+
 ## Prerequisites
 
 - **Active Azure Subscription**  
