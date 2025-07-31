@@ -58,6 +58,8 @@ By default, ACI containers are deployed with public IPs, exposing them to the in
 
 ### Initial deployment
 
+Deploy with VNet creation:
+
 ```bash
 
 # Set the resource group name and Azure location.
@@ -100,6 +102,54 @@ az container create \
   --image $IMAGE \
   --vnet $VNET_NAME \
   --subnet $SUBNET_NAME \
+  --os-type Linux \
+  --restart-policy OnFailure \
+  --ip-address Private \
+  --cpu 1 \
+  --memory 1.5
+
+# Retrieve the container's private IP from Azure.
+ACI_IP=$(az container show \
+  --resource-group $RG_NAME \
+  --name $ACI_NAME \
+  --query "ipAddress.ip" \
+  --output tsv)
+
+# Display the assigned private IP for the container.
+echo "Container IP: $ACI_IP"
+
+# Start an interactive shell session inside the running container.
+az container exec \
+  --resource-group $RG_NAME \
+  --name $ACI_NAME \
+  --exec-command "/bin/sh"
+```
+
+Deploy to exsisting VNet:
+```bash
+# Set the resource group, VNet and subnet names.
+export RG_NAME="aci-vnet-rg"
+export VNET_NAME="aci-vnet"
+export SUBNET_NAME="aci-subnet"
+export LOCATION="westeurope"
+
+# Set the container group name and image.
+export ACI_NAME="nginx-acivnet"
+export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
+
+# Get delegated subnet ID.
+export SUBNET_ID=$(az network vnet subnet show \
+  --resource-group $RG_NAME \
+  --vnet-name $VNET_NAME \
+  --name $SUBNET_NAME \
+  --query id --output tsv)
+
+# Deploy NGINX container into the existing delegated subnet with no public IP assigned.
+az container create \
+  --resource-group $RG_NAME \
+  --name $ACI_NAME \
+  --image $IMAGE \
+  --subnet-id $SUBNET_ID \
   --os-type Linux \
   --restart-policy OnFailure \
   --ip-address Private \
