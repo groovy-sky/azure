@@ -102,7 +102,9 @@ az container create \
   --subnet $SUBNET_NAME \
   --os-type Linux \
   --restart-policy OnFailure \
-  --ip-address Private
+  --ip-address Private \
+  --cpu 1 \
+  --memory 1.5
 
 # Retrieve the container's private IP from Azure.
 ACI_IP=$(az container show \
@@ -121,7 +123,7 @@ az container exec \
   --exec-command "/bin/sh"
 ```
 
-## 5. Install DNS and Packet Analysis Utilities
+### Necessary utilities installation
 
 Inside the container’s shell, install the necessary utilities:
 
@@ -132,19 +134,11 @@ tdnf update -y
 # Install DNSSEC utilities for dig and dnssec tools
 tdnf install -y bind-dnssec-utils
 
-# Install traceroute
-tdnf install -y iputils-traceroute
-
-# Install ping (if not already present)
-tdnf install -y iputils
-
-# Install tcpdump for packet captures
-tdnf install -y tcpdump
 ```
 
 
 
-## 6. DNS Resolution Troubleshooting with dig
+### Network Troubleshooting
 
 Test DNS resolution through the custom VNet DNS settings:
 
@@ -160,55 +154,7 @@ dig @168.63.129.16 +short www.example.com
 ```
 
 
-
-## 7. Connectivity Testing with ping
-
-Verify IP-level connectivity inside the VNet:
-
-```bash
-# Ping the default gateway
-ping -c 4 10.1.0.1
-
-# Ping another container instance or VM
-ping -c 4 10.1.0.5
-```
-
-
-
-## 8. Routing Verification with traceroute
-
-Trace the network path to an endpoint:
-
-```bash
-traceroute 10.1.0.5
-```
-
-
-
-## 9. Packet-Flow Diagnosis with tcpdump
-
-Capture network packets to analyze flows and dropped traffic:
-
-```bash
-# Capture all traffic on any interface, full packet
-tcpdump -i any -s 0 -w /tmp/trace.pcap
-
-# Stop capture after reproducing the issue (Ctrl+C)
-
-# Review capture summary
-tcpdump -r /tmp/trace.pcap -nn
-```
-
-Download the `/tmp/trace.pcap` file to your local machine and analyze it with Wireshark:
-
-```bash
-# On your local shell (outside container):
-az container cp $RG_NAME/$ACI_NAME:/tmp/trace.pcap ./trace.pcap
-```
-
-
-
-## 10. Next Steps and Cleanup
+### Cleanup
 
 - After troubleshooting, you can delete the container group to avoid charges:
 
