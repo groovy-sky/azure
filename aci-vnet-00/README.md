@@ -2,9 +2,46 @@
 
 This guide shows how to deploy an Azure Container Instance (ACI) into a private Virtual Network (VNet) using the Linux-based NGINX image `mcr.microsoft.com/azurelinux/base/nginx:1.25`. After deployment, you’ll connect to the container shell, install `bind-dnssec-utils`, and run network troubleshooting commands (`ping`, `dig`, `traceroute`, `tcpdump`) from within the container to diagnose DNS resolution, connectivity, routing, and packet flow issues.
 
----
 
 ## Theoretical part
+
+Here is a theoretical section for your README.md, summarizing the general overview of Azure Container Instances (ACI) and their integration with Azure Virtual Network (VNet), as requested:
+
+
+
+## Theoretical part
+
+### What is Azure Container Instance?
+
+Azure Container Instances (ACI) is a serverless container service provided by Microsoft Azure. It enables users to run containers in the cloud without managing virtual machines or a complex orchestration service. ACI offers rapid deployment, flexible resource allocation (CPU and memory), and supports both Linux and Windows containers. You only pay for what you use, making it suitable for development, testing, microservices, APIs, and event-driven processing.
+
+**Key features:**
+- Serverless operation (no infrastructure management)
+- Rapid startup (containers start in seconds)
+- Flexible sizing (custom CPU/memory per container group)
+- Public and private IP options
+
+
+
+### Integration with Azure Virtual Network (VNet)
+
+By default, ACI containers are deployed with public IPs, exposing them to the internet. To enable secure, internal communications, ACI supports deploying containers into an Azure Virtual Network (VNet).
+
+**Benefits:**
+- Private IP addressing for containers
+- Network isolation from the public internet
+- Custom DNS and routing within the VNet
+
+**How it works:**
+- Create a subnet in your VNet and delegate it to the Microsoft.ContainerInstance/containerGroups service.
+- Specify the VNet and subnet when deploying a container group.
+- ACI assigns a private IP from the subnet to the container group.
+- Containers can communicate with other resources in the VNet according to network security rules.
+
+**Limitations:**
+- Only container groups (not individual containers) are supported in a VNet.
+- No inbound public connectivity unless a load balancer or NAT gateway is configured.
+- Some features (like GPU containers) may be limited with VNet integration.
 
 ## Prerequisites
 
@@ -23,7 +60,7 @@ This guide shows how to deploy an Azure Container Instance (ACI) into a private 
 - **jq** (optional)  
   A tool for parsing JSON output from `az` commands.
 
----
+
 
 ## 1. Create a Resource Group and VNet
 
@@ -60,7 +97,7 @@ az network vnet subnet update \
   --delegations "Microsoft.ContainerInstance/containerGroups"
 ```
 
----
+
 
 ## 2. Deploy ACI to the Private Subnet
 
@@ -83,7 +120,7 @@ az container create \
 
 This deployment configures ACI in **private** mode, assigning an IP from your subnet.
 
----
+
 
 ## 3. Verify Private IP Assignment
 
@@ -99,7 +136,7 @@ ACI_IP=$(az container show \
 echo "Container IP: $ACI_IP"
 ```
 
----
+
 
 ## 4. Connect to the Container Shell
 
@@ -113,7 +150,7 @@ az container exec \
 ```
 
 
----
+
 
 ## 5. Install DNS and Packet Analysis Utilities
 
@@ -136,7 +173,7 @@ tdnf install -y iputils
 tdnf install -y tcpdump
 ```
 
----
+
 
 ## 6. DNS Resolution Troubleshooting with dig
 
@@ -153,7 +190,7 @@ dig +short www.microsoft.com
 dig @168.63.129.16 +short www.example.com
 ```
 
----
+
 
 ## 7. Connectivity Testing with ping
 
@@ -167,7 +204,7 @@ ping -c 4 10.1.0.1
 ping -c 4 10.1.0.5
 ```
 
----
+
 
 ## 8. Routing Verification with traceroute
 
@@ -177,7 +214,7 @@ Trace the network path to an endpoint:
 traceroute 10.1.0.5
 ```
 
----
+
 
 ## 9. Packet-Flow Diagnosis with tcpdump
 
@@ -200,7 +237,7 @@ Download the `/tmp/trace.pcap` file to your local machine and analyze it with Wi
 az container cp $RG_NAME/$ACI_NAME:/tmp/trace.pcap ./trace.pcap
 ```
 
----
+
 
 ## 10. Next Steps and Cleanup
 
