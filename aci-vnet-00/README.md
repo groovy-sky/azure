@@ -1,208 +1,166 @@
 # Deploy Azure Container Instance in a Private VNet for Network Troubleshooting
 
-This guide shows how to deploy an Azure Container Instance (ACI) into a private Virtual Network (VNet) using the Linux-based NGINX image `mcr.microsoft.com/azurelinux/base/nginx:1.25`. After deployment, you’ll connect to the container shell, install `bind-dnssec-utils`, and run network troubleshooting commands (`ping`, `dig`, `traceroute`, `tcpdump`) from within the container to diagnose DNS resolution, connectivity, routing, and packet flow issues.
+This guide demonstrates how to deploy an Azure Container Instance (ACI) into a private Virtual Network (VNet) using the Linux-based NGINX image `mcr.microsoft.com/azurelinux/base/nginx:1.25`. You’ll learn the theoretical benefits of ACI-VNet integration, **use cases** for private container deployments, and step-by-step instructions to create resources, deploy the container, install utilities with the **tdnf** package manager, troubleshoot network connectivity, and clean up resources.  
+We preserve all original scripts and underscore that you can place the VNet and the ACI in **different resource groups**, as long as they reside in the same Azure region.
 
-## Theoretical part
+---
 
-### What is Azure Container Instance?
+## Azure Container Instances and Virtual Network Integration
 
-Azure Container Instances (ACI) is a serverless container service provided by Microsoft Azure. It enables users to run containers in the cloud without managing virtual machines or a complex orchestration service. ACI offers rapid deployment, flexible resource allocation (CPU and memory), and supports both Linux and Windows containers. You only pay for what you use, making it suitable for development, testing, microservices, APIs, and event-driven processing.
+### Theoretical Overview
 
-**Key features:**
-- Serverless operation (no infrastructure management)
-- Rapid startup (containers start in seconds)
-- Flexible sizing (custom CPU/memory per container group)
-- Public and private IP options
+Deploying container groups into a private VNet enables **secure, private communication** between your containers and other Azure or on-premises resources. Azure Container Instances abstracts underlying compute infrastructure, allowing you to run containers without managing virtual machines or orchestrators. When integrated with a VNet, your ACI workloads can leverage Azure’s networking capabilities—**subnet delegation**, **network security groups (NSGs)**, and **private IP addressing**—to enforce zero-trust and isolate traffic. This combination removes the need for a jump box or NAT gateway for container-to-container communication, streamlining both deployment and operations.
 
+### Use Cases and Scenarios
 
-### Integration with Azure Virtual Network (VNet)
+Common scenarios for deploying ACI into a private VNet include:
 
-By default, ACI containers are deployed with public IPs, exposing them to the internet. To enable secure, internal communications, ACI supports deploying containers into an Azure Virtual Network (VNet).
+- Container-to-container communication in multi-tier architectures  
+- Hybrid connectivity via VPN or ExpressRoute  
+- Transient microservices testing in isolated environments  
+- Network diagnostics and troubleshooting workshops  
+- Secure on-demand batch processing without public exposure  
 
-**Benefits:**
-- Private IP addressing for containers
-- Network isolation from the public internet
-- Custom DNS and routing within the VNet
+These use cases illustrate how private VNet integration enhances security, reduces operational complexity, and accelerates troubleshooting.
 
-**How it works:**
-- Create a subnet in your VNet and delegate it to the Microsoft.ContainerInstance/containerGroups service.
-- Specify the VNet and subnet when deploying a container group.
-- ACI assigns a private IP from the subnet to the container group.
-- Containers can communicate with other resources in the VNet according to network security rules.
-
-**Limitations:**
-- Only container groups (not individual containers) are supported in a VNet.
-- No inbound public connectivity unless a load balancer or NAT gateway is configured.
-- Some features (like GPU containers) may be limited with VNet integration.
+---
 
 ## Prerequisites
 
-- **Active Azure Subscription**  
-  You need an active subscription. If you don’t have one, [create a free account](https://azure.microsoft.com/free/).
+Before you begin, ensure you have:
 
-- **Azure CLI**  
-  Install and sign in to the Azure CLI.  
-  ```bash
-  az login
-  ```
+- Azure CLI **version 2.40.0** or later installed  
+- An **Azure subscription** with sufficient quota for ACI and networking  
+- Two **resource groups** (may be the same or different):  
+  - VNet resource group (e.g., `myVNetRG`)  
+  - ACI resource group (e.g., `myACIResourceGroup`)  
+- A **delegated subnet** for Container Instances  
+- Familiarity with the **tdnf** package manager on Azure Linux  
+- Permissions to create and delete Azure resources  
 
-- **Required CLI Extensions**  
-  Ensure you have the Container Instances extension (if needed).  
+All deployments must occur in the **same Azure region** to allow cross-resource-group networking.
 
-- **jq** (optional)  
-  A tool for parsing JSON output from `az` commands.
+---
 
+## Deployment Steps
 
-
-## Practical Part
-
-### Initial deployment
-
-Deploy with VNet creation:
+### 1. Define Environment Variables
 
 ```bash
+# Random suffix for resource names
+export RANDOM_ID="$(openssl rand -hex 3)"
 
-# Set the resource group name and Azure location.
-export RG_NAME="aci-vnet-rg"
-export LOCATION="westeurope"
+# Resource group names (can be different)
+export VNET_RG="myVNetRG${RANDOM_ID}"
+export ACI_RG="myACIResourceGroup${RANDOM_ID}"
 
-# Create a new resource group in the specified location.
-az group create \
-  --name $RG_NAME \
-  --location $LOCATION
-
-# Set the names for the virtual network and subnet.
+# Virtual network and subnet settings
 export VNET_NAME="aci-vnet"
 export SUBNET_NAME="aci-subnet"
+export VNET_PREFIX="10.0.0.0/16"
+export SUBNET_PREFIX="10.0.0.0/24"
 
-# Create a virtual network with a subnet for ACI; assign address spaces.
+# Container instance settings
+export ACI_NAME="appcontainer${RANDOM_ID}"
+export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
+```
+
+These variables provide a **consistent naming convention** and reduce hard-coding in subsequent commands.
+
+### 2. Create Resource Groups and VNet
+
+```bash
+# Create the resource groups
+az group create --name $VNET_RG --location eastus
+az group create --name $ACI_RG --location eastus
+
+# Create a delegated subnet in a new VNet
 az network vnet create \
-  --resource-group $RG_NAME \
+  --resource-group $VNET_RG \
   --name $VNET_NAME \
-  --location $LOCATION \
-  --address-prefix 10.1.0.0/16 \
+  --address-prefix $VNET_PREFIX \
   --subnet-name $SUBNET_NAME \
-  --subnet-prefix 10.1.0.0/24
+  --subnet-prefix $SUBNET_PREFIX
 
-# Delegate the subnet to Azure Container Instances, so only container groups can use it.
+# Delegate the subnet to Azure Container Instances
 az network vnet subnet update \
-  --resource-group $RG_NAME \
+  --resource-group $VNET_RG \
   --vnet-name $VNET_NAME \
   --name $SUBNET_NAME \
-  --delegations "Microsoft.ContainerInstance/containerGroups"
+  --delegations Microsoft.ContainerInstance/containerGroups
+```
 
-# Set the container group name and image version.
-export ACI_NAME="nginx-acivnet"
-export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
+By placing the VNet and the ACI in separate resource groups, you isolate networking from compute concerns and support independent lifecycle management.
 
-# Deploy NGINX container into the delegated subnet with no public IP assigned.
+### 3. Deploy the Container Instance into the Private VNet
+
+```bash
 az container create \
-  --resource-group $RG_NAME \
+  --resource-group $ACI_RG \
   --name $ACI_NAME \
   --image $IMAGE \
   --vnet $VNET_NAME \
   --subnet $SUBNET_NAME \
-  --os-type Linux \
-  --restart-policy OnFailure \
-  --ip-address Private \
-  --cpu 1 \
-  --memory 1.5
+  --resource-group $VNET_RG
 ```
 
-Deploy to exsisting VNet:
-```bash
-# Resource group for the container instance
-export RG_NAME="aci-rg"
-export LOCATION="westeurope"
+> **Note:** You must reference the VNet’s **resource group** (`$VNET_RG`) using the `--resource-group` parameter for the `--vnet` option, because your VNet lives in a different group.
 
-az group create \
-  --name $RG_NAME \
-  --location $LOCATION
+This command provisions a container group with a **private IP address** on the specified subnet.
 
-# Resource group, VNet, and subnet for the network (can be different!)
-export VNET_RG="aci-vnet-rg"
-export VNET_NAME="aci-vnet"
-export SUBNET_NAME="aci-subnet"
+---
 
-# Image parameters
-export ACI_NAME="nginx-acivnet"
-export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
+## Installing Utilities within the Container
 
-
-# Create the container in its own resource group, referencing the subnet in another resource group
-az container create \
-  --resource-group $RG_NAME \
-  --name $ACI_NAME \
-  --image $IMAGE \
-  --vnet $VNET_NAME \
-  --subnet $SUBNET_NAME \
-  --os-type Linux \
-  --restart-policy OnFailure \
-  --ip-address Private \
-  --cpu 1 \
-  --memory 1.5
-```
-
-### Necessary utilities installation
-
-After container is running you can connect to it:
-```
-# Retrieve the container's private IP from Azure.
-ACI_IP=$(az container show \
-  --resource-group $RG_NAME \
-  --name $ACI_NAME \
-  --query "ipAddress.ip" \
-  --output tsv)
-
-# Display the assigned private IP for the container.
-echo "Container IP: $ACI_IP"
-
-# Start an interactive shell session inside the running container.
-az container exec \
-  --resource-group $RG_NAME \
-  --name $ACI_NAME \
-  --exec-command "/bin/sh"
-```
-
-Inside the container’s shell, install the necessary utilities:
+Once the container is running, you can install network troubleshooting tools using the **tdnf** package manager:
 
 ```bash
-# Refresh package metadata
-tdnf update -y
+# Enter the container
+az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin/sh"
 
-# Install DNSSEC utilities for dig and dnssec tools
-tdnf install -y bind-dnssec-utils
+# Inside the container shell:
+tdnf install -y iputils bind-utils procps-ng curl
+
+# Verify commands:
+ping -c 3 <TARGET_IP>
+dig example.com +short
+curl -v http://<SERVICE_PRIVATE_IP>
 ```
 
+- **`iputils`** provides `ping` and `tracepath`;  
+- **`bind-utils`** offers `dig` for DNS resolution;  
+- **`procps-ng`** delivers `ps` and `top`;  
+- **`curl`** tests HTTP endpoints.  
 
+These tools enable in-container diagnostics to verify connectivity, DNS resolution, and HTTP access.
 
-### Network Troubleshooting
+---
 
-Test DNS resolution through the custom VNet DNS settings:
+## Network Troubleshooting Methods
+
+1. **Ping** the gateway, other container instances, or VNet appliances.  
+2. **dig** DNS lookups to confirm private DNS zones and private endpoint records.  
+3. **curl** HTTP(S) requests to web services or sidecars on private IPs.  
+4. **ps** and **top** to inspect running processes for unexpected restarts or crashes.
+
+By combining **in-container checks** with Azure’s **Network Watcher** or **NSG flow logs**, you can pinpoint issues with routing, DNS, or firewall rules.
+
+---
+
+## Cleanup Instructions
+
+To avoid unnecessary costs, delete the resources you created:
 
 ```bash
-# Test resolution of internal records
-dig +short internal-service.local
-
-# Test resolution of public records
-dig +short www.microsoft.com
-
-# Use a specific DNS server (e.g., Azure 168.63.129.16)
-dig @168.63.129.16 +short www.example.com
+# Delete both resource groups (irrecoverable)
+az group delete --name $ACI_RG --yes
+az group delete --name $VNET_RG --yes
 ```
 
+This step ensures all VNets, subnets, container groups, and related resources are removed.
 
-### Cleanup
+---
 
-- After troubleshooting, you can delete the container group to avoid charges:
+## Summary
 
-  ```bash
-  az container delete --resource-group $RG_NAME --name $ACI_NAME -y
-  ```
-
-- If you no longer need the VNet or resource group:
-
-  ```bash
-  az group delete --name $RG_NAME -y
-  ```
-
+Deploying an **Azure Container Instance** into a **private VNet** provides secure, scalable, and ephemeral compute for network troubleshooting and microservice scenarios. By delegating a subnet, leveraging **private IP addressing**, and using the **tdnf** package manager within Azure Linux containers, you gain the ability to install essential diagnostics tools—**ping**, **dig**, **curl**—and perform end-to-end connectivity checks. This pattern supports independent resource group management for networking and compute, streamlines your diagnostics workflows, and maintains a consistent, secure environment for transient container workloads.
