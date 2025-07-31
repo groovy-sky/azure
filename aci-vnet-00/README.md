@@ -112,11 +112,11 @@ az container create \
 Deploy to exsisting VNet:
 ```bash
 # Resource group for the container instance
-export ACI_RG="aci-rg"
+export RG_NAME="aci-rg"
 export LOCATION="westeurope"
 
 az group create \
-  --name $ACI_RG \
+  --name $RG_NAME \
   --location $LOCATION
 
 # Resource group, VNet, and subnet for the network (can be different!)
@@ -131,7 +131,7 @@ export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 
 # Create the container in its own resource group, referencing the subnet in another resource group
 az container create \
-  --resource-group $ACI_RG \
+  --resource-group $RG_NAME \
   --name $ACI_NAME \
   --image $IMAGE \
   --vnet $VNET_NAME \
@@ -172,7 +172,6 @@ tdnf update -y
 
 # Install DNSSEC utilities for dig and dnssec tools
 tdnf install -y bind-dnssec-utils
-
 ```
 
 
