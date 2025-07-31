@@ -2,13 +2,6 @@
 
 This guide shows how to deploy an Azure Container Instance (ACI) into a private Virtual Network (VNet) using the Linux-based NGINX image `mcr.microsoft.com/azurelinux/base/nginx:1.25`. After deployment, you’ll connect to the container shell, install `bind-dnssec-utils`, and run network troubleshooting commands (`ping`, `dig`, `traceroute`, `tcpdump`) from within the container to diagnose DNS resolution, connectivity, routing, and packet flow issues.
 
-
-## Theoretical part
-
-Here is a theoretical section for your README.md, summarizing the general overview of Azure Container Instances (ACI) and their integration with Azure Virtual Network (VNet), as requested:
-
-
-
 ## Theoretical part
 
 ### What is Azure Container Instance?
@@ -20,7 +13,6 @@ Azure Container Instances (ACI) is a serverless container service provided by Mi
 - Rapid startup (containers start in seconds)
 - Flexible sizing (custom CPU/memory per container group)
 - Public and private IP options
-
 
 
 ### Integration with Azure Virtual Network (VNet)
