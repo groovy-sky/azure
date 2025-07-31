@@ -107,55 +107,46 @@ az container create \
   --ip-address Private \
   --cpu 1 \
   --memory 1.5
-
-# Retrieve the container's private IP from Azure.
-ACI_IP=$(az container show \
-  --resource-group $RG_NAME \
-  --name $ACI_NAME \
-  --query "ipAddress.ip" \
-  --output tsv)
-
-# Display the assigned private IP for the container.
-echo "Container IP: $ACI_IP"
-
-# Start an interactive shell session inside the running container.
-az container exec \
-  --resource-group $RG_NAME \
-  --name $ACI_NAME \
-  --exec-command "/bin/sh"
 ```
 
 Deploy to exsisting VNet:
 ```bash
-# Set the resource group, VNet and subnet names.
-export RG_NAME="aci-vnet-rg"
-export VNET_NAME="aci-vnet"
-export SUBNET_NAME="aci-subnet"
+# Resource group for the container instance
+export ACI_RG="aci-rg"
 export LOCATION="westeurope"
 
-# Set the container group name and image.
+az group create \
+  --name $ACI_RG \
+  --location $LOCATION
+
+# Resource group, VNet, and subnet for the network (can be different!)
+export VNET_RG="aci-vnet-rg"
+export VNET_NAME="aci-vnet"
+export SUBNET_NAME="aci-subnet"
+
+# Image parameters
 export ACI_NAME="nginx-acivnet"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 
-# Get delegated subnet ID.
-export SUBNET_ID=$(az network vnet subnet show \
-  --resource-group $RG_NAME \
-  --vnet-name $VNET_NAME \
-  --name $SUBNET_NAME \
-  --query id --output tsv)
 
-# Deploy NGINX container into the existing delegated subnet with no public IP assigned.
+# Create the container in its own resource group, referencing the subnet in another resource group
 az container create \
-  --resource-group $RG_NAME \
+  --resource-group $ACI_RG \
   --name $ACI_NAME \
   --image $IMAGE \
-  --subnet-id $SUBNET_ID \
+  --vnet $VNET_NAME \
+  --subnet $SUBNET_NAME \
   --os-type Linux \
   --restart-policy OnFailure \
   --ip-address Private \
   --cpu 1 \
   --memory 1.5
+```
 
+### Necessary utilities installation
+
+After container is running you can connect to it:
+```
 # Retrieve the container's private IP from Azure.
 ACI_IP=$(az container show \
   --resource-group $RG_NAME \
@@ -172,8 +163,6 @@ az container exec \
   --name $ACI_NAME \
   --exec-command "/bin/sh"
 ```
-
-### Necessary utilities installation
 
 Inside the container’s shell, install the necessary utilities:
 
