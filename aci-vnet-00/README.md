@@ -102,7 +102,7 @@ az container create \
   --subnet $SUBNET_NAME \
   --os-type Linux \
   --restart-policy OnFailure \
-  --ip-address None
+  --ip-address Private
 
 # Retrieve the container's private IP from Azure.
 ACI_IP=$(az container show \
