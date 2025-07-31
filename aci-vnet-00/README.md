@@ -54,26 +54,26 @@ By default, ACI containers are deployed with public IPs, exposing them to the in
 
 
 
-## 1. Create a Resource Group and VNet
+## Practical Part
 
-### 1.1 Create a Resource Group
+### Initial deployment
 
 ```bash
+
+# Set the resource group name and Azure location.
 export RG_NAME="aci-vnet-rg"
 export LOCATION="eastus"
+
+# Create a new resource group in the specified location.
 az group create \
   --name $RG_NAME \
   --location $LOCATION
-```
 
-### 1.2 Create a VNet with a Delegated Subnet
-
-Delegate the subnet to Azure Container Instances so only container groups can use it.
-
-```bash
+# Set the names for the virtual network and subnet.
 export VNET_NAME="aci-vnet"
 export SUBNET_NAME="aci-subnet"
 
+# Create a virtual network with a subnet for ACI; assign address spaces.
 az network vnet create \
   --resource-group $RG_NAME \
   --name $VNET_NAME \
@@ -82,23 +82,18 @@ az network vnet create \
   --subnet-name $SUBNET_NAME \
   --subnet-prefix 10.1.0.0/24
 
+# Delegate the subnet to Azure Container Instances, so only container groups can use it.
 az network vnet subnet update \
   --resource-group $RG_NAME \
   --vnet-name $VNET_NAME \
   --name $SUBNET_NAME \
   --delegations "Microsoft.ContainerInstance/containerGroups"
-```
 
-
-
-## 2. Deploy ACI to the Private Subnet
-
-Use `az container create` to deploy the container group into the delegated subnet. The container runs NGINX 1.25 and exposes no public endpoints.
-
-```bash
+# Set the container group name and image version.
 export ACI_NAME="nginx-acivnet"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 
+# Deploy NGINX container into the delegated subnet with no public IP assigned.
 az container create \
   --resource-group $RG_NAME \
   --name $ACI_NAME \
@@ -108,41 +103,23 @@ az container create \
   --os-type Linux \
   --restart-policy OnFailure \
   --ip-address None
-```
 
-This deployment configures ACI in **private** mode, assigning an IP from your subnet.
-
-
-
-## 3. Verify Private IP Assignment
-
-Retrieve the container’s private IP to confirm VNet integration.
-
-```bash
+# Retrieve the container's private IP from Azure.
 ACI_IP=$(az container show \
   --resource-group $RG_NAME \
   --name $ACI_NAME \
   --query "ipAddress.ip" \
   --output tsv)
 
+# Display the assigned private IP for the container.
 echo "Container IP: $ACI_IP"
-```
 
-
-
-## 4. Connect to the Container Shell
-
-Launch an interactive shell inside the running container. All subsequent commands are run **inside** this shell.
-
-```
+# Start an interactive shell session inside the running container.
 az container exec \
   --resource-group $RG_NAME \
   --name $ACI_NAME \
   --exec-command "/bin/sh"
 ```
-
-
-
 
 ## 5. Install DNS and Packet Analysis Utilities
 
