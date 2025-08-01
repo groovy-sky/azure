@@ -108,9 +108,7 @@ az container create \
 
 This command provisions a container group with a **private IP address** on the specified subnet.
 
-
-
-### Cleanup
+### Connect to container 
 
 Once the container is running, you can install network troubleshooting tools using the **tdnf** package manager:
 
@@ -121,9 +119,6 @@ az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin
 # Install package for DNS
 tdnf update -y; tdnf install -y iputils bind-utils
 ```
-
-
-
 
 ### Cleanup
 After troubleshooting you can delete created resources:
