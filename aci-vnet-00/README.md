@@ -1,13 +1,10 @@
 # DNS Troubleshooting using Container Instance
 
-This guide demonstrates how to deploy an Azure Container Instance (ACI) into a private Virtual Network (VNet) using the Linux-based NGINX image `mcr.microsoft.com/azurelinux/base/nginx:1.25`. You’ll learn the theoretical benefits of ACI-VNet integration, **use cases** for private container deployments, and step-by-step instructions to create resources, deploy the container, install utilities with the **tdnf** package manager, troubleshoot network connectivity, and clean up resources.  
-We preserve all original scripts and underscore that you can place the VNet and the ACI in **different resource groups**, as long as they reside in the same Azure region.
+## Introduction
 
----
+In modern cloud environments, there are many situations where you need a lightweight, disposable environment for network troubleshooting. Quick access to basic tools—without the overhead of a full virtual machine—can make diagnosing connectivity issues faster and simpler. This document provides a practical example of **using an Azure Container Instance (ACI) for DNS troubleshooting**. 
 
-## Azure Container Instances and Virtual Network Integration
-
-### Theoretical Overview
+## Theoretical part
 
 Deploying container groups into a private VNet enables **secure, private communication** between your containers and other Azure or on-premises resources. Azure Container Instances abstracts underlying compute infrastructure, allowing you to run containers without managing virtual machines or orchestrators. When integrated with a VNet, your ACI workloads can leverage Azure’s networking capabilities—**subnet delegation**, **network security groups (NSGs)**, and **private IP addressing**—to enforce zero-trust and isolate traffic. This combination removes the need for a jump box or NAT gateway for container-to-container communication, streamlining both deployment and operations.
 
@@ -36,7 +33,7 @@ All deployments must occur in the **same Azure region** to allow cross-resource-
 
 ---
 
-## Deployment Steps
+## Practical part
 
 ### 1. Define Environment Variables
 
@@ -53,7 +50,7 @@ export ACI_RG="ACI-${SUFFIX}"
 
 These variables provide a **consistent naming convention** and reduce hard-coding in subsequent commands.
 
-### 2. Create VNet environment (optional)
+### 2. Create VNet (optional)
 
 ```bash
 # Virtual network and subnet settings
@@ -85,7 +82,7 @@ az network vnet subnet update \
 
 By placing the VNet and the ACI in separate resource groups, you isolate networking from compute concerns and support independent lifecycle management.
 
-### 3. Deploy the Container Instance into the Private VNet
+### 3. Deploy the Container
 
 ```bash
 # Virtual network and subnet settings
@@ -112,7 +109,7 @@ This command provisions a container group with a **private IP address** on the s
 
 ---
 
-## Enter the container
+### Cleanup
 
 Once the container is running, you can install network troubleshooting tools using the **tdnf** package manager:
 
@@ -127,7 +124,7 @@ tdnf update -y; tdnf install -y iputils bind-utils
 
 ---
 
-## Cleanup Instructions
+### Cleanup
 After troubleshooting you can delete created resources:
 
 ```bash
@@ -136,7 +133,21 @@ az group delete --name $ACI_RG --yes
 az group delete --name $VNET_RG --yes
 ```
 
-
 ## Summary
 
-Deploying an **Azure Container Instance** into a **private VNet** provides secure, scalable, and ephemeral compute for network troubleshooting and microservice scenarios. By delegating a subnet, leveraging **private IP addressing**, and using the **tdnf** package manager within Azure Linux containers, you gain the ability to install essential diagnostics tools—**ping**, **dig**, **curl**—and perform end-to-end connectivity checks. This pattern supports independent resource group management for networking and compute, streamlines your diagnostics workflows, and maintains a consistent, secure environment for transient container workloads.
+Deploying an Azure Container Instance into a private virtual network gives you a lightweight, on-demand environment for network diagnostics without the overhead of managing full virtual machines. By delegating a subnet and assigning a private IP to your container group, you leverage Azure’s built-in security controls—such as network security groups, subnet isolation, and zero-trust networking—while maintaining consistent resource management across networking and compute components.
+
+### Advantages
+
+- Rapid provisioning of ephemeral troubleshooting environments  
+- Full integration with VNet features (NSGs, private IPs, subnet delegation)  
+- Eliminates need for jump boxes or NAT gateways for container-to-container traffic  
+- No VM or orchestrator management, reducing operational complexity  
+- Pay-as-you-go container billing for cost efficiency  
+
+### Limitations
+
+- ICMP traffic is not supported in Azure Container Instances, so `ping` and `traceroute` will not function  
+- Private-only IP addressing prevents direct public Internet tests without additional NAT or firewall configuration  
+- Package availability depends on the container’s native Linux repo (tdnf), which may not include all diagnostic tools  
+- Container instances are stateless by default—any files or custom configurations are lost on restart  
