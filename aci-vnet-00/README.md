@@ -48,11 +48,11 @@ All deployments must occur in the **same Azure region** to allow cross-resource-
 
 ```bash
 # Random suffix for resource names
-export RANDOM_ID="$(openssl rand -hex 3)"
+export SUFFIX="DNS-RESOLVER"
 
 # Resource group names (can be different)
-export VNET_RG="myVNetRG${RANDOM_ID}"
-export ACI_RG="myACIResourceGroup${RANDOM_ID}"
+export VNET_RG="VNET-${SUFFIX}"
+export ACI_RG="ACI-${SUFFIX}"
 
 # Virtual network and subnet settings
 export VNET_NAME="aci-vnet"
@@ -61,7 +61,7 @@ export VNET_PREFIX="10.0.0.0/16"
 export SUBNET_PREFIX="10.0.0.0/24"
 
 # Container instance settings
-export ACI_NAME="appcontainer${RANDOM_ID}"
+export ACI_NAME="aci-app-${SUFFIX}"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 ```
 
@@ -101,7 +101,11 @@ az container create \
   --image $IMAGE \
   --vnet $VNET_NAME \
   --subnet $SUBNET_NAME \
-  --resource-group $VNET_RG
+  --os-type Linux \
+  --restart-policy OnFailure \
+  --ip-address Private \
+  --cpu 1 \
+  --memory 1.5 
 ```
 
 > **Note:** You must reference the VNet’s **resource group** (`$VNET_RG`) using the `--resource-group` parameter for the `--vnet` option, because your VNet lives in a different group.
@@ -118,30 +122,23 @@ Once the container is running, you can install network troubleshooting tools usi
 # Enter the container
 az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin/sh"
 
-# Inside the container shell:
-tdnf install -y iputils bind-utils procps-ng curl
+# Refresh package metadata
+tdnf update -y
 
-# Verify commands:
-ping -c 3 <TARGET_IP>
-dig example.com +short
-curl -v http://<SERVICE_PRIVATE_IP>
+# Inside the container shell:
+tdnf install -y iputils bind-utils
+
 ```
 
-- **`iputils`** provides `ping` and `tracepath`;  
-- **`bind-utils`** offers `dig` for DNS resolution;  
-- **`procps-ng`** delivers `ps` and `top`;  
-- **`curl`** tests HTTP endpoints.  
-
-These tools enable in-container diagnostics to verify connectivity, DNS resolution, and HTTP access.
 
 ---
 
 ## Network Troubleshooting Methods
 
-1. **Ping** the gateway, other container instances, or VNet appliances.  
+1. **ps** and **top** to inspect running processes for unexpected restarts or crashes.
 2. **dig** DNS lookups to confirm private DNS zones and private endpoint records.  
 3. **curl** HTTP(S) requests to web services or sidecars on private IPs.  
-4. **ps** and **top** to inspect running processes for unexpected restarts or crashes.
+
 
 By combining **in-container checks** with Azure’s **Network Watcher** or **NSG flow logs**, you can pinpoint issues with routing, DNS, or firewall rules.
 
