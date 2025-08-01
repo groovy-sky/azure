@@ -29,14 +29,8 @@ These use cases illustrate how private VNet integration enhances security, reduc
 
 Before you begin, ensure you have:
 
-- Azure CLI **version 2.40.0** or later installed  
-- An **Azure subscription** with sufficient quota for ACI and networking  
-- Two **resource groups** (may be the same or different):  
-  - VNet resource group (e.g., `myVNetRG`)  
-  - ACI resource group (e.g., `myACIResourceGroup`)  
-- A **delegated subnet** for Container Instances  
-- Familiarity with the **tdnf** package manager on Azure Linux  
-- Permissions to create and delete Azure resources  
+- Active Azure subscription
+- Configured [Azure Cloud Shell](https://learn.microsoft.com/en-us/azure/cloud-shell/get-started?tabs=azurecli)
 
 All deployments must occur in the **same Azure region** to allow cross-resource-group networking.
 
@@ -47,22 +41,17 @@ All deployments must occur in the **same Azure region** to allow cross-resource-
 ### 1. Define Environment Variables
 
 ```bash
-# Random suffix for resource names
+# Common variables
 export SUFFIX="DNS-RESOLVER"
-
-# Resource group names (can be different)
-export VNET_RG="VNET-${SUFFIX}"
-export ACI_RG="ACI-${SUFFIX}"
-
-# Virtual network and subnet settings
-export VNET_NAME="aci-vnet"
-export SUBNET_NAME="aci-subnet"
-export VNET_PREFIX="10.0.0.0/16"
-export SUBNET_PREFIX="10.0.0.0/24"
+export LOCATION="westeurope"
 
 # Container instance settings
 export ACI_NAME="aci-app-${SUFFIX}"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
+export ACI_RG="ACI-${SUFFIX}"
+
+
+
 ```
 
 These variables provide a **consistent naming convention** and reduce hard-coding in subsequent commands.
@@ -70,9 +59,16 @@ These variables provide a **consistent naming convention** and reduce hard-codin
 ### 2. Create Resource Groups and VNet
 
 ```bash
+# Virtual network and subnet settings
+export VNET_RG="VNET-${SUFFIX}"
+export VNET_NAME="aci-vnet"
+export SUBNET_NAME="aci-subnet"
+export VNET_PREFIX="10.0.0.0/16"
+export SUBNET_PREFIX="10.0.0.0/24"
+
 # Create the resource groups
-az group create --name $VNET_RG --location eastus
-az group create --name $ACI_RG --location eastus
+az group create --name $VNET_RG --location $LOCATION
+az group create --name $ACI_RG --location $LOCATION
 
 # Create a delegated subnet in a new VNet
 az network vnet create \
@@ -95,6 +91,11 @@ By placing the VNet and the ACI in separate resource groups, you isolate network
 ### 3. Deploy the Container Instance into the Private VNet
 
 ```bash
+# Virtual network and subnet settings
+export VNET_RG="VNET-DNS-RESOLVER"
+export VNET_NAME="aci-vnet"
+export SUBNET_NAME="aci-subnet"
+
 az container create \
   --resource-group $ACI_RG \
   --name $ACI_NAME \
