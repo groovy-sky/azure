@@ -42,11 +42,11 @@ All deployments must occur in the **same Azure region** to allow cross-resource-
 
 ```bash
 # Common variables
-export SUFFIX="DNS-RESOLVER"
+export SUFFIX="DNS"
 export LOCATION="westeurope"
 
 # Container instance settings
-export ACI_NAME="aci-app-${SUFFIX}"
+export ACI_NAME="aci${SUFFIX}"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 export ACI_RG="ACI-${SUFFIX}"
 ```
