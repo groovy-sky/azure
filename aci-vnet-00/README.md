@@ -1,5 +1,7 @@
 # DNS Troubleshooting using Container Instance
 
+![](/images/docker/dns_logo.png)
+
 ## Introduction
 
 In modern cloud environments, there are many situations where you need a lightweight, disposable environment for network troubleshooting. Quick access to basic tools—without the overhead of a full virtual machine—can make diagnosing connectivity issues faster and simpler. This document provides a practical example of **using an Azure Container Instance (ACI) for DNS troubleshooting**. 
@@ -20,7 +22,6 @@ Common scenarios for deploying ACI into a private VNet include:
 
 These use cases illustrate how private VNet integration enhances security, reduces operational complexity, and accelerates troubleshooting.
 
----
 
 ## Prerequisites
 
@@ -31,7 +32,7 @@ Before you begin, ensure you have:
 
 All deployments must occur in the **same Azure region** to allow cross-resource-group networking.
 
----
+
 
 ## Practical part
 
@@ -107,7 +108,7 @@ az container create \
 
 This command provisions a container group with a **private IP address** on the specified subnet.
 
----
+
 
 ### Cleanup
 
@@ -122,7 +123,7 @@ tdnf update -y; tdnf install -y iputils bind-utils
 ```
 
 
----
+
 
 ### Cleanup
 After troubleshooting you can delete created resources:
