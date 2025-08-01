@@ -1,6 +1,6 @@
 # DNS Troubleshooting using Container Instance
 
-<img src="images/docker/dns_logo.png" style="width:300px;" alt="dns logo">
+<img src="/images/docker/dns_logo.png" style="width:300px;" alt="dns logo">
 
 ## Introduction
 
