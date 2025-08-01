@@ -1,4 +1,4 @@
-# Deploy Azure Container Instance in a Private VNet for Network Troubleshooting
+# DNS Troubleshooting using Container Instance
 
 This guide demonstrates how to deploy an Azure Container Instance (ACI) into a private Virtual Network (VNet) using the Linux-based NGINX image `mcr.microsoft.com/azurelinux/base/nginx:1.25`. You’ll learn the theoretical benefits of ACI-VNet integration, **use cases** for private container deployments, and step-by-step instructions to create resources, deploy the container, install utilities with the **tdnf** package manager, troubleshoot network connectivity, and clean up resources.  
 We preserve all original scripts and underscore that you can place the VNet and the ACI in **different resource groups**, as long as they reside in the same Azure region.
@@ -112,35 +112,23 @@ This command provisions a container group with a **private IP address** on the s
 
 ---
 
-## Installing Utilities within the Container
+## Enter the container
 
 Once the container is running, you can install network troubleshooting tools using the **tdnf** package manager:
 
 ```bash
-# Install package for DNS
-tdnf update -y; tdnf install -y iputils bind-utils
-
 # Enter the container
 az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin/sh"
+
+# Install package for DNS
+tdnf update -y; tdnf install -y iputils bind-utils
 ```
 
 
 ---
 
-## Network Troubleshooting Methods
-
-1. **ps** and **top** to inspect running processes for unexpected restarts or crashes.
-2. **dig** DNS lookups to confirm private DNS zones and private endpoint records.  
-3. **curl** HTTP(S) requests to web services or sidecars on private IPs.  
-
-
-By combining **in-container checks** with Azure’s **Network Watcher** or **NSG flow logs**, you can pinpoint issues with routing, DNS, or firewall rules.
-
----
-
 ## Cleanup Instructions
-
-To avoid unnecessary costs, delete the resources you created:
+After troubleshooting you can delete created resources:
 
 ```bash
 # Delete both resource groups (irrecoverable)
@@ -148,9 +136,6 @@ az group delete --name $ACI_RG --yes
 az group delete --name $VNET_RG --yes
 ```
 
-This step ensures all VNets, subnets, container groups, and related resources are removed.
-
----
 
 ## Summary
 
