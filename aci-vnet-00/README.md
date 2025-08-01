@@ -49,14 +49,11 @@ export LOCATION="westeurope"
 export ACI_NAME="aci-app-${SUFFIX}"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 export ACI_RG="ACI-${SUFFIX}"
-
-
-
 ```
 
 These variables provide a **consistent naming convention** and reduce hard-coding in subsequent commands.
 
-### 2. Create Resource Groups and VNet
+### 2. Create VNet environment (optional)
 
 ```bash
 # Virtual network and subnet settings
@@ -106,7 +103,8 @@ az container create \
   --restart-policy OnFailure \
   --ip-address Private \
   --cpu 1 \
-  --memory 1.5 
+  --memory 1.5 \
+  --command-line "tdnf update -y; tdnf install -y iputils bind-utils"
 ```
 
 > **Note:** You must reference the VNet’s **resource group** (`$VNET_RG`) using the `--resource-group` parameter for the `--vnet` option, because your VNet lives in a different group.
@@ -122,13 +120,6 @@ Once the container is running, you can install network troubleshooting tools usi
 ```bash
 # Enter the container
 az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin/sh"
-
-# Refresh package metadata
-tdnf update -y
-
-# Inside the container shell:
-tdnf install -y iputils bind-utils
-
 ```
 
 
