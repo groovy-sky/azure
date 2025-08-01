@@ -46,7 +46,7 @@ export SUFFIX="DNS"
 export LOCATION="westeurope"
 
 # Container instance settings
-export ACI_NAME="aci${SUFFIX}"
+export ACI_NAME="aci$(echo ${SUFFIX} | tr '[:upper:]' '[:lower:]')"
 export IMAGE="mcr.microsoft.com/azurelinux/base/nginx:1.25"
 export ACI_RG="ACI-${SUFFIX}"
 ```
