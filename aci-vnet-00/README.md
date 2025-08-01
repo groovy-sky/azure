@@ -103,8 +103,7 @@ az container create \
   --restart-policy OnFailure \
   --ip-address Private \
   --cpu 1 \
-  --memory 1.5 \
-  --command-line "tdnf update -y; tdnf install -y iputils bind-utils"
+  --memory 1.5
 ```
 
 > **Note:** You must reference the VNet’s **resource group** (`$VNET_RG`) using the `--resource-group` parameter for the `--vnet` option, because your VNet lives in a different group.
@@ -118,6 +117,9 @@ This command provisions a container group with a **private IP address** on the s
 Once the container is running, you can install network troubleshooting tools using the **tdnf** package manager:
 
 ```bash
+# Install package for DNS
+tdnf update -y; tdnf install -y iputils bind-utils
+
 # Enter the container
 az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin/sh"
 ```
