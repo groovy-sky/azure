@@ -15,7 +15,7 @@ Azure Container Instances offers two primary networking modes:
   Assigns each container group its own dynamic public IP and FQDN. Inbound traffic can reach containers directly over the internet. Outbound traffic uses SNAT, with a limited pool of ephemeral ports per group.  
 
 - **Virtual Network (VNet) integration**  
-  Injects container groups into a user-specified subnet, giving them private RFC 1918 addresses. All inbound/outbound flows traverse your VNet’s NAT gateway or Azure load balancer. You can apply subnet-level Network Security Groups and route tables, but container groups themselves cannot host NSGs or UDRs.  
+  Injects container groups into a user-specified subnet, giving them private RFC 1918 addresses. You can apply subnet-level Network Security Groups and route tables, but container groups themselves cannot host NSGs or UDRs.  
 
 Networking limitations common to both modes:
 
@@ -63,10 +63,11 @@ Before you begin, ensure you have:
 
 All deployments must occur in the **same Azure region** to allow cross-resource-group networking.
 
-
-
 ## Practical part
 
+In this tutorial Microsoft Container Registry will be used(instead of Docker Hub). Docker Hub has [**anonymous image pulls limits**](https://learn.microsoft.com/en-us/troubleshoot/azure/azure-container-instances/configuration-setup/docker-hub-rate-limit-registryerrorresponse) that can cause deployment failures.
+
+As a base `mcr.microsoft.com/azurelinux/base/nginx:1.25` image will be used. To make DNS queries bind-utils need to be installed.
 
 ### 1. Define Environment Variables
 
@@ -84,6 +85,8 @@ export ACI_RG="ACI-${SUFFIX}"
 These variables provide a **consistent naming convention** and reduce hard-coding in subsequent commands.
 
 ### 2. Create VNet (optional)
+
+If you already have existing VNet, to which you want to deploy a container instance, you can skip this step.
 
 ```bash
 # Virtual network and subnet settings
@@ -113,8 +116,6 @@ az network vnet subnet update \
   --delegations Microsoft.ContainerInstance/containerGroups
 ```
 
-By placing the VNet and the ACI in separate resource groups, you isolate networking from compute concerns and support independent lifecycle management.
-
 ### 3. Deploy the Container
 
 ```bash
@@ -136,13 +137,9 @@ az container create \
   --memory 1.5
 ```
 
-> **Note:** You must reference the VNet’s **resource group** (`$VNET_RG`) using the `--resource-group` parameter for the `--vnet` option, because your VNet lives in a different group.
-
-This command provisions a container group with a **private IP address** on the specified subnet.
-
 ### Connect to container 
 
-Once the container is running, you can install network troubleshooting tools using the **tdnf** package manager:
+Once the container is running, you can install network bind-utils package using the **tdnf** package manager:
 
 ```bash
 # Enter the container
@@ -165,17 +162,6 @@ az group delete --name $VNET_RG --yes
 
 Deploying an Azure Container Instance into a private virtual network gives you a lightweight, on-demand environment for network diagnostics without the overhead of managing full virtual machines. By delegating a subnet and assigning a private IP to your container group, you leverage Azure’s built-in security controls—such as network security groups, subnet isolation, and zero-trust networking—while maintaining consistent resource management across networking and compute components.
 
-### Advantages
+Azure Container Instances delivers rapid, on-demand troubleshooting containers with native VNet support (NSGs, private IPs, subnet delegation), removes the need for jump boxes or NAT gateways, eliminates VM or orchestrator management, and uses pay-as-you-go billing for maximum cost efficiency.
 
-- Rapid provisioning of ephemeral troubleshooting environments  
-- Full integration with VNet features (NSGs, private IPs, subnet delegation)  
-- Eliminates need for jump boxes or NAT gateways for container-to-container traffic  
-- No VM or orchestrator management, reducing operational complexity  
-- Pay-as-you-go container billing for cost efficiency  
-
-### Limitations
-
-- ICMP traffic is not supported in Azure Container Instances, so `ping` and `traceroute` will not function  
-- Private-only IP addressing prevents direct public Internet tests without additional NAT or firewall configuration  
-- Package availability depends on the container’s native Linux repo (tdnf), which may not include all diagnostic tools  
-- Container instances are stateless by default—any files or custom configurations are lost on restart  
+However, Azure Container Instances doesn’t support ICMP traffic (so ping and traceroute won’t work), relies on its native tdnf Linux repository which may lack needed diagnostic tools, and is stateless by default so any files or custom configurations are lost on restart.
