@@ -1,6 +1,7 @@
 # DNS Troubleshooting using Container Instance
 
 <img src="/images/docker/dns_logo.png" style="width:150px;" alt="dns logo">
+
 ## Introduction
 
 In modern cloud environments, there are many situations where you need a lightweight, disposable environment for network troubleshooting. Quick access to basic tools—without the overhead of a full virtual machine—can make diagnosing connectivity issues faster and simpler. This document provides a practical example of **using an Azure Container Instance (ACI) for DNS troubleshooting**. 
@@ -65,6 +66,7 @@ All deployments must occur in the **same Azure region** to allow cross-resource-
 
 
 ## Practical part
+
 
 ### 1. Define Environment Variables
 
