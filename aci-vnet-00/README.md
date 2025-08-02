@@ -8,20 +8,51 @@ In modern cloud environments, there are many situations where you need a lightwe
 
 ## Theoretical part
 
-Deploying container groups into a private VNet enables **secure, private communication** between your containers and other Azure or on-premises resources. Azure Container Instances abstracts underlying compute infrastructure, allowing you to run containers without managing virtual machines or orchestrators. When integrated with a VNet, your ACI workloads can leverage Azure’s networking capabilities—**subnet delegation**, **network security groups (NSGs)**, and **private IP addressing**—to enforce zero-trust and isolate traffic. This combination removes the need for a jump box or NAT gateway for container-to-container communication, streamlining both deployment and operations.
+### Networking
+Azure Container Instances offers two primary networking modes:
 
-### Use Cases and Scenarios
+- **Public IP mode**  
+  Assigns each container group its own dynamic public IP and FQDN. Inbound traffic can reach containers directly over the internet. Outbound traffic uses SNAT, with a limited pool of ephemeral ports per group.  
 
-Common scenarios for deploying ACI into a private VNet include:
+- **Virtual Network (VNet) integration**  
+  Injects container groups into a user-specified subnet, giving them private RFC 1918 addresses. All inbound/outbound flows traverse your VNet’s NAT gateway or Azure load balancer. You can apply subnet-level Network Security Groups and route tables, but container groups themselves cannot host NSGs or UDRs.  
 
-- Container-to-container communication in multi-tier architectures  
-- Hybrid connectivity via VPN or ExpressRoute  
-- Transient microservices testing in isolated environments  
-- Network diagnostics and troubleshooting workshops  
-- Secure on-demand batch processing without public exposure  
+Networking limitations common to both modes:
 
-These use cases illustrate how private VNet integration enhances security, reduces operational complexity, and accelerates troubleshooting.
+- Only one virtual NIC per container group  
+- No support for multiple IPs, custom CNI plugins, or service meshes  
+- No internal load-balancer—cross-group traffic uses direct IPs or your own LB in front  
 
+### Quotas
+Resource assignment and subscription limits ensure predictable performance:
+
+- **vCPU and memory per container**  
+  You choose from predefined sizes (0.5 – 4 vCPUs in 0.5-vCPU steps; 0.5 – 14 GiB RAM). Each container group can bundle up to 60 containers sharing those limits.  
+
+- **Ephemeral storage**  
+  Every group includes up to 50 GiB of temporary SSD storage for `/tmp` and container layers.  
+
+- **Subscription and region caps**  
+  Default quotas vary by region but typically start around 350 container groups, 200 vCPUs, and 3 600 GiB RAM per subscription. You can request increases via Azure Support.  
+
+- **Outbound port capacity**  
+  Each container group gets a pool of ~512 SNAT ports for external calls; heavy outbound workloads may exhaust this pool.  
+
+### Compatibility
+
+ACI is designed for broad container workloads but omits certain advanced features:
+
+- **OS support**  
+  Linux and Windows Server containers are both supported, though Windows workloads only run on Windows-enabled subnets and have smaller regional footprints.  
+
+- **Image registries**  
+  Native pull support for Azure Container Registry, Docker Hub, and any private OCI-compliant registry with basic auth.  
+
+- **Unsupported features**  
+  No GPU/FPGA SKUs, no privileged or host-networked containers, and no ability to tweak kernel capabilities. Init containers are in preview only.  
+
+- **Storage integrations**  
+  You can mount Azure Files shares as volumes; block storage and host-path mounts aren’t available.  
 
 ## Prerequisites
 
