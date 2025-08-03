@@ -84,10 +84,23 @@ export ACI_RG="ACI-${SUFFIX}"
 
 These variables provide a **consistent naming convention** and reduce hard-coding in subsequent commands.
 
-### 2. Create VNet (optional)
+### 2. Configure VNet
 
-If you already have existing VNet, to which you want to deploy a container instance, you can skip this step.
+If you already have existing VNet, to which you want to deploy a container instance, use following script:
+```bash
+export VNET_RG=""
+export VNET_NAME=""
+export SUBNET_NAME=""
 
+# Delegate the subnet to Azure Container Instances
+az network vnet subnet update \
+  --resource-group $VNET_RG \
+  --vnet-name $VNET_NAME \
+  --name $SUBNET_NAME \
+  --delegations Microsoft.ContainerInstance/containerGroups
+```
+
+If not, create a new VNet:
 ```bash
 # Virtual network and subnet settings
 export VNET_RG="VNET-${SUFFIX}"
@@ -96,9 +109,8 @@ export SUBNET_NAME="aci-subnet"
 export VNET_PREFIX="10.0.0.0/16"
 export SUBNET_PREFIX="10.0.0.0/24"
 
-# Create the resource groups
+# Create VNet resource group
 az group create --name $VNET_RG --location $LOCATION
-az group create --name $ACI_RG --location $LOCATION
 
 # Create a delegated subnet in a new VNet
 az network vnet create \
@@ -119,11 +131,10 @@ az network vnet subnet update \
 ### 3. Deploy the Container
 
 ```bash
-# Virtual network and subnet settings
-export VNET_RG="VNET-DNS-RESOLVER"
-export VNET_NAME="aci-vnet"
-export SUBNET_NAME="aci-subnet"
+# Create Constainer Instances resource group
+az group create --name $ACI_RG --location $LOCATION
 
+# Deploy a container
 az container create \
   --resource-group $ACI_RG \
   --name $ACI_NAME \
@@ -137,9 +148,9 @@ az container create \
   --memory 1.5
 ```
 
-### Connect to container 
+### Use the container
 
-Once the container is running, you can install network bind-utils package using the **tdnf** package manager:
+Once the container is running, you can connect to container and install required packages:
 
 ```bash
 # Enter the container
@@ -148,6 +159,15 @@ az container exec --resource-group $ACI_RG --name $ACI_NAME --exec-command "/bin
 # Install package for DNS
 tdnf update -y; tdnf install -y iputils bind-utils
 ```
+
+Below you can find the example, which shows how you can:
+1. Enter the container
+2. Check that required packages are installed
+3. Try to resolve DNS record internally (by using internal DNS resolver)
+4. Try to resolve DNS record externally
+5. Try to make a simple HTTP request
+
+![](/images/docker/aci_dns_check.png)
 
 ### Cleanup
 After troubleshooting you can delete created resources:
