@@ -6,53 +6,42 @@ This document guides you through designing, building, and deploying an Azure Log
 
 ---
 
+Based on the information from the Logic Apps folder, here's the updated "Theoretical Part":
+
+---
+
 ## Theoretical Part
 
-Azure Logic Apps is a serverless integration platform that lets you build automated workflows by chaining triggers, actions, and connectors. You don’t provision or maintain servers—Azure handles scaling, hosting, and availability.
+Azure Logic Apps is a cloud-based platform that enables you to create and run automated workflows for enterprise integration, data orchestration, and B2B communication. It provides a visual designer for modeling business processes as a series of steps while abstracting the underlying compute infrastructure.
 
 ### Core Components
 
 - **Hosting Plans**  
-  - Consumption (multi-tenant): pay-per-execution, ideal for lightweight or variable workloads  
-  - Standard (single-tenant): dedicated App Service plan, private endpoints, fixed capacity  
+  - **Consumption (Multi-tenant)**: Runs in shared Azure environment, pay-per-execution model, automatic scaling, ideal for event-driven and intermittent workloads
+  - **Standard (Single-tenant)**: Runs in dedicated Azure App Service Environment, supports Virtual Network integration, private endpoints, fixed pricing based on plan size, better for high-volume and isolation requirements
+  - **Integration Service Environment (ISE)**: Fully isolated and dedicated environment injected into your virtual network, direct access to on-premises resources, fixed capacity and pricing (being deprecated in favor of Standard)
 
 - **Triggers**  
-  - Recurrence: schedules a workflow at defined intervals  
-  - Request: fires when an HTTP request is received  
-  - Event-based: listens for events in services like Storage, Service Bus, or Event Grid  
-  - Polling: periodically checks for new data  
-  - Push: immediately responds to external events  
+  - **Recurrence**: Schedules workflows at specified intervals (seconds to months)
+  - **Request**: Creates callable REST endpoint with optional authentication (SAS, OAuth, API keys)
+  - **Event-based**: Responds to events from Azure services (Event Grid, Service Bus, Event Hubs)
+  - **Polling**: Periodically checks endpoints for new data with configurable intervals
+  - **Push/Webhook**: Registers callback URLs for real-time notifications
+  - **Batch**: Processes messages in groups based on count or time window
 
 - **Actions**  
-  - Invoke HTTP endpoints  
-  - Parse, transform, and route data  
-  - Send notifications (email, Teams, SMS)  
-  - Apply conditional logic and loops  
+  - **Built-in Operations**: HTTP calls, data operations (parse JSON, compose, filter arrays), control flow (conditions, loops, switch cases, scopes)
+  - **Data Transformation**: Liquid templates, XSLT maps, flat file encoding/decoding
+  - **Error Handling**: Try-catch scopes, retry policies, timeout configuration
+  - **Variables and State**: Initialize, set, increment variables; maintain state across runs
+  - **Parallel Processing**: Foreach loops with concurrency control, parallel branches
 
 - **Connectors**  
-  - Built-in: HTTP, Request/Response, Schedule  
-  - Managed: Office 365, SQL Server, Salesforce, Twitter  
-  - On-premises: File System, Oracle, SharePoint Server  
-  - Enterprise: SAP, IBM MQ (requires integration pack)  
-
-### Workflow Architecture
-
-A minimal design to retrieve your public IP:
-
-```ascii
-[Recurrence Trigger]
-           │
-           ▼
-      [HTTP GET]
-           │
-           ▼
-     [Parse JSON]
-           │
-           ▼
-[Response or Notification]
-```
-
-Wrap core steps in a `Scope` with retry policies (e.g., 3 attempts, 1-minute interval) and an on-failure branch to alert administrators.
+  - **Standard Connectors**: 400+ pre-built connectors (Office 365, Dynamics 365, Salesforce, Twitter, Dropbox)
+  - **Enterprise Connectors**: SAP, IBM 3270, MQ Series (requires Enterprise Integration Pack)
+  - **On-premises Data Gateway**: Connects to on-premises SQL Server, SharePoint, File Systems, Oracle
+  - **Custom Connectors**: Build your own using OpenAPI/Swagger definitions or Azure Functions
+  - **Managed API Connections**: Stored credentials and connection configurations reusable across workflows
 
 ---
 
@@ -93,27 +82,7 @@ az deployment group create \
 
 This template provisions the Logic App workflow, trigger, actions (Compose + conditional Responses), and outputs the trigger URL with its SAS token.
 
-### Step 3: Monitor and Log
-
-1. In the Azure Portal, navigate to your Logic App → **Diagnostics settings**.  
-2. Enable sending both **Logs** and **Metrics** to a Log Analytics workspace or Application Insights.  
-3. Run queries in Log Analytics to track runtime and errors:
-   ```kusto
-   AzureDiagnostics
-   | where ResourceProvider == "MICROSOFT.LOGIC"
-   | where ResourceId contains "/workflows/GetPublicIP/"
-   | summarize count() by Status_s, bin(TimeGenerated, 5m)
-   ```
-4. Adjust retry policies, concurrency, and alert rules based on observed behavior.
-
 ---
 
 ## Summary
 
-You now have a production-ready Logic App that:
-
-- Exposes an HTTP GET trigger to return your client’s public IP in text, JSON, or JSONP formats  
-- Applies retry and error-handling patterns via `Scope` and conditional branches  
-- Integrates seamlessly with Azure monitoring for observability  
-
-Extend this solution with email/Teams notifications, embed it in your CI/CD pipeline, and refine its resilience by tuning retry policies and alerting rules.
