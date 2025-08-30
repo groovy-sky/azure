@@ -1,4 +1,4 @@
-# Use Azure Logic Apps to Retrieve Your Public IP
+# Use Azure Logic Apps to Showing Public IP
 
 ## Introduction
 
@@ -10,7 +10,36 @@ This implementation demonstrates key Logic Apps concepts including HTTP triggers
 
 ## Theoretical Part
 
-[Content remains as provided]
+Azure Logic Apps is a cloud-based platform that enables you to create and run automated workflows for enterprise integration, data orchestration, and B2B communication. It provides a visual designer for modeling business processes as a series of steps while abstracting the underlying compute infrastructure.
+
+### Core Components
+
+- **Hosting Plans**  
+  - **Consumption (Multi-tenant)**: Runs in shared Azure environment, pay-per-execution model, automatic scaling, ideal for event-driven and intermittent workloads
+  - **Standard (Single-tenant)**: Runs in dedicated Azure App Service Environment, supports Virtual Network integration, private endpoints, fixed pricing based on plan size, better for high-volume and isolation requirements
+  - **Integration Service Environment (ISE)**: Fully isolated and dedicated environment injected into your virtual network, direct access to on-premises resources, fixed capacity and pricing (being deprecated in favor of Standard)
+
+- **Triggers**  
+  - **Recurrence**: Schedules workflows at specified intervals (seconds to months)
+  - **Request**: Creates callable REST endpoint with optional authentication (SAS, OAuth, API keys)
+  - **Event-based**: Responds to events from Azure services (Event Grid, Service Bus, Event Hubs)
+  - **Polling**: Periodically checks endpoints for new data with configurable intervals
+  - **Push/Webhook**: Registers callback URLs for real-time notifications
+  - **Batch**: Processes messages in groups based on count or time window
+
+- **Actions**  
+  - **Built-in Operations**: HTTP calls, data operations (parse JSON, compose, filter arrays), control flow (conditions, loops, switch cases, scopes)
+  - **Data Transformation**: Liquid templates, XSLT maps, flat file encoding/decoding
+  - **Error Handling**: Try-catch scopes, retry policies, timeout configuration
+  - **Variables and State**: Initialize, set, increment variables; maintain state across runs
+  - **Parallel Processing**: Foreach loops with concurrency control, parallel branches
+
+- **Connectors**  
+  - **Standard Connectors**: 400+ pre-built connectors (Office 365, Dynamics 365, Salesforce, Twitter, Dropbox)
+  - **Enterprise Connectors**: SAP, IBM 3270, MQ Series (requires Enterprise Integration Pack)
+  - **On-premises Data Gateway**: Connects to on-premises SQL Server, SharePoint, File Systems, Oracle
+  - **Custom Connectors**: Build your own using OpenAPI/Swagger definitions or Azure Functions
+  - **Managed API Connections**: Stored credentials and connection configurations reusable across workflows
 
 ---
 
