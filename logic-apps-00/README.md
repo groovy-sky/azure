@@ -2,9 +2,11 @@
 
 ## Introduction
 
-This document guides you through deploying and understanding an Azure Logic App that creates a "What is my IP" service - a RESTful endpoint that returns a client's public IP address in multiple formats (plain text, JSON, or JSONP). You'll learn how Logic Apps components work together to create serverless workflows, and deploy a production-ready solution that handles IP detection through proxy headers and supports cross-origin requests.
+There are countless ways to discover your public IP address today, from web tools like ifconfig.me or WhatIsMyIP.org to simple `curl ifconfig.co` commands. While these options work, they bind you to third-party performance, uptime, and security policies.
 
-This implementation demonstrates key Logic Apps concepts including HTTP triggers, conditional logic, data manipulation, and dynamic response formatting - all running on Azure's consumption-based serverless platform where you only pay for actual executions.
+Self-hosting a “What Is My IP” endpoint gives you full control over every aspect of the service—defining response formats and HTTP headers, enriching responses with metadata such as geolocation or autonomous system details, and retaining all logs under your own authentication and encryption rules. You can deploy the endpoint across multiple Azure regions or at the network edge to optimize latency, and pay only for actual invocations with a consumption-based billing model.
+
+In this article, you’ll learn how to use Azure Logic Apps to spin up a serverless HTTP trigger that accurately returns client IPs.
 
 ---
 
@@ -44,16 +46,6 @@ Azure Logic Apps is a cloud-based platform that enables you to create and run au
 ---
 
 ## Practical Part
-
-### Prerequisites
-
-| Requirement              | Details                                                     |
-|--------------------------|-------------------------------------------------------------|
-| Azure Subscription       | Active or free trial                                        |
-| Azure CLI (≥ v2.0)       | Installed and authenticated                                 |
-| Git                      | For cloning sample repo (optional)                          |
-| ARM Template Knowledge   | Basic understanding of Azure Resource Manager templates     |
-| HTTP/REST Basics         | Familiarity with headers, query parameters, and responses   |
 
 ### Step 1: Create Resource Group
 
@@ -144,15 +136,10 @@ az group delete \
 
 ## Summary
 
-This guide demonstrated how to deploy a serverless IP detection service using Azure Logic Apps. The solution leverages Logic Apps' consumption-based pricing model, making it cost-effective for intermittent usage while providing enterprise-grade reliability and scalability.
+You now have a complete toolkit for exposing your own public-IP endpoint, from no-code Azure Logic Apps to hand-crafted services in Node.js, Python, Go, and serverless functions. Each pattern highlights key trade-offs:
 
-Key achievements:
-- **Serverless Architecture**: Deployed a fully managed workflow without managing infrastructure
-- **Multi-format Support**: Implemented conditional logic to return IP in text, JSON, or JSONP formats
-- **Proxy-aware Detection**: Properly extracts client IPs from X-Forwarded-For headers
-- **Secure Access**: Utilized SAS token authentication for endpoint security
-- **Pay-per-use Model**: Consumption plan ensures costs only for actual executions
+* Logic Apps offers rapid assembly and pay-per-run economics at the expense of code flexibility
+* Self-hosted microservices grant full customization but require infrastructure management
+* Serverless and edge functions auto-scale globally with minimal ops work but introduce cold starts and sandbox limits
 
-The Logic App handles common edge cases like IPv4/IPv6 addresses, multiple proxy headers, and cross-origin requests through JSONP support. This pattern can be extended for more complex scenarios like IP geolocation, rate limiting, or integration with other Azure services.
-
-For production deployments, consider adding Application Insights for monitoring, implementing custom authentication, and using Azure API Management for advanced routing and throttling capabilities.
+No matter which path you choose, remember to handle proxy headers for accurate IP detection, enforce rate limits to protect your service, and add CORS or JSONP for cross-origin clients. With these foundations in place, you can extend your endpoint with geolocation, API management, and real-time analytics to build a robust, production-grade solution.
