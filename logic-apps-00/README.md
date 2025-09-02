@@ -47,7 +47,11 @@ Azure Logic Apps is a cloud-based platform that enables you to create and run au
 
 ## Practical Part
 
-### Step 1: Create Resource Group
+### Deploy from Azure Portal
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fwhat-is-my-ip-logic-app%2Fmaster%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
+
+### Deploy from Azure CLI
 
 ```bash
 # Sign in to Azure
@@ -58,8 +62,6 @@ az group create \
   --name rg-whatismyip-demo \
   --location swedencentral
 ```
-
-### Step 2: Deploy Logic App via ARM Template
 
 Deploy the "What is my IP" Logic App using the ARM template:
 
@@ -102,27 +104,6 @@ curl "https://your-logic-app-url.azure.com/...?format=json"
 # Get IP as JSONP for cross-origin requests
 curl "https://your-logic-app-url.azure.com/...?format=jsonp"
 ```
-
-### Step 4: Monitor and Troubleshoot
-
-View execution history and debug runs:
-
-```bash
-# List recent workflow runs
-az logic workflow run list \
-  --resource-group rg-whatismyip-demo \
-  --workflow-name whatismyip-app \
-  --query "[].{name:name, status:status, startTime:startTime}" \
-  --output table
-
-# Get detailed run information
-az logic workflow run show \
-  --resource-group rg-whatismyip-demo \
-  --workflow-name whatismyip-app \
-  --run-name <run-id>
-```
-
-### Step 5: Clean Up Resources
 
 When finished, remove the resource group:
 
