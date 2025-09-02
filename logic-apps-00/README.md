@@ -47,30 +47,47 @@ Azure Logic Apps is a cloud-based platform that enables you to create and run au
 
 ## Practical Part
 
+The deployment creates:
+- A consumption-based Logic App workflow
+- HTTP trigger endpoint accepting GET requests
+- IP extraction logic from X-Forwarded-For headers
+- Conditional responses based on format parameter
+- Secure trigger URL with SAS token authentication
+
+
+
 ### Deploy from Azure Portal
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fwhat-is-my-ip-logic-app%2Fmaster%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
 ### Deploy from Azure CLI
 
+#### Deployment
+
 ```bash
-# Sign in to Azure
-az login
+# Set variables
+RG_NAME="rg-whatismyip-demo"
+LOCATION="swedencentral"
+LOGIC_APP_NAME="whatismyip-app"
 
 # Create a resource group
 az group create \
-  --name rg-whatismyip-demo \
-  --location swedencentral
-```
+  --name $RG_NAME \
+  --location $LOCATION
 
-Deploy the "What is my IP" Logic App using the ARM template:
-
-```bash
-# Deploy from local template file or GitHub
+# Deploy the "What is my IP" Logic App using the ARM template
 az deployment group create \
-  --resource-group rg-whatismyip-demo \
+  --resource-group $RG_NAME \
   --template-file azuredeploy.json \
-  --parameters logicAppName=whatismyip-app location=swedencentral
+  --parameters logicAppName=$LOGIC_APP_NAME location=$LOCATION
+
+# Get the Logic App trigger URL
+TRIGGER_URL=$(az deployment group show \
+  --resource-group $RG_NAME \
+  --name azuredeploy \
+  --query properties.outputs.logicAppTriggerUrl.value -o tsv)
+
+echo "Your Logic App is deployed at: $TRIGGER_URL"
 ```
 
 The deployment creates:
@@ -80,40 +97,35 @@ The deployment creates:
 - Conditional responses based on format parameter
 - Secure trigger URL with SAS token authentication
 
-### Step 3: Test the Deployed Logic App
-
-After deployment, retrieve the trigger URL:
-
-```bash
-# Get the Logic App trigger URL
-az deployment group show \
-  --resource-group rg-whatismyip-demo \
-  --name azuredeploy \
-  --query properties.outputs.logicAppTriggerUrl.value -o tsv
-```
-
 Test different response formats:
 
 ```bash
 # Get IP as plain text (default)
-curl "https://your-logic-app-url.azure.com/..."
+curl "$TRIGGER_URL"
 
 # Get IP as JSON
-curl "https://your-logic-app-url.azure.com/...?format=json"
+curl "$TRIGGER_URL?format=json"
 
 # Get IP as JSONP for cross-origin requests
-curl "https://your-logic-app-url.azure.com/...?format=jsonp"
+curl "$TRIGGER_URL?format=jsonp"
 ```
 
-When finished, remove the resource group:
+#### Cleanup
+
+When you're finished testing, you can remove all the resources created:
 
 ```bash
+# Set variables (if not already set in your session)
+RG_NAME="rg-whatismyip-demo"
+
+# Delete the resource group and all resources within it
 az group delete \
-  --name rg-whatismyip-demo \
+  --name $RG_NAME \
   --yes --no-wait
+
+echo "Cleanup initiated. Resource group $RG_NAME will be deleted."
 ```
 
----
 
 ## Summary
 
