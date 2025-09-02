@@ -54,8 +54,6 @@ The deployment creates:
 - Conditional responses based on format parameter
 - Secure trigger URL with SAS token authentication
 
-
-
 ### Deploy from Azure Portal
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fwhat-is-my-ip-logic-app%2Fmaster%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
@@ -89,13 +87,6 @@ TRIGGER_URL=$(az deployment group show \
 
 echo "Your Logic App is deployed at: $TRIGGER_URL"
 ```
-
-The deployment creates:
-- A consumption-based Logic App workflow
-- HTTP trigger endpoint accepting GET requests
-- IP extraction logic from X-Forwarded-For headers
-- Conditional responses based on format parameter
-- Secure trigger URL with SAS token authentication
 
 Test different response formats:
 
