@@ -47,18 +47,15 @@ Azure Logic Apps is a cloud-based platform that enables you to create and run au
 
 ## Practical Part
 
-The deployment creates:
-- A consumption-based Logic App workflow
-- HTTP trigger endpoint accepting GET requests
-- IP extraction logic from X-Forwarded-For headers
-- Conditional responses based on format parameter
-- Secure trigger URL with SAS token authentication
+ARM template is stored in [the following repository](https://github.com/groovy-sky/what-is-my-ip-logic-app/tree/main). It creates a consumption-based Logic App workflow with an HTTP trigger endpoint that extracts client IPs from X-Forwarded-For headers, returns responses in various formats based on request parameters, and secures access via SAS token authentication. You can use Azure Portal or Azure Cloud Shell for deployment.
 
-### Deploy from Azure Portal
+### Azure Portal deployment
+
+You can use Azure portal for App deployment:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fwhat-is-my-ip-logic-app%2Fmaster%2Fazuredeploy.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a> 
 
-### Deploy from Azure CLI
+### Azure CLI deployment
 
 #### Deployment
 
@@ -116,7 +113,6 @@ az group delete \
 
 echo "Cleanup initiated. Resource group $RG_NAME will be deleted."
 ```
-
 
 ## Summary
 
