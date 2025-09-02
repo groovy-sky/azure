@@ -78,7 +78,7 @@ az group create \
 # Deploy the "What is my IP" Logic App using the ARM template
 az deployment group create \
   --resource-group $RG_NAME \
-  --template-file azuredeploy.json \
+  --template-uri https://raw.githubusercontent.com/groovy-sky/what-is-my-ip-logic-app/refs/heads/main/azuredeploy.json \
   --parameters logicAppName=$LOGIC_APP_NAME location=$LOCATION
 
 # Get the Logic App trigger URL
