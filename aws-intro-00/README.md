@@ -1,14 +1,13 @@
-# AWS for Azure Professionals   
+# AWS for Azure Professionals
+
+## Introduction
 
 ![](/images/aws/aws_vs_az_00.jpg)
 
-## Introduction
 
 This document provides an exhaustive, technical comparison of AWS and Azure across organization structure, identity and access management, networking, operations and observability, and shared principles. It highlights not only direct mappings but also the nuanced differences in governance, policy enforcement, private access patterns, and operational tooling. 
 
 ## Organization Structure
-
-
 
 ### Azure
 
@@ -227,6 +226,8 @@ Offers distributed tracing, service maps, and advanced analytics for microservic
 
 Both AWS and Azure operate global infrastructures with regions and availability zones (AZs) for high availability, fault tolerance, and compliance.
 
+![](/images/aws/aws_vs_az_05.jpg)
+
 **Azure:**  
 Over 60 regions, each with multiple AZs. Subnets can span AZs, simplifying redundancy. Managed services often provide built-in zone redundancy. Paired regions support geo-redundant storage and disaster recovery.
 
@@ -323,6 +324,9 @@ Tags at resource level; consolidated billing and cost allocation reports. Tag po
 
 
 ## Operational Tooling: Automation and Infrastructure as Code (IaC)
+
+![](/images/aws/aws_vs_az_07.jpg)
+
 
 **Azure:**  
 ARM templates, Bicep, Terraform, and Azure DevOps Pipelines. Bicep offers a modern, declarative syntax for Azure resources. Azure Policy integrates with IaC for compliance enforcement.
