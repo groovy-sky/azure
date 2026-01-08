@@ -1,10 +1,14 @@
 # AWS for Azure Professionals   
 
+![](/images/aws/aws_vs_az_00.jpg)
+
 ## Introduction
 
 This document provides an exhaustive, technical comparison of AWS and Azure across organization structure, identity and access management, networking, operations and observability, and shared principles. It highlights not only direct mappings but also the nuanced differences in governance, policy enforcement, private access patterns, and operational tooling. 
 
 ## Organization Structure
+
+
 
 ### Azure
 
@@ -15,6 +19,8 @@ Azure organizes resources using a hierarchical model built on **Management Group
 AWS employs a different but conceptually similar hierarchy. **AWS Organizations** is the central service for managing multiple AWS accounts. Within an Organization, **Accounts** act as isolated billing and security boundaries. **Organizational Units (OUs)** group accounts for policy application, and **Tagging** is used for logical grouping and cost allocation. Unlike Azure, AWS does not have a direct equivalent to Resource Groups; instead, resource grouping is achieved via tags and sometimes by using AWS Resource Groups for specific use cases.
 
 #### Comparative Table: Organizational Hierarchy
+
+![](/images/aws/aws_vs_az_01.jpg)
 
 | Azure Component        | AWS Equivalent         | Description                                                      |
 |-----------------------|------------------------|------------------------------------------------------------------|
@@ -64,6 +70,9 @@ Both platforms provide robust identity and access management, but their architec
 
 #### Comparative Table: Identity and Access Management
 
+![](/images/aws/aws_vs_az_02.jpg)
+
+
 | Capability                | Azure                                 | AWS                                  |
 |---------------------------|---------------------------------------|--------------------------------------|
 | Directory Service         | Microsoft Entra ID                    | IAM, IAM Identity Center             |
@@ -97,6 +106,9 @@ Azure supports cross-tenant access via Entra ID B2B and RBAC assignments. AWS us
 Both Azure and AWS provide isolated, private networking environments, but their architectures and operational models differ.
 
 #### Comparative Table: Networking Features
+
+![](/images/aws/aws_vs_az_03.jpg)
+
 
 | Feature                  | Azure VNet                          | AWS VPC                             |
 |--------------------------|-------------------------------------|-------------------------------------|
@@ -158,6 +170,9 @@ Supports public and private hosted zones. Private hosted zones are associated wi
 Both platforms offer comprehensive monitoring, logging, and distributed tracing, but differ in implementation and integration.
 
 #### Comparative Table: Operations and Observability
+
+![](/images/aws/aws_vs_az_04.jpg)
+
 
 | Capability             | Azure                                 | AWS                                  |
 |------------------------|----------------------------------------|---------------------------------------|
@@ -306,7 +321,6 @@ Tags at resource level; cost analysis via Cost Management + Billing. Cost alloca
 **AWS:**  
 Tags at resource level; consolidated billing and cost allocation reports. Tag policies standardize tagging across accounts. Cost Explorer and Budgets provide detailed analysis and optimization tools.
 
----
 
 ## Operational Tooling: Automation and Infrastructure as Code (IaC)
 
@@ -320,7 +334,6 @@ CloudFormation, CDK, Terraform, and CodePipeline. CloudFormation provides declar
 - Azure’s Bicep and ARM templates are Azure-specific; Terraform supports multi-cloud.
 - AWS CDK offers programmatic infrastructure definition; Azure relies on declarative models.
 
----
 
 ## Security Monitoring and Threat Detection
 
@@ -334,7 +347,6 @@ GuardDuty, Inspector, Macie, Security Hub, and Config. Aggregates findings, supp
 - Azure’s Sentinel provides advanced AI-driven threat detection and automation.
 - AWS Security Hub excels in aggregating findings but has limited multi-cloud support.
 
----
 
 ## Migration Considerations for Azure-Native Teams Moving to AWS
 
@@ -344,7 +356,6 @@ GuardDuty, Inspector, Macie, Security Hub, and Config. Aggregates findings, supp
 - Use AWS Migration Hub, Application Migration Service, and Database Migration Service for planning and execution.
 - Train teams on AWS fundamentals, IAM, VPCs, and security groups.
 
----
 
 ## Appendices: Service Mapping Tables
 
@@ -366,13 +377,10 @@ GuardDuty, Inspector, Macie, Security Hub, and Config. Aggregates findings, supp
 | Azure Activity Log          | AWS CloudTrail                      |
 | Microsoft Defender for Cloud| AWS Security Hub                    |
 
----
-
 ## Conclusion
 
 For Azure professionals, understanding AWS equivalents is essential for effective multicloud strategy, migration, and governance. While both platforms share foundational principles—regions, AZs, shared responsibility, least privilege, and network segmentation—their operational models, policy enforcement, and tooling differ in critical ways. Azure’s centralized, directory-based governance contrasts with AWS’s decentralized, account-centric model. Policy enforcement, private access patterns, and privileged access management require careful mapping and adaptation. By leveraging the detailed mappings and nuanced comparisons in this report, cloud architects and engineers can confidently navigate cross-cloud environments, optimize security and compliance, and drive operational excellence.
 
----
 
 **Key Takeaways:**  
 - Azure and AWS share core principles but differ in hierarchy, governance, and operational tooling.
