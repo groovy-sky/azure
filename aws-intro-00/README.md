@@ -1,4 +1,4 @@
-# AWS for Azure Professionals
+# AWS for Azure Professionals (part 1)
 
 ## Introduction
 
