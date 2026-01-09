@@ -95,27 +95,146 @@ This document provides an exhaustive, technical comparison of AWS and Azure acro
 | Tag inheritance | No native inheritance between parent/child resources (AWS Cost Categories support inheritance) | Supports tag inheritance via policy | Azure has stronger built-in inheritance via governance. |
 | Tagging tools | Tag Editor tool | Tagging via Azure portal and management interfaces | Both provide tooling; AWS has a dedicated tag editor, Azure uses portal/CLI/PowerShell/APIs. |
 
+
+## Compute
+
+### Virtual machines and servers
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Virtual machines and servers | [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types)<br>[AWS Parallel Cluster](https://aws.amazon.com/hpc/parallelcluster) | [Azure Virtual Machines](https://azure.microsoft.com/services/virtual-machines)<br>[Azure CycleCloud](https://azure.microsoft.com/features/azure-cyclecloud) | On-demand VMs and HPC cluster creation/management. |
+
+### Autoscaling
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Autoscaling | [AWS Auto Scaling](https://aws.amazon.com/autoscaling) | [Virtual machine scale sets](https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview)<br>[App Service autoscale](https://learn.microsoft.com/azure/app-service/web-sites-scale) | Automatically adjusts instance count based on metrics/thresholds. |
+
+### Batch processing
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Batch processing | [AWS Batch](https://aws.amazon.com/batch) | [Azure Batch](https://azure.microsoft.com/services/batch)<br>[Azure Batch overview](https://learn.microsoft.com/azure/batch/batch-technical-overview) | Runs large-scale parallel/HPC batch workloads. |
+
+### Storage
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Storage | Disk volumes on [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs)<br>[Amazon EC2 instance store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html)<br>[Amazon EBS Provisioned IOPS Volume](https://aws.amazon.com/ebs/provisioned-iops)<br>[Amazon Elastic File System (EFS)](https://aws.amazon.com/efs) | Data disks in [Azure Blob Storage](https://azure.microsoft.com/services/storage/blobs)<br>[Azure temporary storage](https://learn.microsoft.com/archive/blogs/mast/understanding-the-temporary-drive-on-windows-azure-)<br>[Azure premium storage](https://learn.microsoft.com/azure/virtual-machines/premium-storage-performance)<br>[Azure Files](https://learn.microsoft.com/azure/storage/files/storage-files-introduction) | VM disk-related storage equivalents: block, ephemeral, high-IOPS, and shared file storage. |
+
+### Containers and container orchestrators
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Containers and container orchestrators | [Amazon Elastic Container Service (Amazon ECS)](https://aws.amazon.com/ecs)<br>[AWS Fargate](https://aws.amazon.com/fargate)<br>[Amazon Elastic Container Registry (Amazon ECR)](https://aws.amazon.com/ecr)<br>[Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks)<br>[AWS App Mesh](https://aws.amazon.com/app-mesh) | [Azure Container Apps](https://azure.microsoft.com/products/container-apps)<br>[Azure Container Registry](https://azure.microsoft.com/services/container-registry)<br>[Azure Kubernetes Service (AKS)](https://azure.microsoft.com/services/kubernetes-service)<br>[Istio add-on for AKS](https://learn.microsoft.com/azure/aks/istio-about) | Includes container runtime/orchestration, registry, Kubernetes, and service mesh mappings. |
+
+### Serverless computing
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Serverless computing | [AWS Lambda](https://aws.amazon.com/lambda) | [Azure Functions](https://azure.microsoft.com/services/functions)<br>[WebJobs](https://learn.microsoft.com/azure/app-service/web-sites-create-web-jobs) | Serverless execution; Azure includes Functions and App Service WebJobs. |
+
+## Storage
+
+### S3/EBS/EFS and Azure Storage
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| S3/EBS/EFS and Azure Storage | **S3** (object storage via API)<br>**EBS** (block storage, typically for a single VM; some multi-attach scenarios depending on volume type/class)<br>**Shared storage**: **EFS** and **FSx** family | Azure Storage via subscription-bound **[storage accounts](https://learn.microsoft.com/azure/storage/common/storage-quickstart-create-account)** providing:<br>**[Blob storage](https://learn.microsoft.com/azure/storage/common/storage-quickstart-create-account)** (object)<br>**[Table storage](https://learn.microsoft.com/azure/cosmos-db/table-storage-how-to-use-nodejs)** (NoSQL key-attribute)<br>**[Queue storage](https://learn.microsoft.com/azure/storage/queues/storage-quickstart-queues-nodejs?tabs=passwordless%2Croles-azure-portal%2Cenvironment-variable-windows%2Csign-in-azure-cli)** (messaging)<br>**[File storage](https://learn.microsoft.com/azure/storage/files/storage-java-how-to-use-file-storage)** (SMB/NFS shares) | AWS commonly splits storage into object/block/shared. Azure groups multiple storage services under a storage account, plus separate managed file system offerings (Managed Lustre, NetApp Files, Native Qumulo). |
+
+### Glacier and Azure Storage
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Glacier and Azure Storage | AWS Glacier | [Azure Archive Blob Storage (archive access tier)](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview#archive-access-tier)<br>[Azure Cool Blob Storage tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview#cool-access-tier) | Archive tier ≈ Glacier for rarely accessed long-retention data; Cool tier is for infrequently accessed data that must be available immediately. |
+
+### Object storage access control
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Object storage access control | S3 access via IAM roles or bucket policy; uses **pre-signed URLs** for time-limited access ([docs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html)) | Azure Blob Storage uses a layered approach; data-plane network access controlled via **Azure Storage firewall** | Both support time-limited URL-based access patterns (Azure typically via SAS, per the doc’s comparison). |
+
+### Regional redundancy and replication for object storage
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Regional redundancy and replication for object storage | S3 cross-region replication | Azure redundancy options + Azure blob replication | Both can replicate to another region; configured differently (S3 CRR vs Azure redundancy/replication features). |
+
+### Comparing block storage choices
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Comparing block storage choices | EBS: **gp2/gp3**, **io2** | Managed disks: **Standard SSD**, **Premium SSD**, **Premium SSD v2**, **Ultra Disk Storage** | Doc’s generalized mapping: gp2/gp3→Standard SSD; gp2→Premium SSD; gp3→Premium SSD v2; io2→Ultra Disk. Notes Azure host caching options. |
+
+### Object storage
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Object storage | [Simple Storage Services (S3)](https://aws.amazon.com/s3/) | [Blob storage](https://learn.microsoft.com/azure/storage/blobs/storage-blobs-introduction) | Core object storage mapping. |
+
+### Virtual server disks
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Virtual server disks | [Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) | [Managed Disks](https://azure.microsoft.com/services/storage/disks/) | VM-attached block storage mapping. |
+| Virtual server disks | [Amazon FSX for NetApp ONTAP](https://aws.amazon.com/fsx/netapp-ontap/) (iSCSI or NVMe/TCP LUNs) | [Azure Elastic SAN](https://azure.microsoft.com/products/storage/elastic-san/) | SAN/LUN-style block storage mapping (per table). |
+
+### Shared files
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Shared files | [Elastic File System](https://aws.amazon.com/efs/) | [Files](https://azure.microsoft.com/services/storage/files/) | Managed/shared file system mapping. |
+| Shared files | [Amazon FSx for Windows File Server](https://aws.amazon.com/fsx/windows/) | [Files](https://azure.microsoft.com/services/storage/files/) | Managed SMB file shares mapping (Azure Files used). |
+| Shared files | [Amazon FSx for Lustre](https://aws.amazon.com/fsx/lustre/) | [Azure Managed Lustre](https://azure.microsoft.com/products/managed-lustre/) | Managed Lustre mapping. |
+| Shared files | [Amazon FSx for NetApp ONTAP](https://aws.amazon.com/fsx/netapp-ontap/) | [Azure NetApp Files](https://azure.microsoft.com/products/netapp/) | Managed NetApp mapping. |
+
+### Archiving and backup
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Archiving and backup | [S3 Infrequent Access (IA)](https://aws.amazon.com/s3/storage-classes) | [Storage cool tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview) | Lower-cost tier for infrequently accessed data. |
+| Archiving and backup | [S3 Glacier](https://aws.amazon.com/s3/storage-classes) | [Cold access storage tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview) | Cold tier mapping (per table). |
+| Archiving and backup | [S3 Glacier Deep Archive](https://aws.amazon.com/s3/storage-classes) | [Storage archive access tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview) | Deep archive vs archive tier mapping. |
+| Archiving and backup | [Backup](https://aws.amazon.com/backup/) | [Backup](https://azure.microsoft.com/services/backup/) | Backup/recovery service mapping. |
+
+### Hybrid storage
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Hybrid storage | [AWS Storage Gateway: S3 File Gateway](https://aws.amazon.com/storagegateway/file/s3/) | [Azure Data Box Gateway](https://learn.microsoft.com/azure/databox-gateway/data-box-gateway-overview)<br>[Azure File Sync](https://learn.microsoft.com/azure/storage/file-sync/file-sync-introduction) | Hybrid gateway/sync equivalents (per table). |
+| Hybrid storage | [AWS Storage Gateway: Tape Gateway](https://aws.amazon.com/storagegateway/vtl/) | *None* | No Azure equivalent listed in the document. |
+| Hybrid storage | [AWS Storage Gateway: Volume Gateway](https://aws.amazon.com/storagegateway/volume/) | *None* | No Azure equivalent listed in the document. |
+| Hybrid storage | [DataSync](https://aws.amazon.com/datasync/) | [File Sync](https://learn.microsoft.com/azure/storage/file-sync/file-sync-introduction) | Data movement/sync mapping. |
+
+### Bulk data transfer
+
+| Area | AWS | Azure | Notes |
+|---|---|---|---|
+| Bulk data transfer | [Import/Export Disk](https://aws.amazon.com/snowball/disk/details/) | [Import/Export](https://learn.microsoft.com/azure/storage/common/storage-import-export-service) | Secure disk-based offline transfer mapping. |
+| Bulk data transfer | [Snowball Edge](https://aws.amazon.com/snowball-edge/) | [Data Box](https://azure.microsoft.com/services/storage/databox/) | Offline transfer appliance mapping. |
+
+
 ## Networking
 
 | Area | AWS | Azure | Notes |
-| -----| ----------- | ------------- | ----------- |
-| Cloud virtual networking | [Virtual Private Cloud (VPC)](https://aws.amazon.com/vpc) | [Virtual Network](https://azure.microsoft.com/services/virtual-network) | These services provide an isolated private environment in the cloud. You have control over your virtual networking environment, including the selection of your own IP address range, creation of subnets, and configuration of route tables and network gateways. In AWS, each subnet must reside in one availability zone. In Azure, subnets can span multiple availability zones. |
-| NAT gateways | [AWS NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) | [Azure NAT Gateway](/azure/virtual-network/nat-gateway/nat-overview) |These services simplify outbound-only Internet connectivity for virtual networks. On a subnet, you can configure all outbound connectivity to use static public IP addresses that you specify. Outbound connectivity is possible without a load balancer or public IP addresses directly attached to virtual machines. AWS NAT gateways can only be associated with a single public IP. Azure NAT gateways can have multiple public IPs. |
-| Cross-premises connectivity | [Site-to-Site VPN](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) | [VPN Gateway](/azure/vpn-gateway/vpn-gateway-about-vpngateways) |AWS Site-to-Site VPN and Azure VPN Gateway provide enhanced-security, reliable VPN connections with high availability and support for industry-standard protocols. The key differences are in their integration with other cloud services and in specific features like route-based and policy-based VPNs in Azure. AWS VPN provides a maximum of 5 Gbps throughput, whereas Azure provides up to 10 Gbps. |
-| DNS management | [Route 53](https://aws.amazon.com/route53) | [Azure DNS](https://azure.microsoft.com/services/dns/) | Azure DNS lets you manage your DNS records by using the same credentials and billing and support contract that you use for your other Azure services. Both services support [DNSSEC](/azure/dns/dnssec). |
-| DNS-based routing | [Route 53](https://aws.amazon.com/route53) | [Traffic Manager](https://azure.microsoft.com/services/traffic-manager) | These services host domain names, route users to internet applications, connect user requests to datacenters, manage traffic to apps, and improve app availability with automatic failover. |
-| Dedicated network | [Direct Connect](https://aws.amazon.com/directconnect) | [ExpressRoute](https://azure.microsoft.com/services/expressroute) | These services establish a dedicated, private network connection from a location to the cloud provider (not over the internet). |
-| Load balancing | [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) | [Load Balancer](https://azure.microsoft.com/services/load-balancer)  | Azure Load Balancer load balances traffic at layer 4 (TCP or UDP). Standard Load Balancer also supports cross-subscription and global load balancing. |
-| Application-level load balancing |  [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) | [Application Gateway](https://azure.microsoft.com/services/application-gateway) | Application Gateway is a layer 7 load balancer. It supports SSL termination, cookie-based session affinity, and round robin for load-balancing traffic. It also provides multi-site routing and security features. |
-| Route tables | [Custom Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html) | [User Defined Routes](/azure/virtual-network/virtual-networks-udr-overview) | These tables provide custom or user-defined (static) routes to override default system routes, or to add more routes to a subnet's route table. |
-| Private link | [PrivateLink](https://aws.amazon.com/privatelink) | [Azure Private Link](https://azure.microsoft.com/services/private-link) | Azure Private Link provides private access to services that are hosted on the Azure platform. This keeps your data on the Microsoft network. |
-| Private PaaS connectivity |  [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html) | [Private Endpoint](/azure/private-link/private-endpoint-overview) | Private Endpoint provides secured, private connectivity to various Azure platform as a service (PaaS) resources, over a backbone Microsoft private network. |
-| Virtual network peering | [VPC Peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) | [Virtual network peering](/azure/virtual-network/virtual-network-peering-overview) | Virtual network peering is a mechanism that connects two virtual networks in the same region through the Azure backbone network. After they're peered, the two virtual networks appear as one for all connectivity purposes. |
-| Content delivery networks | [CloudFront](https://aws.amazon.com/cloudfront)| [Front Door](https://azure.microsoft.com/services/frontdoor) | Azure Front Door is a modern cloud content delivery network (CDN) service that delivers high performance, scalability, and secure user experiences for your content and applications. |
-| Network monitoring | [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html) | [Azure Network Watcher](/azure/network-watcher/network-watcher-monitoring-overview) | Azure Network Watcher allows you to monitor, diagnose, and analyze the traffic in Azure Virtual Network. |
-| Network security | [Security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html) | [Network security groups](/azure/virtual-network/network-security-groups-overview) | These controls filter network traffic to and from resources in a virtual network subnets. |
-| Virtual network peering | [AWS transit gateways](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-transit-gateways.html) | [Azure Virtual WAN](/azure/virtual-wan/) | These services simplify and enhance network connectivity across multiple environments to support scalable and flexible network architectures. Virtual WAN integrates with Azure Firewall and Azure DDoS Protection to provide additional security features. AWS transit gateways rely on AWS security services like AWS Shield and AWS WAF. Virtual WAN is designed for global connectivity, so it's easier to connect branch offices and remote users worldwide. AWS transit gateways support 100 BGP prefixes per private connection. Virtual WAN private peering supports 1,000 BGP prefixes. |
-| Cloud virtual networking | [AWS Global Accelerator](https://aws.amazon.com/global-accelerator/) | [Azure Traffic Manager](/azure/traffic-manager/traffic-manager-overview) | These services improve the availability and performance of your applications with global routing and traffic management. |
-| Cross-premises connectivity | [AWS Direct Connect gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways-intro.html) | [Azure ExpressRoute Global Reach](/azure/expressroute/expressroute-global-reach) | These services extend your on-premises networks to the cloud with dedicated private connections that span multiple regions. |
-| Application-level networking | [AWS App Mesh](https://docs.aws.amazon.com/app-mesh/latest/userguide/what-is-app-mesh.html) | [Azure Service Fabric](/azure/service-fabric/) | These services provide application-level networking to manage microservices, including service discovery, load balancing, and traffic routing. |
-| Service discovery | [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) | [Azure Private DNS](/azure/dns/private-dns-overview) | These services provide service discovery for cloud resources. They enable you to register application resources and dynamically update their locations. |
+|---|---|---|---|
+| Cloud virtual networking | [Virtual Private Cloud (VPC)](https://aws.amazon.com/vpc) | [Virtual Network](https://azure.microsoft.com/services/virtual-network) | Isolated private networking primitives. |
+| NAT gateways | [AWS NAT gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) | [Azure NAT Gateway](https://learn.microsoft.com/azure/virtual-network/nat-gateway/nat-overview) | Managed outbound NAT for private subnets. |
+| Cross-premises connectivity | [Site-to-Site VPN](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) | [VPN Gateway](https://learn.microsoft.com/azure/vpn-gateway/vpn-gateway-about-vpngateways) | Encrypted tunnels between on-premises and cloud. |
+| DNS management | [Route 53](https://aws.amazon.com/route53) | [Azure DNS](https://azure.microsoft.com/services/dns/) | DNS hosting/zone and record management. |
+| DNS-based routing | [Route 53](https://aws.amazon.com/route53) | [Traffic Manager](https://azure.microsoft.com/services/traffic-manager) | DNS-based routing, load balancing, failover. |
+| Dedicated network | [Direct Connect](https://aws.amazon.com/directconnect) | [ExpressRoute](https://azure.microsoft.com/services/expressroute) | Private dedicated connectivity. |
+| Load balancing | [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) | [Load Balancer](https://azure.microsoft.com/services/load-balancer) | L4 load balancing. |
+| Application-level load balancing | [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) | [Application Gateway](https://azure.microsoft.com/services/application-gateway) | L7 load balancing / routing. |
+| Route tables | [Custom Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html) | [User Defined Routes](https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview) | Custom routing at subnet level. |
+| Private link | [PrivateLink](https://aws.amazon.com/privatelink) | [Azure Private Link](https://azure.microsoft.com/services/private-link) | Private access to services over the provider backbone. |
+| Private PaaS connectivity | [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html) | [Private Endpoint](https://learn.microsoft.com/azure/private-link/private-endpoint-overview) | Private endpoints into PaaS services. |
+| Virtual network peering | [VPC Peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) | [Virtual network peering](https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview) | Private connectivity between VNets/VPCs. |
+| Content delivery networks | [CloudFront](https://aws.amazon.com/cloudfront) | [Front Door](https://azure.microsoft.com/services/frontdoor) | CDN / global edge entry service. |
+| Network monitoring | [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html) | [Azure Network Watcher](https://learn.microsoft.com/azure/network-watcher/network-watcher-monitoring-overview) | Network observability and diagnostics. |
+| Network security | [Security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html) | [Network security groups](https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview) | Stateful network filtering at NIC/subnet level (Azure) vs SGs (AWS). |
+| Virtual network peering (hub/transit) | [AWS transit gateways](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-transit-gateways.html) | [Azure Virtual WAN](https://learn.microsoft.com/azure/virtual-wan/) | Centralized routing / transit networking for multiple networks. |
+| Cloud virtual networking (global routing) | [AWS Global Accelerator](https://aws.amazon.com/global-accelerator/) | [Azure Traffic Manager](https://learn.microsoft.com/azure/traffic-manager/traffic-manager-overview) | Improves global availability/performance via global routing (DNS-based on Azure TM). |
+| Cross-premises connectivity (global reach) | [AWS Direct Connect gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways-intro.html) | [Azure ExpressRoute Global Reach](https://learn.microsoft.com/azure/expressroute/expressroute-global-reach) | Connects on-prem networks via cloud provider backbone (as implied by service names). |
+| Application-level networking | [AWS App Mesh](https://docs.aws.amazon.com/app-mesh/latest/userguide/what-is-app-mesh.html) | [Azure Service Fabric](https://learn.microsoft.com/azure/service-fabric/) | Listed as counterparts in the doc’s table (note: these are not direct equivalents in all scenarios). |
+| Service discovery | [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) | [Azure Private DNS](https://learn.microsoft.com/azure/dns/private-dns-overview) | Service discovery / private DNS naming within virtual networks. |
