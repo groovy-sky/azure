@@ -2,14 +2,30 @@
 
 ## Glossary
 
-- [Introduction](#introduction) – Purpose of the guide and context for Azure professionals mapping AWS services.
-- [Organizational Hierarchy](#organizational-hierarchy) – Comparative view of AWS and Azure account, tenant, and management structures.
-- [Identity Management](#identity-management) – Core identity, governance, and hybrid identity equivalencies across clouds.
-- [Resource management](#resource-management) – How both providers organize, deploy, and tag resources.
-- [Storage](#storage) – Mapping between AWS and Azure storage offerings across tiers and scenarios.
-- [Networking](#networking) – Network primitives, connectivity options, and security components in each platform.
-- [Compute](#compute) – VM, autoscaling, container, and serverless analogs between AWS and Azure.
-- [Summary](#summary) – Quick recap of the key takeaways from the comparison tables.
+- [AWS for Azure Professionals (part 1)](#aws-for-azure-professionals-part-1)
+  - [Glossary](#glossary)
+  - [Introduction](#introduction)
+  - [Organizational Hierarchy](#organizational-hierarchy)
+  - [Identity Management](#identity-management)
+    - [Core services](#core-services)
+    - [Authentication and access control](#authentication-and-access-control)
+    - [Identity governance](#identity-governance)
+    - [Privileged access management](#privileged-access-management)
+    - [Hybrid identity](#hybrid-identity)
+  - [Resource management](#resource-management)
+    - [Resource concept](#resource-concept)
+    - [Resource groups](#resource-groups)
+    - [Resource deployment](#resource-deployment)
+    - [Resource tagging](#resource-tagging)
+  - [Storage](#storage)
+  - [Networking](#networking)
+  - [Compute](#compute)
+    - [Virtual machines and servers](#virtual-machines-and-servers)
+    - [Autoscaling](#autoscaling)
+    - [Batch processing](#batch-processing)
+    - [Containers](#containers)
+    - [Serverless computing](#serverless-computing)
+  - [Summary](#summary)
 
 ## Introduction
 
