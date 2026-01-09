@@ -2,11 +2,11 @@
 
 ## Introduction
 
-![](/images/aws/aws_vs_az_00.jpg)
-
-This document provides an exhaustive, technical comparison of AWS and Azure across organization structure, identity and access management, networking, operations and observability, and shared principles. It highlights direct mappings and nuanced differences in governance, policy enforcement, private access patterns, and operational tooling. This foundational overview is aimed at Azure professionals seeking to understand AWS equivalents and operational models. 
+Cloud services have revolutionized the way computing resources are delivered and consumed. Whether you're working with Infrastructure-as-a-Service (IaaS), Platform-as-a-Service (PaaS), or Software-as-a-Service (SaaS), all cloud services share fundamental concepts, characteristics, and components that define their functionality. This guide provides a technical comparison of AWS and Azure with a goal to understand AWS equivalents and operational models for Azure professionals.  
 
 ##  Organizational Hierarchy
+
+A well-structured cloud environment includes logical and hierarchical components designed to manage resources, security, and access. These components may vary slightly depending on the cloud provider, but the principles remain consistent.
 
 | Area | AWS | Azure | Notes |
 |---|---|---|---|
@@ -19,8 +19,9 @@ This document provides an exhaustive, technical comparison of AWS and Azure acro
 | Ownership/admin roles (classic) | IAM users/roles and account-level administration patterns | Classic subscription admins: Account Administrator / Service Administrator / Co-administrator (plus Azure RBAC in practice) | Both support delegated admin; Azure has classic subscription admin roles in addition to RBAC. |
 | Quotas/limits | Service quotas per account | Quotas/limits per subscription | Both have default quotas/limits; you manage increases per workload container. |
 
-
 ## Identity Management
+
+Identity and Access Management is critical to controlling access to cloud resources. It allows organizations to define who can access what resources and what actions they can perform.
 
 ### Core services
 
@@ -60,6 +61,8 @@ This document provides an exhaustive, technical comparison of AWS and Azure acro
 
 ## Resource management
 
+The term resource is used in the same way in both Azure and Amazon Web Services (AWS). A resource is a manageable item. It could be a virtual machine, storage account, web app, database, or virtual network, for example.
+
 ### Resource concept
 
 | Area | AWS | Azure | Notes |
@@ -98,6 +101,8 @@ This document provides an exhaustive, technical comparison of AWS and Azure acro
 
 ## Compute
 
+Compute refers to the processing power needed to run applications, workloads, or virtual machines.
+
 ### Virtual machines and servers
 
 | Area | AWS | Azure | Notes |
@@ -116,17 +121,15 @@ This document provides an exhaustive, technical comparison of AWS and Azure acro
 |---|---|---|---|
 | Batch processing | [AWS Batch](https://aws.amazon.com/batch) | [Azure Batch](https://azure.microsoft.com/services/batch)<br>[Azure Batch overview](https://learn.microsoft.com/azure/batch/batch-technical-overview) | Runs large-scale parallel/HPC batch workloads. |
 
-### Storage
+### Containers
 
 | Area | AWS | Azure | Notes |
 |---|---|---|---|
-| Storage | Disk volumes on [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs)<br>[Amazon EC2 instance store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html)<br>[Amazon EBS Provisioned IOPS Volume](https://aws.amazon.com/ebs/provisioned-iops)<br>[Amazon Elastic File System (EFS)](https://aws.amazon.com/efs) | Data disks in [Azure Blob Storage](https://azure.microsoft.com/services/storage/blobs)<br>[Azure temporary storage](https://learn.microsoft.com/archive/blogs/mast/understanding-the-temporary-drive-on-windows-azure-)<br>[Azure premium storage](https://learn.microsoft.com/azure/virtual-machines/premium-storage-performance)<br>[Azure Files](https://learn.microsoft.com/azure/storage/files/storage-files-introduction) | VM disk-related storage equivalents: block, ephemeral, high-IOPS, and shared file storage. |
+| Container Service | [Amazon Elastic Container Service (Amazon ECS)](https://aws.amazon.com/ecs), [AWS Fargate](https://aws.amazon.com/fargate) | [Azure Container Apps](https://azure.microsoft.com/products/container-apps/) | Azure Container Apps is a scalable service that lets you deploy thousands of containers without requiring access to the control plane. |
+| Container Registry | [Amazon Elastic Container Registry (Amazon ECR)](https://aws.amazon.com/ecr) | [Azure Container Registry](https://azure.microsoft.com/services/container-registry) | Container registries store Docker formatted images and create all types of container deployments in the cloud. |
+| Kubernetes Service | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks) | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/services/kubernetes-service) | EKS and AKS let you orchestrate Docker containerized application deployments with Kubernetes. AKS simplifies monitoring and cluster management through auto upgrades and a built-in operations console. See [Container runtime configuration](/azure/aks/concepts-clusters-workloads#container-runtime-configuration) for specifics on the hosting environment.|
+| Kubernetes Service Mesh | [AWS App Mesh](https://aws.amazon.com/app-mesh) | [Istio add-on for AKS](https://learn.microsoft.com/azure/aks/istio-about)| The Istio add-on for AKS provides a fully-supported integration of the open-source Istio service mesh. |
 
-### Containers and container orchestrators
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| Containers and container orchestrators | [Amazon Elastic Container Service (Amazon ECS)](https://aws.amazon.com/ecs)<br>[AWS Fargate](https://aws.amazon.com/fargate)<br>[Amazon Elastic Container Registry (Amazon ECR)](https://aws.amazon.com/ecr)<br>[Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks)<br>[AWS App Mesh](https://aws.amazon.com/app-mesh) | [Azure Container Apps](https://azure.microsoft.com/products/container-apps)<br>[Azure Container Registry](https://azure.microsoft.com/services/container-registry)<br>[Azure Kubernetes Service (AKS)](https://azure.microsoft.com/services/kubernetes-service)<br>[Istio add-on for AKS](https://learn.microsoft.com/azure/aks/istio-about) | Includes container runtime/orchestration, registry, Kubernetes, and service mesh mappings. |
 
 ### Serverless computing
 
@@ -136,80 +139,23 @@ This document provides an exhaustive, technical comparison of AWS and Azure acro
 
 ## Storage
 
-### S3/EBS/EFS and Azure Storage
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| S3/EBS/EFS and Azure Storage | **S3** (object storage via API)<br>**EBS** (block storage, typically for a single VM; some multi-attach scenarios depending on volume type/class)<br>**Shared storage**: **EFS** and **FSx** family | Azure Storage via subscription-bound **[storage accounts](https://learn.microsoft.com/azure/storage/common/storage-quickstart-create-account)** providing:<br>**[Blob storage](https://learn.microsoft.com/azure/storage/common/storage-quickstart-create-account)** (object)<br>**[Table storage](https://learn.microsoft.com/azure/cosmos-db/table-storage-how-to-use-nodejs)** (NoSQL key-attribute)<br>**[Queue storage](https://learn.microsoft.com/azure/storage/queues/storage-quickstart-queues-nodejs?tabs=passwordless%2Croles-azure-portal%2Cenvironment-variable-windows%2Csign-in-azure-cli)** (messaging)<br>**[File storage](https://learn.microsoft.com/azure/storage/files/storage-java-how-to-use-file-storage)** (SMB/NFS shares) | AWS commonly splits storage into object/block/shared. Azure groups multiple storage services under a storage account, plus separate managed file system offerings (Managed Lustre, NetApp Files, Native Qumulo). |
-
-### Glacier and Azure Storage
+Cloud services offer various types of storage solutions to store data, files, and backups.
 
 | Area | AWS | Azure | Notes |
 |---|---|---|---|
 | Glacier and Azure Storage | AWS Glacier | [Azure Archive Blob Storage (archive access tier)](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview#archive-access-tier)<br>[Azure Cool Blob Storage tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview#cool-access-tier) | Archive tier ≈ Glacier for rarely accessed long-retention data; Cool tier is for infrequently accessed data that must be available immediately. |
-
-### Object storage access control
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| Object storage access control | S3 access via IAM roles or bucket policy; uses **pre-signed URLs** for time-limited access ([docs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html)) | Azure Blob Storage uses a layered approach; data-plane network access controlled via **Azure Storage firewall** | Both support time-limited URL-based access patterns (Azure typically via SAS, per the doc’s comparison). |
-
-### Regional redundancy and replication for object storage
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| Regional redundancy and replication for object storage | S3 cross-region replication | Azure redundancy options + Azure blob replication | Both can replicate to another region; configured differently (S3 CRR vs Azure redundancy/replication features). |
-
-### Comparing block storage choices
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| Comparing block storage choices | EBS: **gp2/gp3**, **io2** | Managed disks: **Standard SSD**, **Premium SSD**, **Premium SSD v2**, **Ultra Disk Storage** | Doc’s generalized mapping: gp2/gp3→Standard SSD; gp2→Premium SSD; gp3→Premium SSD v2; io2→Ultra Disk. Notes Azure host caching options. |
-
-### Object storage
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| Object storage | [Simple Storage Services (S3)](https://aws.amazon.com/s3/) | [Blob storage](https://learn.microsoft.com/azure/storage/blobs/storage-blobs-introduction) | Core object storage mapping. |
-
-### Virtual server disks
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
 | Virtual server disks | [Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) | [Managed Disks](https://azure.microsoft.com/services/storage/disks/) | VM-attached block storage mapping. |
 | Virtual server disks | [Amazon FSX for NetApp ONTAP](https://aws.amazon.com/fsx/netapp-ontap/) (iSCSI or NVMe/TCP LUNs) | [Azure Elastic SAN](https://azure.microsoft.com/products/storage/elastic-san/) | SAN/LUN-style block storage mapping (per table). |
-
-### Shared files
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
-| Shared files | [Elastic File System](https://aws.amazon.com/efs/) | [Files](https://azure.microsoft.com/services/storage/files/) | Managed/shared file system mapping. |
-| Shared files | [Amazon FSx for Windows File Server](https://aws.amazon.com/fsx/windows/) | [Files](https://azure.microsoft.com/services/storage/files/) | Managed SMB file shares mapping (Azure Files used). |
+| Shared files | [Elastic File System](https://aws.amazon.com/efs/) ; [Amazon FSx for Windows File Server](https://aws.amazon.com/fsx/windows/) | [Files](https://azure.microsoft.com/services/storage/files/) | Managed/shared file system mapping. |
 | Shared files | [Amazon FSx for Lustre](https://aws.amazon.com/fsx/lustre/) | [Azure Managed Lustre](https://azure.microsoft.com/products/managed-lustre/) | Managed Lustre mapping. |
 | Shared files | [Amazon FSx for NetApp ONTAP](https://aws.amazon.com/fsx/netapp-ontap/) | [Azure NetApp Files](https://azure.microsoft.com/products/netapp/) | Managed NetApp mapping. |
-
-### Archiving and backup
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
 | Archiving and backup | [S3 Infrequent Access (IA)](https://aws.amazon.com/s3/storage-classes) | [Storage cool tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview) | Lower-cost tier for infrequently accessed data. |
 | Archiving and backup | [S3 Glacier](https://aws.amazon.com/s3/storage-classes) | [Cold access storage tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview) | Cold tier mapping (per table). |
 | Archiving and backup | [S3 Glacier Deep Archive](https://aws.amazon.com/s3/storage-classes) | [Storage archive access tier](https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview) | Deep archive vs archive tier mapping. |
 | Archiving and backup | [Backup](https://aws.amazon.com/backup/) | [Backup](https://azure.microsoft.com/services/backup/) | Backup/recovery service mapping. |
-
-### Hybrid storage
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
 | Hybrid storage | [AWS Storage Gateway: S3 File Gateway](https://aws.amazon.com/storagegateway/file/s3/) | [Azure Data Box Gateway](https://learn.microsoft.com/azure/databox-gateway/data-box-gateway-overview)<br>[Azure File Sync](https://learn.microsoft.com/azure/storage/file-sync/file-sync-introduction) | Hybrid gateway/sync equivalents (per table). |
-| Hybrid storage | [AWS Storage Gateway: Tape Gateway](https://aws.amazon.com/storagegateway/vtl/) | *None* | No Azure equivalent listed in the document. |
-| Hybrid storage | [AWS Storage Gateway: Volume Gateway](https://aws.amazon.com/storagegateway/volume/) | *None* | No Azure equivalent listed in the document. |
+| Hybrid storage | [AWS Storage Gateway: Tape and Volume Gateway](https://aws.amazon.com/storagegateway/vtl/) | *None* | Stores and manages on-premises data in Cloud provider |
 | Hybrid storage | [DataSync](https://aws.amazon.com/datasync/) | [File Sync](https://learn.microsoft.com/azure/storage/file-sync/file-sync-introduction) | Data movement/sync mapping. |
-
-### Bulk data transfer
-
-| Area | AWS | Azure | Notes |
-|---|---|---|---|
 | Bulk data transfer | [Import/Export Disk](https://aws.amazon.com/snowball/disk/details/) | [Import/Export](https://learn.microsoft.com/azure/storage/common/storage-import-export-service) | Secure disk-based offline transfer mapping. |
 | Bulk data transfer | [Snowball Edge](https://aws.amazon.com/snowball-edge/) | [Data Box](https://azure.microsoft.com/services/storage/databox/) | Offline transfer appliance mapping. |
 
