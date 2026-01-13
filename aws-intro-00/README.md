@@ -215,3 +215,5 @@ Compute refers to the processing power needed to run applications, workloads, or
 
 
 ## Summary
+
+This walkthrough shows that AWS and Azure services line up closely across hierarchy, identity, resource, storage, networking, and compute layers, so switching vocabulary is the main hurdle. Next chapter brings practical AWS deployment exercises to reinforce the similarities hands-on.
