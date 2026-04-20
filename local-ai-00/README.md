@@ -1,3 +1,5 @@
+# Running a Self‑Hosted LLM on Azure Container Apps
+
 ## Introduction
 
 Microsoft Foundry offers a powerful managed platform for building AI applications and agents. That said, there are situations where it introduces practical constraints, such as:
@@ -9,7 +11,9 @@ Microsoft Foundry offers a powerful managed platform for building AI application
 
 When you need tighter control over the model runtime—or want to use open‑source models that aren’t available in Foundry—it can make sense to run your own LLM inference stack directly on Azure infrastructure.
 
-This guide walks through **deploying and running a self‑hosted LLM service using Azure Container Apps**. The goal is not only to run a model, but also to better understand how LLM inference works in practice—and to have a bit of fun experimenting with it.
+This guide walks through deploying and running a **self‑hosted LLM service using Azure Container Apps**.
+
+The goal is not only to run a model, but also to understand what actually happens inside a lightweight inference stack. Before jumping into the deployment, it helps to look at a few core ideas behind how language models generate text and how efficient runtimes like `llama.cpp` make it possible to run them in small cloud environments.
 
 ## Theory
 
@@ -37,7 +41,7 @@ The model receives these tokens and predicts the **most probable next token** ba
 
 In other words, an LLM is essentially a system that repeatedly answers the question:
 
-> “Given this text so far, what token is most likely to come next?”
+“Given this text so far, what token is most likely to come next?”
 
 Despite the simplicity of this mechanism, the scale of training data and model parameters allows LLMs to produce surprisingly coherent and useful responses.
 
@@ -45,15 +49,15 @@ Despite the simplicity of this mechanism, the scale of training data and model p
 
 There are two major phases in the life of an LLM.
 
-**Training**
+#### Training
 
 During training the model learns from massive datasets using large GPU clusters. This stage adjusts billions of internal parameters so the model can predict tokens accurately.
 
-**Inference**
+#### Inference
 
 Inference is the stage where the trained model is used to generate responses. Instead of learning, the model simply performs forward passes through the neural network to produce tokens.
 
-Running inference is still computationally heavy, but it is much cheaper than training and can often be done on CPUs or smaller GPU instances depending on the model size.
+Running inference is still computationally heavy, but it is far cheaper than training and can often be done on CPUs or modest GPU instances depending on the model size.
 
 The system described in this guide focuses entirely on **inference**, using an already trained model.
 
@@ -63,10 +67,10 @@ Raw models are often extremely large and designed for high‑end GPU systems. To
 
 Common benefits of quantization include:
 
-- smaller model size
-- lower memory usage
-- faster inference
-- ability to run on CPUs
+- smaller model size  
+- lower memory usage  
+- faster inference  
+- ability to run on CPUs  
 
 Many open models are distributed in the **GGUF format**, which is optimized for efficient loading and execution in lightweight inference runtimes.
 
@@ -74,22 +78,22 @@ Many open models are distributed in the **GGUF format**, which is optimized for 
 
 `llama.cpp` is a lightweight open‑source inference engine designed to run LLMs locally.
 
-Despite the name, it supports many models beyond the original LLaMA family, including models like **Gemma, Mistral, and others**, as long as they are provided in **GGUF format**.
+Despite the name, it supports many models beyond the original LLaMA family, including models such as **Gemma, Mistral, and others**, as long as they are provided in **GGUF format**.
 
 Its main responsibilities are:
 
 - loading the model weights into memory  
 - managing tokenization and sampling  
-- running the transformer inference computations  
+- running transformer inference computations  
 - generating tokens one at a time  
-- exposing an API that other services can call
+- exposing an API that other services can call  
 
 Internally, llama.cpp is written in C/C++ and focuses heavily on performance optimizations such as:
 
 - CPU vectorization  
 - efficient memory mapping of model files  
 - optional GPU acceleration  
-- support for quantized models
+- support for quantized models  
 
 Because of these optimizations, llama.cpp can run reasonably capable models even on machines without GPUs.
 
@@ -100,69 +104,115 @@ When generating text, the model produces tokens sequentially. Instead of waiting
 This provides two advantages:
 
 - users see the response appear gradually in real time  
-- latency feels much lower for interactive chat
+- latency feels much lower for interactive chat  
 
 In the architecture used in this guide, the browser receives these streamed tokens through **Server‑Sent Events (SSE)** while `llama.cpp` is generating the response.
 
-### Putting It Together
+## Architecture
 
-All materials stored in one repository - https://github.com/groovy-sky/local-ai . The repository contains everything needed to run the stack:
+With these concepts in mind, the deployment becomes much easier to understand.
 
-- **llama.cpp** runs the model and performs inference  
-- **NGINX** acts as a lightweight gateway and serves the UI  
-- **the browser client** sends prompts and renders streamed responses  
+The system used in this guide is intentionally simple. It packages all components needed to run inference into a single container that runs inside **Azure Container Apps**.
 
-For easier setup all dependencies stored as a Docker image. You can build it yourself, or use ready-to-use image - https://hub.docker.com/repository/docker/gr00vysky/gemma4-e2b
+The stack consists of three main parts:
 
-The result is a small, self‑contained system capable of running an LLM and exposing it through a simple web interface.
+- **llama.cpp runtime** – loads the quantized Gemma model and performs inference  
+- **NGINX gateway** – exposes an HTTP endpoint and serves the browser interface  
+- **browser client** – sends prompts and renders streamed responses
 
-While it is much simpler than large production AI platforms, it demonstrates the core mechanics of how modern language models generate text.
+The browser sends a prompt to the HTTP endpoint. NGINX forwards the request to the `llama.cpp` server running inside the container. As the model generates tokens, they are streamed back to the browser using Server‑Sent Events.
 
-## Why Gemma‑4 E2B Works Well Here
+The entire system runs as a containerized service deployed through Azure Container Apps.
 
-The **Gemma‑4 E2B** model fits this setup well because it’s designed to run efficiently on modest hardware.
+All materials for this setup are stored in the repository:
+
+https://github.com/groovy-sky/local-ai
+
+The repository contains:
+
+- container configuration  
+- runtime setup for `llama.cpp`  
+- NGINX configuration  
+- a minimal browser client  
+
+For convenience, a prebuilt container image is also available:
+
+https://hub.docker.com/repository/docker/gr00vysky/gemma4-e2b
+
+This image bundles the dependencies required to run the inference service, allowing it to be deployed directly to Azure without additional build steps.
+
+### Why Gemma‑4 E2B Works Well Here
+
+The **Gemma‑4 E2B** model fits this setup well because it is designed to run efficiently on modest hardware.
 
 Key characteristics:
 
-- **Compact model tier** — The E2B variant belongs to the lightweight Gemma model family and can run on CPU‑based infrastructure without requiring GPU instances.  
-- **GGUF compatibility** — When converted to **GGUF format**, Gemma models run directly with `llama.cpp`, which simplifies deployment and reduces runtime dependencies.  
-- **Predictable resource usage** — The model fits within the CPU and memory limits typically available in **Azure Container Apps**, allowing containerized inference without specialized infrastructure.  
-- **Good fit for small workloads** — With conservative container sizing and some llama.cpp runtime tuning, a single instance can reliably support a small internal user base.
+- **Compact model tier** — the E2B variant belongs to the lightweight Gemma model family and can run on CPU‑based infrastructure without requiring GPU instances.  
+- **GGUF compatibility** — when converted to GGUF format, Gemma models run directly with `llama.cpp`.  
+- **Predictable resource usage** — the model fits within the CPU and memory limits typically available in Azure Container Apps.  
+- **Good fit for small workloads** — with conservative container sizing and some runtime tuning, a single instance can support a small internal user base.
 
-This makes the model a practical option for deploying a **self‑hosted chat assistant or internal AI tool**.
+With the architecture and model choice explained, the next step is deploying the containerized inference service.
 
-## Prerequisites
+## Deployment
 
-To run the deployment, you will need an active Azure subscription  
+### Prerequisites
 
-## Deployment Guide
+To run the deployment, you will need an active Azure subscription
+
+### Deployment Guide
 
 Use the following **Deploy to Azure** link to deploy the ARM template directly from GitHub:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Flocal-ai%2Frefs%2Fheads%2Fmain%2Farm.json" target="_blank">
   <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
-</a> 
+</a>
 
-Once the deployment finishes, you’ll have a publicly reachable endpoint for the web UI and the proxied inference endpoint, ready for validation.
+The template creates the Azure resources required to run the container and configures Azure Container Apps to start the inference service.
+
+Once the deployment finishes, Azure will start the container and expose a publicly reachable endpoint for the web interface and the proxied inference API.
 
 ![alt text](image.png)
 
 ## Result
 
-After completing the deployment, you’ll have:
+After deployment completes, the containerized stack will already be running:
 
 ![alt text](image-1.png)
 
-- a self‑hosted **Gemma‑4 E2B inference service** running on Azure Container Apps  
-- a browser‑based chat interface served by NGINX  
-- direct model inference endpoints exposed through NGINX proxy rules  
+Opening the endpoint in a browser should display the chat interface served by NGINX. When a prompt is submitted, it is forwarded to the `llama.cpp` runtime, which generates tokens and streams them back to the browser.
 
-This setup provides a straightforward way to run open‑weight LLMs on Azure infrastructure without relying on a managed AI platform.
+You should now have:
+
+- a self‑hosted **Gemma‑4 E2B inference service** running on Azure Container Apps  
+- a browser‑based chat interface exposed through NGINX  
+
+This confirms that the containerized inference stack is working correctly in the Azure environment.
+
+### Playground
+
+After deployment, the web interface can be used to send prompts directly to the running model. This provides a quick way to validate that the inference service is working and to observe how the model responds to different types of tasks.
+
+#### First example
+
+![alt text](image-3.png)
+
+In this example, the model generated a small Python helper function that sends a prompt to an API endpoint using the requests library. The response includes basic error handling and demonstrates how the request payload can be sent as JSON.
+
+This type of output is typical for developer‑focused models and illustrates how the deployed service can assist with small programming tasks or API integrations.
+
+#### Second example
+
+![alt text](image-2.png)
+
+Here the model demonstrates a different capability: explaining technical concepts in simple language. The response summarizes what containers are, how Azure Container Apps manages infrastructure, and typical scenarios where the service is useful.
 
 ## Summary
 
-Microsoft Foundry is a strong managed platform for enterprise AI workloads, but some scenarios benefit from greater control over model selection and runtime behavior.
+Managed platforms like **Microsoft Foundry** simplify many aspects of building AI applications, but they also abstract away the underlying model runtime and restrict control over model selection and infrastructure.
 
-By combining **Azure Container Apps**, **llama.cpp**, and NGINX, you can deploy a compact self‑hosted LLM stack capable of supporting internal applications and small teams.
+In this guide, we took a different approach by deploying a **self‑hosted LLM inference stack on Azure Container Apps**.
 
-This guide shows how to run a **Gemma‑4 E2B model on Azure Container Apps**, offering a flexible and lightweight alternative when a fully managed platform isn’t the right fit.
+Using a lightweight runtime (`llama.cpp`), a quantized **Gemma‑4 E2B** model, and a small NGINX gateway, we built a compact system capable of running an open‑weight language model entirely on Azure infrastructure.
+
+While much simpler than large AI platforms, this setup demonstrates the core mechanics of how modern LLM systems generate text and provides a flexible foundation for experimenting with open models or building internal AI tools.
