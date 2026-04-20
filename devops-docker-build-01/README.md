@@ -112,7 +112,7 @@ If you rely on a public registry, skip the AcrPull assignment and registry refer
 
 3. Agent Entrypoint: Authenticate with the Managed Identity
 
-Obtain an Azure DevOps token with the managed identity instead of embedding a PAT. One script can handle both ACI (IMDS) and ACA (IDENTITY_ENDPOINT) by checking which environment variables exist.
+Obtain an Azure DevOps token with the managed identity instead of embedding a PAT. This runs each time the container starts (the entrypoint script is executed on every container start). One script can handle both ACI (IMDS) and ACA (IDENTITY_ENDPOINT) by checking which environment variables exist.
 
 ```bash
 AZP_RESOURCE="499b84ac-1321-427f-aa17-267ca6975798"
@@ -126,6 +126,31 @@ else
   resp=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=${AZP_RESOURCE}")
   token=$(echo "$resp" | jq -r '.access_token')
 fi
+```
+
+Minimal `start.sh` example (token is fetched on every start, then used to configure the agent):
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+AZP_RESOURCE="499b84ac-1321-427f-aa17-267ca6975798"
+
+if [ -n "${IDENTITY_ENDPOINT:-}" ] && [ -n "${IDENTITY_HEADER:-}" ]; then
+  resp=$(curl -s -H "X-IDENTITY-HEADER: $IDENTITY_HEADER" "${IDENTITY_ENDPOINT}?resource=${AZP_RESOURCE}&api-version=2019-08-01")
+  token=$(echo "$resp" | jq -r '.access_token')
+else
+  resp=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=${AZP_RESOURCE}")
+  token=$(echo "$resp" | jq -r '.access_token')
+fi
+
+./config.sh --unattended \
+  --agent "$AZP_AGENT_NAME" \
+  --url "$AZP_URL" \
+  --auth pat --token "$token" \
+  --pool "$AZP_POOL"
+
+./run.sh
 ```
 
 Configure the agent with the token treated as a dynamic PAT:
