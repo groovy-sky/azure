@@ -1,0 +1,232 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "image": {
+      "type": "string",
+      "defaultValue": "mcr.microsoft.com/azuredocs/aci-helloworld"
+    },
+    "proxyImage": {
+      "type": "string",
+      "defaultValue": "nginx:1.25-alpine"
+    },
+    "port": {
+      "type": "int",
+      "defaultValue": 80
+    },
+    "proxyPort": {
+      "type": "int",
+      "defaultValue": 8080
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "prefix": "[concat('caproxy-', uniqueString(subscription().subscriptionId, resourceGroup().name))]",
+    "vnetName": "[concat(variables('prefix'), '-vnet')]",
+    "aciSubnetName": "[concat(variables('prefix'), '-aci-subnet')]",
+    "acaSubnetName": "[concat(variables('prefix'), '-aca-subnet')]",
+    "containerGroupName": "[concat(variables('prefix'), '-aci')]",
+    "containerName": "[concat(variables('prefix'), '-proxy')]",
+    "managedEnvironmentName": "[concat(variables('prefix'), '-aca-env')]",
+    "containerAppName": "[concat(variables('prefix'), '-app')]",
+    "vnetAddress": "10.10.0.0/24",
+    "aciSubnetPrefix": "10.10.0.0/25",
+    "acaSubnetPrefix": "10.10.0.128/25"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2023-05-01",
+      "name": "[variables('vnetName')]",
+      "location": "[variables('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('vnetAddress')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('aciSubnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('aciSubnetPrefix')]",
+              "delegations": [
+                {
+                  "name": "aciDelegation",
+                  "properties": {
+                    "serviceName": "Microsoft.ContainerInstance/containerGroups"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "[variables('acaSubnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('acaSubnetPrefix')]",
+              "delegations": [
+                {
+                  "name": "acaDelegation",
+                  "properties": {
+                    "serviceName": "Microsoft.App/environments"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2023-05-01",
+      "name": "[variables('containerGroupName')]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
+      ],
+      "properties": {
+        "osType": "Linux",
+        "restartPolicy": "Always",
+        "ipAddress": {
+          "type": "Private",
+          "ports": [
+            {
+              "protocol": "TCP",
+              "port": "[parameters('port')]"
+            }
+          ]
+        },
+        "subnetIds": [
+          {
+            "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('aciSubnetName'))]"
+          }
+        ],
+        "containers": [
+          {
+            "name": "[variables('containerName')]",
+            "properties": {
+              "image": "[parameters('image')]",
+              "ports": [
+                {
+                  "port": "[parameters('port')]"
+                }
+              ],
+              "resources": {
+                "requests": {
+                  "cpu": 1,
+                  "memoryInGB": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.App/managedEnvironments",
+      "apiVersion": "2023-05-01",
+      "name": "[variables('managedEnvironmentName')]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
+      ],
+      "properties": {
+        "vnetConfiguration": {
+          "infrastructureSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('acaSubnetName'))]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.App/containerApps",
+      "apiVersion": "2023-05-01",
+      "name": "[variables('containerAppName')]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.App/managedEnvironments', variables('managedEnvironmentName'))]",
+        "[resourceId('Microsoft.ContainerInstance/containerGroups', variables('containerGroupName'))]"
+      ],
+      "properties": {
+        "environmentId": "[resourceId('Microsoft.App/managedEnvironments', variables('managedEnvironmentName'))]",
+        "configuration": {
+          "activeRevisionsMode": "Single",
+          "ingress": {
+            "external": true,
+            "allowInsecure": true,
+            "targetPort": "[parameters('proxyPort')]",
+            "transport": "http",
+            "traffic": [
+              {
+                "latestRevision": true,
+                "weight": 100
+              }
+            ]
+          }
+        },
+        "template": {
+          "containers": [
+            {
+              "name": "proxy",
+              "image": "[parameters('proxyImage')]",
+              "command": [
+                "/bin/sh",
+                "-c"
+              ],
+              "args": [
+                "printf 'server { listen %s; location / { proxy_pass http://%s:%s; proxy_http_version 1.1; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; proxy_set_header X-Forwarded-Proto $scheme; } }' \"$PROXY_PORT\" \"$UPSTREAM_HOST\" \"$UPSTREAM_PORT\" > /etc/nginx/conf.d/default.conf; exec nginx -g 'daemon off;'"
+              ],
+              "env": [
+                {
+                  "name": "PROXY_PORT",
+                  "value": "[string(parameters('proxyPort'))]"
+                },
+                {
+                  "name": "UPSTREAM_HOST",
+                  "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups', variables('containerGroupName')), '2023-05-01').ipAddress.ip]"
+                },
+                {
+                  "name": "UPSTREAM_PORT",
+                  "value": "[string(parameters('port'))]"
+                }
+              ],
+              "resources": {
+                "cpu": 0.25,
+                "memory": "0.5Gi"
+              }
+            }
+          ],
+          "scale": {
+            "minReplicas": 1,
+            "maxReplicas": 1
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "prefix": {
+      "type": "string",
+      "value": "[variables('prefix')]"
+    },
+    "vnetName": {
+      "type": "string",
+      "value": "[variables('vnetName')]"
+    },
+    "containerGroupName": {
+      "type": "string",
+      "value": "[variables('containerGroupName')]"
+    },
+    "containerInstancePrivateIp": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups', variables('containerGroupName')), '2023-05-01').ipAddress.ip]"
+    },
+    "managedEnvironmentName": {
+      "type": "string",
+      "value": "[variables('managedEnvironmentName')]"
+    },
+    "containerAppName": {
+      "type": "string",
+      "value": "[variables('containerAppName')]"
+    }
+  }
+}
