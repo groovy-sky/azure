@@ -3,9 +3,12 @@ package main
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -18,34 +21,132 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions"
 )
 
+func inf(format string, args ...any) {
+	log.Printf("[INF] "+format, args...)
+}
+
+func errf(format string, args ...any) {
+	log.Printf("[ERR] "+format, args...)
+}
+
+func errFatalf(format string, args ...any) {
+	log.Fatalf("[ERR] "+format, args...)
+}
+
+type app struct {
+	cred   azcore.TokenCredential
+	subIDs []string
+}
+
+type proxyTarget struct {
+	subscriptionID string
+	resourceGroup  string
+	name           string
+	host           string
+	port           int32
+}
+
 func main() {
 	ctx := context.Background()
 
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
-		log.Fatalf("create credential: %v", err)
+		errFatalf("create credential: %v", err)
 	}
 
 	_, err = cred.GetToken(ctx, policy.TokenRequestOptions{
 		Scopes: []string{"https://management.azure.com/.default"},
 	})
 	if err != nil {
-		log.Fatalf("authenticate: %v", err)
+		errFatalf("authenticate: %v", err)
 	}
 
 	subIDs, err := listEnabledSubscriptions(ctx, cred)
 	if err != nil {
-		log.Fatalf("list subscriptions: %v", err)
+		errFatalf("list subscriptions: %v", err)
 	}
 	if len(subIDs) == 0 {
-		log.Fatal("no enabled subscriptions found")
+		errFatalf("no enabled subscriptions found")
 	}
 
-	for _, subID := range subIDs {
-		if err := processSubscription(ctx, cred, subID); err != nil {
-			log.Printf("subscription %s error: %v", subID, err)
-		}
+	application := &app{
+		cred:   cred,
+		subIDs: subIDs,
 	}
+
+	listenAddr := listenAddr()
+	inf("listening on %s", listenAddr)
+
+	server := &http.Server{
+		Addr:              listenAddr,
+		Handler:           application,
+		ReadHeaderTimeout: 10 * time.Second,
+	}
+
+	err = server.ListenAndServe()
+	if err != nil && !errors.Is(err, http.ErrServerClosed) {
+		errFatalf("serve http: %v", err)
+	}
+}
+
+func (a *app) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(context.Background(), 6*time.Minute)
+	defer cancel()
+
+	target, err := a.findTarget(ctx)
+	if err != nil {
+		http.Error(w, "no available container instance", http.StatusBadGateway)
+		errf("select target for %s %s failed: %v", r.Method, r.URL.Path, err)
+		return
+	}
+
+	inf("proxy %s %s -> %s/%s (%s:%d)", r.Method, r.URL.Path, target.resourceGroup, target.name, target.host, target.port)
+	proxyToTarget(w, r, target)
+}
+
+func (a *app) findTarget(ctx context.Context) (*proxyTarget, error) {
+	var firstErr error
+
+	for _, subID := range a.subIDs {
+		target, err := findSubscriptionTarget(ctx, a.cred, subID)
+		if err == nil {
+			return target, nil
+		}
+		if firstErr == nil {
+			firstErr = err
+		}
+		errf("subscription %s has no proxy target: %v", subID, err)
+	}
+
+	if firstErr == nil {
+		firstErr = errors.New("no candidate container groups found")
+	}
+	return nil, firstErr
+}
+
+func proxyToTarget(w http.ResponseWriter, r *http.Request, target *proxyTarget) {
+	targetURL := &url.URL{
+		Scheme: "http",
+		Host:   net.JoinHostPort(target.host, strconv.Itoa(int(target.port))),
+	}
+
+	proxy := httputil.NewSingleHostReverseProxy(targetURL)
+	proxy.ErrorHandler = func(rw http.ResponseWriter, req *http.Request, err error) {
+		errf("proxy %s/%s failed: %v", target.resourceGroup, target.name, err)
+		http.Error(rw, "upstream request failed", http.StatusBadGateway)
+	}
+	proxy.ServeHTTP(w, r)
+}
+
+func listenAddr() string {
+	port := strings.TrimSpace(os.Getenv("HTTP_PORT"))
+	if port == "" {
+		port = "8080"
+	}
+	if strings.HasPrefix(port, ":") {
+		return port
+	}
+	return ":" + port
 }
 
 func listEnabledSubscriptions(ctx context.Context, cred azcore.TokenCredential) ([]string, error) {
@@ -73,19 +174,18 @@ func listEnabledSubscriptions(ctx context.Context, cred azcore.TokenCredential) 
 	return ids, nil
 }
 
-func processSubscription(ctx context.Context, cred azcore.TokenCredential, subID string) error {
+func findSubscriptionTarget(ctx context.Context, cred azcore.TokenCredential, subID string) (*proxyTarget, error) {
 	client, err := armcontainerinstance.NewContainerGroupsClient(subID, cred, nil)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	pager := client.NewListPager(nil)
-	fmt.Printf("Subscription: %s\n", subID)
 
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		for _, cg := range page.Value {
@@ -96,74 +196,70 @@ func processSubscription(ctx context.Context, cred azcore.TokenCredential, subID
 			rg := resourceGroupFromID(*cg.ID)
 			name := *cg.Name
 			if rg == "" {
-				log.Printf("skip %s: cannot parse resource group", name)
+				errf("skip %s: cannot parse resource group", name)
 				continue
 			}
 
-			// Fresh read with instance details
 			getResp, err := client.Get(ctx, rg, name, nil)
 			if err != nil {
-				log.Printf("get %s/%s failed: %v", rg, name, err)
+				errf("get %s/%s failed: %v", rg, name, err)
 				continue
 			}
 			group := getResp.ContainerGroup
 
-			// 0) get port
 			port, err := pickPort(group)
 			if err != nil {
-				log.Printf("%s/%s: no usable port: %v", rg, name, err)
 				continue
 			}
 
-			// 1) state
 			state := currentState(group)
-			fmt.Printf("- %s/%s state=%s port=%d\n", rg, name, state, port)
 
-			// 2) start if stopped
 			if isStoppedLike(state) {
-				fmt.Printf("  starting %s/%s...\n", rg, name)
+				inf("starting %s/%s...", rg, name)
 				poller, err := client.BeginStart(ctx, rg, name, nil)
 				if err != nil {
-					log.Printf("  start failed for %s/%s: %v", rg, name, err)
+					errf("start failed for %s/%s: %v", rg, name, err)
 					continue
 				}
 				_, err = poller.PollUntilDone(ctx, &runtime.PollUntilDoneOptions{Frequency: 10 * time.Second})
 				if err != nil {
-					log.Printf("  start poll failed for %s/%s: %v", rg, name, err)
+					errf("start poll failed for %s/%s: %v", rg, name, err)
 					continue
 				}
 
 				if err := waitUntilRunning(ctx, client, rg, name, 5*time.Minute); err != nil {
-					log.Printf("  wait running failed for %s/%s: %v", rg, name, err)
+					errf("wait running failed for %s/%s: %v", rg, name, err)
 					continue
 				}
 			}
 
-			// Refresh and probe endpoint
 			getResp, err = client.Get(ctx, rg, name, nil)
 			if err != nil {
-				log.Printf("refresh get %s/%s failed: %v", rg, name, err)
+				errf("refresh get %s/%s failed: %v", rg, name, err)
 				continue
 			}
 			group = getResp.ContainerGroup
 
+			if !strings.EqualFold(currentState(group), "Running") {
+				continue
+			}
+
 			host, err := resolvePrivateHost(group)
 			if err != nil {
-				log.Printf("%s/%s: no internal host/ip: %v", rg, name, err)
 				continue
 			}
 
-			// 3) check instance port response (TCP for private networking)
-			if err := checkTCP(host, port, 20*time.Second); err != nil {
-				log.Printf("  tcp check failed %s/%s (%s:%d): %v", rg, name, host, port, err)
-				log.Printf("  note: run this from a network with route to the private endpoint (same VNet/peered/VPN).")
-				continue
-			}
-
-			fmt.Printf("  OK %s/%s reachable at %s:%d\n", rg, name, host, port)
+			return &proxyTarget{
+				subscriptionID: subID,
+				resourceGroup:  rg,
+				name:           name,
+				host:           host,
+				port:           port,
+			}, nil
 		}
 	}
-	return nil
+
+	return nil, errors.New("no reachable container group found")
 }
 
 func pickPort(group armcontainerinstance.ContainerGroup) (int32, error) {
