@@ -1,186 +1,137 @@
-# Using Container App as a Web Proxy
+# Using Azure Container Apps as a Reverse Proxy
 
 ## Introduction
 
-This project demonstrates a practical architecture for exposing a private backend service through a secure public endpoint while keeping the backend infrastructure isolated from the internet.
+This project demonstrates a practical pattern for exposing a private containerized backend through a public HTTPS endpoint without giving the backend direct internet access.
 
-The solution uses Azure Container Apps as a public gateway and Azure Container Instances as a private backend runtime. A lightweight reverse proxy written in Go receives incoming requests and forwards them to a backend container located inside a virtual network.
+The design uses **Azure Container Apps** as the public entry point and **Azure Container Instances** as the private backend runtime. A small reverse proxy written in Go runs inside the Container App, receives incoming requests, and forwards them to a backend container group running inside a virtual network. Azure Container Apps supports managed ingress for HTTP and HTTPS traffic, while Azure Container Instances provides a simple way to run isolated containers without managing virtual machines or a full orchestrator. The infrastructure is deployed as code by using a single ARM template.
 
-The goal of the project is to implement a reusable pattern where:
+## Prerequisites
 
-- the public interface is secure and internet‑accessible
-- the backend application remains private
-- infrastructure can be deployed automatically using an ARM template
+To run the deployment, you will need an active Azure subscription.
 
-This approach is useful for environments where backend services must remain isolated but still need to be accessible through HTTPS.
+## Architecture Overview
 
-# Theory
+### What this pattern solves
 
-## Containerization
+The main problem is simple: you want a backend service to stay private, but you still need users or external systems to reach it through a secure public endpoint.
 
-Containerization is a method of packaging an application together with its runtime environment, dependencies, and libraries into a single executable unit called a container.
+Instead of exposing the backend directly, this design places a reverse proxy in front of it. The proxy becomes the only internet-facing component. The backend stays inside the virtual network and accepts traffic only from the proxy side of the architecture.
 
-Because the runtime environment is bundled with the application, the container behaves consistently across different systems such as developer machines, testing environments, and cloud infrastructure.
+### Why Azure Container Apps is the public entry point
 
-Containers are commonly built and executed using tools such as Docker. They allow applications to be deployed reliably without requiring system‑specific configuration.
+Azure Container Apps is a good fit for the gateway role because it can expose an application through managed ingress without requiring you to create and manage extra load-balancing infrastructure yourself. It supports external and internal ingress modes, TLS termination for HTTPS endpoints, and revision-based deployment behavior, which makes it well suited for a small public-facing proxy service.
 
-## Azure Container Apps
+In this project, Azure Container Apps hosts the Go reverse proxy and provides the public endpoint that clients call first.
 
-Azure Container Apps is a managed platform designed for running containerized applications without managing Kubernetes clusters directly.
+### Why Azure Container Instances is the private backend
 
-Developers provide a container image and define basic runtime parameters such as CPU, memory, and scaling behavior. The platform handles infrastructure provisioning, networking integration, and service scaling.
+Azure Container Instances is a good fit for the backend role because it provides a lightweight way to run isolated containers without setting up VMs or a higher-level orchestration platform. It also supports deployment into a virtual network, which allows the backend to stay private while still being reachable from the proxy.
 
-Container Apps is typically used for:
+In this project, the backend application runs as an ACI container group inside the VNet and does not expose a public endpoint.
 
-- web services
-- APIs
-- microservices
-- event‑driven applications
+### How the two services work together
 
-The platform includes built‑in ingress capabilities that allow applications to be exposed either internally within a network or externally to the internet.
+The solution separates responsibilities clearly:
 
-## Azure Container Instances
+- **Azure Container Apps** handles public ingress and runs the reverse proxy
+- **Azure Container Instances** runs the private backend workload
+- **the virtual network** provides private communication between the proxy and the backend
+- **the managed identity** allows the proxy to interact with Azure control-plane APIs without storing credentials in code or configuration
 
-Azure Container Instances (ACI) is a service that allows containers to run without deploying container orchestration platforms or virtual machines.
+This creates a clean split between the **public edge** and the **private runtime**.
 
-ACI focuses on simplicity and fast startup times. Containers can be started quickly and run as standalone workloads.
+## Practical Implementation
 
-Common scenarios for ACI include:
+### Infrastructure Deployment
 
-- temporary compute workloads
-- batch processing
-- testing environments
-- simple containerized services
+The infrastructure is deployed with [the ARM template](arm.json).The template creates the resources required for the public-to-private proxy pattern. Proxy Container App runs [the Docker image](Dockerfile) which spins [Golang app](main.go) that forwards requests to the Container Instances. 
 
-ACI can also be deployed inside a virtual network, allowing containers to run privately without public internet access.
+To start the deployment use the button below:
 
-## Container App vs Container Instance
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Frefs%2Fheads%2Fmaster%2Fcontainer-app-proxy%2Farm.json" target="_blank">
+  <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
+</a>
 
-Although both services run containers, they serve different roles.
+#### Virtual Network
 
-Azure Container Apps acts as an **application hosting platform**. It is designed for long‑running services that receive requests and may need scaling and traffic management.
+First, the deployment creates a virtual network.
 
-Azure Container Instances acts as a **container execution service**. It is designed for running containers with minimal infrastructure overhead.
+The network contains two subnets - one for Container Apps and one for Container Instances.
 
-In this project, both services are used together:
+This separation allows the public proxy and the private backend to communicate over private networking while keeping the backend isolated from direct internet access.
 
-- Container Apps provides the **public entry point**
-- Container Instances hosts the **private backend application**
+#### Container Instance (backend)
 
-# Practical Implementation
+Next, a container group is deployed into the ACI subnet.
 
-## Infrastructure Deployment
+This container group runs the backend application. It has no public IP address and is intended to be reachable only through the virtual network.
 
-The solution infrastructure is deployed using an ARM template. The template automatically creates all resources required for the architecture.
+Because the backend is private, internet clients cannot access it directly.
 
-The deployment process performs the following steps.
+#### Container App (proxy)
 
-### Virtual Network Creation
+Finally, a Container App is deployed into the Container Apps subnet.
 
-First, a virtual network is created.
-The network contains two subnets with service delegations:
+The final runtime component is the proxy application deployed to Azure Container Apps.
 
-- a subnet for Azure Container Instances
-- a subnet for the Azure Container Apps managed environment
+The proxy is exposed through external ingress, which makes it the public interface of the system. The Container App is assigned a **system-assigned managed identity**, which lets the proxy authenticate to Azure services without embedding secrets or credentials.
 
-This network structure allows the backend container to remain private while still allowing the proxy to communicate with it.
+### Runtime Flow
 
-### Backend Container Deployment
+Inside the Container App, a Go application runs as a reverse proxy.
 
-Next, a container group is deployed inside the Container Instance subnet.
-
-This container acts as the backend application.
-It runs without a public IP address and is reachable only from within the virtual network.
-
-Because the backend container is private, it cannot be accessed directly from the internet.
-
-### Container Apps Environment
-
-After the network and backend container are created, the ARM template deploys a managed Container Apps environment.
-
-The environment is connected to the virtual network so that Container Apps can communicate with resources inside the network, including the private container instance.
-
-### Proxy Deployment
-
-The final component deployed by the ARM template is the proxy application running inside Azure Container Apps.
-
-The proxy is deployed as a container image and exposed through an external ingress endpoint. This endpoint becomes the public interface of the system.
-
-The Container App is assigned a **system‑managed identity**, which allows the proxy to interact with Azure services without storing credentials.
-
-## Proxy Runtime Logic
-
-The Go proxy application implements the runtime behavior of the system.
-
-### Incoming Request
-
-When a user sends an HTTPS request to the Container App's public endpoint, the request is received by the proxy application.
+The request path looks like this:
 
 ```text
 Internet Client
-	|
-	| HTTPS
-	v
-[Go Reverse Proxy in Container App]
-	|
-	| HTTP (through private VNet)
-	v
-[ACI Private IP:Port]
+    |
+    | HTTPS
+    v
+[Go Reverse Proxy in Azure Container Apps]
+    |
+    | HTTP over private virtual network
+    v
+[Azure Container Instances backend]
 ```
 
-### Request Trigger
+When a request arrives, the proxy performs the following steps:
 
-When a request arrives at the Container App endpoint, the proxy begins processing the request.
+1. Accept the incoming HTTPS request on the public Container Apps endpoint.
+2. Use its managed identity to authenticate to Azure.
+3. Check the state of the target ACI container group.
+4. If the backend is not running, start the container group.
+5. Wait until the backend becomes reachable.
+6. Discover the backend’s current private IP address if needed.
+7. Forward the original request to the backend over the virtual network.
 
-The proxy first authenticates with Azure using the managed identity assigned to the Container App. This allows it to interact with Azure Resource Manager APIs.
+This keeps the backend private while allowing the proxy to act as a controlled public gateway.
 
-### Container Discovery
+## Result
 
-Using this identity, the proxy searches for available container instances that can serve as backend targets.
+After deployment, the system provides following architecture:
 
-The proxy enumerates container groups across the Azure subscriptions accessible to the managed identity. For each container group, it retrieves configuration details and determines whether the container exposes a valid HTTP port.
+![](image.png)
 
-### Container Startup
 
-If a suitable container instance is found but is not currently running, the proxy initiates a start operation through the Azure Container Instances management API.
+Users can call acess Azure Container Apps publicly:
 
-The proxy waits until the container reaches the **Running** state before proceeding.
+![](image-1.png)
 
-This allows container instances to remain stopped when they are not needed and start automatically when traffic arrives.
+After Container Apps receives the request it finds and starts the backend container group if it is not already running, then forwards the request over the private virtual network to the backend:
 
-### Request Forwarding
+![](image-2.png)
 
-Once the backend container is running and reachable, the proxy forwards the incoming request to the container using its private IP address and exposed port.
+Azure Container App uses VNet integration to communicate with Container Instances:
 
-The forwarding process is implemented using a reverse proxy mechanism that preserves the original request path and headers.
+![alt text](image-3.png)
 
-From the user perspective, the interaction appears as a normal request to a single public service.
+The result is a simple separation between **internet-facing access** and **private backend execution**.
 
-# Result
+## Summary
 
-After deployment and startup, the system provides a working architecture where:
+This project combines Azure Container Apps and Azure Container Instances into a reusable access pattern for private backend services.
 
-- users access a public HTTPS endpoint exposed by the Container App
-- the proxy receives and processes incoming requests
-- the proxy automatically starts a backend container instance if necessary
-- the request is forwarded through the private virtual network
-- the backend service processes the request without being exposed to the internet
+Azure Container Apps acts as the public-facing reverse proxy with managed HTTPS ingress. Azure Container Instances runs the backend workload inside a virtual network. A managed identity allows the proxy to interact with Azure without storing credentials, and the ARM template makes the whole setup deployable as code. 
 
-The backend container remains private and is never directly reachable from outside the virtual network.
-
-# Summary
-
-This project demonstrates how Azure Container Apps and Azure Container Instances can be combined to implement a secure access architecture.
-
-The Container App acts as a public gateway that receives user requests. The proxy running inside the Container App dynamically discovers and starts backend container instances when needed.
-
-Requests are then forwarded to the backend through a private virtual network connection.
-
-This approach provides several advantages:
-
-- backend services remain private and protected from direct internet access
-- the public entry point is centralized and easy to manage
-- managed identities eliminate the need for embedded credentials
-- container instances can start on demand, reducing unnecessary runtime
-
-The result is a simple, secure, and reusable pattern for exposing private containerized services through a controlled public endpoint.
+The key idea is straightforward: **keep the backend private, and expose only the proxy**.
