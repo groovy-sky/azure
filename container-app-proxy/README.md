@@ -53,6 +53,10 @@ To start the deployment use the button below:
   <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
 </a>
 
+Fill in the required parameters and start the deployment:
+
+![alt text](image-4.png)
+
 #### Virtual Network
 
 First, the deployment creates a virtual network.
