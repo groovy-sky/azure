@@ -12,11 +12,11 @@ fetch_runner_token() {
   if [[ "${trimmed}" =~ ^https://github\.com/([^/]+)/([^/]+)$ ]]; then
     candidates+=("repos/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}")
   elif [[ "${trimmed}" =~ ^https://github\.com/([^/]+)$ ]]; then
-    # Single-segment owner can be either an organization or a user account.
-    candidates+=("orgs/${BASH_REMATCH[1]}" "user")
+    # Single-segment owner URL is valid only for organizations.
+    candidates+=("orgs/${BASH_REMATCH[1]}")
   else
     echo "Unsupported GITHUB_URL format: ${GITHUB_URL}" >&2
-    echo "Expected https://github.com/ORG, https://github.com/USER, or https://github.com/OWNER/REPO" >&2
+    echo "Expected https://github.com/ORG or https://github.com/OWNER/REPO" >&2
     return 1
   fi
 
@@ -50,7 +50,13 @@ fetch_runner_token() {
     fi
   done
 
-  echo "Failed to fetch ${action} token from GitHub API (org/user/repo endpoint not found)." >&2
+  if [[ "${trimmed}" =~ ^https://github\.com/([^/]+)$ ]]; then
+    echo "Failed to fetch ${action} token from GitHub API for organization '${BASH_REMATCH[1]}'." >&2
+    echo "If this is a personal account, use a repository URL instead: https://github.com/OWNER/REPO" >&2
+    return 1
+  fi
+
+  echo "Failed to fetch ${action} token from GitHub API." >&2
   return 1
 }
 

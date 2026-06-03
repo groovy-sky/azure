@@ -11,10 +11,10 @@ fetch_registration_token() {
   if [[ "${trimmed}" =~ ^https://github\.com/([^/]+)/([^/]+)$ ]]; then
     candidates+=("repos/${BASH_REMATCH[1]}/${BASH_REMATCH[2]}")
   elif [[ "${trimmed}" =~ ^https://github\.com/([^/]+)$ ]]; then
-    candidates+=("orgs/${BASH_REMATCH[1]}" "user")
+    candidates+=("orgs/${BASH_REMATCH[1]}")
   else
     echo "Unsupported GITHUB_URL format: ${GITHUB_URL}" >&2
-    echo "Expected https://github.com/ORG, https://github.com/USER, or https://github.com/OWNER/REPO" >&2
+    echo "Expected https://github.com/ORG or https://github.com/OWNER/REPO" >&2
     return 1
   fi
 
@@ -48,7 +48,13 @@ fetch_registration_token() {
     fi
   done
 
-  echo "Failed to fetch registration token from GitHub API (org/user/repo endpoint not found)." >&2
+  if [[ "${trimmed}" =~ ^https://github\.com/([^/]+)$ ]]; then
+    echo "Failed to fetch registration token from GitHub API for organization '${BASH_REMATCH[1]}'." >&2
+    echo "If this is a personal account, use a repository URL instead: https://github.com/OWNER/REPO" >&2
+    return 1
+  fi
+
+  echo "Failed to fetch registration token from GitHub API." >&2
   return 1
 }
 

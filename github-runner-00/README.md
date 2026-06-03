@@ -62,6 +62,33 @@ curl -sSL \
 
 Use the `token` value from the response as `RUNNER_TOKEN`.
 
+### Using a PAT instead of passing RUNNER_TOKEN directly
+
+This image can mint short-lived runner tokens at startup if you provide `GITHUB_PAT`.
+
+How it works:
+
+- On startup, the container calls GitHub API to create a short-lived registration token.
+- On shutdown, it calls GitHub API again to create a short-lived remove token.
+- The PAT is only used to request those short-lived tokens.
+
+Important:
+
+- `RUNNER_TOKEN` must be a short-lived runner registration token.
+- Do not put a PAT in `RUNNER_TOKEN`.
+- If you want PAT-based flow, pass `GITHUB_PAT`.
+
+Runner scope differences:
+
+- Repository runner (`https://github.com/OWNER/REPO`): runner is attached to one repository.
+- Organization runner (`https://github.com/ORG`): runner is attached to the organization; `RUNNER_GROUP` is supported.
+- For personal GitHub accounts, use repository runner scope (`https://github.com/OWNER/REPO`).
+
+Permission guidance (high level):
+
+- Repository runner PAT: permission to manage repository self-hosted runners for that repository.
+- Organization runner PAT: permission to manage organization self-hosted runners.
+
 ## 3. Run the container
 
 ### Repository runner
@@ -70,7 +97,7 @@ Use the `token` value from the response as `RUNNER_TOKEN`.
 docker run -d --name gh-runner-01 \
   --restart unless-stopped \
   -e GITHUB_URL="https://github.com/OWNER/REPO" \
-  -e RUNNER_TOKEN="REGISTRATION_TOKEN" \
+  -e GITHUB_PAT="GITHUB_PAT_WITH_REPO_RUNNER_SCOPE" \
   -e RUNNER_NAME="runner-01" \
   -e RUNNER_LABELS="self-hosted,linux,x64,docker" \
   -e RUNNER_WORKDIR="_work" \
@@ -107,7 +134,7 @@ Optional:
 
 - `RUNNER_NAME`: default is container hostname
 - `RUNNER_LABELS`: comma-separated labels
-- `RUNNER_GROUP`: organization runner group
+- `RUNNER_GROUP`: organization runner group (org runners only)
 - `RUNNER_WORKDIR`: default `_work`
 - `EPHEMERAL`: default `true`
 - `DISABLE_AUTO_UPDATE`: default `true`
@@ -138,6 +165,8 @@ Then confirm the runner status in GitHub:
 - Organization: `Settings -> Actions -> Runners`
 
 You should see the runner online.
+
+Tip: match the displayed runner name with `RUNNER_NAME` (or the container hostname if not set).
 
 ## 6. Stop and remove
 
