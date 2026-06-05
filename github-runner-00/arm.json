@@ -1,0 +1,140 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "String",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "containerName": {
+            "type": "String",
+            "defaultValue": "gh-runner-app"
+        },
+        "imageName": {
+            "type": "String",
+            "defaultValue": "docker.io/gr00vysky/gh-runner:latest"
+        },
+        "osType": {
+            "allowedValues": [
+                "Linux",
+                "Windows"
+            ],
+            "type": "String",
+            "defaultValue":"Linux"
+        },
+        "numberCpuCores": {
+            "type": "String",
+            "allowedValues":["1","2","3","4"],
+            "defaultValue": "1"
+        },
+        "memory": {
+            "type": "String",
+            "defaultValue": "2.5"
+        },
+        "restartPolicy": {
+            "allowedValues": [
+                "OnFailure",
+                "Always",
+                "Never"
+            ],
+            "type": "String",
+            "defaultValue":"OnFailure"
+        },
+        "GITHUB_URL": {
+            "type": "string"
+        },
+        "RUNNER_TOKEN": {
+            "type": "securestring",
+            "defaultValue": ""
+        },
+        "GITHUB_PAT": {
+            "type": "securestring",
+            "defaultValue": ""
+        },
+        "RUNNER_LABELS": {
+            "type": "string",
+            "defaultValue": "self-hosted,linux,x64,docker"
+        },
+        "RUNNER_GROUP": {
+            "type": "string",
+            "defaultValue": "default"
+        },
+        "RUNNER_WORKDIR": {
+            "type": "string",
+            "defaultValue": "_work"
+        },
+        "EPHEMERAL": {
+            "type": "string",
+            "defaultValue": "true"
+        },
+        "DISABLE_AUTO_UPDATE": {
+            "type": "string",
+            "defaultValue": "true"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2018-10-01",
+            "name": "[parameters('containerName')]",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('containerName')]",
+                        "properties": {
+                            "image": "[parameters('imageName')]",
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[int(parameters('numberCpuCores'))]",
+                                    "memoryInGB": "[float(parameters('memory'))]"
+                                }
+                            },
+                            "environmentVariables": [
+                                {
+                                    "name": "GITHUB_URL",
+                                    "value": "[parameters('GITHUB_URL')]"
+                                },
+                                {
+                                    "name": "RUNNER_TOKEN",
+                                    "secureValue": "[parameters('RUNNER_TOKEN')]"
+                                },
+                                {
+                                    "name": "GITHUB_PAT",
+                                    "secureValue": "[parameters('GITHUB_PAT')]"
+                                },
+                                {
+                                    "name": "RUNNER_NAME",
+                                    "value": "[parameters('containerName')]"
+                                },
+                                {
+                                    "name": "RUNNER_LABELS",
+                                    "value": "[parameters('RUNNER_LABELS')]"
+                                },
+                                {
+                                    "name": "RUNNER_GROUP",
+                                    "value": "[parameters('RUNNER_GROUP')]"
+                                },
+                                {
+                                    "name": "RUNNER_WORKDIR",
+                                    "value": "[parameters('RUNNER_WORKDIR')]"
+                                },
+                                {
+                                    "name": "EPHEMERAL",
+                                    "value": "[parameters('EPHEMERAL')]"
+                                },
+                                {
+                                    "name": "DISABLE_AUTO_UPDATE",
+                                    "value": "[parameters('DISABLE_AUTO_UPDATE')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "restartPolicy": "[parameters('restartPolicy')]",
+                "osType": "[parameters('osType')]"
+            }
+        }
+    ]
+}

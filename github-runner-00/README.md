@@ -1,27 +1,93 @@
-# Dockerized GitHub Actions Self-hosted Runner
+# Running a Self-hosted GitHub Actions Runner in Docker
 
-This folder provides a Docker image for running a GitHub Actions self-hosted runner.
+## Introduction
 
-The image is based on Ubuntu 24.04, downloads the latest `actions/runner` release at build time, and starts the runner via [entrypoint.sh](entrypoint.sh).
+Containers are one of the simplest ways to package repeatable runtime environments for CI/CD workloads. For GitHub Actions, this approach allows you to run your own self-hosted runners with full control over tools, lifecycle, and security boundaries.
 
-## What this image does
+This folder demonstrates how to run a self-hosted GitHub Actions runner inside Docker, using a custom image based on Ubuntu 24.04. The runner binary is prepared during image build, and startup/shutdown automation is handled by [entrypoint.sh](entrypoint.sh).
 
-- Builds the runner binary during image build.
-- Runs as non-root user `runner` (UID 1001).
-- Configures the runner at container startup using environment variables.
-- Runs in unattended mode and replaces an existing runner with the same name.
-- Defaults to ephemeral runner mode.
-- Attempts runner deregistration on container stop.
+The goal of this tutorial is to walk through the full process in a practical, step-by-step format.
+
+## Theoretical Part
+
+### GitHub Actions runners
+
+To execute a GitHub Actions job, you need a runner. GitHub provides hosted runners by default, but you can also register and manage your own self-hosted runners.
+
+Self-hosted runners are useful when:
+
+- You need custom software that is not present in hosted images.
+- You need private network access to internal resources.
+- You want persistent local caches to improve build speed.
+- You need specific compliance or security controls.
+
+### GitHub-hosted runners vs self-hosted runners
+
+#### GitHub-hosted runners
+
+GitHub-hosted runners are fully managed. Each workflow job runs on a fresh environment and the runtime is recycled after execution. This is usually the fastest way to start.
+
+#### Self-hosted runners
+
+Self-hosted runners are managed by you. You control image content, runtime options, labels, scaling strategy, and patching cadence.
+
+In exchange, you also own:
+
+- System hardening
+- Capacity planning
+- Upgrades and break/fix operations
+
+### Ephemeral and persistent runner modes
+
+This image defaults to ephemeral mode (`EPHEMERAL=true`). In ephemeral mode, a runner processes one job and then exits registration lifecycle, which improves isolation.
+
+Persistent mode (`EPHEMERAL=false`) keeps the same runner registered across multiple jobs. This can be useful for stable long-running environments, but requires stronger hygiene and monitoring.
+
+### Authentication and token model
+
+Runner registration requires a short-lived registration token.
+
+You can provide this in two ways:
+
+- Direct token flow: pass `RUNNER_TOKEN`.
+- PAT flow: pass `GITHUB_PAT` and let the container request short-lived registration/remove tokens at runtime.
+
+Important considerations:
+
+- `RUNNER_TOKEN` must be a short-lived runner registration token.
+- `RUNNER_TOKEN` is not a PAT and should never contain a PAT value.
+- PAT permissions depend on scope (repository or organization runner).
+
+### Runner scope
+
+Runner scope is determined by `GITHUB_URL`:
+
+- Repository runner: `https://github.com/OWNER/REPO`
+- Organization runner: `https://github.com/ORG`
+
+For personal account scenarios, use repository scope.
 
 ## Prerequisites
 
-- Docker installed on the host.
-- Outbound HTTPS access to GitHub endpoints.
-- A short-lived runner registration token from GitHub UI or REST API.
+Before starting the practical section, make sure you have:
 
-## 1. Build the image
+- Docker installed on the host machine.
+- Outbound HTTPS connectivity to GitHub endpoints.
+- A GitHub repository or organization where runners can be registered.
+- A short-lived runner registration token or a PAT with appropriate runner-management permissions.
 
-From this folder:
+## Practical Part
+
+To run this demo, complete the following:
+
+1. Build the Docker image.
+2. Obtain authentication material (registration token or PAT).
+3. Start the containerized runner.
+4. Verify runner connectivity and execute a test workflow.
+
+### 1. Build Docker image
+
+Run from this folder:
 
 ```sh
 docker build -t gh-self-hosted-runner:latest .
@@ -37,16 +103,14 @@ docker build --platform linux/amd64 -t gh-self-hosted-runner:amd64 .
 docker build --platform linux/arm64 -t gh-self-hosted-runner:arm64 .
 ```
 
-## 2. Create a registration token
+### 2. Generate credentials for runner registration
 
-You can get a runner token from:
+You can create a short-lived token from GitHub UI:
 
 - Repository: `Settings -> Actions -> Runners -> New self-hosted runner`
 - Organization: `Settings -> Actions -> Runners -> New runner`
 
-Or use the API.
-
-Repository token API example:
+Alternatively, request a registration token via API:
 
 ```sh
 export GITHUB_PAT="YOUR_PAT"
@@ -60,38 +124,13 @@ curl -sSL \
   "https://api.github.com/repos/${OWNER}/${REPO}/actions/runners/registration-token"
 ```
 
-Use the `token` value from the response as `RUNNER_TOKEN`.
+Use the returned `token` value as `RUNNER_TOKEN`.
 
-### Using a PAT instead of passing RUNNER_TOKEN directly
+If you prefer PAT-based automation, provide `GITHUB_PAT` when starting the container and let the startup script mint short-lived registration/remove tokens automatically.
 
-This image can mint short-lived runner tokens at startup if you provide `GITHUB_PAT`.
+### 3. Start the self-hosted runner container
 
-How it works:
-
-- On startup, the container calls GitHub API to create a short-lived registration token.
-- On shutdown, it calls GitHub API again to create a short-lived remove token.
-- The PAT is only used to request those short-lived tokens.
-
-Important:
-
-- `RUNNER_TOKEN` must be a short-lived runner registration token.
-- Do not put a PAT in `RUNNER_TOKEN`.
-- If you want PAT-based flow, pass `GITHUB_PAT`.
-
-Runner scope differences:
-
-- Repository runner (`https://github.com/OWNER/REPO`): runner is attached to one repository.
-- Organization runner (`https://github.com/ORG`): runner is attached to the organization; `RUNNER_GROUP` is supported.
-- For personal GitHub accounts, use repository runner scope (`https://github.com/OWNER/REPO`).
-
-Permission guidance (high level):
-
-- Repository runner PAT: permission to manage repository self-hosted runners for that repository.
-- Organization runner PAT: permission to manage organization self-hosted runners.
-
-## 3. Run the container
-
-### Repository runner
+#### Repository runner example
 
 ```sh
 docker run -d --name gh-runner-01 \
@@ -104,10 +143,10 @@ docker run -d --name gh-runner-01 \
   gh-self-hosted-runner:latest
 ```
 
-### Organization runner
+#### Organization runner example
 
 ```sh
-docker run -it --name gh-org-runner-01 \
+docker run -d --name gh-org-runner-01 \
   --restart unless-stopped \
   -e GITHUB_URL="https://github.com/ORG" \
   -e GITHUB_PAT="GITHUB_PAT_WITH_ADMIN_ORG_SCOPE" \
@@ -117,70 +156,56 @@ docker run -it --name gh-org-runner-01 \
   gh-self-hosted-runner:latest
 ```
 
-You can also pass `RUNNER_TOKEN` directly, but it must be a short-lived runner registration token (not a PAT).
+You can replace `GITHUB_PAT` with `RUNNER_TOKEN`, but the token must be short-lived and valid for registration.
 
-## 4. Runtime environment variables
+### 4. Runtime variables reference
 
 Required:
 
 - `GITHUB_URL`: `https://github.com/OWNER/REPO` or `https://github.com/ORG`
 
-One of:
+Choose one:
 
 - `RUNNER_TOKEN`: short-lived registration token
-- `GITHUB_PAT`: PAT used to mint short-lived registration/remove tokens at runtime
+- `GITHUB_PAT`: PAT used to request short-lived registration/remove tokens
 
 Optional:
 
-- `RUNNER_NAME`: default is container hostname
-- `RUNNER_LABELS`: comma-separated labels
-- `RUNNER_GROUP`: organization runner group (org runners only)
+- `RUNNER_NAME`: defaults to container hostname
+- `RUNNER_LABELS`: comma-separated runner labels
+- `RUNNER_GROUP`: organization runner group (org scope only)
 - `RUNNER_WORKDIR`: default `_work`
 - `EPHEMERAL`: default `true`
 - `DISABLE_AUTO_UPDATE`: default `true`
 
-For a persistent (non-ephemeral) runner, add this env var:
+Examples:
 
 ```sh
+# Keep runner persistent
 -e EPHEMERAL="false"
-```
 
-To enable runner auto-update, add this env var:
-
-```sh
+# Enable auto-update
 -e DISABLE_AUTO_UPDATE="false"
 ```
 
-## 5. Verify
+### 5. Verify runner registration
 
-Check container logs:
+Follow runner logs:
 
 ```sh
 docker logs -f gh-runner-01
 ```
 
-Then confirm the runner status in GitHub:
+Then verify in GitHub UI:
 
-- Repository: `Settings -> Actions -> Runners`
-- Organization: `Settings -> Actions -> Runners`
+- Repository scope: `Settings -> Actions -> Runners`
+- Organization scope: `Settings -> Actions -> Runners`
 
-You should see the runner online.
+If registration succeeded, the runner status should be online.
 
-Tip: match the displayed runner name with `RUNNER_NAME` (or the container hostname if not set).
+### 6. Test with a workflow
 
-## 6. Stop and remove
-
-```sh
-docker stop gh-runner-01
-docker rm gh-runner-01
-```
-
-On stop, [entrypoint.sh](entrypoint.sh) attempts `config.sh remove` using a valid remove token.
-If `GITHUB_PAT` is set, it requests a short-lived remove token from the GitHub API first.
-
-## 7. Workflow example
-
-Use labels that match your container runner labels:
+Create or trigger a workflow that targets the same labels configured in `RUNNER_LABELS`.
 
 ```yaml
 name: Self-hosted Docker runner test
@@ -200,9 +225,41 @@ jobs:
           pwd
 ```
 
-## Security notes
+### 7. Stop and remove
 
-- Treat this runner as trusted infrastructure; workflow code runs on your host.
-- Avoid exposing long-lived secrets on the runner host.
-- Prefer ephemeral runners for better isolation.
-- Use separate runner groups and labels for different trust levels.
+```sh
+docker stop gh-runner-01
+docker rm gh-runner-01
+```
+
+On stop, [entrypoint.sh](entrypoint.sh) attempts `config.sh remove` using a valid remove token. When `GITHUB_PAT` is available, it first requests a short-lived remove token from the API.
+
+## Results
+
+If all steps were completed successfully, your runner should:
+
+- Appear in the target repository or organization runner list.
+- Accept jobs matching configured labels.
+- Execute workflow steps inside the container environment.
+
+In ephemeral mode, each runner instance handles one job lifecycle and then exits cleanly.
+
+## Summary
+
+This tutorial demonstrated how to run a Dockerized GitHub Actions self-hosted runner with a practical registration model, token strategy, and validation workflow.
+
+The same approach can be extended with autoscaling, image hardening, and environment-specific labels for production-grade CI/CD execution.
+
+## Security Notes
+
+- Treat self-hosted runners as trusted infrastructure.
+- Avoid storing long-lived secrets on the host.
+- Prefer ephemeral execution for better job isolation.
+- Separate runners by repository, team, or trust boundary using labels and groups.
+
+## Related Information
+
+- GitHub Actions self-hosted runners: LINK_PLACEHOLDER
+- GitHub REST API for runner registration tokens: LINK_PLACEHOLDER
+- Docker hardening guidance: LINK_PLACEHOLDER
+- GitHub Actions security hardening: LINK_PLACEHOLDER
