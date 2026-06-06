@@ -12,7 +12,7 @@
         },
         "imageName": {
             "type": "String",
-            "defaultValue": "docker.io/gr00vysky/gh-runner:latest"
+            "defaultValue": "ghcr.io/groovy-sky/gh-runner:latest"
         },
         "osType": {
             "allowedValues": [

@@ -1,214 +1,166 @@
-# Running a Self-hosted GitHub Actions Runner in Docker
+# Running a Repository-level GitHub Actions Runner on Azure Container Instances
 
 ## Introduction
 
-Containers are one of the simplest ways to package repeatable runtime environments for CI/CD workloads. For GitHub Actions, this approach allows you to run your own self-hosted runners with full control over tools, lifecycle, and security boundaries.
+This tutorial explains how to run a self-hosted GitHub Actions runner on Azure Container Instances (ACI) using the ARM template in this folder.
 
-This folder demonstrates how to run a self-hosted GitHub Actions runner inside Docker, using a custom image based on Ubuntu 24.04. The runner binary is prepared during image build, and startup/shutdown automation is handled by [entrypoint.sh](entrypoint.sh).
+The deployment model is simple:
 
-The goal of this tutorial is to walk through the full process in a practical, step-by-step format.
+- Azure Container Instance runs one container group.
+- The container image starts and registers a GitHub runner.
+- Authentication is provided through GitHub PAT only.
 
-## Theoretical Part
+The included template file is [arm.json](arm.json).
 
-### GitHub Actions runners
+## Why ACI for self-hosted runners
 
-To execute a GitHub Actions job, you need a runner. GitHub provides hosted runners by default, but you can also register and manage your own self-hosted runners.
+ACI is a good fit when you want a managed container runtime without maintaining VMs or Kubernetes.
 
-Self-hosted runners are useful when:
+Benefits:
 
-- You need custom software that is not present in hosted images.
-- You need private network access to internal resources.
-- You want persistent local caches to improve build speed.
-- You need specific compliance or security controls.
+- Fast provisioning.
+- Pay for allocated CPU and memory.
+- Native ARM deployment support.
+- Good option for isolated, ephemeral runner workloads.
 
-### GitHub-hosted runners vs self-hosted runners
+Trade-offs:
 
-#### GitHub-hosted runners
+- You still own runner image hardening and lifecycle strategy.
+- You must manage token handling and secrets carefully.
 
-GitHub-hosted runners are fully managed. Each workflow job runs on a fresh environment and the runtime is recycled after execution. This is usually the fastest way to start.
+## Runner behavior and authentication model
 
-#### Self-hosted runners
+### Repository scope
 
-Self-hosted runners are managed by you. You control image content, runtime options, labels, scaling strategy, and patching cadence.
+This guide is repository-only.
 
-In exchange, you also own:
+Set GITHUB_URL in this format:
 
-- System hardening
-- Capacity planning
-- Upgrades and break/fix operations
+- https://github.com/OWNER/REPO
 
-### Ephemeral and persistent runner modes
+### PAT authentication
 
-This image defaults to ephemeral mode (`EPHEMERAL=true`). In ephemeral mode, a runner processes one job and then exits registration lifecycle, which improves isolation.
+This guide uses GITHUB_PAT only.
 
-Persistent mode (`EPHEMERAL=false`) keeps the same runner registered across multiple jobs. This can be useful for stable long-running environments, but requires stronger hygiene and monitoring.
+- GITHUB_PAT is used by the startup logic to request short-lived registration and removal tokens at runtime.
+- Keep PAT permissions limited to what is required for repository-level runner management.
 
-### Authentication and token model
+### Ephemeral mode
 
-Runner registration requires a short-lived registration token.
+By default the template sets EPHEMERAL=true, so each runner is designed for short-lived job isolation.
 
-You can provide this in two ways:
-
-- Direct token flow: pass `RUNNER_TOKEN`.
-- PAT flow: pass `GITHUB_PAT` and let the container request short-lived registration/remove tokens at runtime.
-
-Important considerations:
-
-- `RUNNER_TOKEN` must be a short-lived runner registration token.
-- `RUNNER_TOKEN` is not a PAT and should never contain a PAT value.
-- PAT permissions depend on scope (repository or organization runner).
-
-### Runner scope
-
-Runner scope is determined by `GITHUB_URL`:
-
-- Repository runner: `https://github.com/OWNER/REPO`
-- Organization runner: `https://github.com/ORG`
-
-For personal account scenarios, use repository scope.
+Set EPHEMERAL=false only when you explicitly want persistent runner behavior.
 
 ## Prerequisites
 
-Before starting the practical section, make sure you have:
+Before deployment, make sure you have:
 
-- Docker installed on the host machine.
-- Outbound HTTPS connectivity to GitHub endpoints.
-- A GitHub repository or organization where runners can be registered.
-- A short-lived runner registration token or a PAT with appropriate runner-management permissions.
+- An Azure subscription.
+- Azure CLI installed.
+- Access to create resources in a resource group.
+- A GitHub repository where the runner will register.
+- A PAT with appropriate scope for repository runner management.
 
-## Practical Part
+## Practical walkthrough
 
-To run this demo, complete the following:
-
-1. Build the Docker image.
-2. Obtain authentication material (registration token or PAT).
-3. Start the containerized runner.
-4. Verify runner connectivity and execute a test workflow.
-
-### 1. Build Docker image
-
-Run from this folder:
+### 1. Sign in and select subscription
 
 ```sh
-docker build -t gh-self-hosted-runner:latest .
+az login
+az account set --subscription "<SUBSCRIPTION_ID_OR_NAME>"
 ```
 
-Optional platform-specific builds:
+### 2. Create a resource group
 
 ```sh
-# amd64
-docker build --platform linux/amd64 -t gh-self-hosted-runner:amd64 .
+export RESOURCE_GROUP="rg-gh-runner-demo"
+export LOCATION="eastus"
 
-# arm64
-docker build --platform linux/arm64 -t gh-self-hosted-runner:arm64 .
+az group create \
+  --name "${RESOURCE_GROUP}" \
+  --location "${LOCATION}"
 ```
 
-### 2. Generate credentials for runner registration
+### 3. Prepare deployment variables
 
-You can create a short-lived token from GitHub UI:
-
-- Repository: `Settings -> Actions -> Runners -> New self-hosted runner`
-- Organization: `Settings -> Actions -> Runners -> New runner`
-
-Alternatively, request a registration token via API:
+Repository scope variables:
 
 ```sh
-export GITHUB_PAT="YOUR_PAT"
-export OWNER="your-org"
-export REPO="your-repo"
-
-curl -sSL \
-  -X POST \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer ${GITHUB_PAT}" \
-  "https://api.github.com/repos/${OWNER}/${REPO}/actions/runners/registration-token"
+export GITHUB_URL="https://github.com/OWNER/REPO"
+export CONTAINER_NAME="gh-runner-app"
 ```
 
-Use the returned `token` value as `RUNNER_TOKEN`.
-
-If you prefer PAT-based automation, provide `GITHUB_PAT` when starting the container and let the startup script mint short-lived registration/remove tokens automatically.
-
-### 3. Start the self-hosted runner container
-
-#### Repository runner example
+Optional runtime settings:
 
 ```sh
-docker run -d --name gh-runner-01 \
-  --restart unless-stopped \
-  -e GITHUB_URL="https://github.com/OWNER/REPO" \
-  -e GITHUB_PAT="GITHUB_PAT_WITH_REPO_RUNNER_SCOPE" \
-  -e RUNNER_NAME="runner-01" \
-  -e RUNNER_LABELS="self-hosted,linux,x64,docker" \
-  -e RUNNER_WORKDIR="_work" \
-  gh-self-hosted-runner:latest
+export RUNNER_LABELS="self-hosted,linux,x64,docker"
+export RUNNER_WORKDIR="_work"
+export EPHEMERAL="true"
+export DISABLE_AUTO_UPDATE="true"
 ```
 
-#### Organization runner example
+### 4. Deploy to ACI using ARM template
+
+Deploy with GITHUB_PAT:
 
 ```sh
-docker run -d --name gh-org-runner-01 \
-  --restart unless-stopped \
-  -e GITHUB_URL="https://github.com/ORG" \
-  -e GITHUB_PAT="GITHUB_PAT_WITH_ADMIN_ORG_SCOPE" \
-  -e RUNNER_NAME="org-runner-01" \
-  -e RUNNER_GROUP="default" \
-  -e RUNNER_LABELS="self-hosted,linux,x64,docker" \
-  gh-self-hosted-runner:latest
+export GITHUB_PAT="<PAT_WITH_REQUIRED_SCOPE>"
+
+az deployment group create \
+  --resource-group "${RESOURCE_GROUP}" \
+  --template-file arm.json \
+  --parameters \
+      location="${LOCATION}" \
+      containerName="${CONTAINER_NAME}" \
+      GITHUB_URL="${GITHUB_URL}" \
+      GITHUB_PAT="${GITHUB_PAT}" \
+      RUNNER_LABELS="${RUNNER_LABELS}" \
+      RUNNER_WORKDIR="${RUNNER_WORKDIR}" \
+      EPHEMERAL="${EPHEMERAL}" \
+      DISABLE_AUTO_UPDATE="${DISABLE_AUTO_UPDATE}"
 ```
 
-You can replace `GITHUB_PAT` with `RUNNER_TOKEN`, but the token must be short-lived and valid for registration.
+Notes:
 
-### 4. Runtime variables reference
+- The template defaults imageName to ghcr.io/groovy-sky/gh-runner:latest.
+- Override imageName during deployment if you want to run your own image tag.
 
-Required:
-
-- `GITHUB_URL`: `https://github.com/OWNER/REPO` or `https://github.com/ORG`
-
-Choose one:
-
-- `RUNNER_TOKEN`: short-lived registration token
-- `GITHUB_PAT`: PAT used to request short-lived registration/remove tokens
-
-Optional:
-
-- `RUNNER_NAME`: defaults to container hostname
-- `RUNNER_LABELS`: comma-separated runner labels
-- `RUNNER_GROUP`: organization runner group (org scope only)
-- `RUNNER_WORKDIR`: default `_work`
-- `EPHEMERAL`: default `true`
-- `DISABLE_AUTO_UPDATE`: default `true`
-
-Examples:
+### 5. Check container and logs
 
 ```sh
-# Keep runner persistent
--e EPHEMERAL="false"
+az container show \
+  --resource-group "${RESOURCE_GROUP}" \
+  --name "${CONTAINER_NAME}" \
+  --query "{state:instanceView.state,image:containers[0].image,ip:ipAddress.ip}" \
+  -o table
 
-# Enable auto-update
--e DISABLE_AUTO_UPDATE="false"
+az container logs \
+  --resource-group "${RESOURCE_GROUP}" \
+  --name "${CONTAINER_NAME}"
 ```
 
-### 5. Verify runner registration
-
-Follow runner logs:
+For live stream:
 
 ```sh
-docker logs -f gh-runner-01
+az container attach \
+  --resource-group "${RESOURCE_GROUP}" \
+  --name "${CONTAINER_NAME}"
 ```
 
-Then verify in GitHub UI:
+### 6. Verify runner in GitHub
 
-- Repository scope: `Settings -> Actions -> Runners`
-- Organization scope: `Settings -> Actions -> Runners`
+Open GitHub UI:
 
-If registration succeeded, the runner status should be online.
+- Repository: Settings -> Actions -> Runners.
 
-### 6. Test with a workflow
+The runner should appear online with the labels defined in RUNNER_LABELS.
 
-Create or trigger a workflow that targets the same labels configured in `RUNNER_LABELS`.
+### 7. Run a workflow against the ACI runner
+
+Use a workflow that targets your labels:
 
 ```yaml
-name: Self-hosted Docker runner test
+name: ACI self-hosted runner test
 
 on:
   workflow_dispatch:
@@ -225,41 +177,19 @@ jobs:
           pwd
 ```
 
-### 7. Stop and remove
+## Result
 
-```sh
-docker stop gh-runner-01
-docker rm gh-runner-01
-```
+After a successful deployment, the ACI-based runner should:
 
-On stop, [entrypoint.sh](entrypoint.sh) attempts `config.sh remove` using a valid remove token. When `GITHUB_PAT` is available, it first requests a short-lived remove token from the API.
+![Runner online in GitHub](image-3.png)
 
-## Results
+- Appear in the repository runner list.
+- Pick up jobs matching configured labels.
+- Execute job steps in the ACI container environment.
 
-If all steps were completed successfully, your runner should:
+## Related documentation
 
-- Appear in the target repository or organization runner list.
-- Accept jobs matching configured labels.
-- Execute workflow steps inside the container environment.
-
-In ephemeral mode, each runner instance handles one job lifecycle and then exits cleanly.
-
-## Summary
-
-This tutorial demonstrated how to run a Dockerized GitHub Actions self-hosted runner with a practical registration model, token strategy, and validation workflow.
-
-The same approach can be extended with autoscaling, image hardening, and environment-specific labels for production-grade CI/CD execution.
-
-## Security Notes
-
-- Treat self-hosted runners as trusted infrastructure.
-- Avoid storing long-lived secrets on the host.
-- Prefer ephemeral execution for better job isolation.
-- Separate runners by repository, team, or trust boundary using labels and groups.
-
-## Related Information
-
-- GitHub Actions self-hosted runners: LINK_PLACEHOLDER
-- GitHub REST API for runner registration tokens: LINK_PLACEHOLDER
-- Docker hardening guidance: LINK_PLACEHOLDER
-- GitHub Actions security hardening: LINK_PLACEHOLDER
+- GitHub self-hosted runners: https://docs.github.com/actions/hosting-your-own-runners
+- GitHub runner registration token API: https://docs.github.com/rest/actions/self-hosted-runners
+- Azure Container Instances docs: https://learn.microsoft.com/azure/container-instances/
+- ARM template deployments with Azure CLI: https://learn.microsoft.com/azure/azure-resource-manager/templates/deploy-cli
