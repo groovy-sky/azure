@@ -1,163 +1,104 @@
-# Running a Repository-level GitHub Actions Runner on Azure Container Instances
+# Running a Self-hosted GitHub Actions Runner on Azure Container Instance
 
 ## Introduction
 
-This tutorial explains how to run a self-hosted GitHub Actions runner on Azure Container Instances (ACI) using the ARM template in this folder.
+This tutorial shows how to deploy a repository-level self-hosted GitHub Actions runner on Azure Container Instances using ARM template deployment and GitHub PAT authentication.
 
-The deployment model is simple:
+## Theoretical Part
 
-- Azure Container Instance runs one container group.
-- The container image starts and registers a GitHub runner.
-- Authentication is provided through GitHub PAT only.
+A self-hosted GitHub runner is infrastructure that you provision and maintain to execute GitHub Actions jobs. It can run on a physical server, virtual machine, or container. Instead of using GitHub-hosted ephemeral environments, the runner agent is installed on your own runtime, listens for jobs from GitHub, and executes them using your compute resources.
 
-The included template file is [arm.json](arm.json).
+Teams typically choose self-hosted runners when they need:
 
-## Why ACI for self-hosted runners
+- Custom environments with preinstalled SDKs, tools, or legacy dependencies.
+- Secure access to internal services such as private APIs, databases, or on-premises systems.
+- Better performance through persistent caches and tailored hardware profiles.
+- Cost control for high-frequency or compute-heavy workflows.
 
-ACI is a good fit when you want a managed container runtime without maintaining VMs or Kubernetes.
+### GitHub Actions runners
 
-Benefits:
+To execute a GitHub Actions job, you need a runner:
 
-- Fast provisioning.
-- Pay for allocated CPU and memory.
-- Native ARM deployment support.
-- Good option for isolated, ephemeral runner workloads.
+- GitHub-hosted runner: fully managed by GitHub.
+- Self-hosted runner: managed by you.
 
-Trade-offs:
+Self-hosted runners are useful when you need custom tools, controlled networking, or stronger environment control.
 
-- You still own runner image hardening and lifecycle strategy.
-- You must manage token handling and secrets carefully.
+### Repository-level runner scope
 
-## Runner behavior and authentication model
-
-### Repository scope
-
-This guide is repository-only.
+This tutorial is scoped to a single repository.
 
 Set GITHUB_URL in this format:
 
 - https://github.com/OWNER/REPO
 
-### PAT authentication
+### PAT-based registration model
 
-This guide uses GITHUB_PAT only.
+This guide uses GitHub PAT only:
 
-- GITHUB_PAT is used by the startup logic to request short-lived registration and removal tokens at runtime.
-- Keep PAT permissions limited to what is required for repository-level runner management.
+- GITHUB_PAT is passed as a secure parameter.
+- The runner startup logic exchanges the PAT for short-lived registration and removal tokens.
 
-### Ephemeral mode
+Use least-privilege permissions on PAT and rotate it regularly.
 
-By default the template sets EPHEMERAL=true, so each runner is designed for short-lived job isolation.
+### Important security notice
 
-Set EPHEMERAL=false only when you explicitly want persistent runner behavior.
+Self-hosted runners connect to GitHub over outbound HTTPS (port 443). You do not need inbound access from GitHub to your runner.
+
+Do not use self-hosted runners for public repositories unless strict controls are in place. Untrusted pull requests can execute arbitrary code on your infrastructure.
+
+Recommended controls:
+
+- Require maintainer approval for external contributor workflows.
+- Separate runner groups and labels by trust level.
+- Prefer ephemeral runners to avoid state pollution between jobs.
+
+In this ACI setup, ephemeral behavior is configured with `EPHEMERAL=true`.
+
+### Azure Container Instances
+
+ACI runs containers in a container group.
+
+Key behavior relevant for this scenario:
+
+- Fast provisioning for one-off or elastic workloads.
+- CPU and memory are allocated per container group request.
+- Restart policy controls whether the container is restarted after exit/failure.
 
 ## Prerequisites
 
-Before deployment, make sure you have:
+Before starting the practical part, make sure you have:
 
-- An Azure subscription.
-- Azure CLI installed.
-- Access to create resources in a resource group.
-- A GitHub repository where the runner will register.
-- A PAT with appropriate scope for repository runner management.
+- Azure subscription where runner will be deployed.
+- GitHub repository where the runner will be registered.
 
-## Practical walkthrough
+## Practical Part
 
-### 1. Sign in and select subscription
+### Container deployment
 
-```sh
-az login
-az account set --subscription "<SUBSCRIPTION_ID_OR_NAME>"
-```
+For any Azure resource deployment you need a destination resource group. You can create a new one or use an existing one. After the resource group is ready, you can deploy the container instance with the ARM template.:
 
-### 2. Create a resource group
+https://raw.githubusercontent.com/groovy-sky/azure/refs/heads/master/github-runner-00/arm.json
 
-```sh
-export RESOURCE_GROUP="rg-gh-runner-demo"
-export LOCATION="eastus"
+Easiest way to start deployment is to click the button below:
 
-az group create \
-  --name "${RESOURCE_GROUP}" \
-  --location "${LOCATION}"
-```
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgroovy-sky%2Fazure%2Frefs%2Fheads%2Fmaster%2Fgithub-runner-00%2Farm.json" target="_blank"> <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/> </a>
 
-### 3. Prepare deployment variables
+To be able to deploy the template you can use default parameters except Github PAT and GITHUB_URL. You can generate a new PAT in GitHub with appropriate scopes for repository runners (repo) or organization runners (admin:org). For security reasons, it's recommended to use a separate PAT just for this purpose and rotate it regularly.
 
-Repository scope variables:
+The template default image is ghcr.io/groovy-sky/gh-runner:latest.
 
-```sh
-export GITHUB_URL="https://github.com/OWNER/REPO"
-export CONTAINER_NAME="gh-runner-app"
-```
+### 6. Verify runner
 
-Optional runtime settings:
+Open repository settings:
 
-```sh
-export RUNNER_LABELS="self-hosted,linux,x64,docker"
-export RUNNER_WORKDIR="_work"
-export EPHEMERAL="true"
-export DISABLE_AUTO_UPDATE="true"
-```
+- Settings -> Actions -> Runners
 
-### 4. Deploy to ACI using ARM template
+The runner should appear online with labels from RUNNER_LABELS.
 
-Deploy with GITHUB_PAT:
+### 7. Run a test workflow
 
-```sh
-export GITHUB_PAT="<PAT_WITH_REQUIRED_SCOPE>"
-
-az deployment group create \
-  --resource-group "${RESOURCE_GROUP}" \
-  --template-file arm.json \
-  --parameters \
-      location="${LOCATION}" \
-      containerName="${CONTAINER_NAME}" \
-      GITHUB_URL="${GITHUB_URL}" \
-      GITHUB_PAT="${GITHUB_PAT}" \
-      RUNNER_LABELS="${RUNNER_LABELS}" \
-      RUNNER_WORKDIR="${RUNNER_WORKDIR}" \
-      EPHEMERAL="${EPHEMERAL}" \
-      DISABLE_AUTO_UPDATE="${DISABLE_AUTO_UPDATE}"
-```
-
-Notes:
-
-- The template defaults imageName to ghcr.io/groovy-sky/gh-runner:latest.
-- Override imageName during deployment if you want to run your own image tag.
-
-### 5. Check container and logs
-
-```sh
-az container show \
-  --resource-group "${RESOURCE_GROUP}" \
-  --name "${CONTAINER_NAME}" \
-  --query "{state:instanceView.state,image:containers[0].image,ip:ipAddress.ip}" \
-  -o table
-
-az container logs \
-  --resource-group "${RESOURCE_GROUP}" \
-  --name "${CONTAINER_NAME}"
-```
-
-For live stream:
-
-```sh
-az container attach \
-  --resource-group "${RESOURCE_GROUP}" \
-  --name "${CONTAINER_NAME}"
-```
-
-### 6. Verify runner in GitHub
-
-Open GitHub UI:
-
-- Repository: Settings -> Actions -> Runners.
-
-The runner should appear online with the labels defined in RUNNER_LABELS.
-
-### 7. Run a workflow against the ACI runner
-
-Use a workflow that targets your labels:
+Create or trigger a workflow that targets the same labels:
 
 ```yaml
 name: ACI self-hosted runner test
@@ -177,19 +118,27 @@ jobs:
           pwd
 ```
 
-## Result
+## Results
 
-After a successful deployment, the ACI-based runner should:
+If everything is configured correctly, the ACI-based runner should appear in the repository runner list and start processing matching jobs.
 
 ![Runner online in GitHub](image-3.png)
 
-- Appear in the repository runner list.
-- Pick up jobs matching configured labels.
-- Execute job steps in the ACI container environment.
+Expected outcome:
 
-## Related documentation
+- Runner is online in repository settings.
+- Workflow with matching labels is picked up.
+- Job steps execute inside the ACI container.
+
+## Summary
+
+This tutorial demonstrates a repository-level GitHub runner deployment on Azure Container Instance using PAT-only authentication and ARM template deployment.
+
+The same pattern can be extended with custom images, stricter network controls, and autoscaling patterns for production workloads.
+
+## Related Information
 
 - GitHub self-hosted runners: https://docs.github.com/actions/hosting-your-own-runners
-- GitHub runner registration token API: https://docs.github.com/rest/actions/self-hosted-runners
-- Azure Container Instances docs: https://learn.microsoft.com/azure/container-instances/
-- ARM template deployments with Azure CLI: https://learn.microsoft.com/azure/azure-resource-manager/templates/deploy-cli
+- GitHub REST API (self-hosted runners): https://docs.github.com/rest/actions/self-hosted-runners
+- Azure Container Instances documentation: https://learn.microsoft.com/azure/container-instances/
+- ARM template deployment with Azure CLI: https://learn.microsoft.com/azure/azure-resource-manager/templates/deploy-cli
