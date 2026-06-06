@@ -76,9 +76,7 @@ Before starting the practical part, make sure you have:
 
 ### Container deployment
 
-For any Azure resource deployment you need a destination resource group. You can create a new one or use an existing one. After the resource group is ready, you can deploy the container instance with the ARM template.:
-
-https://raw.githubusercontent.com/groovy-sky/azure/refs/heads/master/github-runner-00/arm.json
+For any Azure resource deployment you need a destination resource group. You can create a new one or use an existing one. After the resource group is ready, you can deploy the container instance with [the following ARM template](https://raw.githubusercontent.com/groovy-sky/azure/refs/heads/master/github-runner-00/arm.json).
 
 Easiest way to start deployment is to click the button below:
 
@@ -88,17 +86,13 @@ To be able to deploy the template you can use default parameters except Github P
 
 The template default image is ghcr.io/groovy-sky/gh-runner:latest.
 
-### 6. Verify runner
+## Result
 
-Open repository settings:
+If everything is configured correctly, the ACI-based runner should appear in the repository runner list (Under Settings -> Actions -> Runners) and start processing matching jobs.
 
-- Settings -> Actions -> Runners
+![Runner online in GitHub](image-3.png)
 
-The runner should appear online with labels from RUNNER_LABELS.
-
-### 7. Run a test workflow
-
-Create or trigger a workflow that targets the same labels:
+To test it you can use a workflow that targets the same labels:
 
 ```yaml
 name: ACI self-hosted runner test
@@ -117,18 +111,6 @@ jobs:
           whoami
           pwd
 ```
-
-## Results
-
-If everything is configured correctly, the ACI-based runner should appear in the repository runner list and start processing matching jobs.
-
-![Runner online in GitHub](image-3.png)
-
-Expected outcome:
-
-- Runner is online in repository settings.
-- Workflow with matching labels is picked up.
-- Job steps execute inside the ACI container.
 
 ## Summary
 
