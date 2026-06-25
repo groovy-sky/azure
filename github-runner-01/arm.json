@@ -1,0 +1,228 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "containerImage": {
+            "type": "string",
+            "defaultValue": "ghcr.io/groovy-sky/gh-runner:latest"
+        },
+        "githubOwner": {
+            "type": "string"
+        },
+        "githubRepo": {
+            "type": "string"
+        },
+        "runnerScope": {
+            "type": "string",
+            "defaultValue": "repo",
+            "allowedValues": ["repo", "org", "enterprise"]
+        },
+        "runnerGroup": {
+            "type": "string",
+            "defaultValue": "Default"
+        },
+        "githubPat": {
+            "type": "secureString",
+            "defaultValue": ""
+        },
+        "targetWorkflowQueueLength": {
+            "type": "string",
+            "defaultValue": "1"
+        },
+
+        "triggerType": {
+            "type": "string",
+            "defaultValue": "Event",
+            "allowedValues": ["Event"]
+        },
+        "parallelism": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        "minExecutions": {
+            "type": "int",
+            "defaultValue": 0
+        },
+        "maxExecutions": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        "publicNetworkAccess": {
+            "type": "string",
+            "defaultValue": "Enabled",
+            "allowedValues": ["Enabled", "Disabled"]
+        },
+        "workloadProfileType": {
+            "type": "string",
+            "defaultValue": "Consumption",
+            "allowedValues": ["Consumption"]
+        },
+        "containerMemory": {
+            "type": "string",
+            "defaultValue": "2.0Gi",
+            "allowedValues": ["0.5Gi", "1.0Gi", "1.5Gi", "2.0Gi", "2.5Gi", "3.0Gi", "3.5Gi", "4.0Gi", "4.5Gi", "5.0Gi", "5.5Gi", "6.0Gi", "6.5Gi", "7.0Gi", "7.5Gi", "8.0Gi"]
+        }
+    },
+    "variables": {
+        "jobName": "[concat('github-runner-job-', uniqueString(resourceGroup().name))]",
+        "environmentName": "[concat('aca-gh-env-', uniqueString(resourceGroup().name))]",
+        "runnerLabelName": "[concat('aca-runner-', uniqueString(resourceGroup().name))]",
+        "profileName": "Consumption",
+        "memoryCpuMap": {
+            "0.5Gi": 0.25,
+            "1.0Gi": 0.5,
+            "1.5Gi": 0.75,
+            "2.0Gi": 1.0,
+            "2.5Gi": 1.25,
+            "3.0Gi": 1.5,
+            "3.5Gi": 1.75,
+            "4.0Gi": 2.0,
+            "4.5Gi": 2.25,
+            "5.0Gi": 2.5,
+            "5.5Gi": 2.75,
+            "6.0Gi": 3.0,
+            "6.5Gi": 3.25,
+            "7.0Gi": 3.5,
+            "7.5Gi": 3.75,
+            "8.0Gi": 4.0
+        },
+        "containerCpu": "[variables('memoryCpuMap')[parameters('containerMemory')]]",
+        "githubUrl": "[concat('https://github.com/', parameters('githubOwner'), '/', parameters('githubRepo'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.App/managedEnvironments",
+            "apiVersion": "2026-01-01",
+            "name": "[variables('environmentName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "zoneRedundant": false,
+                "kedaConfiguration": {},
+                "daprConfiguration": {},
+                "customDomainConfiguration": {},
+                "workloadProfiles": [
+                    {
+                        "workloadProfileType": "[parameters('workloadProfileType')]",
+                        "name": "[variables('profileName')]"
+                    }
+                ],
+                "peerAuthentication": {
+                    "mtls": {
+                        "enabled": false
+                    }
+                },
+                "peerTrafficConfiguration": {
+                    "encryption": {
+                        "enabled": false
+                    }
+                },
+                "publicNetworkAccess": "[parameters('publicNetworkAccess')]"
+            }
+        },
+        {
+            "type": "Microsoft.App/jobs",
+            "apiVersion": "2026-01-01",
+            "name": "[variables('jobName')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.App/managedEnvironments', variables('environmentName'))]"
+            ],
+            "identity": {
+                "type": "None"
+            },
+            "properties": {
+                "environmentId": "[resourceId('Microsoft.App/managedEnvironments', variables('environmentName'))]",
+                "workloadProfileName": "[variables('profileName')]",
+                "configuration": {
+                    "secrets": [
+                        {
+                            "name": "github-pat",
+                            "value": "[parameters('githubPat')]"
+                        }
+                    ],
+                    "triggerType": "[parameters('triggerType')]",
+                    "replicaTimeout": 1800,
+                    "replicaRetryLimit": 1,
+                    "eventTriggerConfig": {
+                        "replicaCompletionCount": 1,
+                        "parallelism": "[parameters('parallelism')]",
+                        "scale": {
+                            "minExecutions": "[parameters('minExecutions')]",
+                            "maxExecutions": "[parameters('maxExecutions')]",
+                            "pollingInterval": 30,
+                            "rules": [
+                                {
+                                    "name": "github-runner-scaler",
+                                    "type": "github-runner",
+                                    "metadata": {
+                                        "labels": "[variables('runnerLabelName')]",
+                                        "owner": "[parameters('githubOwner')]",
+                                        "repos": "[parameters('githubRepo')]",
+                                        "runnerScope": "[parameters('runnerScope')]",
+                                        "targetWorkflowQueueLength": "[parameters('targetWorkflowQueueLength')]"
+                                    },
+                                    "auth": [
+                                        {
+                                            "secretRef": "github-pat",
+                                            "triggerParameter": "personalAccessToken"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "identitySettings": []
+                },
+                "template": {
+                    "containers": [
+                        {
+                            "image": "[parameters('containerImage')]",
+                            "name": "[variables('jobName')]",
+                            "command": [],
+                            "args": [],
+                            "env": [
+                                {
+                                    "name": "GITHUB_OWNER",
+                                    "value": "[parameters('githubOwner')]"
+                                },
+                                {
+                                    "name": "GITHUB_REPO",
+                                    "value": "[parameters('githubRepo')]"
+                                },
+                                {
+                                    "name": "RUNNER_SCOPE",
+                                    "value": "[parameters('runnerScope')]"
+                                },
+                                {
+                                    "name": "RUNNER_LABELS",
+                                    "value": "[variables('runnerLabelName')]"
+                                },
+                                {
+                                    "name": "RUNNER_GROUP",
+                                    "value": "[parameters('runnerGroup')]"
+                                },
+                                {
+                                    "name": "GITHUB_PAT",
+                                    "secretRef": "github-pat"
+                                },
+                                {
+                                    "name": "GITHUB_URL",
+                                    "value": "[variables('githubUrl')]"
+                                }
+                            ],
+                            "resources": {
+                                "cpu": "[variables('containerCpu')]",
+                                "memory": "[parameters('containerMemory')]"
+                            },
+                            "probes": []
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
