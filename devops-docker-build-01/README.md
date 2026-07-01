@@ -4,11 +4,11 @@
 
 Azure DevOps pipelines need build agents to execute CI/CD jobs. Microsoft-hosted agents are the default option, and they work well for many teams. However, they can be limiting when you need custom tooling, access to private networks, specialized dependencies, or tighter control over the build environment. Azure Pipelines also assigns jobs to agents one job at a time, so scaling the number of available agents matters when multiple builds are queued. 
 
-A common alternative is to use self-hosted agents. In this model, you manage the machine or runtime that runs the Azure Pipelines agent software. Traditionally, that means keeping one or more virtual machines online all the time, even when no pipeline jobs are running. That approach works, but it can waste compute resources and increase maintenance overhead. 
+A common alternative is to use self-hosted agents. In [the previous article](../devops-docker-build-00/README.md), the agent was run on Azure Container Instance. That approach works, but it has one main disadvantage: the container instance runs all the time, so you pay for compute even when no pipeline jobs are queued and the agent is idle.
 
 ![](job_flow.png)
 
-A more efficient pattern is to run the Azure Pipelines agent inside a container and execute it as an **event-driven Azure Container Apps job**. In this setup, the platform starts agent containers only when pipeline work is queued, and stops them when the work is done. Azure Container Apps jobs are designed for workloads that start, run for a finite duration, and then stop, which matches self-hosted CI/CD agents well.
+A more efficient pattern is to run the Azure Pipelines agent inside a container and execute it as an **event-driven Azure Container Apps job**. This avoids the always-on cost model from Container Instance because the platform starts agent containers only when pipeline work is queued and stops them when the work is done. Azure Container Apps jobs are designed for workloads that start, run for a finite duration, and then stop, which matches self-hosted CI/CD agents well.
 
 ## Important notice
 
