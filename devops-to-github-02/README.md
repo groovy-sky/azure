@@ -4,6 +4,8 @@
 
 This document explains how to move a Git repository from Azure DevOps to GitHub. It covers the migration scope, preparation, transfer options, and basic verification.
 
+For migrations to **GitHub Enterprise Cloud**, you can also use [GitHub Enterprise Importer](https://github.com/github/gh-gei), a dedicated migration tool. For Azure DevOps migrations, use its `gh ado2gh` GitHub CLI extension rather than `gh gei`, which is intended for migrations between GitHub products. See the linked project's Azure DevOps instructions for setup and usage.
+
 ## Prerequisites
 
 You need access to clone the Azure DevOps repository and create or update the destination repository on GitHub.
