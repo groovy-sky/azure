@@ -1,10 +1,12 @@
-# Migrate from Azure DevOps to GitHub (part 2)
+# Migrate from Azure DevOps to GitHub - Part 2: Azure Pipelines to GitHub Actions
+
+**Tutorial series: Part 2 of 4.** **Previous:** [Part 1: Platform Concepts](../devops-to-github-00/README.md).
 
 ## Introduction
 
-The [previous article](../devops-to-github-00/README.md) introduced CI/CD and the main features of Azure DevOps and GitHub. This second part focuses on moving automation from **Azure Pipelines** to **GitHub Actions**.
+Part 1 introduced CI/CD and the main features of Azure DevOps and GitHub. This second part continues the migration series by focusing on moving automation from **Azure Pipelines** to **GitHub Actions**.
 
-This document explains the main concepts of Azure Pipelines and GitHub Actions, highlighting their differences.
+You will map pipeline concepts to workflow concepts, compare YAML examples, and identify behaviors that need separate migration decisions. This prepares you to adapt automation when the repository moves to GitHub in Part 3; external-service authentication follows in Part 4.
 
 ## Azure Pipelines
 
@@ -268,3 +270,7 @@ The GitHub Actions workflow implements this explicitly with a loop allowing **fo
 A **pipeline** corresponds conceptually to a **workflow**, a **step** corresponds to a **step**, and an Azure Pipelines **task** corresponds conceptually to a GitHub **action**.
 
 Migration requires more than translating terminology and YAML syntax. Settings such as **CI batching** and **variable groups** have no direct GitHub Actions equivalents and require separate migration decisions.
+
+With the automation mapping understood, the next part transfers the Git repository that will host your code and workflows.
+
+**Next:** [Part 3: Git Repository Migration](../devops-to-github-02/README.md).

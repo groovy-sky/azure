@@ -1,8 +1,10 @@
-# Migrate from Azure DevOps to GitHub — Part 4: Service Connections
+# Migrate from Azure DevOps to GitHub - Part 4: Service Connections
+
+**Tutorial series: Part 4 of 4.** **Previous:** [Part 3: Git Repository Migration](../devops-to-github-02/README.md).
 
 ## Introduction
 
-The first article introduced Azure DevOps and GitHub. Part 2 compared Azure Pipelines with GitHub Actions, and Part 3 covered Git repository migration.
+Part 3 covered moving your Git repository to GitHub. This final part continues the migration series by recreating the external-service access your GitHub Actions workflows need, building on the automation mapping from Part 2 and platform concepts from Part 1.
 
 This guide explains how to provide access controls in GitHub Actions similar to those offered by Azure Pipelines service connections.
 
@@ -74,68 +76,42 @@ flowchart TD
 
 This example uses a **User Assigned Managed Identity** and a branch-bound GitHub federated credential to authenticate to Azure without a client secret.
 
-### 1. Create or select the Azure identity
+### 1. Create the identity
 
-Use a Microsoft Entra application with a service principal or, as in this example, a **User Assigned Managed Identity**.
+Use a **User Assigned Managed Identity** here; an Entra application with a service principal is also supported.
 
-In Azure Portal, open **Managed Identities → Create**, choose the subscription, resource group and region, and name it `azure-identity`. Select **Review + create → Create**.
-
-Collect the **Client ID** (authentication), **Principal ID** (RBAC assignments), **Tenant ID** (Entra tenant) and **Subscription ID** (Azure subscription).
-
-At the required resource scope, open **Access control (IAM) → Add role assignment**. Choose **Reader → Managed identity → User-assigned managed identity** and select `azure-identity`. Reader supports read-only validation; deployments need permissions appropriate to the resources they manage. Grant only the required role and scope.
-
-GitHub needs its own federated trust configuration; do not reuse the Azure DevOps credential unchanged. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect))
+- **Create:** Azure Portal → **Managed Identities → Create**. Set subscription, resource group, region and name (`azure-identity`), then **Review + create → Create**.
+- **Record:** Client ID (authentication), Principal ID (RBAC), Tenant ID and Subscription ID.
+- **Authorize:** At the required scope, use **Access control (IAM) → Add role assignment** to assign **Reader** to the user-assigned managed identity `azure-identity`. Deployments may need additional permissions; keep role and scope minimal.
 
 ### 2. Configure federated trust
 
-On the managed identity, open **Settings → Federated credentials → Add credential**, select **GitHub Actions deploying Azure resources**, and enter:
+On the identity, open **Settings → Federated credentials → Add credential → GitHub Actions deploying Azure resources**. Configure and verify these Azure public-cloud values:
 
-| Field           | Example      |
-| --------------- | ------------ |
-| Organization    | `groovy-sky` |
-| Organization ID | `40501227`   |
-| Repository      | `azure`      |
-| Repository ID   | `1398660921` |
-| Entity          | Branch       |
-| Branch          | `master`     |
+| Setting | Example |
+| --- | --- |
+| Organization / ID | `groovy-sky` / `40501227` |
+| Repository / ID | `azure` / `1398660921` |
+| Entity / Branch | Branch / `master` |
+| Issuer | `https://token.actions.githubusercontent.com` |
+| Audience | `api://AzureADTokenExchange` |
+| Credential name | `github-azure-master` |
 
-For Azure public cloud, verify:
+Match the subject to the workflow's actual OIDC configuration, including customizations:
 
-| Field    | Value                                                      |
-| -------- | ---------------------------------------------------------- |
-| Issuer   | `https://token.actions.githubusercontent.com`              |
-| Audience | `api://AzureADTokenExchange`                               |
-| Subject  | The exact subject produced by the intended GitHub workflow |
+| Format | Subject |
+| --- | --- |
+| Name-based | `repo:OWNER/REPOSITORY:ref:refs/heads/master` |
+| Immutable-ID | `repo:OWNER@OWNER_ID/REPOSITORY@REPOSITORY_ID:ref:refs/heads/master` |
+| Example | `repo:groovy-sky@40501227/azure@1398660921:ref:refs/heads/master` |
 
-Older name-based subject:
+Replace placeholders and select **Add**. GitHub needs its own trust configuration, not an unchanged Azure DevOps credential; trust alone grants no resource access. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect))
 
-```
-repo:OWNER/REPOSITORY:ref:refs/heads/master
-```
+> Since July 15, 2026, new, renamed or transferred GitHub.com repositories default to immutable subjects; existing repositories retain the older format unless they opt in. GitHub Enterprise Server is excluded. Verify your repository's format and customizations. ([docs.github.com](https://docs.github.com/en/actions/reference/security/oidc))
 
-Immutable-ID subject:
+### 3. Add repository variables
 
-```
-repo:OWNER@OWNER_ID/REPOSITORY@REPOSITORY_ID:ref:refs/heads/master
-```
-
-For this example:
-
-```
-repo:groovy-sky@40501227/azure@1398660921:ref:refs/heads/master
-```
-
-Replace placeholders and confirm the repository's actual OIDC subject, including customizations. ([docs.github.com](https://docs.github.com/en/actions/reference/security/oidc))
-
-> **Subject-format change:** Since July 15, 2026, new, renamed or transferred GitHub.com repositories use the immutable default. Existing repositories keep the older format unless they opt in. This does not apply to GitHub Enterprise Server; verify each repository's format. ([docs.github.com](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-azure))
-
-Name the credential `github-azure-master`, verify the values and select **Add**. This establishes trust, not Azure resource permissions.
-
-### 3. Configure GitHub repository variables
-
-Under repository **Settings → Secrets and variables → Actions → Variables**, add `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` and `AZURE_SUBSCRIPTION_ID` using the collected values.
-
-These are identifiers, not secrets. Matching federated trust and Azure authorization are still required. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect))
+In **Settings → Secrets and variables → Actions → Variables**, add `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` and `AZURE_SUBSCRIPTION_ID` from step 1. These are identifiers, not secrets; trust and RBAC are still required.
 
 ### 4. Add the workflow
 
@@ -174,22 +150,13 @@ jobs:
             --output json
 ```
 
-`id-token: write` permits OIDC token requests, not Azure writes. Federated trust controls identity acceptance; Azure RBAC controls resource access.
+`id-token: write` allows token requests, not Azure writes. Trust authenticates, RBAC authorizes, and `azure/login` signs in without deploying. ([github.com](https://github.com/Azure/login))
 
-`azure/login` authenticates subsequent Azure commands; it does not deploy resources. ([github.com](https://github.com/Azure/login))
-
-### 5. Execute and validate the workflow
+### 5. Run and validate
 
 In **Actions → Verify Azure authentication → Run workflow**, select `master`. A successful run returns the selected subscription and tenant.
 
-If authentication fails, check:
-
-- GitHub organization and repository names and IDs.
-- Branch name and federated subject.
-- Issuer URL and audience.
-- Managed identity Client ID, Tenant ID and Subscription ID.
-- `id-token: write` workflow permission.
-- Azure RBAC role assignments and scope.
+If it fails, check organization/repository names and IDs, branch and subject, issuer and audience, Azure IDs, `id-token: write`, and RBAC role/scope.
 
 ## Practical part
 
@@ -213,3 +180,9 @@ For each connection, answer four questions:
 Only then translate the YAML.
 
 Clarify the service-connection mappingAdd a migration mapping table
+
+## Series Conclusion
+
+Across these four parts, you have explored the platform concepts, mapped pipeline automation, learned how to transfer a Git repository, and configured an example of external-service authentication. Use these steps together when planning your migration; package feeds, work tracking, and other integrations still require separate migration work.
+
+**End of series.** Return to [Part 1: Platform Concepts and Series Overview](../devops-to-github-00/README.md).
