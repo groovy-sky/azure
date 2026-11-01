@@ -1,41 +1,111 @@
-# Migrate from Azure DevOps to GitHub (part 3)
+# Migrate from Azure DevOps to GitHub — Part 3: Git Repository Migration
 
 ## Introduction
 
-This document explains how to move a Git repository from Azure DevOps to GitHub. It covers the migration scope, preparation, transfer options, and basic verification.
+This guide explains how to migrate a Git repository from Azure DevOps to GitHub, including:
 
-## Prerequisites
+- Preparing the source and destination repositories.
+- Choosing a transfer method.
+- Transferring Git history and Git LFS objects.
+- Performing basic verification.
+- Completing the transition for collaborators.
 
-You need access to clone the Azure DevOps repository and create or update the destination repository on GitHub.
+**Scope:** This procedure covers the Git repository. Pipelines, package feeds, permissions, and other integrations require separate configuration.
 
-The commands below use Git. Depending on your preferred transfer method and repository contents, you may also need:
+## Prepare for Migration
 
-- **GitHub CLI:** Optional, if you want to create the destination from the terminal instead of using pure Git for the transfer.
-- **Git LFS:** Required if the repository already uses LFS. Large files stored in ordinary Git may need conversion before migration.
+### Prerequisites
 
-Before the final copy, push any changes that must be included and ask collaborators to pause pushes to Azure DevOps.
+Ensure you have:
 
-### Command conventions
+- Permission to clone the Azure DevOps repository.
+- Permission to create or update the destination repository on GitHub.
+- Git installed.
+- A fresh local directory for the migration.
 
-Run the examples in Bash or Git Bash and replace the placeholders with your repository details.
+Depending on your repository and preferred workflow, you may also need:
 
-Copy the source URL from **Azure DevOps → Repos → Files → Clone**. The destination URL follows this format:
+| Tool | When it is needed |
+|---|---|
+| **GitHub CLI (`gh`)** | If you want to create the destination repository from the terminal. |
+| **Git LFS** | If the source repository uses LFS, or ordinary Git files need conversion to LFS before migration. |
+
+For migrations to GitHub Enterprise Cloud, you can also use ![GitHub Enterprise Importer](https://github.com/github/gh-gei), a dedicated migration tool. 
+
+### Coordinate the Final Copy
+
+Before transferring the repository:
+
+- [ ] Push all changes that must be included.
+- [ ] Ask collaborators to pause pushes to Azure DevOps.
+- [ ] Check whether the repository uses Git LFS.
+- [ ] Identify files larger than 100 MB stored in ordinary Git history; these may need conversion to LFS before migration.
+
+### Command Conventions
+
+Run the examples in **Bash or Git Bash**. Replace all placeholders with your repository details.
+
+Copy the source URL from:
+
+**Azure DevOps → Repos → Files → Clone**
+
+The example URLs use these formats:
 
 ```text
+Source:
+https://dev.azure.com/{organization}/{project}/_git/{repo}
+
+Destination:
 https://github.com/{owner}/{new-repo}.git
 ```
 
-Choose one transfer option and use a fresh local directory.
+## Choose a Migration Workflow
 
-## Option 1: Use Git
+Choose **one** of the following workflows:
 
-### 1. Create an empty GitHub repository
+| Workflow | Destination creation | Repository transfer |
+|---|---|---|
+| **Option A: Git** | Create an empty repository on GitHub manually. | Use Git commands. |
+| **Option B: GitHub CLI** | Create the repository with `gh repo create`. | Use GitHub CLI and, when needed, Git LFS and Git commands. |
 
-Create the repository under the intended user or organization.
+Both workflows include an LFS path.
 
-Do **not** add a README, license, or `.gitignore`.
+```mermaid
+flowchart TD
+    A["Prepare source repository<br/>Pause collaborator pushes"] --> B{"Files over 100 MB<br/>in ordinary Git history?"}
+    B -->|Yes| C["Convert to Git LFS<br/>before transfer"]
+    B -->|No| D{"Choose workflow"}
+    C --> D
 
-### 2. Clone Azure DevOps and add GitHub
+    D -->|Git| E["Create empty GitHub repository<br/>Bare-clone Azure DevOps<br/>Add GitHub remote"]
+    D -->|GitHub CLI| F["Authenticate with GitHub<br/>Bare-clone Azure DevOps<br/>Create GitHub repository"]
+
+    E --> G{"Uses Git LFS?"}
+    G -->|Yes| H["Transfer LFS objects"]
+    G -->|No| I["Mirror-push Git references"]
+    H --> I
+
+    F --> J{"Uses Git LFS?"}
+    J -->|Yes| K["Create without immediate push<br/>Transfer LFS objects<br/>Mirror-push Git references"]
+    J -->|No| L["Create and push with GitHub CLI"]
+
+    I --> M["Verify migration"]
+    K --> M
+    L --> M
+    M --> N["Complete transition"]
+```
+
+**Note:** Converting ordinary Git files to LFS is a preparation task; the conversion procedure is not covered below.
+
+## Option A: Migrate Using Git
+
+### Step 1: Create an Empty GitHub Repository
+
+Create the repository under the intended GitHub user or organization.
+
+**Do not initialize it with a README, license, or `.gitignore`.**
+
+### Step 2: Clone Azure DevOps and Add the GitHub Remote
 
 ```bash
 git clone --bare \
@@ -48,15 +118,18 @@ git remote add github \
   "https://github.com/{owner}/{new-repo}.git"
 ```
 
-Check that the remote URLs are correct:
+Confirm the remote URLs:
 
 ```bash
 git remote -v
 ```
 
-`origin` should point to Azure DevOps, and `github` should point to GitHub.
+Expected configuration:
 
-### 3. Transfer LFS objects, if applicable
+- `origin` points to Azure DevOps.
+- `github` points to GitHub.
+
+### Step 3: Transfer LFS Objects, If Applicable
 
 Skip this step if the repository does not use Git LFS.
 
@@ -67,16 +140,18 @@ git lfs push --all github
 
 Resolve any errors before continuing.
 
-### 4. Push to GitHub
+### Step 4: Push Git History and References
 
 ```bash
 git push --dry-run --mirror github &&
 git push --mirror github
 ```
 
-## Option 2: Use GitHub CLI
+Continue to **Section 6: Verify the Migration**.
 
-### 1. Authenticate with GitHub
+## Option B: Migrate Using GitHub CLI
+
+### Step 1: Authenticate with GitHub
 
 ```bash
 gh auth login --hostname github.com --git-protocol https --web
@@ -86,9 +161,9 @@ gh auth status
 
 Confirm that the intended GitHub account is signed in.
 
-GitHub CLI does not authenticate you to Azure DevOps. Complete the Azure sign-in separately when cloning.
+**Azure DevOps authentication is separate:** GitHub CLI does not authenticate you to Azure DevOps. Complete the Azure sign-in when cloning.
 
-### 2. Clone Azure DevOps
+### Step 2: Clone Azure DevOps
 
 ```bash
 git clone --bare \
@@ -98,9 +173,13 @@ git clone --bare \
 cd migration.git
 ```
 
-### 3. Create and populate GitHub
+### Step 3: Create and Populate the GitHub Repository
 
-**If the repository does not use LFS:**
+Choose the appropriate path below.
+
+#### Path A: Repository Without Git LFS
+
+Create the repository and push immediately:
 
 ```bash
 gh repo create {owner}/{new-repo} \
@@ -112,9 +191,9 @@ gh repo create {owner}/{new-repo} \
 
 Because the source is a bare repository, `--push` mirrors its references.
 
-**If the repository uses LFS:**
+#### Path B: Repository With Git LFS
 
-Create the destination without pushing immediately:
+First, create the destination without pushing:
 
 ```bash
 gh repo create {owner}/{new-repo} \
@@ -132,35 +211,22 @@ git push --dry-run --mirror github &&
 git push --mirror github
 ```
 
+Resolve any errors before proceeding.
 
-## Verify the migration
+## Verify the Migration
 
-Open the destination repository in your web browser:
+Open the destination repository:
 
 ```text
 https://github.com/{owner}/{new-repo}
 ```
 
-Check that the expected files, branches, tags, and commit history are visible and that the default branch is correct.
+Perform these basic checks:
 
-This is a basic visual check; it does not verify LFS downloads or integrations.
+- [ ] Expected files are visible.
+- [ ] Expected branches are present.
+- [ ] Expected tags are present.
+- [ ] Commit history is visible.
+- [ ] The default branch is correct.
 
-## Complete the transition
-
-- [ ] Configure repository access and branch protections.
-- [ ] Reconnect pipelines, package feeds, and other integrations.
-- [ ] Update repository links in scripts and documentation.
-- [ ] Tell collaborators that GitHub is the new source of truth.
-- [ ] Keep Azure available until the migration is accepted.
-
-Developers can update an existing checkout:
-
-```bash
-git remote set-url origin \
-  "https://github.com/{owner}/{new-repo}.git"
-
-git remote -v
-git fetch origin
-```
-
-Prefer fresh clones if history was rewritten. Make Azure read-only during the transition where practical.
+**Verification limitation:** These are visual checks only. They do not verify LFS downloads or integrations.
