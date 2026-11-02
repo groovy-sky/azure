@@ -8,6 +8,15 @@ Azure Pipelines YAML cannot be used directly in GitHub Actions. Jobs, steps, and
 
 This part compares the main concepts and shows equivalent commands in a pipeline and a workflow, highlighting settings that need a different approach.
 
+## Series Overview
+
+| Part | Topic | Migration goal |
+|---|---|---|
+| [1](../devops-to-github-00/README.md) | Platform Concepts | Understand how Azure DevOps and GitHub organize code, work, and automation. |
+| **2 (this article)** | Azure Pipelines to GitHub Actions | Map automation concepts and identify settings that need redesign. |
+| [3](../devops-to-github-02/README.md) | Git Repository Migration | Transfer Git history and LFS objects, then verify the destination. |
+| [4](../devops-to-github-03/README.md) | Service Connections | Recreate authentication, authorization, and access controls. |
+
 ## Azure Pipelines
 
 **Azure Pipelines** automates workflows such as building, testing, packaging, and deploying applications.

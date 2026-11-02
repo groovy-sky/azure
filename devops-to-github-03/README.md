@@ -8,6 +8,15 @@ Moving a repository does not give GitHub Actions access to the services used by 
 
 This part explains the available approaches and shows how to configure and test Azure access using OpenID Connect (OIDC) and a user-assigned managed identity, without a client secret.
 
+## Series Overview
+
+| Part | Topic | Migration goal |
+|---|---|---|
+| [1](../devops-to-github-00/README.md) | Platform Concepts | Understand how Azure DevOps and GitHub organize code, work, and automation. |
+| [2](../devops-to-github-01/README.md) | Azure Pipelines to GitHub Actions | Map automation concepts and identify settings that need redesign. |
+| [3](../devops-to-github-02/README.md) | Git Repository Migration | Transfer Git history and LFS objects, then verify the destination. |
+| **4 (this article)** | Service Connections | Recreate authentication, authorization, and access controls. |
+
 ## Azure Pipelines service connections
 
 ![](devops-service-connections.png)
@@ -69,15 +78,59 @@ flowchart TD
 
 This example uses a **User Assigned Managed Identity** and a branch-bound GitHub federated credential to authenticate to Azure without a client secret.
 
+```mermaid
+flowchart TD
+  identity["1. Create a user-assigned MI"]
+  access["2. Grant MI access to the resource"]
+  ids["3. Get GitHub repository and organization IDs"]
+  federation["4. Configure MI federated credentials"]
+  variables["5. Store Azure IDs in Actions variables"]
+  workflow["6. Add the Azure login workflow"]
+
+  identity --> access --> ids --> federation --> variables --> workflow
+```
+
 ### 1. Create the identity
 
-Use a **User Assigned Managed Identity** here; an Entra application with a service principal is also supported.
+To create a **User Assigned Managed Identity**:
 
-- **Create:** Azure Portal → **Managed Identities → Create**. Set subscription, resource group, region and name (`azure-identity`), then **Review + create → Create**.
+- Open Azure Portal -> **Create a resource**  → **Managed Identities → Create**. Set subscription, resource group, region and name (`azure-identity`), then **Review + create → Create**.
 - **Record:** Client ID (authentication), Principal ID (RBAC), Tenant ID and Subscription ID.
-- **Authorize:** At the required scope, use **Access control (IAM) → Add role assignment** to assign **Reader** to the user-assigned managed identity `azure-identity`. Deployments may need additional permissions; keep role and scope minimal.
 
-### 2. Configure federated trust
+### 2. Assign required access to the identity
+
+At the required scope, use **Access control (IAM) → Add role assignment** to assign **Reader** to the user-assigned managed identity `azure-identity`. Deployments may need additional permissions; keep role and scope minimal.
+
+### 3. Obtain GitHub repository and organization IDs
+
+To obtain the GitHub repository and organization IDs, create a workflow file in your repository (under `.github/workflows/` path, for example `.github/workflows/repository-info.yml`) with the following content:
+
+```
+name: Repository Info
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  repository-info:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      repository_id: ${{ github.repository_id }}
+      repository_owner_id: ${{ github.repository_owner_id }}
+    steps:
+      - name: Return Repository and Owner IDs
+        env:
+          REPOSITORY_ID: ${{ github.repository_id }}
+          REPOSITORY_OWNER_ID: ${{ github.repository_owner_id }}
+        run: |
+          printf 'Repository ID: `%s`\nRepository owner ID: `%s`\n' \
+            "$REPOSITORY_ID" "$REPOSITORY_OWNER_ID" | tee -a "$GITHUB_STEP_SUMMARY"
+```
+
+### 4. Configure federated trust
 
 On the identity, open **Settings → Federated credentials → Add credential → GitHub Actions deploying Azure resources**. Configure and verify these Azure public-cloud values:
 
@@ -102,11 +155,11 @@ Replace placeholders and select **Add**. GitHub needs its own trust configuratio
 
 > Since July 15, 2026, new, renamed or transferred GitHub.com repositories default to immutable subjects; existing repositories retain the older format unless they opt in. GitHub Enterprise Server is excluded. Verify your repository's format and customizations. ([docs.github.com](https://docs.github.com/en/actions/reference/security/oidc))
 
-### 3. Add repository variables
+### 5. Store Azure variables
 
 In **Settings → Secrets and variables → Actions → Variables**, add `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` and `AZURE_SUBSCRIPTION_ID` from step 1. These are identifiers, not secrets; trust and RBAC are still required.
 
-### 4. Add the workflow
+### 6. Add the workflow
 
 Create `.github/workflows/azure-oidc-test.yml`:
 
@@ -145,7 +198,7 @@ jobs:
 
 `id-token: write` allows token requests, not Azure writes. Trust authenticates, RBAC authorizes, and `azure/login` signs in without deploying. ([github.com](https://github.com/Azure/login))
 
-### 5. Run and validate
+### 7. Run and validate
 
 In **Actions → Verify Azure authentication → Run workflow**, select `master`. A successful run returns the selected subscription and tenant.
 
@@ -154,6 +207,8 @@ If it fails, check organization/repository names and IDs, branch and subject, is
 ## Practical part
 
 The following screenshots illustrate the complete configuration process:
+
+![alt text](image.png)
 
 ![](mi-config.png)
 

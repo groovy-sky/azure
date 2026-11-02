@@ -8,6 +8,15 @@ Moving a repository to GitHub requires more than copying its current files. Bran
 
 This part shows how to transfer the repository using Git or GitHub CLI and perform basic checks afterward. Pipelines, permissions, and other integrations are outside this transfer.
 
+## Series Overview
+
+| Part | Topic | Migration goal |
+|---|---|---|
+| [1](../devops-to-github-00/README.md) | Platform Concepts | Understand how Azure DevOps and GitHub organize code, work, and automation. |
+| [2](../devops-to-github-01/README.md) | Azure Pipelines to GitHub Actions | Map automation concepts and identify settings that need redesign. |
+| **3 (this article)** | Git Repository Migration | Transfer Git history and LFS objects, then verify the destination. |
+| [4](../devops-to-github-03/README.md) | Service Connections | Recreate authentication, authorization, and access controls. |
+
 ## Prepare for Migration
 
 ### Prerequisites
@@ -68,27 +77,12 @@ Both workflows include an LFS path.
 
 ```mermaid
 flowchart TD
-    A["Prepare source repository<br/>Pause collaborator pushes"] --> B{"Files over 100 MB<br/>in ordinary Git history?"}
-    B -->|Yes| C["Convert to Git LFS<br/>before transfer"]
-    B -->|No| D{"Choose workflow"}
-    C --> D
-
-    D -->|Git| E["Create empty GitHub repository<br/>Bare-clone Azure DevOps<br/>Add GitHub remote"]
-    D -->|GitHub CLI| F["Authenticate with GitHub<br/>Bare-clone Azure DevOps<br/>Create GitHub repository"]
-
-    E --> G{"Uses Git LFS?"}
-    G -->|Yes| H["Transfer LFS objects"]
-    G -->|No| I["Mirror-push Git references"]
-    H --> I
-
-    F --> J{"Uses Git LFS?"}
-    J -->|Yes| K["Create without immediate push<br/>Transfer LFS objects<br/>Mirror-push Git references"]
-    J -->|No| L["Create and push with GitHub CLI"]
-
-    I --> M["Verify migration"]
-    K --> M
-    L --> M
-    M --> N["Complete transition"]
+  A["Prepare source repository"] --> B{"Choose workflow"}
+  B -->|Git| C["Create GitHub repository manually"]
+  B -->|GitHub CLI| D["Create GitHub repository with gh"]
+  C --> E["Transfer Git history<br/>and LFS objects if used"]
+  D --> E
+  E --> F["Verify migration"]
 ```
 
 **Note:** Converting ordinary Git files to LFS is a preparation task; the conversion procedure is not covered below.
