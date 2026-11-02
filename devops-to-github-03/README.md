@@ -139,6 +139,13 @@ Run result should display the repository and owner IDs as specified in the workf
 
 ![Run result displaying repository and owner IDs](image-5.png)
 
+> **Alternative:** Obtain both IDs without running a workflow using the GitHub CLI. Authenticate with `gh auth login`, then replace `OWNER` and `REPOSITORY` below:
+>
+> ```bash
+> gh api repos/OWNER/REPOSITORY --jq '{repository_id: .id, repository_owner_id: .owner.id}'
+> ```
+>
+> For a public GitHub.com repository, you can also open `https://api.github.com/repos/OWNER/REPOSITORY` in your browser. The top-level `id` is the repository ID, and `owner.id` is the organization or user ID. Private repositories require an authenticated API request. Use these numeric IDs, not `node_id` or the GraphQL repository `id`.
 
 ### 4. Configure federated trust
 
