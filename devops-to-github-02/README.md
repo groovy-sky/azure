@@ -4,17 +4,9 @@
 
 ## Introduction
 
-Part 2 mapped Azure Pipelines automation to GitHub Actions. This third part continues the migration series by moving the source code and Git history to the repository that will host your workflows.
+Moving a repository to GitHub requires more than copying its current files. Branches, tags, commit history, and any Git LFS objects need to be transferred too.
 
-This guide explains how to migrate a Git repository from Azure DevOps to GitHub, including:
-
-- Preparing the source and destination repositories.
-- Choosing a transfer method.
-- Transferring Git history and Git LFS objects.
-- Performing basic verification.
-- Completing the transition for collaborators.
-
-**Scope:** This procedure covers the Git repository. Pipelines, package feeds, permissions, and other integrations require separate configuration.
+This part shows how to transfer the repository using Git or GitHub CLI and perform basic checks afterward. Pipelines, permissions, and other integrations are outside this transfer.
 
 ## Prepare for Migration
 
@@ -237,8 +229,6 @@ Perform these basic checks:
 
 ## Summary
 
-This part covered preparing the repositories, transferring Git history and LFS objects, and checking the destination. Moving the repository does not migrate pipeline configuration or external-service access automatically.
+The repository is now transferred to GitHub, including its Git history and any LFS objects. Basic visual checks confirm the expected content is present; LFS downloads and integrations still need separate verification.
 
-Use the automation mapping from Part 2 when adapting your workflows. The next part explains how to recreate service-connection authentication and access controls for those workflows.
-
-**Next:** [Part 4: Service Connections](../devops-to-github-03/README.md).
+Next, we will configure workflow access to external services in [Part 4: Service Connections](../devops-to-github-03/README.md).

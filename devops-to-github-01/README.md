@@ -4,9 +4,9 @@
 
 ## Introduction
 
-Part 1 introduced CI/CD and the main features of Azure DevOps and GitHub. This second part continues the migration series by focusing on moving automation from **Azure Pipelines** to **GitHub Actions**.
+Azure Pipelines YAML cannot be used directly in GitHub Actions. Jobs, steps, and triggers serve similar purposes, but their configuration and behavior differ.
 
-You will map pipeline concepts to workflow concepts, compare YAML examples, and identify behaviors that need separate migration decisions. This prepares you to adapt automation when the repository moves to GitHub in Part 3; external-service authentication follows in Part 4.
+This part compares the main concepts and shows equivalent commands in a pipeline and a workflow, highlighting settings that need a different approach.
 
 ## Azure Pipelines
 
@@ -265,12 +265,6 @@ The GitHub Actions workflow implements this explicitly with a loop allowing **fo
 
 ## Summary
 
-**Azure Pipelines** and **GitHub Actions** are CI/CD services built around similar ideas: triggers start runs, jobs organize work, and steps execute on agents/runners.
+We mapped pipeline concepts to GitHub Actions and compared a simple YAML example. Settings such as CI batching and variable groups still need separate migration decisions.
 
-A **pipeline** corresponds conceptually to a **workflow**, a **step** corresponds to a **step**, and an Azure Pipelines **task** corresponds conceptually to a GitHub **action**.
-
-Migration requires more than translating terminology and YAML syntax. Settings such as **CI batching** and **variable groups** have no direct GitHub Actions equivalents and require separate migration decisions.
-
-With the automation mapping understood, the next part transfers the Git repository that will host your code and workflows.
-
-**Next:** [Part 3: Git Repository Migration](../devops-to-github-02/README.md).
+Next, we will transfer the source code, history, and Git LFS objects in [Part 3: Git Repository Migration](../devops-to-github-02/README.md).

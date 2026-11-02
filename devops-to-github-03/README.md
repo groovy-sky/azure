@@ -4,16 +4,9 @@
 
 ## Introduction
 
-Part 3 covered moving your Git repository to GitHub. This final part continues the migration series by recreating the external-service access your GitHub Actions workflows need, building on the automation mapping from Part 2 and platform concepts from Part 1.
+Moving a repository does not give GitHub Actions access to the services used by Azure Pipelines. Service connections do not transfer, so workflows need their own authentication and permissions.
 
-This guide explains how to provide access controls in GitHub Actions similar to those offered by Azure Pipelines service connections.
-
-The important distinction is architectural:
-
-- **Azure Pipelines** represents an external connection as a named, managed resource.
-- **GitHub Actions** assembles authentication from workflow permissions, provider-side identity configuration, secrets or tokens, and login actions or commands. These components are not a one-to-one replacement for a service connection.
-
-**Migration means recreating trust, authorization, and deployment controls—not just translating YAML.**
+This part explains the available approaches and shows how to configure and test Azure access using OpenID Connect (OIDC) and a user-assigned managed identity, without a client secret.
 
 ## Azure Pipelines service connections
 
@@ -168,21 +161,8 @@ The following screenshots illustrate the complete configuration process:
 
 ## Summary
 
-Treat this migration as an identity-and-controls migration.
+The example workflow can now authenticate to Azure without a client secret. Federated trust controls which workflow can use the identity, while Azure RBAC controls what it can access.
 
-For each connection, answer four questions:
-
-- **Who** will the GitHub job authenticate as?
-- **Which workflow context** may use that identity?
-- **What resources and operations** may it access?
-- **Which approvals and restrictions** must apply before it runs?
-
-Only then translate the YAML.
-
-Clarify the service-connection mappingAdd a migration mapping table
-
-## Series Conclusion
-
-Across these four parts, you have explored the platform concepts, mapped pipeline automation, learned how to transfer a Git repository, and configured an example of external-service authentication. Use these steps together when planning your migration; package feeds, work tracking, and other integrations still require separate migration work.
+This is the final part of the series. We covered platform differences, pipeline concepts, repository transfer, and external-service access; other integrations still require separate migration work.
 
 **End of series.** Return to [Part 1: Platform Concepts and Series Overview](../devops-to-github-00/README.md).

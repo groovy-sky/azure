@@ -1,14 +1,10 @@
 # Migrate from Azure DevOps to GitHub - Part 1: Platform Concepts
 
-**Tutorial series: Part 1 of 4.** Start here to understand the platforms before planning your migration.
-
 ## Introduction
 
-This four-part tutorial series follows a common migration path: understand the platforms, map pipeline automation, move Git repositories, and recreate external-service access in GitHub Actions.
+Moving from Azure DevOps to GitHub means finding new ways to manage code, work, and automation. The platforms offer similar tools, but their names and organization differ.
 
-Moving from Azure DevOps to GitHub means changing how you manage code, tasks, and automation. Repos maps to GitHub repositories and pull requests, Boards to Issues and Projects, and Pipelines to Actions, but the features and configuration differ.
-
-This first part explains CI/CD basics, the main sections of both platforms, and their terminology. It provides the background for migration, rather than step-by-step instructions for moving repositories or converting pipelines.
+This part introduces CI/CD basics and compares the main features of both platforms to help you plan the migration.
 
 ## Series Overview
 
@@ -239,6 +235,6 @@ Azure DevOps **projects** group repositories and services. GitHub **organization
 
 ## Summary
 
-This documents gives overview of Azure DevOps and GitHub services  differences. Many tools serve similar purposes, but their structure and configuration differ.
+We compared the main Azure DevOps and GitHub features and how they support CI/CD. This gives us a starting point for deciding what needs to move and what needs to change.
 
-**Next:** [Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md).
+Next, we will compare pipeline structure and YAML in [Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md).
