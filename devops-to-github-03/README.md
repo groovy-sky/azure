@@ -94,12 +94,19 @@ flowchart TD
 
 To create a **User Assigned Managed Identity**:
 
-- Open Azure Portal -> **Create a resource**  → **Managed Identities → Create**. Set subscription, resource group, region and name (`azure-identity`), then **Review + create → Create**.
-- **Record:** Client ID (authentication), Principal ID (RBAC), Tenant ID and Subscription ID.
+- Open Azure Portal menu -> **Create a resource**  → Find and choose **User Assigned Managed Identity**. Provide required subscription, resource group, region and identity name (`azure-identity`), then **Review + create → Create**.
+
+![Create User Assigned Managed Identity](image-1.png)
+
+![alt text](image-2.png)
 
 ### 2. Assign required access to the identity
 
-At the required scope, use **Access control (IAM) → Add role assignment** to assign **Reader** to the user-assigned managed identity `azure-identity`. Deployments may need additional permissions; keep role and scope minimal.
+Open the Azure resource to which you want to grant access -> select **Access control (IAM) → Add role assignment** -> choose a proper role and assign the required role to the user-assigned managed identity (in this demonstration, `azure-identity`). 
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
 
 ### 3. Obtain GitHub repository and organization IDs
 
