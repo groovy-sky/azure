@@ -10,12 +10,10 @@ This part shows how to transfer the repository using Git or GitHub CLI and perfo
 
 ## Series Overview
 
-| Part | Topic | Migration goal |
-|---|---|---|
-| [1](../devops-to-github-00/README.md) | Platform Concepts | Understand how Azure DevOps and GitHub organize code, work, and automation. |
-| [2](../devops-to-github-01/README.md) | Azure Pipelines to GitHub Actions | Map automation concepts and identify settings that need redesign. |
-| **3 (this article)** | Git Repository Migration | Transfer Git history and LFS objects, then verify the destination. |
-| [4](../devops-to-github-03/README.md) | Service Connections | Recreate authentication, authorization, and access controls. |
+- [Migrate from Azure DevOps to GitHub - Part 1: Platform Concepts](../devops-to-github-00/README.md)
+- [Migrate from Azure DevOps to GitHub - Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md)
+- **Migrate from Azure DevOps to GitHub - Part 3: Git Repository Migration (this article)**
+- [Migrate from Azure DevOps to GitHub - Part 4: Service Connections](../devops-to-github-03/README.md)
 
 ## Prepare for Migration
 

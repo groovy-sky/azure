@@ -10,12 +10,10 @@ This part explains the available approaches and shows how to configure and test 
 
 ## Series Overview
 
-| Part | Topic | Migration goal |
-|---|---|---|
-| [1](../devops-to-github-00/README.md) | Platform Concepts | Understand how Azure DevOps and GitHub organize code, work, and automation. |
-| [2](../devops-to-github-01/README.md) | Azure Pipelines to GitHub Actions | Map automation concepts and identify settings that need redesign. |
-| [3](../devops-to-github-02/README.md) | Git Repository Migration | Transfer Git history and LFS objects, then verify the destination. |
-| **4 (this article)** | Service Connections | Recreate authentication, authorization, and access controls. |
+- [Migrate from Azure DevOps to GitHub - Part 1: Platform Concepts](../devops-to-github-00/README.md)
+- [Migrate from Azure DevOps to GitHub - Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md)
+- [Migrate from Azure DevOps to GitHub - Part 3: Git Repository Migration](../devops-to-github-02/README.md)
+- **Migrate from Azure DevOps to GitHub - Part 4: Service Connections (this article)**
 
 ## Azure Pipelines service connections
 
@@ -217,21 +215,13 @@ jobs:
 
 `id-token: write` allows token requests, not Azure writes. Trust authenticates, RBAC authorizes, and `azure/login` signs in without deploying. ([github.com](https://github.com/Azure/login))
 
-### 7. Run and validate
+## Result
 
-In **Actions → Verify Azure authentication → Run workflow**, select `master`. A successful run returns the selected subscription and tenant.
-
-If it fails, check organization/repository names and IDs, branch and subject, issuer and audience, Azure IDs, `id-token: write`, and RBAC role/scope.
-
-## Practical part
+If all steps are correctly configured, the workflow should be able to use Azure Identity to authenticate and access the specified Azure resources.
 
 The following screenshots illustrate the complete configuration process:
 
-![alt text](image.png)
-
 ![](mi-config.png)
-
-> **GitHub service connection ≠ GitHub Actions service connection.** Azure Pipelines' GitHub connection type authenticates an Azure pipeline to GitHub. It is not an object that GitHub Actions uses to authenticate to Azure. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops))
 
 ## Summary
 
