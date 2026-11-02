@@ -205,21 +205,9 @@ Resolve any errors before proceeding.
 
 ## Verify the Migration
 
-Open the destination repository:
+Updated todo list
 
-```text
-https://github.com/{owner}/{new-repo}
-```
-
-Perform these basic checks:
-
-- [ ] Expected files are visible.
-- [ ] Expected branches are present.
-- [ ] Expected tags are present.
-- [ ] Commit history is visible.
-- [ ] The default branch is correct.
-
-**Verification limitation:** These are visual checks only. They do not verify LFS downloads or integrations.
+Open `https://github.com/{owner}/{new-repo}` and confirm that the expected files, branches, tags, and commit history are present. Check that the correct default branch is set. These visual checks do not verify LFS downloads or integrations.
 
 ## Summary
 

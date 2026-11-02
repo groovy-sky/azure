@@ -85,7 +85,7 @@ flowchart TD
   ids["3. Get GitHub repository and organization IDs"]
   federation["4. Configure MI federated credentials"]
   variables["5. Store Azure IDs in Actions variables"]
-  workflow["6. Add the Azure login workflow"]
+  workflow["6. Configure Azure login in GitHub Actions workflow"]
 
   identity --> access --> ids --> federation --> variables --> workflow
 ```
@@ -137,9 +137,18 @@ jobs:
             "$REPOSITORY_ID" "$REPOSITORY_OWNER_ID" | tee -a "$GITHUB_STEP_SUMMARY"
 ```
 
+Run result should display the repository and owner IDs as specified in the workflow:
+
+![Run result displaying repository and owner IDs](image-5.png)
+
+
 ### 4. Configure federated trust
 
-On the identity, open **Settings → Federated credentials → Add credential → GitHub Actions deploying Azure resources**. Configure and verify these Azure public-cloud values:
+After managed identity creation and role assignment, configure federated trust for GitHub Actions:
+
+![alt text](image-6.png)
+
+To do so, on the identity, open **Settings → Federated credentials → Add credential → GitHub Actions deploying Azure resources**. Configure and verify these Azure public-cloud values:
 
 | Setting | Example |
 | --- | --- |
@@ -150,25 +159,28 @@ On the identity, open **Settings → Federated credentials → Add credential �
 | Audience | `api://AzureADTokenExchange` |
 | Credential name | `github-azure-master` |
 
-Match the subject to the workflow's actual OIDC configuration, including customizations:
-
-| Format | Subject |
-| --- | --- |
-| Name-based | `repo:OWNER/REPOSITORY:ref:refs/heads/master` |
-| Immutable-ID | `repo:OWNER@OWNER_ID/REPOSITORY@REPOSITORY_ID:ref:refs/heads/master` |
-| Example | `repo:groovy-sky@40501227/azure@1398660921:ref:refs/heads/master` |
-
-Replace placeholders and select **Add**. GitHub needs its own trust configuration, not an unchanged Azure DevOps credential; trust alone grants no resource access. ([learn.microsoft.com](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect))
-
 > Since July 15, 2026, new, renamed or transferred GitHub.com repositories default to immutable subjects; existing repositories retain the older format unless they opt in. GitHub Enterprise Server is excluded. Verify your repository's format and customizations. ([docs.github.com](https://docs.github.com/en/actions/reference/security/oidc))
+
 
 ### 5. Store Azure variables
 
-In **Settings → Secrets and variables → Actions → Variables**, add `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` and `AZURE_SUBSCRIPTION_ID` from step 1. These are identifiers, not secrets; trust and RBAC are still required.
+After federation is configured you can use Azure Managed Identity to authenticate GitHub Actions with Azure. To use it in your workflows, store the necessary Azure variables in your repository. 
 
-### 6. Add the workflow
+Store Client ID and Subscription ID from the managed identity:
 
-Create `.github/workflows/azure-oidc-test.yml`:
+![alt text](image-7.png)
+
+Next select "Properties" to find the Tenant ID:
+
+![alt text](image-8.png)
+
+Now you can add obtained values to Github repository variables. To do so, navigate to your repository, then go to **Settings → Secrets and variables → Actions → Variables** and add the following variables: `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID`:
+
+![Add Azure variables to GitHub repository](image-9.png)
+
+### 6. Configure Azure login in GitHub Actions workflow
+
+Now you can use configured Azure Managed Identity from your GitHub Actions workflows in specified repository. Just create a workflow file with the necessary steps to sign in to Azure using the stored variables. For example, create `.github/workflows/azure-oidc-test.yml`:
 
 ```
 name: Verify Azure authentication
