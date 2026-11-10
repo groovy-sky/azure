@@ -88,3 +88,8 @@ A collection of practical articles about deploying, configuring, and operating A
   - [Part 1: AWS and Azure concepts](/aws-intro-00/README.md)
   - [Part 2: AWS networking](/aws-intro-02/README.md)
 
+## Publishing this site
+
+The [Hugo workflow](https://github.com/groovy-sky/azure/blob/master/.github/workflows/pages.yml) builds and deploys this site to GitHub Pages. In **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**, not **Deploy from a branch**. Branch publishing starts the separate `pages-build-deployment` workflow, which can race with the Hugo deployment and fail with “due to in progress deployment.”
+
+After switching the source, cancel or wait for any active Pages deployments to finish, then run **Build and deploy Hugo site** on `master` from the Actions tab. Custom deployments share one concurrency group and wait for an active deployment to finish; pull requests only build the site.
