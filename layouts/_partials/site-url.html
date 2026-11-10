@@ -1,0 +1,21 @@
+{{- $destination := .Destination -}}
+{{- if and (strings.HasPrefix $destination "(") (strings.HasSuffix $destination ")") -}}
+  {{- $destination = strings.TrimPrefix "(" $destination | strings.TrimSuffix ")" -}}
+{{- end -}}
+{{- $url := urls.Parse $destination -}}
+{{- if and (not $url.Scheme) (not $url.Host) $url.Path -}}
+  {{- $path := $url.Path -}}
+  {{- if not (strings.HasPrefix $path "/") -}}
+    {{- $path = path.Join .Page.File.Dir $path -}}
+  {{- end -}}
+  {{- $path = strings.TrimPrefix "/" $path -}}
+  {{- $path = strings.TrimSuffix "README.md" $path -}}
+  {{- with site.GetPage $path -}}
+    {{- $destination = .RelPermalink -}}
+  {{- else -}}
+    {{- $destination = relURL $path -}}
+  {{- end -}}
+  {{- with $url.RawQuery -}}{{- $destination = printf "%s?%s" $destination . -}}{{- end -}}
+  {{- with $url.Fragment -}}{{- $destination = printf "%s#%s" $destination . -}}{{- end -}}
+{{- end -}}
+{{- return $destination -}}

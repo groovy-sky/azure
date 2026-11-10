@@ -1,0 +1,11 @@
+baseURL = 'https://groovy-sky.github.io/azure/'
+locale = 'en'
+title = 'Azure articles'
+disableKinds = ['taxonomy', 'term', 'RSS']
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[[module.mounts]]
+source = 'images'
+target = 'static/images'

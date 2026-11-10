@@ -1,2 +1,5 @@
 *.swp
 .vscode/settings.json
+/public/
+/resources/
+/.hugo_build.lock

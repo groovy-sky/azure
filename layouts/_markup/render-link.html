@@ -1,0 +1,1 @@
+<a href="{{ partial "site-url.html" (dict "Destination" .Destination "Page" .Page) }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

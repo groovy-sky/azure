@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body { max-width: 64rem; margin: 0 auto; padding: 1.5rem; font: 1rem/1.65 system-ui, sans-serif; overflow-wrap: anywhere; }
+      a { color: #1674c4; }
+      img { max-width: 100%; height: auto; }
+      pre { padding: 1rem; overflow-x: auto; }
+      code { font-size: .9em; }
+      table { display: block; overflow-x: auto; border-collapse: collapse; }
+      th, td { padding: .5rem; border: 1px solid #888; }
+      nav { margin-bottom: 2rem; }
+      @media (prefers-color-scheme: dark) { a { color: #75baff; } }
+    </style>
+  </head>
+  <body>
+    {{ if not .IsHome }}<nav><a href="{{ site.Home.RelPermalink }}">All articles</a></nav>{{ end }}
+    <main>{{ block "main" . }}{{ .Content }}{{ end }}</main>
+  </body>
+</html>
