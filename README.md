@@ -1,56 +1,90 @@
-## Introduction
-![](/images/logos/blog_icon.png)
+# Azure articles
 
-This repository hosts a collection of articles about deploying, configuring  and running various services in Microsoft Azure.
+A collection of practical articles about deploying, configuring, and operating Azure services and related tools. Articles are grouped by topic; numbered links belong to the same series.
 
-### Platform as a Services networking
+## Networking and IP address management
 
-![](/images/logos/vnet.png)
+- **PaaS networking**
+  - [Part 1: Service Endpoints](/paas-vnet-00/README.md)
+  - [Part 2: Private Endpoints](/paas-vnet-01/README.md)
+  - [Part 3: DNS forwarding for on-premises access](/paas-vnet-02/README.md)
+  - [Overview of PaaS networking](/paas-vnet-03/README.md)
+- [Restricting access to a Storage Account](/paas-vnet-04/README.md)
+- [Private Endpoints: overview, benefits, and limitations](/paas-vnet-05/README.md)
+- [DNS troubleshooting with Azure Container Instances](/aci-vnet-00/README.md)
+- **IP address management and virtual network management**
+  - [IPAM concepts and usage](/ipam-app-01/README.md)
+  - [Running Azure IPAM on Container Apps](/ipam-app-00/README.md)
+  - [Azure Virtual Network Manager](/ipam-app-02/README.md)
 
-* [Part 1](/paas-vnet-00#introduction) - about using Service Endpoints for PaaS access
-* [Part 2](/paas-vnet-01#introduction) - about using Private Endpoints for PaaS access
-* [Part 3](/paas-vnet-02#introduction) - about using DNS forwarder for Private Endpoints access from on-premises
-* [Part 4](/paas-vnet-03) - PaaS networking summary
+## Infrastructure as code
 
-### Azure Functions
+- [Azure Resource Manager overview](/arm-getting-started/README.md)
+- **Infrastructure as Code series**
+  - [Part 1: ARM templates](/iac-00/README.md)
+  - [Part 2: Ansible](/iac-01/README.md)
+  - [Part 3: Docker and GitHub Actions](/iac-02/README.md)
+  - [Part 4: Azure DevOps and Ansible](/iac-03/README.md)
+  - [Part 5: Power Automate and Azure DevOps](/iac-04/README.md)
+- **Terraform on Azure**
+  - [Part 1: Terraform fundamentals](/tf-intro-00/README.md)
+  - [Part 2: Deploying a virtual network](/tf-intro-01/README.md)
+  - [Part 3: Terraform state and ARM templates](/tf-intro-02/README.md)
+  - [Part 4: Remote state](/tf-intro-03/README.md)
+- [Azure Template Specs](/iac-ui-00/README.md)
 
-![](/images/logos/function.png)
+## Containers and build runners
 
-* How-to use [a custom Go handler in a function](/func-custom-handler-00#introduction)
-* How-to use [a function for obtaining a public IP](/func-get-pip-00#introduction)
-* How-to run [a Python function for storing Azure/Office 365 IP](/func-parse-cloud-00#introduction)
+- [Introduction to Azure Container Apps](/container-app-00/README.md)
+- [Azure Container Apps as a reverse proxy](/container-app-proxy/README.md)
+- [Running a self-hosted LLM on Azure Container Apps](/local-ai-00/README.md)
+- [Hosting a private Docker registry on Azure App Service](/docker-private-registry/README.md)
+- [Running Docker using Azure CLI and Cloud Shell](/docker-azure-cli-00/README.md)
+- **Self-hosted Azure DevOps build agents**
+  - [On Azure Container Instances](/devops-docker-build-00/README.md)
+  - [On Azure Container Apps jobs](/devops-docker-build-01/README.md)
+- **Self-hosted GitHub Actions runners**
+  - [On Azure Container Instances](/github-runner-00/README.md)
+  - [On Azure Container Apps jobs](/github-runner-01/README.md)
 
-### Infrastructure as Code
+## CI/CD and automation
 
-![](/images/logos/iac.png)
+- **Migrate from Azure DevOps to GitHub**
+  - [Part 1: Platform concepts](/devops-to-github-00/README.md)
+  - [Part 2: Azure Pipelines to GitHub Actions](/devops-to-github-01/README.md)
+  - [Part 3: Git repository migration](/devops-to-github-02/README.md)
+  - [Part 4: Service connections and Azure authentication](/devops-to-github-03/README.md)
+- **Ansible Tower (AWX)**
+  - [Part 1: Installation and configuration](/ansible-tower-00/README.md)
+  - [Part 2: Azure AD authentication](/ansible-tower-01/README.md)
+  - [Part 3: Running a playbook](/ansible-tower-02/README.md)
+  - [Part 4: Managing Azure resources](/ansible-tower-03/README.md)
+  - [Part 5: Running a workflow](/ansible-tower-04/README.md)
+- **SonarQube on Azure**
+  - [Part 1: Deploying SonarQube](/sonarqube-00/README.md)
+  - [Part 2: Integrating with Azure DevOps](/sonarqube-01/README.md)
 
-* [Part 1](/iac-00#introduction) - about Azure Resource Manager (ARM) template deployment
-* [Part 2](/iac-01#introduction) - about using Ansible playbooks for ARM template deployment
-* [Part 3](/iac-02#introduction) - about building a Docker image (using Github Actions), which have Ansible playbooks for ARM template deployment
-* [Part 4](/iac-03#introduction) - about running a Docker container (using Azure DevOps), which uses Ansible playbooks for ARM template deployment
-* [Part 5](/iac-04#introduction) - about triggering a DevOps pipeline, which on a Docker container runs Ansible playbooks for ARM template deployment, with Power Automate help
+## Serverless and event-driven services
 
-### Ansible Tower (aka AWX)
+- **Azure Functions**
+  - [Using a custom Go handler](/func-custom-handler-00/README.md)
+  - [Getting a public IP address](/func-get-pip-00/README.md)
+  - [Timer-triggered Python function for Azure and Office 365 IP ranges](/func-parse-cloud-00/README.md)
+  - [Configuring HTTP/2](/func-http2/README.md)
+- [Using Azure Logic Apps to return a public IP address](/logic-apps-00/README.md)
+- [Introduction to Azure Event Grid](/event-grid-00/README.md)
+- [Sending email with Azure Communication Services](/email-00/README.md)
 
-![](/images/logos/awx.png)
+## Security and operations
 
-* [Part 1](/ansible-tower-00/README.md#introduction) - about AWX initial installation and configuration on Azure
-* [Part 2](/ansible-tower-01/README.md#introduction) - about AWX authentication configuration using Azure AD
-* [Part 3](/ansible-tower-02/README.md#introduction) - about running a playbook on AWX
-* [Part 4](/ansible-tower-03/README.md#introduction) - about managing Azure resources using AWX
-* [Part 5](/ansible-tower-04/README.md#introduction) - about running a workflow on AWX
+- **VM auditing with Nmap and PowerShell**
+  - [Part 1: Building a custom image](/docker-audit-00/README.md)
+  - [Part 2: Auditing VMs](/docker-audit-01/README.md)
+- [Encrypting unmanaged Linux VM data disks](/linux-vm-encryption-101/README.md)
 
-### Docker
-![](/images/logos/docker.png)
+## Cloud comparisons
 
-* How-to [run a DevOps build agent on Azure Container Instance](/devops-docker-build-00/README.md#introduction)
-* How-to [run a Docker in Azure CLI](/docker-azure-cli-00/README.md#introduction)
-* How-to [build a custom image with Powershell and NMap](/docker-audit-00/README.md#introduction) and [use it for port scanning](/docker-audit-01/README.md#introduction)
-* How-to [run SonarQube VM in Azure](/sonarqube-00/README.md#introduction) and [use it on Azure DevOps](/sonarqube-01/README.md#introduction)
+- **AWS for Azure professionals**
+  - [Part 1: AWS and Azure concepts](/aws-intro-00/README.md)
+  - [Part 2: AWS networking](/aws-intro-02/README.md)
 
-### Other/Old
-![](/images/logos/other.png)
-
-* How-to [encrypt unmanaged Linux disk](/linux-vm-encryption-101/README.md#introduction)
-* [Azure Resource Manager overview](/arm-getting-started/README.md#introduction)
-* [Azure Fundamentals video tutorials[5 parts]](https://www.youtube.com/watch?v=U5qlgZeBZAo&list=PLIvCkiRhoPtYUxLZTgxpXIoPA94hFHYrQ&index=1)
