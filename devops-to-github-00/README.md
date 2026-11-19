@@ -12,6 +12,7 @@ This part introduces CI/CD basics and compares the main features of both platfor
 - [Migrate from Azure DevOps to GitHub - Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md)
 - [Migrate from Azure DevOps to GitHub - Part 3: Git Repository Migration](../devops-to-github-02/README.md)
 - [Migrate from Azure DevOps to GitHub - Part 4: Service Connections](../devops-to-github-03/README.md)
+- [Migrate from Azure DevOps to GitHub - Part 5: Trigger GitHub Actions from Azure DevOps](../devops-to-github-04/README.md)
 
 ## Theory
 

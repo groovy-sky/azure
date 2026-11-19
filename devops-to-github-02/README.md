@@ -1,6 +1,6 @@
 # Migrate from Azure DevOps to GitHub - Part 3: Git Repository Migration
 
-**Tutorial series: Part 3 of 4.** **Previous:** [Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md).
+**Tutorial series: Part 3 of 5.** **Previous:** [Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md).
 
 ## Introduction
 
@@ -14,6 +14,7 @@ This part shows how to transfer the repository using Git or GitHub CLI and perfo
 - [Migrate from Azure DevOps to GitHub - Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md)
 - **Migrate from Azure DevOps to GitHub - Part 3: Git Repository Migration (this article)**
 - [Migrate from Azure DevOps to GitHub - Part 4: Service Connections](../devops-to-github-03/README.md)
+- [Migrate from Azure DevOps to GitHub - Part 5: Trigger GitHub Actions from Azure DevOps](../devops-to-github-04/README.md)
 
 ## Prepare for Migration
 

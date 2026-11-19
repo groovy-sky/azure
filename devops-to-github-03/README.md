@@ -1,6 +1,6 @@
 # Migrate from Azure DevOps to GitHub - Part 4: Service Connections
 
-**Tutorial series: Part 4 of 4.** **Previous:** [Part 3: Git Repository Migration](../devops-to-github-02/README.md).
+**Tutorial series: Part 4 of 5.** **Previous:** [Part 3: Git Repository Migration](../devops-to-github-02/README.md).
 
 ## Introduction
 
@@ -14,6 +14,7 @@ This part explains the available approaches and shows how to configure and test 
 - [Migrate from Azure DevOps to GitHub - Part 2: Azure Pipelines to GitHub Actions](../devops-to-github-01/README.md)
 - [Migrate from Azure DevOps to GitHub - Part 3: Git Repository Migration](../devops-to-github-02/README.md)
 - **Migrate from Azure DevOps to GitHub - Part 4: Service Connections (this article)**
+- [Migrate from Azure DevOps to GitHub - Part 5: Trigger GitHub Actions from Azure DevOps](../devops-to-github-04/README.md)
 
 ## Azure Pipelines service connections
 
@@ -234,6 +235,4 @@ The following screenshots illustrate the complete configuration process:
 
 The example workflow can now authenticate to Azure without a client secret. Federated trust controls which workflow can use the identity, while Azure RBAC controls what it can access.
 
-This is the final part of the series. We covered platform differences, pipeline concepts, repository transfer, and external-service access; other integrations still require separate migration work.
-
-**End of series.** Return to [Part 1: Platform Concepts and Series Overview](../devops-to-github-00/README.md).
+Next, we will connect an Azure DevOps pipeline to GitHub using a GitHub App in [Part 5: Trigger GitHub Actions from Azure DevOps](../devops-to-github-04/README.md).
